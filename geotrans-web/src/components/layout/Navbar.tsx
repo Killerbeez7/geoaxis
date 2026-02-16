@@ -12,12 +12,12 @@ import { NavSrvList } from "./NavSrvList";
 // Styles
 const navLinkCls = (active: boolean) =>
     clsx(
-        "relative group flex items-center gap-1 px-2 py-1",
-        "text-(--tx-inverse)",
+        "nav-link",
+        "relative group gap-1 px-2 py-1",
         // Underline on hover
         "after:absolute after:left-1/2 after:bottom-0",
         "after:h-[2px] after:w-full after:-translate-x-1/2",
-        "after:origin-center after:scale-x-0 after:bg-(--accent)",
+        "after:origin-center after:scale-x-0 after:bg-accent",
         "after:transition-transform after:duration-300",
         "group-hover:after:scale-x-100",
         active && "after:scale-x-100",
@@ -25,8 +25,8 @@ const navLinkCls = (active: boolean) =>
 
 const dropdownSrvCls = (active: boolean) =>
     clsx(
-        "flex items-center gap-2 px-4 py-2 whitespace-nowrap transition",
-        active ? "bg-(--bg-muted)/40" : "hover:bg-(--bg-muted)/20",
+        "nav-link gap-2 px-4 py-2 whitespace-nowrap transition",
+        active ? "bg-bg-muted/40" : "hover:bg-bg-muted/20",
     );
 
 // Component
@@ -50,13 +50,13 @@ export const Navbar = () => {
     // Desktop render
     const renderDesktopItem = (item: NavItem) => {
         const isActive = isActivePath(item.href);
-        const isOpen = desktopDropdown === item.name;
+        const isOpen = desktopDropdown === item.label;
 
         return (
             <li
-                key={item.name}
+                key={item.label}
                 className="relative group"
-                onMouseEnter={() => setDesktopDropdown(item.name)}
+                onMouseEnter={() => setDesktopDropdown(item.label)}
                 onMouseLeave={() => setDesktopDropdown(null)}
             >
                 <Link
@@ -65,7 +65,7 @@ export const Navbar = () => {
                     className={navLinkCls(isActive)}
                     aria-haspopup={item.hasDropdown ? "menu" : undefined}
                 >
-                    {item.name}
+                    {item.label}
                     {item.hasDropdown && (
                         <IoIosArrowDown
                             className={clsx(
@@ -79,13 +79,15 @@ export const Navbar = () => {
                 {item.hasDropdown && (
                     <div
                         className={clsx(
-                            "absolute left-[-10] top-full mt-2 min-w-60 rounded-xl",
-                            "bg-(--bg-nav) text-(--tx-inverse)",
-                            "shadow-lg transition-all duration-200",
+                            "absolute left-[-10] mt-5 min-w-60 rounded-b-xl",
+                            "bg-bg-nav/95 backdrop-blur-xl text-tx-inverse",
+                            "shadow-lg border border-br-strong/40",
+                            "transition-all duration-200 origin-top-left",
+                            // "border-t-br-light/20",
                             isOpen
                                 ? "opacity-100 scale-100 pointer-events-auto"
                                 : "opacity-0 scale-95 pointer-events-none",
-                            "before:absolute before:-top-2 before:h-2 before:w-full",
+                            "before:absolute before:-top-5 before:h-5 before:w-full",
                         )}
                     >
                         <ul className="py-2">
@@ -100,29 +102,29 @@ export const Navbar = () => {
     // Mobile render
     const renderMobileItem = (item: NavItem) => {
         const isActive = isActivePath(item.href);
-        const isOpen = mobileDropdown === item.name;
+        const isOpen = mobileDropdown === item.label;
 
         if (!item.hasDropdown) {
             return (
                 <Link
-                    key={item.name}
+                    key={item.label}
                     href={item.href}
                     onClick={closeAll}
                     className={navLinkCls(isActive)}
                 >
-                    {item.name}
+                    {item.label}
                 </Link>
             );
         }
 
         return (
-            <div key={item.name} className="flex flex-col">
+            <div key={item.label} className="flex flex-col">
                 <button
                     className={clsx(navLinkCls(isActive), "flex w-full justify-between")}
-                    onClick={() => setMobileDropdown(isOpen ? null : item.name)}
+                    onClick={() => setMobileDropdown(isOpen ? null : item.label)}
                     aria-expanded={isOpen}
                 >
-                    {item.name}
+                    {item.label}
                     <IoIosArrowDown
                         className={clsx("transition-transform", isOpen && "rotate-180")}
                     />
@@ -136,8 +138,8 @@ export const Navbar = () => {
                                 clsx(
                                     "px-4 py-2 rounded-md text-sm transition",
                                     active
-                                        ? "bg-(--bg-muted)/40 font-medium"
-                                        : "hover:bg-(--bg-muted)/25",
+                                        ? "bg-bg-muted/40 font-medium"
+                                        : "hover:bg-bg-muted/25",
                                 )
                             }
                         />
@@ -149,21 +151,21 @@ export const Navbar = () => {
     // Render
     return (
         <header
-            id={"navbar"}
+            id="navbar"
             className={clsx(
-                "fixed top-0 z-1000 w-full",
-                "bg-(--bg-nav)/90",
+                "sticky top-0 z-50 w-full h-(--nav-h)",
+                "bg-bg-nav/90",
                 "backdrop-blur-xl shadow-lg",
-                "border-b border-(--br-strong)/40",
+                "border-b border-br-light/20",
                 "no-drag",
             )}
         >
-            <nav className="mx-auto max-w-7xl px-5">
-                <div className="flex h-16 items-center justify-between">
+            <nav className="mx-auto max-w-7xl px-5 h-full">
+                <div className="flex h-full items-center justify-between">
                     <Link
                         href="/"
                         draggable={false}
-                        className="flex items-center gap-2 px-2 py-1 text-lg tracking-wide text-(--tx-inverse)"
+                        className="flex items-center gap-2 px-2 py-1 text-lg tracking-wide text-tx-inverse"
                     >
                         <svg
                             className="w-7 h-7 text-accent"
@@ -186,8 +188,7 @@ export const Navbar = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <span>Geo</span>
-                        <span>Trans</span>
+                        <span className="nav-link">GeoTrans</span>
                     </Link>
 
                     {/* Desktop Links*/}
@@ -197,7 +198,7 @@ export const Navbar = () => {
 
                     {/* Mobile toggle */}
                     <button
-                        className="md:hidden p-2 text-2xl text-(--tx-inverse)"
+                        className="md:hidden p-2 text-2xl text-tx-inverse"
                         onClick={() => setMobileOpen((o) => !o)}
                         aria-expanded={mobileOpen}
                     >
@@ -207,7 +208,7 @@ export const Navbar = () => {
 
                 {/* Mobile menu */}
                 {mobileOpen && (
-                    <div className="md:hidden pb-6 mt-2 text-(--tx-inverse)">
+                    <div className="md:hidden pb-6 mt-2 text-tx-inverse">
                         <div className="p-4 flex flex-col gap-3">
                             {NAV_LINKS.map(renderMobileItem)}
 

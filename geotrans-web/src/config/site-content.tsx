@@ -45,6 +45,7 @@ export type ServiceItem = {
   slug: string;
   title: string;
   thumbnail: string;
+  ogImage?: string;
   description: string;
   neededWhen: string[];
   requiredDocs: string[];
@@ -69,7 +70,8 @@ const services: ServicesContent = {
       id: "surveying",
       slug: "geodezichesko-zasnemane",
       title: "Геодезическо заснемане",
-      thumbnail: "/images/services/tripod.jpg",
+      thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
+      ogImage: "/images/services/geodezichesko-zasnemane-og.jpg",
       description:
         "Прецизно геодезическо заснемане на терени и обекти в София и региона за проектиране, строителство и изготвяне на техническа документация.",
 
@@ -96,7 +98,8 @@ const services: ServicesContent = {
       id: "staking-out",
       slug: "trasirane",
       title: "Трасиране и контролни измервания",
-      thumbnail: "/images/services/trasirane.jpg",
+      thumbnail: "/images/services/trasirane-thumb.jpg",
+      ogImage: "/images/services/trasirane-og.png",
       description:
         "Точно пренасяне на проектни оси, точки и контури на терен и контрол на изпълнението — за да се строи по проект и в допуските.",
       neededWhen: [
@@ -120,7 +123,8 @@ const services: ServicesContent = {
       id: "cadastre",
       slug: "kadastar",
       title: "Кадастрални услуги",
-      thumbnail: "/images/services/kadastyr.jpg",
+      thumbnail: "/images/services/kadastyr-thumb.jpg",
+      ogImage: "/images/services/kadastyr-og.png",
       description:
         "Кадастрални услуги и съдействие по процедури към АГКК за имоти в София и региона.",
       neededWhen: [
@@ -145,7 +149,8 @@ const services: ServicesContent = {
       id: "grading",
       slug: "vertikalna-planirovka",
       title: "Вертикална планировка",
-      thumbnail: "/images/services/vertical_plan.jpg",
+      thumbnail: "/images/services/vertical_plan-thumb.jpg",
+      ogImage: "/images/services/vertical_plan-og.png",
       description:
         "Решения за коти, наклони и отводняване, съобразени с терена и проекта — за функционални площи и правилно водоотвеждане.",
       neededWhen: [
@@ -170,7 +175,8 @@ const services: ServicesContent = {
       id: "design",
       slug: "proektirane",
       title: "Проектантски услуги",
-      thumbnail: "/images/services/proektirane.png",
+      thumbnail: "/images/services/proektirane-thumb.jpg",
+      ogImage: "/images/services/proektirane-og.png",
       description:
         "Проектантски услуги, свързани с геодезия и устройствени решения — с ясни входни данни, координация и материали според обхвата на проекта.",
       neededWhen: [

@@ -1,30 +1,52 @@
-export interface FooterLink {
-  label: string;
-  href: string;
-}
+import { NAV_LINKS } from "./NavConfig";
+import { siteContent } from "./site-content";
 
-export interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
+const nav = {
+  home: NAV_LINKS.find((x) => x.id === "home")!,
+  services: NAV_LINKS.find((x) => x.id === "services")!,
+  projects: NAV_LINKS.find((x) => x.id === "projects")!,
+  about: NAV_LINKS.find((x) => x.id === "about")!,
+  contacts: NAV_LINKS.find((x) => x.id === "contacts")!,
+};
 
-export const FOOTER_SECTION: FooterSection[] = [
-  {
-    title: "Бързи линкиве",
-    links: [
-      { label: "Начало", href: "/" },
-      { label: "Услуги", href: "/services" },
-      { label: "Проекти", href: "/projects" },
-      { label: "Контакти", href: "/contacts" },
-    ],
+const { contacts, brand, services } = siteContent;
+
+const featured = services.items.filter((s) => s.featured);
+const footerServices = (featured.length ? featured : services.items.slice(0, 3)).map(
+  (s) => ({ label: s.title, href: `/services/${s.slug}` })
+);
+
+export const FOOTER = {
+  brand,
+
+  sections: [
+    {
+      title: "Бързи линкове",
+      links: [
+        { label: nav.home.label, href: nav.home.href },
+        { label: nav.about.label, href: nav.about.href },
+        { label: nav.projects.label, href: nav.projects.href },
+        { label: nav.contacts.label, href: nav.contacts.href },
+      ],
+    },
+    {
+      title: "Услуги",
+      links: [...footerServices],
+    },
+  ],
+
+  contact: {
+    email: contacts.email,
+    phone: contacts.phone,
+    addressLines: contacts.address
+      .split("||")
+      .map((s) => s.trim())
+      .filter(Boolean),
+    mapsHref: contacts.mapsUrl,
   },
-  {
-    title: "Услуги",
-    links: [
-      { label: "Трасиране", href: "/services#trasirane" },
-      { label: "Кадастрално заснемане", href: "/services#kadastralno" },
-      { label: "Ситуационни планове", href: "/services#situacionni" },
-      { label: "Консултации", href: "/services#konsultacii" },
-    ],
+
+  ctas: {
+    inquiry: { label: "Запитване", href: nav.contacts.href },
+    projects: { label: "Проекти", href: nav.projects.href },
   },
-];
+} as const;

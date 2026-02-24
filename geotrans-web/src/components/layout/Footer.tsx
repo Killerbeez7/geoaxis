@@ -21,13 +21,13 @@ export const Footer = () => {
 
   // Styles
   const sectionTitle =
-    "font-semibold text-md uppercase tracking-[0.16em] text-tx-inverse-muted";
+    "font-semibold text-md uppercase tracking-[0.16em] text-tx-inverse/60";
   const linkCls = clsx(
     "inline-flex items-center gap-2 py-1",
     "font-semibold text-tx-inverse/85",
     "transition-colors duration-200 hover:text-accent"
   );
-  const metaCls = "text-sm leading-relaxed text-tx-inverse-muted";
+  const metaCls = "text-sm leading-relaxed text-tx-inverse";
   const dot =
     "before:content-[''] before:h-[6px] before:w-[6px] before:rounded-full before:bg-accent";
 

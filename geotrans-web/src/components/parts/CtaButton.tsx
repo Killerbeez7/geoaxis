@@ -7,80 +7,79 @@ type Variant = "primary" | "outline" | "glass" | "glassInverse" | "glassAccent";
 type Size = "sm" | "md" | "lg";
 
 type ButtonProps = {
-    children: ReactNode;
-    href?: string;
-    variant?: Variant;
-    size?: Size;
-    className?: string;
+  children: ReactNode;
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function CtaButton({
-    children,
-    href,
-    variant = "primary",
-    size = "md",
-    className,
-    ...props
+  children,
+  href,
+  variant = "primary",
+  size = "md",
+  className,
+  ...props
 }: ButtonProps) {
-    const baseStyles = clsx(
-        "inline-flex items-center justify-center gap-2",
-        "font-semibold",
-        "rounded-2xl",
-        "transition-all duration-200",
-        "shadow-lg hover:shadow-xl",
-        "hover:scale-105",
-        "active:scale-100",
-        "leading-none",
-    );
+  const baseStyles = clsx(
+    "inline-flex items-center justify-center gap-2",
+    "font-semibold",
+    "rounded-2xl",
+    "transition-all duration-200",
+    "shadow-lg hover:shadow-xl",
+    "hover:scale-105",
+    "active:scale-100",
+    "leading-none"
+  );
 
-    const sizes: Record<Size, string> = {
-        sm: "px-4 py-2 text-sm",
-        md: "px-6 py-4 text-base",
-        lg: "px-8 py-4 text-lg",
-    };
+  const sizes: Record<Size, string> = {
+    sm: "px-4 py-2 text-sm",
+    md: "px-5 py-3 text-sm md:text-base",
+    lg: "px-5 py-3 text-sm md:px-8 sm:py-4 md:text-lg",
+  };
 
-    const variants: Record<Variant, string> = {
-        primary: clsx("bg-accent", "text-tx-inverse", "hover:bg-accent-hover"),
+  const variants: Record<Variant, string> = {
+    primary: clsx("bg-accent", "text-tx-inverse", "hover:bg-accent-hover"),
 
-        outline: clsx(
-            "border border-accent",
-            "text-accent",
-            "hover:bg-accent hover:text-tx-inverse",
-        ),
+    outline: clsx(
+      "border border-accent",
+      "text-accent",
+      "hover:bg-accent hover:text-tx-inverse"
+    ),
 
-        glass: clsx(
-            "bg-(--surface-overlay-sm) backdrop-blur-md",
-            "border border-(--surface-overlay-lg)",
-            "text-white",
-            "hover:bg-(--surface-overlay-lg)",
-        ),
-        glassInverse: clsx(
-            "bg-(--surface-overlay-lg) backdrop-blur-md",
-            "border border-br-strong",
-            "text-tx-muted",
-            "hover:bg-(--surface-overlay-lg)",
-        ),
-        glassAccent: clsx(
-            "backdrop-blur-md",
-            "border border-accent/30",
-            "text-accent",
-            "hover:bg-accent/10",
-        ),
-    };
+    glass: clsx(
+      "bg-(--surface-overlay-sm) backdrop-blur-md",
+      "border border-(--surface-overlay-lg)",
+      "text-white",
+      "hover:bg-(--surface-overlay-lg)"
+    ),
+    glassInverse: clsx(
+      "bg-(--surface-overlay-lg) backdrop-blur-md",
+      "border border-br-strong",
+      "text-tx-muted",
+      "hover:bg-(--surface-overlay-lg)"
+    ),
+    glassAccent: clsx(
+      "backdrop-blur-md",
+      "border  border-white/30",
+      "text-white hover:bg-white/10"
+    ),
+  };
 
-    const finalClass = clsx(baseStyles, sizes[size], variants[variant], className);
+  const finalClass = clsx(baseStyles, sizes[size], variants[variant], className);
 
-    if (href) {
-        return (
-            <Link href={href} className={finalClass}>
-                {children}
-            </Link>
-        );
-    }
-
+  if (href) {
     return (
-        <button {...props} className={finalClass}>
-            {children}
-        </button>
+      <Link href={href} className={finalClass}>
+        {children}
+      </Link>
     );
+  }
+
+  return (
+    <button {...props} className={finalClass}>
+      {children}
+    </button>
+  );
 }

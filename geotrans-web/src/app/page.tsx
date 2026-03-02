@@ -1,7 +1,5 @@
-import Link from "next/link";
-
-import { Content } from "../config/ContentConfig";
-import { HorizontalDivider } from "../components/parts/HorizontalDivider";
+// import { HorizontalDivider } from "../components/parts/HorizontalDivider";
+import { siteContent } from "@/config/site-content";
 // Sections
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
@@ -11,32 +9,43 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { Stats } from "@/components/sections/StatsSection";
 
 export default function Home() {
-    return (
-        <>
-            <HeroSection
-                title={Content.hero.title}
-                desc={Content.hero.description}
-                image={Content.hero.image}
-                ctaLabel={Content.cta.label}
-                ctaHref={Content.cta.href}
-            />
+  const { hero, services, workflow, stats, projects } = siteContent;
+  return (
+    <>
+      <HeroSection
+        id={hero.id}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        kicker={hero.kicker}
+        image={hero.image}
+        cta={hero.cta}
+      />
 
-            <ServiceSection
-                title={Content.services.title}
-                subtitle={Content.services.description}
-            />
+      <ServiceSection
+        id={services.id}
+        title={services.title}
+        subtitle={services.subtitle}
+        items={services.items}
+      />
 
-            <WorkflowSection
-                title={Content.workflow.title}
-                desc={Content.workflow.description}
-                steps={Content.workflow.steps}
-            />
+      <WorkflowSection
+        id={workflow.id}
+        title={workflow.title}
+        subtitle={workflow.subtitle}
+        steps={workflow.steps}
+      />
 
-            <ContactHighlights />
+      {/* <ContactHighlights /> */}
 
-            <Stats />
+      <Stats />
 
-            <ProjectsSection />
-        </>
-    );
+      <ProjectsSection
+        id={projects.id}
+        title={projects.title}
+        subtitle={projects.subtitle}
+        items={projects.items}
+        cta={projects.cta}
+      />
+    </>
+  );
 }

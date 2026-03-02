@@ -1,61 +1,47 @@
 "use client";
 
-import Link from "next/link";
-import { PROJECT_IMAGES } from "@/config/ProjectsConfig";
+import { useMemo, useState } from "react";
+import { CtaButton } from "../parts/CtaButton";
 import { ProjectDisplayCard } from "../parts/ProjectDisplayCard";
 import { ProjectsLightbox } from "@/app/projects/ProjectsLightbox";
-import { useState } from "react";
+import type { ProjectItem, ProjectsContent } from "@/config/site-content";
 
-export function ProjectsSection() {
-    const [selectedImage, setSelectedImage] = useState<(typeof PROJECT_IMAGES)[0] | null>(
-        null,
-    );
+import { Section } from "@/components/layout/Section";
 
-    return (
-        <section className="relative overflow-hidden bg-(--bg-section)/50 py-16">
-            <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-                <div className="flex items-end justify-between gap-4 mb-8">
-                    <div>
-                        <h2 className="text-3xl font-bold tracking-tight text-(--text-primary)">
-                            Галерия
-                        </h2>
-                        <p className="mt-2 text-lg text-(--text-secondary)">
-                            Примери от изпълнени обекти (снимки/визуализации от реални
-                            проекти).
-                        </p>
-                    </div>
-                    <Link
-                        href="/projects"
-                        className={`
-              rounded-xl px-5 py-2.5 text-sm font-semibold
-              bg-(--color-accent)/10 text-(--color-accent)
-              hover:bg-(--color-accent)/20 transition-all
-            `}
-                    >
-                        Към пълна галерия →
-                    </Link>
-                </div>
+export function ProjectsSection({ id, title, subtitle, items, cta }: ProjectsContent) {
+  const [selectedImage, setSelectedImage] = useState<ProjectItem | null>(null);
+  const maxItems = 6;
 
-                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                    {PROJECT_IMAGES.slice(0, 6).map(
-                        (
-                            image, // limit to 6 for teaser
-                        ) => (
-                            <ProjectDisplayCard
-                                key={image.id}
-                                image={image}
-                                onClick={() => setSelectedImage(image)}
-                            />
-                        ),
-                    )}
-                </div>
-            </div>
+  const visible = useMemo(() => items.slice(0, maxItems), [items, maxItems]);
 
-            {/* Unified lightbox */}
-            <ProjectsLightbox
-                image={selectedImage}
-                onClose={() => setSelectedImage(null)}
+  return (
+    <Section id={id} className="overflow-hidden">
+      <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-14 items-end">
+        <div className="col-span-12 lg:col-span-8">
+          <h2 className="typo-h2">{title}</h2>
+          <p className="mt-3 typo-lead max-w-prose">{subtitle}</p>
+        </div>
+
+        <div className="col-span-12 mt-6 lg:col-span-4 lg:mt-0 flex justify-start lg:justify-end">
+          <CtaButton variant="primary" href={cta.href}>
+            {cta.label}
+          </CtaButton>
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+          {visible.map((image) => (
+            <ProjectDisplayCard
+              key={image.id}
+              image={image}
+              onClick={() => setSelectedImage(image)}
             />
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+
+      <ProjectsLightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
+    </Section>
+  );
 }

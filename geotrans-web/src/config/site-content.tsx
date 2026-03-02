@@ -1,15 +1,18 @@
 // ======================================== BRAND ========================================
 export interface BrandContent {
+  logo: string;
+  slogan: string;
   name: string;
   tagline: string;
   metaLine: string;
 }
 
 const brand: BrandContent = {
-  name: "GeoTrans",
-  // tagline: "Прецизни геодезически услуги, ясни срокове и надеждна документация.",
-  tagline:
-    "Геодезически услуги в София и Софийска област - прецизност, ясни срокове и надеждна документация.",
+  logo: "/images/brand/logo.svg",
+  slogan: "Accurate Land Solutions",
+  name: "GeoMetric",
+  tagline: "Прецизни геодезически услуги, ясни срокове и надеждна документация.",
+
   metaLine: "София • Софийска област • По договаряне",
 };
 
@@ -29,15 +32,17 @@ export interface HeroContent {
 
 const hero: HeroContent = {
   id: "hero",
-  title: "Геодезия с точност, || на която || можеш да разчиташ.",
+
+  title: " Точни измервания. || Сигурен резултат.",
   subtitle:
-    "Геодезическо заснемане, трасиране и кадастрални услуги в София и Софийска област, изпълнени прецизно и съобразени с нормативните изисквания.",
-  kicker: "Лицензирани геодезисти • София и област • Точни срокове",
-  image: "/images/sections/hero-img.jpg",
+    "Професионални геодезически услуги в София и Софийска област - от заснемане на парцел до нанасяне в кадастър.",
+  kicker: "Геодезия • Кадастър • Градоустройство",
+  image: "/images/sections/hero-img.jpeg",
+
   cta: {
     label: "Свържи се",
     href: "/contacts",
-    content: "Виж услуги →",
+    content: "Виж услуги",
   },
 };
 
@@ -65,9 +70,9 @@ export interface ServicesContent {
 
 const services: ServicesContent = {
   id: "services",
-  title: "Геодезически услуги",
+  title: "Услуги",
   subtitle:
-    "Професионални геодезически и кадастрални услуги в София - от заснемане и трасиране до проектантски решения.",
+    "Геодезически и кадастрални дейности, необходими за проектиране, строителство и регулация на имоти.",
 
   items: [
     {
@@ -242,7 +247,7 @@ const workflow: WorkflowContent = {
   id: "workflow",
   title: "Как протича процесът",
   subtitle:
-    "От първия разговор до готовата документация – ясно, организирано и без излишни усложнения.",
+    "От първия разговор до готовата документация - ясно, организирано и без излишни усложнения.",
   steps: [
     {
       title: "Консултация",
@@ -334,18 +339,27 @@ export type ProjectsContent = {
   id: "projects";
   title: string;
   subtitle: string;
+  cta: {
+    label: string;
+    href: string;
+    content: string;
+  };
   items: ProjectItem[];
 };
 
 const projects: ProjectsContent = {
   id: "projects",
-  title: "Завършени проекти",
+  title: "Проекти",
   subtitle: "Част от успешно завърпените ни проекти",
-
+  cta: {
+    label: "Всички проекти",
+    href: "/projects",
+    content: "Виж услуги →",
+  },
   items: [
     {
       id: 1,
-      src: "/images/services/tripod.jpg",
+      src: "/images/projects/project-1.webp",
       alt: "Геодезическо заснемане на земеделски терен с GNSS апаратура",
       caption:
         "Прецизно определяне на граници и заснемане на 120 дка земеделска земя с GNSS технология.",
@@ -353,7 +367,7 @@ const projects: ProjectsContent = {
     },
     {
       id: 2,
-      src: "/images/services/trasirane.jpg",
+      src: "/images/projects/project-2.jpg",
       alt: "Трасиране на строителен обект с тотална станция",
       caption:
         "Трасиране на регулационни линии и оси за ново строителство с тотална станция.",
@@ -361,7 +375,7 @@ const projects: ProjectsContent = {
     },
     {
       id: 3,
-      src: "/images/services/kadastyr.jpg",
+      src: "/images/projects/project-3.jpg",
       alt: "Кадастрална процедура за нанасяне на сграда в кадастъра",
       caption:
         "Подготовка и изготвяне на документи за нанасяне на новоизградена сграда в кадастъра.",
@@ -369,7 +383,7 @@ const projects: ProjectsContent = {
     },
     {
       id: 4,
-      src: "/images/services/vertical_plan.jpg",
+      src: "/images/projects/project-4.webp",
       alt: "Вертикална планировка на двор и прилежащ терен",
       caption:
         "Изготвяне на вертикална планировка за жилищен имот с решение за наклони и отводняване.",
@@ -377,7 +391,7 @@ const projects: ProjectsContent = {
     },
     {
       id: 5,
-      src: "/images/services/proektirane.png",
+      src: "/images/projects/project-5.jpg",
       alt: "Проектантски услуги и координация на геодезически данни",
       caption:
         "Изготвяне на проектни материали и координация с други части по инвестиционен проект.",
@@ -385,7 +399,7 @@ const projects: ProjectsContent = {
     },
     {
       id: 6,
-      src: "/images/services/tripod.jpg",
+      src: "/images/projects/project-6.jpg",
       alt: "Контролни геодезически измервания на строителен обект",
       caption:
         "Контролни измервания и проверка на изпълнението по време на строителен процес.",

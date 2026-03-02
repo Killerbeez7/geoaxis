@@ -37,13 +37,42 @@
   --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);
   --surface-overlay-md: color-mix(in srgb, var(--gray-0) 12%, transparent);
   --surface-overlay-lg: color-mix(in srgb, var(--gray-0) 18%, transparent);
+
+  /* test colors */
+  --deep-olive: #2a3b32;
+  --off-white: #f5f4ef;
+  --muted-ochre: #c7a347;
+  --graphite: #2a2a2a;
+}
+
+/* ==================== TYPE SCALE ==================== */
+
+:root {
+  /* Font scale */
+  --fs-hero: clamp(1.8rem, 3vw + 1rem, 3.5rem);
+  --fs-h2: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  --fs-h3: clamp(1.2rem, 0.8vw + 1rem, 1.6rem);
+  --fs-lead: clamp(0.9rem, 0.5vw + 0.8rem, 1.25rem);
+  --fs-body: 0.95rem;
+  --fs-meta: 0.85rem;
+
+  /* Line heights */
+  --lh-tight: 1.08;
+  --lh-heading: 1.18;
+  --lh-body: 1.65;
+  --lh-relaxed: 1.7;
+
+  /* Tracking */
+  --tracking-widest-xl: 0.2em;
 }
 
 /* ==================== SEMANTIC TOKENS ==================== */
 
 @theme inline {
   /* Accent */
-  --color-accent: var(--amber-400);
+  --color-accent: var(--muted-ochre);
+  /* --color-accent: var(--amber-400); */
+
   --color-accent-hover: var(--amber-500);
   --color-accent-strong: var(--amber-600);
 
@@ -56,7 +85,8 @@
   --color-bg-inverse: var(--green-800);
 
   /* Nav */
-  --color-bg-nav: var(--green-700);
+  --color-bg-nav: var(--deep-olive);
+  /* --color-bg-nav: var(--green-700); */
 
   /* Text */
   --color-tx-primary: var(--gray-900);
@@ -105,21 +135,18 @@ body {
 
 @layer base {
   body {
-    @apply bg-bg-page text-tx-primary font-inter text-base;
+    @apply font-mont bg-bg-page text-tx-primary text-base text-balance;
     line-height: 1.55;
-  }
-
-  p {
-    @apply text-tx-secondary;
   }
 
   h1,
   h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-mont text-tx-primary text-balance;
+  h3 {
+    @apply text-tx-primary;
+  }
+
+  p {
+    @apply text-tx-secondary;
   }
 
   small {
@@ -130,59 +157,70 @@ body {
 @layer components {
   /* ==================== TYPOGRAPHY ==================== */
 
-  /* Small uppercase label */
+  /* Hero Kicker */
   .typo-kicker {
-    @apply font-inter text-xs uppercase tracking-[0.16em] text-tx-muted;
+    @apply uppercase font-semibold text-accent/80;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-widest-xl);
+    line-height: var(--lh-heading);
   }
 
   /* Hero Title */
   .typo-hero {
-    @apply font-mont font-semibold tracking-tight text-balance text-tx-primary;
-    font-size: clamp(2rem, 2.4vw + 1rem, 2.6rem);
-    line-height: 1.08;
+    @apply font-bold text-tx-inverse tracking-tight;
+    font-size: var(--fs-hero);
+    line-height: var(--lh-tight);
+  }
+
+  /* Hero Subtitle */
+  .typo-hero-sub {
+    @apply text-tx-inverse/85;
+    font-size: clamp(0.95rem, 0.4vw + 0.9rem, 1.15rem);
+    line-height: 1.55;
+    font-weight: 400;
   }
 
   /* Section Title */
   .typo-h2 {
-    @apply font-mont font-semibold tracking-tight text-balance text-tx-primary;
-    font-size: clamp(1.4rem, 1.1vw + 1rem, 2rem);
-    line-height: 1.18;
+    @apply text-tx-primary;
+    font-size: var(--fs-h2);
+    line-height: var(--lh-heading);
+    font-weight: 600;
   }
 
   /* Card Title */
   .typo-h3 {
-    @apply font-mont font-semibold tracking-tight text-balance text-tx-primary;
-    font-size: clamp(1.15rem, 0.7vw + 1rem, 1.5rem);
+    @apply text-tx-primary;
+    font-size: var(--fs-h3);
     line-height: 1.25;
   }
 
-  /* Hero Lead / Important Intro */
+  /* Important Intro */
   .typo-lead {
-    @apply font-inter text-tx-secondary;
-    font-size: clamp(1.05rem, 0.45vw + 0.95rem, 1.2rem);
-    line-height: 1.65;
+    @apply text-tx-inverse/85 leading-relaxed;
+    font-size: var(--fs-lead);
     font-weight: 500;
   }
 
   /* Section Intro */
   .typo-subtitle {
-    @apply font-inter text-tx-secondary;
+    @apply text-tx-secondary;
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: var(--lh-body);
     font-weight: 500;
   }
 
   /* Default Body Text */
   .typo-body {
-    @apply font-inter text-tx-secondary;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    @apply text-tx-secondary;
+    font-size: var(--fs-body);
+    line-height: var(--lh-relaxed);
   }
 
   /* Small Meta Text */
   .typo-meta {
     @apply font-inter text-tx-muted;
-    font-size: 0.85rem;
+    font-size: var(--fs-meta);
     line-height: 1.6;
   }
 
@@ -192,7 +230,7 @@ body {
 
   /* ==================== CONTAINERS ==================== */
   .container-page {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-12;
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-6 2xl:px-2;
   }
 }
 
@@ -238,4 +276,25 @@ img {
   transform: scale(1.4);
   width: 6px;
   height: 6px;
+}
+
+/* Animation */
+@keyframes scrollHintPulse {
+  0% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+}
+
+.scroll-hint {
+  animation: scrollHintPulse 1.8s ease-in-out infinite;
+  will-change: transform, opacity;
 }

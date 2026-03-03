@@ -1,4 +1,5 @@
 import Image from "next/image";
+import clsx from "clsx";
 import { FaPhone } from "react-icons/fa6";
 import { CtaButton } from "../parts/CtaButton";
 import type { HeroContent } from "@/config/site-content";
@@ -12,7 +13,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-black">
-      <div className="relative min-h-[70dvh] md:min-h-[calc(100dvh-var(--nav-h))] flex items-center">
+      <div className="relative min-h-[65dvh] md:min-h-[calc(100dvh-var(--nav-h))] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20 overflow-hidden">
           <Image
@@ -31,9 +32,17 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
           />
         </div>
 
-        {/* Backgorund Image Overlay */}
+        {/* Tone layer */}
         <div className="absolute inset-0 -z-10 bg-black/30" />
-        <div className="absolute inset-0 -z-10 bg-linear-to-r from-black/70 via-black/45 to-transparent" />
+
+        {/* Gradient + blur layer */}
+        <div
+          className={clsx(
+            "absolute inset-0 -z-10",
+            "bg-linear-to-r from-black/70 via-black/45 to-transparent",
+            "backdrop-blur-[1px] md:backdrop-blur-none"
+          )}
+        />
 
         <div className="container-page relative w-full">
           <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left md:translate-x-6 lg:translate-x-10">

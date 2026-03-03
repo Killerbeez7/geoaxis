@@ -1,10 +1,14 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, Montserrat, Sofia_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getLocalBusinessSchema } from "@/utils/structured-data";
 import { SITE_URL } from "@/config/site";
+import { siteContent } from "@/config/site-content";
+
+const { name, slogan, tagline, metaLine } = siteContent.brand;
 
 const inter = Inter({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
@@ -27,12 +31,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "GeoTrans | Геодезически услуги в София",
-    template: "%s | GeoTrans",
+    default: `${name} | ${tagline}`,
+    template: `%s | ${name}`,
   },
 
   description:
-    "Геодезически услуги в София и Софийска област – геодезическо заснемане, трасиране, кадастър и вертикална планировка с гарантирана точност.",
+    "Геодезически услуги в София и Софийска област - геодезическо заснемане, трасиране, кадастър и вертикална планировка с гарантирана точност.",
 
   keywords: [
     "геодезист София",
@@ -47,11 +51,11 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "GeoTrans - Геодезически услуги в София",
+    title: `${name} | ${tagline}`,
     description:
-      "Професионални геодезически услуги в София – заснемане, трасиране и кадастрални процедури.",
+      "Професионални геодезически услуги в София и Софийска област - геодезическо заснемане, трасиране, кадастър и вертикална планировка с гарантирана точност.",
     url: SITE_URL,
-    siteName: "GeoTrans",
+    siteName: name,
     locale: "bg_BG",
     type: "website",
   },
@@ -83,6 +87,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="absolute top-0 left-0 w-full h-(--nav-h) bg-bg-nav -z-10" />
         <Navbar />
         <main className="grow bg-bg-page">{children}</main>
+        {/* Analytics */}
+        <Analytics />
         <Footer />
       </body>
     </html>

@@ -10,7 +10,7 @@ export interface BrandContent {
 const brand: BrandContent = {
   logo: "/images/brand/logo.svg",
   slogan: "Accurate Land Solutions",
-  name: "GeoMetric",
+  name: "LandMap",
   tagline: "Прецизни геодезически услуги, ясни срокове и надеждна документация.",
 
   metaLine: "София • Софийска област • По договаряне",
@@ -51,6 +51,8 @@ export type ServiceItem = {
   id: string;
   slug: string;
   title: string;
+  cardTitle: string;
+  cardMeta: string;
   thumbnail: string;
   ogImage?: string;
   description: string;
@@ -79,11 +81,12 @@ const services: ServicesContent = {
       id: "surveying",
       slug: "geodezichesko-zasnemane",
       title: "Геодезическо заснемане",
+      cardTitle: "Геодезическо заснемане",
+      cardMeta: "Проектиране • Строителство",
       thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
       ogImage: "/images/services/geodezichesko-zasnemane-og.jpg",
       description:
         "Прецизно геодезическо заснемане на терени и обекти в София и региона за проектиране, строителство и изготвяне на техническа документация.",
-
       neededWhen: [
         "Преди строителство, реконструкция или узаконяване",
         "За изработване на ПУП и/или инвестиционен проект",
@@ -103,10 +106,13 @@ const services: ServicesContent = {
       ],
       featured: true,
     },
+
     {
       id: "staking-out",
       slug: "trasirane",
       title: "Трасиране и контролни измервания",
+      cardTitle: "Трасиране",
+      cardMeta: "Оси • Контури • Контрол",
       thumbnail: "/images/services/trasirane-thumb.jpg",
       ogImage: "/images/services/trasirane-og.png",
       description:
@@ -128,10 +134,13 @@ const services: ServicesContent = {
       ],
       featured: true,
     },
+
     {
       id: "cadastre",
       slug: "kadastar",
       title: "Кадастрални услуги",
+      cardTitle: "Кадастър",
+      cardMeta: "Кадастър • Промени • Процедури",
       thumbnail: "/images/services/kadastyr-thumb.jpg",
       ogImage: "/images/services/kadastyr-og.png",
       description:
@@ -154,10 +163,13 @@ const services: ServicesContent = {
       ],
       featured: true,
     },
+
     {
       id: "grading",
       slug: "vertikalna-planirovka",
       title: "Вертикална планировка",
+      cardTitle: "Вертикална планировка",
+      cardMeta: "Коти • Наклони • Отводняване",
       thumbnail: "/images/services/vertical_plan-thumb.jpg",
       ogImage: "/images/services/vertical_plan-og.png",
       description:
@@ -180,10 +192,13 @@ const services: ServicesContent = {
       ],
       featured: true,
     },
+
     {
       id: "design",
       slug: "proektirane",
       title: "Проектантски услуги",
+      cardTitle: "Проектиране",
+      cardMeta: "Координация • Изходни данни",
       thumbnail: "/images/services/proektirane-thumb.jpg",
       ogImage: "/images/services/proektirane-og.png",
       description:
@@ -206,6 +221,58 @@ const services: ServicesContent = {
       ],
       featured: true,
     },
+
+    // ✅ NEW (marketing card 1) — to make 7 cards total
+    {
+      id: "consulting",
+      slug: "konsultacia",
+      title: "Консултация и оценка",
+      cardTitle: "Консултация",
+      cardMeta: "Оценка • План • Срокове",
+      thumbnail: "/images/services/consulting-thumb.jpg", // сложи си подходяща
+      ogImage: "/images/services/consulting-og.jpg",
+      description:
+        "Кратка консултация за случая ти: какво е нужно, кои документи трябват и как най-бързо да стигнеш до резултат.",
+      neededWhen: [
+        "Когато не си сигурен коя услуга ти трябва",
+        "Когато имаш срокове и искаш план на действие",
+        "Когато документите са неясни или непълни",
+      ],
+      requiredDocs: [
+        "Адрес/идентификатор на имота (ако е наличен)",
+        "Налични документи/скици (ако има)",
+      ],
+      deliverables: [
+        "Ясна препоръка как да се действа",
+        "Списък с нужните документи",
+        "Ориентир за срок и следващи стъпки",
+      ],
+      featured: false,
+    },
+
+    // ✅ NEW (marketing card 2)
+    {
+      id: "docs",
+      slug: "dokumenti-proceduri",
+      title: "Документи и процедури",
+      cardTitle: "Документи",
+      cardMeta: "Скици • Материали • Подготовка",
+      thumbnail: "/images/services/docs-thumb.jpg",
+      ogImage: "/images/services/docs-og.jpg",
+      description:
+        "Подготовка и подреждане на материали за институции и проектиране — така че процесът да върви гладко.",
+      neededWhen: [
+        "Когато подготвяш документи за процедура",
+        "Когато има разминавания в данните",
+        "Когато ти трябва „готов пакет“ за следващ етап",
+      ],
+      requiredDocs: [
+        "Документ за собственост (ако е приложимо)",
+        "Налични скици/схеми/проекти (ако има)",
+      ],
+      deliverables: ["Подготвени материали според случая", "Ясни указания какво следва"],
+      featured: false,
+    },
   ],
 };
 
@@ -225,7 +292,7 @@ const contacts: ContactsContent = {
   title: "Свържи се",
   subtitle: "Имаш въпрос или нужда от услуга? Свържи се с нас и ще ти съдействаме.",
   phone: "+359 98 831 6263",
-  email: "tonitrans08@abv.bg",
+  email: "geometricsofia@gmail.com",
   address: "1618 бул. България||София, България",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sofia%2C+Bulgaria",
 };

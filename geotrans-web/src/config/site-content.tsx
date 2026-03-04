@@ -10,7 +10,7 @@ export interface BrandContent {
 const brand: BrandContent = {
   logo: "/images/brand/logo.svg",
   slogan: "Accurate Land Solutions",
-  name: "LandMap",
+  name: "GeoMetric ET",
   tagline: "Прецизни геодезически услуги, ясни срокове и надеждна документация.",
 
   metaLine: "София • Софийска област • По договаряне",

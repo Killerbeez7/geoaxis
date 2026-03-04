@@ -28,7 +28,7 @@ const ICON_BY_SLUG: Record<string, IconType> = {
 
 type ServiceItem = ServicesContent["items"][number];
 
-export function ServiceCard({ item }: { item: ServiceItem }) {
+export const ServiceCard = ({ item }: { item: ServiceItem }) => {
   const Icon = ICON_BY_SLUG[item.slug] ?? FaCompassDrafting;
   const title = item.cardTitle ?? item.title;
   const meta = item.cardMeta ?? "";
@@ -99,9 +99,9 @@ export function ServiceCard({ item }: { item: ServiceItem }) {
       </div>
     </Link>
   );
-}
+};
 
-export function MoreCard({ extraCount }: { extraCount: number }) {
+export const MoreCard = ({ extraCount }: { extraCount: number }) => {
   const more = Math.max(1, extraCount);
 
   return (
@@ -170,4 +170,4 @@ export function MoreCard({ extraCount }: { extraCount: number }) {
       </div>
     </Link>
   );
-}
+};

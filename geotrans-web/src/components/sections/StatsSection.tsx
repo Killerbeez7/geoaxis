@@ -9,7 +9,7 @@ export function Stats() {
       {/* overlay */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.22]"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.35]"
       >
         <div
           className="absolute left-1/2 top-1/2 h-[140%] w-[140%] -translate-x-1/2 -translate-y-1/2"

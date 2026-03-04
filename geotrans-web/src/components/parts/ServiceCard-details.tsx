@@ -58,61 +58,55 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
         className={clsx(
           "pointer-events-none absolute right-0 top-0 h-full w-10",
           "bg-linear-to-l from-black/2 to-transparent",
-          "min-[678]:hidden"
+          "sm:hidden"
         )}
       />
 
-      {/* Header row */}
-      <div className="flex items-start gap-3">
-        {/* Icon */}
-        <div
+      {/* Icon Badge */}
+      <div
+        className={clsx(
+          "inline-flex items-center justify-center rounded-xl",
+          "h-10 w-10 sm:h-11 sm:w-11",
+          "bg-bg-muted ring-1 ring-black/5",
+          "text-(--color-bg-nav)",
+          "transition",
+          "group-hover:bg-accent/10 group-hover:text-accent group-hover:ring-accent/20"
+        )}
+      >
+        <Icon className="h-[18px] w-[18px] sm:h-[20px] sm:w-[20px]" />
+      </div>
+
+      <h3 className="mt-3.5 sm:mt-4 text-[15px] sm:text-[17px] font-semibold leading-snug text-tx-primary">
+        {title}
+      </h3>
+
+      {meta && (
+        <p
           className={clsx(
-            "shrink-0 inline-flex items-center justify-center rounded-xl",
-            "h-10 w-10 sm:h-11 sm:w-11",
-            "bg-bg-muted ring-1 ring-black/5",
-            "text-(--color-bg-nav)",
-            "transition",
-            "group-hover:bg-accent/10 group-hover:text-accent group-hover:ring-accent/20"
+            "mt-1.5 text-[13px] sm:text-[14px] text-tx-muted leading-relaxed",
+            "line-clamp-2"
           )}
         >
-          <Icon className="h-[18px] w-[18px] sm:h-[20px] sm:w-[20px]" />
-        </div>
-
-        {/* Title + meta */}
-        <div className="min-w-0">
-          <h3 className="text-[15px] sm:text-[17px] font-semibold leading-snug text-tx-primary">
-            {title}
-          </h3>
-
-          {meta && (
-            <p className="mt-0.5 text-[13px] sm:text-[14px] text-tx-muted leading-relaxed line-clamp-1">
-              {meta}
-            </p>
-          )}
-        </div>
-      </div>
+          {meta}
+        </p>
+      )}
 
       {/* CTA */}
 
-      {/* Mobile: Arrow right side */}
+      {/* Mobile: always visible */}
       <div className="mt-auto pt-4 sm:pt-5">
         <span
-          aria-hidden
           className={clsx(
-            "absolute right-4 top-1/2 -translate-y-1/2",
-            "text-bg-nav/25",
-            "min-[678]:hidden"
+            "inline-flex items-center gap-2",
+            "rounded-full px-3 py-1.5",
+            "border border-black/10 bg-bg-muted/60",
+            "text-[13px] font-semibold text-bg-nav/70",
+            "shadow-[0_10px_24px_-22px_rgba(0,0,0,0.28)]",
+            "sm:hidden"
           )}
         >
-          {" "}
-          <FaAngleRight className="text-sm" />{" "}
+          Детайли <FaAngleRight className="text-[11px]" />
         </span>
-
-        {item.description && (
-          <p className="mt-3 text-[13px] leading-relaxed text-tx-secondary/80 line-clamp-3 ">
-            {item.description}
-          </p>
-        )}
 
         {/* Desktop: hover only */}
         <span

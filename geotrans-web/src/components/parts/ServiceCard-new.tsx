@@ -58,7 +58,7 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
         className={clsx(
           "pointer-events-none absolute right-0 top-0 h-full w-10",
           "bg-linear-to-l from-black/2 to-transparent",
-          "min-[678]:hidden"
+          "sm:hidden"
         )}
       />
 
@@ -67,7 +67,7 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
         {/* Icon */}
         <div
           className={clsx(
-            "shrink-0 inline-flex items-center justify-center rounded-xl",
+            "flex-shrink-0 inline-flex items-center justify-center rounded-xl",
             "h-10 w-10 sm:h-11 sm:w-11",
             "bg-bg-muted ring-1 ring-black/5",
             "text-(--color-bg-nav)",
@@ -85,7 +85,7 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
           </h3>
 
           {meta && (
-            <p className="mt-0.5 text-[13px] sm:text-[14px] text-tx-muted leading-relaxed line-clamp-1">
+            <p className="mt-0.5 text-[13px] sm:text-[14px] text-tx-muted leading-relaxed line-clamp-2">
               {meta}
             </p>
           )}
@@ -94,14 +94,14 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
 
       {/* CTA */}
 
-      {/* Mobile: Arrow right side */}
+      {/* Mobile: always visible */}
       <div className="mt-auto pt-4 sm:pt-5">
         <span
           aria-hidden
           className={clsx(
             "absolute right-4 top-1/2 -translate-y-1/2",
             "text-bg-nav/25",
-            "min-[678]:hidden"
+            "sm:hidden"
           )}
         >
           {" "}
@@ -109,10 +109,23 @@ export const ServiceCard = ({ item }: { item: ServiceItem }) => {
         </span>
 
         {item.description && (
-          <p className="mt-3 text-[13px] leading-relaxed text-tx-secondary/80 line-clamp-3 ">
+          <p className="mt-3 text-[13px] leading-relaxed text-tx-secondary/80 line-clamp-2 sm:hidden">
             {item.description}
           </p>
         )}
+
+        <span
+          className={clsx(
+            "inline-flex items-center gap-2",
+            "rounded-full px-3 py-1.5",
+            "border border-black/10 bg-bg-muted/60",
+            "text-[13px] font-semibold text-bg-nav/70",
+            "shadow-[0_10px_24px_-22px_rgba(0,0,0,0.28)]",
+            "sm:hidden"
+          )}
+        >
+          Детайли <FaAngleRight className="text-[11px]" />
+        </span>
 
         {/* Desktop: hover only */}
         <span

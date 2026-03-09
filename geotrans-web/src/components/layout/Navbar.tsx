@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import clsx from "clsx";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaPhone } from "react-icons/fa6";
 import { NavSrvList } from "./NavSrvList";
 import { NAV_LINKS, NavLink } from "@/config/NavConfig";
 import { siteContent } from "@/config/site-content";
@@ -150,96 +151,96 @@ export const Navbar = () => {
   };
   // Render
   return (
-    <header
-      id="navbar"
-      className={clsx(
-        "sticky top-0 z-50 w-full h-(--nav-h)",
-        "bg-bg-nav/95",
-        "backdrop-blur-xl shadow-lg",
-        "border-b border-br-light/20",
-        "no-drag"
-      )}
-    >
-      <nav className="container-page h-full">
-        <div className="flex h-full items-center justify-between">
-          <Link
-            href="/"
-            draggable={false}
-            className="flex items-center gap-2 px-2 py-1 text-lg tracking-wide text-tx-inverse"
+    <>
+      <div className="bg-gray-300/20 backdrop-blur-md text-white/90 text-xs md:text-sm tracking-wider">
+        <div
+          className={clsx(
+            "container-page h-(--top-bar-h) flex justify-center md:justify-between items-center",
+            "px-6 sm:px-8 lg:px-12 xl:px-8 2xl:px-4"
+          )}
+        >
+          <span className="hidden md:block">Пон-Пет 8:30-17:30</span>
+          <a
+            href="tel:+359888123456"
+            className="flex items-center gap-2.5 hover:text-[#d4af37]"
           >
-            <svg
-              className="w-7 h-7 text-accent"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              aria-hidden
-            >
-              <g clipPath="url(#a)">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1"
-                  fill="currentColor"
-                />
-              </g>
-              <defs>
-                <clipPath id="a">
-                  <path fill="currentColor" d="M0 0h16v16H0z" />
-                </clipPath>
-              </defs>
-            </svg>
-            <span className="nav-link">{brandName}</span>
-          </Link>
-
-          {/* Desktop Links*/}
-          <ul className="hidden items-center gap-6 md:flex">
-            {NAV_LINKS.map(renderDesktopItem)}
-          </ul>
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 text-2xl text-tx-inverse"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? "✕" : "☰"}
-          </button>
+            <FaPhone />
+            {siteContent.contacts.phone}
+          </a>
         </div>
-
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="md:hidden">
-            {/* Backdrop */}
-            <button
-              aria-label="Close menu"
-              onClick={closeAll}
-              className="fixed inset-0 top-(--nav-h) z-40 bg-black/40"
-            />
-
-            {/* Panel */}
-            <div
-              className={clsx(
-                "fixed left-0 right-0 top-(--nav-h) z-50",
-                "bg-bg-nav/98 backdrop-blur-xl shadow-xl"
-              )}
+      </div>
+      <header
+        id="navbar"
+        className={clsx(
+          "sticky top-0 z-50 w-full h-(--nav-h)",
+          "bg-bg-nav/95",
+          "backdrop-blur-xl shadow-lg",
+          "border-b border-br-light/20",
+          "no-drag"
+        )}
+      >
+        <nav className="container-page h-full">
+          <div className="flex h-full items-center justify-between">
+            <Link
+              href="/"
+              draggable={false}
+              className="flex items-center gap-2 px-2 py-1 text-lg tracking-wide text-tx-inverse"
             >
-              <div className="container-page py-4">
-                <div className="flex flex-col gap-3">
-                  {NAV_LINKS.map(renderMobileItem)}
+              <div className="text-3xl font-semibold text-white tracking-tight drop-shadow-md">
+                GeoMetric
+              </div>
+            </Link>
 
-                  <Link
-                    href="/contacts"
-                    onClick={closeAll}
-                    className="mt-3 px-4 py-3 rounded-lg bg-accent text-center text-sm font-semibold text-tx-inverse"
-                  >
-                    Запитване
-                  </Link>
+            {/* Desktop Links*/}
+            <ul className="hidden items-center gap-6 md:flex">
+              {NAV_LINKS.map(renderDesktopItem)}
+            </ul>
+
+            {/* Mobile toggle */}
+            <button
+              className="md:hidden p-2 text-2xl text-tx-inverse"
+              onClick={() => setMobileOpen((o) => !o)}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? "✕" : "☰"}
+            </button>
+          </div>
+
+          {/* Mobile menu */}
+          {mobileOpen && (
+            <div className="md:hidden">
+              {/* Backdrop */}
+              <button
+                aria-label="Close menu"
+                onClick={closeAll}
+                className="fixed inset-0 top-(--nav-h) z-40 bg-black/40"
+              />
+
+              {/* Panel */}
+              <div
+                className={clsx(
+                  "fixed left-0 right-0 top-(--nav-h) z-50",
+                  "bg-bg-nav/98 backdrop-blur-xl shadow-xl"
+                )}
+              >
+                <div className="container-page py-4">
+                  <div className="flex flex-col gap-3">
+                    {NAV_LINKS.map(renderMobileItem)}
+
+                    <Link
+                      href="/contacts"
+                      onClick={closeAll}
+                      className="mt-3 px-4 py-3 rounded-lg bg-accent text-center text-sm font-semibold text-tx-inverse"
+                    >
+                      Запитване
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </nav>
-    </header>
+          )}
+        </nav>
+      </header>
+    </>
   );
 };

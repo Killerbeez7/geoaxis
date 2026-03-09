@@ -32,7 +32,7 @@
 
   /* Layout */
   --nav-h: 72px;
-  --top-bar-h: 40px;
+  --top-bar-h: 48px;
 
   /* Overlays */
   --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);

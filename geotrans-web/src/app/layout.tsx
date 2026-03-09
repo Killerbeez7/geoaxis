@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Inter, Montserrat, Sofia_Sans } from "next/font/google";
+import { Montserrat, Sofia_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getLocalBusinessSchema } from "@/utils/structured-data";
@@ -9,12 +9,6 @@ import { SITE_URL } from "@/config/site";
 import { siteContent } from "@/config/site-content";
 
 const { name, slogan, tagline, metaLine } = siteContent.brand;
-
-const inter = Inter({
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
@@ -74,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="bg">
       <body
-        className={`${inter.variable} ${montserrat.variable} ${sofia.variable} antialiased flex flex-col relative`}
+        className={`${montserrat.variable} ${sofia.variable} antialiased flex flex-col relative`}
       >
         <script
           type="application/ld+json"

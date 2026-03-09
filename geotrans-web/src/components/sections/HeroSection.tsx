@@ -13,7 +13,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-black">
-      <div className="relative min-h-[65dvh] md:min-h-[calc(100dvh-var(--nav-h))] flex items-center">
+      <div className="relative min-h-[65dvh] md:min-h-[calc(100dvh-var(--nav-h)-var(--top-bar-h))] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20 overflow-hidden">
           <Image
@@ -101,4 +101,29 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
       <ScrollHint hintText={false} />
     </header>
   );
+}
+
+// CTA VARIANT
+
+{
+  /* <div className="mt-8 flex flex-wrap items-center gap-5 justify-center md:justify-start">
+<CtaButton
+  href="tel:+359888123456"
+  variant="primary"
+  size="lg"
+  className="bg-accent text-tx-inverse shadow-md hover:bg-accent/90"
+>
+  <FaPhone className="mr-2.5" />
+  Свържи се сега
+</CtaButton>
+
+<CtaButton
+  href="/services"
+  variant="outline"
+  size="lg"
+  className="border-accent text-accent hover:bg-accent/10"
+>
+  Виж услуги →
+</CtaButton>
+</div> */
 }

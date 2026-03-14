@@ -1,102 +1,49 @@
 import Link from "next/link";
-import { siteContent } from "@/config/site-content";
+import { serviceCategories } from "./config/service-categories";
 
 export default function ServicesPage() {
-  const items = siteContent.services.items;
-
   return (
-    <main className="relative min-h-screen bg-(--bg-page)">
-      <div
-        className="absolute inset-0 -z-10 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage: "url(/images/topo-pattern-light.svg)",
-          backgroundSize: "cover",
-        }}
-      />
+    <main className="bg-bg-page">
+      <section className="border-b border-br-light bg-bg-section pt-28 pb-14 md:pt-36 md:pb-20">
+        <div className="container-page max-w-3xl text-center">
+          <p className="typo-kicker">Услуги</p>
+          <h1 className="mt-3 typo-h2">Геодезически услуги</h1>
+          <p className="mt-5 typo-body text-tx-secondary">
+            Разгледайте основните категории услуги и изберете най-подходящата според вашия
+            обект, имот или проект.
+          </p>
+        </div>
+      </section>
 
-      <section className="pt-28 pb-20 md:pt-36 md:pb-28">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-          {/* Header */}
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-(--text-primary)">
-              {siteContent.services.title}
-            </h1>
-            <p className="mt-5 text-lg sm:text-xl text-(--text-secondary)">
-              {siteContent.services.subtitle}
-            </p>
-          </div>
-
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((service) => {
-              const href = `/services/${service.slug}`;
+      <section className="py-14 md:py-20">
+        <div className="container-page">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {serviceCategories.map((category) => {
+              const firstItem = category.items[0];
+              const href = `/services/${category.slug}/${firstItem.slug}`;
 
               return (
                 <Link
-                  key={service.id}
+                  key={category.slug}
                   href={href}
-                  className={`
-                    group relative rounded-2xl bg-(--bg-surface) p-6 sm:p-8
-                    border border-(--color-border-light) shadow-sm
-                    hover:shadow-xl hover:border-accent/30
-                    transition-all duration-300 ease-out
-                    overflow-hidden
-                  `}
-                  aria-label={`Разгледайте детайли за ${service.title}`}
+                  className="group rounded-[--radius-card] border border-br-light bg-bg-section p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
-                  <div className="absolute inset-0 bg-linear-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="mb-4 inline-flex rounded-full bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">
+                    Категория
+                  </div>
 
-                  <div className="relative flex flex-col h-full">
-                    <div className="text-4xl sm:text-5xl mb-5 text-(--color-accent)">
-                      {service.icon ?? "📐"}
-                    </div>
+                  <h2 className="typo-h3 transition-colors group-hover:text-accent">
+                    {category.title}
+                  </h2>
 
-                    <h2 className="text-xl sm:text-2xl font-semibold text-(--text-primary) group-hover:text-(--color-accent) transition-colors">
-                      {service.title}
-                    </h2>
+                  <p className="mt-4 typo-body text-tx-secondary">{category.intro}</p>
 
-                    <p className="mt-4 text-base text-(--text-secondary) grow">
-                      {service.description}
-                    </p>
-
-                    <div className="mt-6 flex items-center text-sm font-medium text-(--color-accent) group-hover:underline">
-                      Вижте повече →
-                    </div>
+                  <div className="mt-6 text-sm font-medium text-accent">
+                    Разгледайте услугите →
                   </div>
                 </Link>
               );
             })}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="mt-20 text-center">
-            <p className="text-lg text-(--text-secondary) mb-8">
-              Не намирате точната услуга? Свържете се с нас за индивидуално запитване.
-            </p>
-
-            <Link
-              href="/contacts"
-              className={`
-                inline-flex items-center gap-3 rounded-xl
-                bg-(--color-btn-primary) px-8 py-4 text-lg font-semibold text-white
-                shadow-lg hover:bg-(--color-btn-primary-hover) hover:shadow-xl
-                transition-all duration-300 hover:scale-[1.03]
-              `}
-            >
-              <span>Изпратете запитване</span>
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>

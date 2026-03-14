@@ -14,7 +14,6 @@ interface StepProgressProps {
 export default function StepProgress({ steps, className }: StepProgressProps) {
   return (
     <div className={clsx("mx-auto w-full max-w-6xl", className)}>
-      {/* ============ MOBILE / TABLET (stacked) ============ */}
       <div className="relative grid gap-5 md:hidden">
         {/* left connector */}
         <div

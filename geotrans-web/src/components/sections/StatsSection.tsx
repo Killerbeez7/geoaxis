@@ -26,7 +26,7 @@ export function Stats() {
       </div> */}
 
       <div className="relative z-10 container-page">
-        <div className="grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 place-items-center">
           {stats.map((s, i) => (
             <div key={i} className="px-2 text-center lg:text-left">
               <div className="text-4xl font-semibold tracking-tight text-tx-primary md:text-6xl">

@@ -19,9 +19,14 @@ const TRUST: TrustItem[] = [
   { title: "Коректност", subtitle: "в комуникацията", Icon: FaShieldHalved },
 ];
 
-export default function TrustSection({ className }: { className?: string }) {
+export default function TrustBar({ className }: { className?: string }) {
   return (
-    <section className={clsx("bg-bg-soft py-16", className)}>
+    <section
+      className={clsx(
+        "bg-bg-section bg-linear-to-r from-accent/5 to-green-800/5 py-16",
+        className
+      )}
+    >
       <div className="container-page">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TRUST.map((t, i) => (
@@ -29,10 +34,9 @@ export default function TrustSection({ className }: { className?: string }) {
               key={i}
               className={clsx(
                 "flex items-start gap-4 p-5",
-                "rounded-[--radius-card]",
-                "bg-white border border-br-light",
-                "transition-all duration-200",
-                "hover:shadow-md hover:-translate-y-[2px]"
+                "rounded-2xl",
+                "bg-white/30 border border-br-default",
+                "transition-all duration-200"
               )}
             >
               <div

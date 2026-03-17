@@ -87,6 +87,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Analytics */}
         <Analytics />
         <Footer />
+        {/* SQUINT TEST - uncomment to use */}
+        {/* <div
+          className="fixed inset-0 z-9999 pointer-events-none backdrop-blur-[6px] bg-black/10 grayscale-[0.2]"
+          aria-hidden="true"
+        /> */}
       </body>
     </html>
   );

@@ -22,7 +22,7 @@ export const FOOTER = {
   sections: [
     {
       title: "Бързи линкове",
-      links: { ...mainLinks },
+      links: mainLinks,
     },
 
     {

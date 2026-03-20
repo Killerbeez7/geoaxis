@@ -1,13 +1,22 @@
-import { siteContent } from "@/config/site-content";
+import { serviceCategories } from "@/config/services/categories";
 
-export const getServices = () => siteContent.services.items;
+export const getCategoryBySlug = (slug: string) =>
+  serviceCategories.find((category) => category.slug === slug);
 
-export const getServiceHref = (slug: string) => `/services/${slug}`;
+export const getServiceBySlugs = (categorySlug: string, serviceSlug: string) => {
+  const category = getCategoryBySlug(categorySlug);
+  if (!category) return undefined;
 
-export const getServiceBySlug = (slug: string) =>
-  siteContent.services.items.find((s) => s.slug === slug);
+  const service = category.items.find((item) => item.slug === serviceSlug);
+  if (!service) return undefined;
 
-export const getServiceSlugs = () => siteContent.services.items.map((s) => s.slug);
+  return { category, service };
+};
 
-export const getFeaturedServices = () =>
-  siteContent.services.items.filter((s) => s.featured);
+export const getServiceRouteParams = () =>
+  serviceCategories.flatMap((category) =>
+    category.items.map((service) => ({
+      category: category.slug,
+      service: service.slug,
+    }))
+  );

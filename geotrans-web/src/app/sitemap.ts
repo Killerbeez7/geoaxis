@@ -1,20 +1,28 @@
 import { MetadataRoute } from "next";
-import { siteContent } from "@/config/site-content";
-
-const SERVICE_LINKS = siteContent.services.items;
+import { serviceCategories } from "@/config/services/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "http://localhost:3000/";
 
-  const serviceUrls = SERVICE_LINKS.map((s) => ({
-    url: `${baseUrl}/services/${s.slug}`,
-    lastModified: new Date(),
-  }));
+  const lastModified = new Date();
+
+  const serviceUrls: MetadataRoute.Sitemap = serviceCategories.flatMap((category) => {
+    const categoryUrl: MetadataRoute.Sitemap = [
+      { url: `${baseUrl}/services/${category.slug}`, lastModified },
+    ];
+
+    const detailUrls: MetadataRoute.Sitemap = category.services.map((service) => ({
+      url: `${baseUrl}/services/${category.slug}/${service.slug}`,
+      lastModified,
+    }));
+
+    return [...categoryUrl, ...detailUrls];
+  });
 
   return [
-    { url: baseUrl, lastModified: new Date() },
-    { url: `${baseUrl}/services`, lastModified: new Date() },
-    { url: `${baseUrl}/contacts`, lastModified: new Date() },
+    { url: baseUrl, lastModified },
+    { url: `${baseUrl}/services`, lastModified },
+    { url: `${baseUrl}/contacts`, lastModified },
     ...serviceUrls,
   ];
 }

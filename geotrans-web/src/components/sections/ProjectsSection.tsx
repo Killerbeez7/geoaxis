@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { CtaButton } from "../parts/CtaButton";
 import { ProjectDisplayCard } from "../parts/ProjectDisplayCard";
 import { ProjectsLightbox } from "@/app/projects/ProjectsLightbox";
-import type { ProjectItem, ProjectsContent } from "@/config/site-content";
+import type { ProjectItem, ProjectsContent } from "@/config/content/projects";
 
 import { Section } from "@/components/layout/Section";
 

@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { CtaButton } from "@/components/parts/CtaButton";
-import { ServiceItem } from "./config/service-categories";
+
+type ServiceItem = {
+  title: string;
+  image: string;
+  excerpt: string;
+  content: string[];
+};
 
 export default function ServiceDetails({
   categoryTitle,

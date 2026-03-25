@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import type { ProjectItem } from "@/config/site-content";
+import type { ProjectItem } from "@/config/content/projects";
 
 interface ProjectsLightboxProps {
   image: ProjectItem | null;

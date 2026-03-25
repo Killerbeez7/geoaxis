@@ -6,13 +6,15 @@ import Link from "next/link";
 import clsx from "clsx";
 
 import { siteContent } from "@/config/site-content";
-import type { ProjectItem } from "@/config/site-content";
+import type { ProjectsContent } from "@/config/content/projects";
 
 import { ProjectsLightbox } from "./ProjectsLightbox";
 import { Section } from "@/components/layout/Section";
 
 export default function ProjectsPage() {
-  const [selectedImage, setSelectedImage] = useState<ProjectItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ProjectsContent["items"][number] | null>(
+    null
+  );
 
   const { title, subtitle, items } = siteContent.projects;
 

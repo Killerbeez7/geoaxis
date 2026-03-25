@@ -32,7 +32,7 @@
 
   /* Layout */
   --nav-h: 72px;
-  --top-bar-h: 40px;
+  --top-bar-h: 32px;
 
   /* Overlays */
   --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);
@@ -107,7 +107,8 @@
   --color-bg-nav: var(--deep-olive);
 
   /* top info bar */
-  --color-bg-top-nav: color-mix(in srgb, var(--deep-olive) 78%, var(--gray-0));
+  /* --color-bg-top-nav: color-mix(in srgb, var(--deep-olive) 78%, var(--gray-0)); */
+  --color-bg-top-nav: #0f172a;
 
   /* footer (slightly darker than nav) */
   --color-bg-footer: #122019;

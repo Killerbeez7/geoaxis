@@ -1,5 +1,7 @@
 import { HorizontalDivider } from "../components/parts/HorizontalDivider";
 import { siteContent } from "@/config/site-content";
+import { serviceCategories } from "@/config/services/categories";
+
 // Sections
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
@@ -14,6 +16,7 @@ import FinalCta from "@/components/sections/FinalCta";
 
 export default function Home() {
   const { hero, services, workflow, stats, projects } = siteContent;
+
   return (
     <>
       <HeroSection
@@ -29,7 +32,7 @@ export default function Home() {
         id={services.id}
         title={services.title}
         subtitle={services.subtitle}
-        items={services.items}
+        items={serviceCategories}
       />
 
       <TrustBar className="border-y border-br-default/30" />

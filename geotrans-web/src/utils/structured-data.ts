@@ -1,5 +1,5 @@
 import { siteContent } from "@/config/site-content";
-import type { ServiceItem } from "@/config/site-content";
+import type { Service } from "@/config/services/categories";
 
 const stripSpaces = (s: string) => s.replace(/\s+/g, "");
 
@@ -38,7 +38,7 @@ export function getLocalBusinessSchema(siteUrl: string) {
   };
 }
 
-export function getServiceSchema(siteUrl: string, service: ServiceItem) {
+export function getServiceSchema(siteUrl: string, service: Service) {
   const { brand, contacts } = siteContent;
 
   return {

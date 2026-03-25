@@ -23,7 +23,7 @@ export default function TrustBar({ className }: { className?: string }) {
   return (
     <section
       className={clsx(
-        "bg-bg-section bg-linear-to-r from-accent/5 to-green-800/5 py-16",
+        "bg-bg-section bg-linear-to-r from-accent/5 to-bg-brand-soft py-16",
         className
       )}
     >

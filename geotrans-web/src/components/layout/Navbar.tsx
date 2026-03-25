@@ -180,15 +180,15 @@ export const Navbar = () => {
   return (
     <>
       {/* Top Bar */}
-      <div className="hidden border-b border-white/5 bg-[#0f172a] py-2 text-xs text-white/70 md:block">
+      <div className="hidden border-b border-white/5 bg-bg-top-nav content-center h-(--top-bar-h) text-xs text-tx-inverse/70 md:block">
         <div className="container-page flex items-center justify-between px-4">
           <span className="font-medium tracking-wide">Пон - Пет: 08:30 - 17:30</span>
           <a
             href={`tel:${siteContent.contacts.phone}`}
             className="flex items-center gap-2 text-accent transition-all hover:brightness-110"
           >
-            <FaPhone className="text-[10px]" />
-            <span className="font-semibold tracking-tighter">
+            <FaPhone />
+            <span className="font-semibold tracking-wider">
               {siteContent.contacts.phone}
             </span>
           </a>

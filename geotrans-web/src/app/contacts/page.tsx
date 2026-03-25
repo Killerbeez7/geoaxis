@@ -1,6 +1,7 @@
 import { FaHome, FaPhone, FaEnvelope } from "react-icons/fa";
 import { siteContent } from "@/config/site-content";
 import { CtaButton } from "@/components/parts/CtaButton";
+import Image from "next/image";
 
 type Item = {
   icon: React.ReactNode;
@@ -129,17 +130,19 @@ export default function Contacts() {
   ));
 
   return (
-    <section className="relative isolate min-h-screen pt-18">
+    <section className="relative isolate min-h-[calc(100dvh-var(--nav-h))] pt-18">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 -z-20 bg-cover bg-center"
-        style={{
-          backgroundImage: "url(/images/sections/contacts-bg.webp)",
-        }}
-      />
-
-      {/* Green Brand Overlay */}
-      <div className="absolute inset-0 -z-10 bg-[rgba(63,76,69,0.88)]" />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/projects/project-5.jpg"
+          alt="Геодезически тахеометър / Robotic total station for precise surveying"
+          fill
+          className="w-full h-full object-cover object-center scale-110 brightness-[0.45] contrast-[1.25] saturate-[0.85]"
+          fetchPriority="high"
+        />
+        {/* Green Brand Overlay */}
+        <div className="absolute inset-0 z-1 bg-[rgba(63,76,69,0.18)]" />
+      </div>
 
       <div className="mx-auto max-w-7xl px-6 sm:px-8 relative">
         {/* Header */}

@@ -217,8 +217,9 @@ export const Navbar = () => {
       {/* Top Bar */}
       <div
         className={clsx(
-          "fixed inset-x-0 top-0 z-60 hidden overflow-hidden border-b border-white/6 bg-(--green-700) text-xs backdrop-blur-xl md:block",
+          "fixed inset-x-0 top-0 z-60 hidden overflow-hidden border-b border-white/6 text-xs backdrop-blur-xl md:block",
           "transition-[height] duration-300 ease-in-out",
+          "bg-bg-top-nav/95",
           isShrunk ? "pointer-events-none h-0 border-b-0" : "h-(--top-bar-h)"
         )}
       >

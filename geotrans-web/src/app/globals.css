@@ -32,7 +32,9 @@
 
   /* Layout */
   --nav-h: 72px;
+  --shrunk-nav-h: 60px;
   --top-bar-h: 32px;
+  --header-h: calc(var(--nav-h) + var(--top-bar-h));
 
   /* Overlays */
   --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);
@@ -107,8 +109,8 @@
   --color-bg-nav: var(--deep-olive);
 
   /* top info bar */
-  /* --color-bg-top-nav: color-mix(in srgb, var(--deep-olive) 78%, var(--gray-0)); */
   --color-bg-top-nav: #0f172a;
+  /* --color-bg-top-nav: var(--green-700); */
 
   /* footer (slightly darker than nav) */
   --color-bg-footer: #122019;
@@ -185,7 +187,7 @@ body {
 
   /* Hero Kicker */
   .typo-kicker {
-    @apply uppercase font-semibold text-accent/80;
+    @apply uppercase font-semibold text-accent/90;
     font-size: var(--fs-meta);
     letter-spacing: var(--tracking-widest-xl);
     line-height: var(--lh-heading);
@@ -323,4 +325,15 @@ img {
 .scroll-hint {
   animation: scrollHintPulse 1.8s ease-in-out infinite;
   will-change: transform, opacity;
+}
+
+.page-offset {
+  padding-top: var(--header-h);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --top-bar-h: 0px;
+    --header-h: var(--nav-h);
+  }
 }

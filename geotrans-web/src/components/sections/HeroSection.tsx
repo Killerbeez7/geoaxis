@@ -7,43 +7,15 @@ import { ScrollHint } from "../parts/ScrollHint";
 import { MdArrowRightAlt } from "react-icons/md";
 
 export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroContent) {
-  const parts = title.split("||").map((s) => s.trim());
-  const line1 = parts[0] || "";
-  const accent = parts[1] || "";
+  const [line1, accent] = title.split("||").map((s) => s.trim());
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-black">
       <div className="relative min-h-[65dvh] md:min-h-[calc(103dvh)] flex items-center pb-20">
         {/* Background Image */}
-        <div className="absolute inset-0 -z-20 overflow-hidden">
-          <Image
-            src={image}
-            alt="Professional Surveying Services"
-            fill
-            priority
-            sizes="100vw"
-            className="
-            object-cover
-            object-[92%_75%]
-            sm:object-[88%_72%]
-            md:object-[82%_68%]
-            lg:object-[80%_62%]
-          "
-          />
-        </div>
+        <HeroBackground src={image} />
 
-        {/* Tone layer */}
-        <div className="absolute inset-0 -z-10 bg-black/20" />
-
-        {/* Gradient + blur layer */}
-        <div
-          className={clsx(
-            "absolute inset-0 -z-10",
-            "bg-linear-to-r from-black/70 via-black/50 to-transparent",
-            "backdrop-blur-[1px] md:backdrop-blur-none"
-          )}
-        />
-
+        {/* Content */}
         <div className="container-page relative w-full pt-(--header-h)">
           <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left md:translate-x-6 lg:translate-x-10">
             {/* Kicker */}
@@ -71,15 +43,19 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
             {/* Title */}
             <h1 className="typo-hero">
               <span className="block text-tx-inverse/92">{line1}</span>
-              <span className="block text-accent font-bold drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-                {accent}
-              </span>
+              {accent && (
+                <span className="block font-bold text-accent drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
+                  {accent}
+                </span>
+              )}
             </h1>
 
-            <p className="typo-hero-sub mt-8 max-w-xl mx-auto md:mx-0 text-tx-inverse/70">
+            {/* Subtitle */}
+            <p className="typo-hero-sub mt-8 max-w-xl mx-auto md:mx-0 text-tx-inverse/87">
               {subtitle}
             </p>
 
+            {/* CTA */}
             {cta && (
               <div className="mt-8 flex flex-wrap items-center gap-4 justify-center md:justify-start">
                 <CtaButton href={cta.primary.href} size="lg">
@@ -103,5 +79,41 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
       <ScrollHint hintText={false} className="pb-8" />
     </header>
+  );
+}
+
+function HeroBackground({ src }: { src: string }) {
+  return (
+    <>
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-20 overflow-hidden">
+        <Image
+          src={src}
+          alt="Professional Surveying Services"
+          fill
+          priority
+          sizes="100vw"
+          className="
+            object-cover
+            object-[92%_75%]
+            sm:object-[88%_72%]
+            md:object-[82%_68%]
+            lg:object-[80%_62%]
+          "
+        />
+      </div>
+
+      {/* Tone layer */}
+      <div className="absolute inset-0 -z-10 bg-black/20" />
+
+      {/* Gradient + blur layer */}
+      <div
+        className={clsx(
+          "absolute inset-0 -z-10",
+          "bg-linear-to-r from-black/70 via-black/50 to-transparent",
+          "backdrop-blur-[1px] md:backdrop-blur-none"
+        )}
+      />
+    </>
   );
 }

@@ -13,7 +13,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-black">
-      <div className="relative min-h-[65dvh] md:min-h-[calc(100dvh-var(--nav-h))] flex items-center pb-20">
+      <div className="relative min-h-[65dvh] md:min-h-[calc(103dvh)] flex items-center pb-20">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20 overflow-hidden">
           <Image
@@ -27,7 +27,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
             object-[92%_75%]
             sm:object-[88%_72%]
             md:object-[82%_68%]
-            lg:object-[80%_70%]
+            lg:object-[80%_62%]
           "
           />
         </div>
@@ -44,7 +44,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
           )}
         />
 
-        <div className="container-page relative w-full">
+        <div className="container-page relative w-full pt-(--header-h)">
           <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left md:translate-x-6 lg:translate-x-10">
             {/* Kicker */}
             {kicker && (
@@ -70,13 +70,15 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
             {/* Title */}
             <h1 className="typo-hero">
-              <span className="block">{line1}</span>
+              <span className="block text-tx-inverse/92">{line1}</span>
               <span className="block text-accent font-bold drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
                 {accent}
               </span>
             </h1>
 
-            <p className="typo-hero-sub mt-8 max-w-xl mx-auto md:mx-0">{subtitle}</p>
+            <p className="typo-hero-sub mt-8 max-w-xl mx-auto md:mx-0 text-tx-inverse/70">
+              {subtitle}
+            </p>
 
             {cta && (
               <div className="mt-8 flex flex-wrap items-center gap-4 justify-center md:justify-start">
@@ -99,7 +101,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
         </div>
       </div>
 
-      <ScrollHint hintText={false} className="pb-10" />
+      <ScrollHint hintText={false} className="pb-8" />
     </header>
   );
 }

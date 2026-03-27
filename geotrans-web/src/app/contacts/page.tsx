@@ -2,6 +2,7 @@ import { FaHome, FaPhone, FaEnvelope } from "react-icons/fa";
 import { siteContent } from "@/config/site-content";
 import { CtaButton } from "@/components/parts/CtaButton";
 import Image from "next/image";
+import { Section } from "@/components/layout/Section";
 
 type Item = {
   icon: React.ReactNode;
@@ -130,25 +131,27 @@ export default function Contacts() {
   ));
 
   return (
-    <section className="relative isolate min-h-[calc(100dvh)] pt-18">
+    <Section className="relative isolate min-h-[calc(103dvh)]" variant="hero">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/projects/project-5.jpg"
           alt="Геодезически тахеометър / Robotic total station for precise surveying"
           fill
-          className="w-full h-full object-cover object-center scale-110 brightness-[0.45] contrast-[1.25] saturate-[0.85]"
+          className="w-full h-full object-cover object-center brightness-[0.45] contrast-[1.25] saturate-[0.85]"
           fetchPriority="high"
         />
         {/* Green Brand Overlay */}
         <div className="absolute inset-0 z-1 bg-[rgba(63,76,69,0.18)]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 relative">
+      <div className="mx-auto max-w-7xl relative">
         {/* Header */}
         <div className="mb-16 text-center">
           <h2 className="typo-h2 text-tx-inverse">{title}</h2>
-          <p className="mt-2 typo-lead text-tx-inverse-secondary">{subtitle}</p>
+          <p className="typo-hero-sub mt-4 mx-auto md:mx-0 text-tx-inverse/87">
+            {subtitle}
+          </p>
         </div>
 
         <div className="grid items-start gap-16 lg:grid-cols-2">
@@ -184,6 +187,6 @@ export default function Contacts() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

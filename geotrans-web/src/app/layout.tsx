@@ -80,7 +80,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Navbar />
 
-        {/* <main className="grow bg-bg-page page-offset">{children}</main> */}
         <main className="grow bg-bg-page">{children}</main>
 
         <Footer />

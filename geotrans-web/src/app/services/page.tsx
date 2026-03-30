@@ -9,11 +9,9 @@ export default function ServicesPage() {
   return (
     <main className="bg-bg-page">
       {/* Hero / intro */}
-      <section
-        className={clsx(
-          "relative overflow-hidden border-b border-br-light",
-          "bg-bg-section"
-        )}
+      <Section
+        tone="section"
+        className={clsx("relative overflow-hidden border-b border-br-light")}
       >
         <div
           className={clsx(
@@ -22,7 +20,7 @@ export default function ServicesPage() {
           )}
         />
 
-        <div className="container-page relative py-12 md:py-16 lg:py-20">
+        <div className="container-page relative pt-12 md:pt-16 lg:pt-20">
           <div className="max-w-4xl">
             <h1 className="mt-3 typo-h2 text-tx-primary">
               Геодезически и кадастрални услуги
@@ -39,8 +37,8 @@ export default function ServicesPage() {
                 href="/contacts"
                 className={clsx(
                   "inline-flex items-center justify-center rounded-xl",
-                  "bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse",
-                  "transition-all duration-300 hover:translate-y-[-1px] hover:opacity-95"
+                  "bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse",
+                  "transition-all duration-300 hover:translate-y-px hover:opacity-95"
                 )}
               >
                 Изпратете запитване
@@ -50,7 +48,7 @@ export default function ServicesPage() {
                 href="#categories"
                 className={clsx(
                   "inline-flex items-center justify-center rounded-xl border border-br-light",
-                  "bg-bg-page/70 px-5 py-3 text-sm font-semibold text-tx-primary",
+                  "bg-bg-page/70 px-6 py-3 text-sm font-semibold text-tx-primary",
                   "transition-colors duration-300 hover:border-br-strong hover:bg-bg-surface"
                 )}
               >
@@ -59,7 +57,7 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Categories grid */}
       <section id="categories" className="py-10 md:py-14 lg:py-16">

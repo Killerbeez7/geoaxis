@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { brand } from "@/config/content/brand";
 
 import { serviceCategories } from "@/config/services/categories";
+import { ServiceSidebarLayout } from "../../ServiceSidebarLayout";
 
 type Props = {
   params: Promise<{
@@ -11,178 +13,204 @@ type Props = {
   }>;
 };
 
-export default async function ServiceDetailPage({ params }: Props) {
+export async function generateStaticParams() {
+  return serviceCategories.flatMap((category) =>
+    category.services.map((service) => ({
+      category: category.slug,
+      service: service.slug,
+    }))
+  );
+}
+
+export async function generateMetadata({ params }: Props) {
   const { category: categorySlug, service: serviceSlug } = await params;
 
   const category = serviceCategories.find((item) => item.slug === categorySlug);
-  if (!category) return notFound();
+  const service = category?.services.find((item) => item.slug === serviceSlug);
+
+  if (!category || !service) {
+    return { title: `Услуга | ${brand.name}` };
+  }
+
+  const description = service.longDescription ?? service.description;
+
+  return {
+    title: `${service.title} | ${category.title} | ${brand.name}`,
+    description,
+    openGraph: {
+      title: `${service.title} | ${category.title} | ${brand.name}`,
+      description,
+      images: [service.heroImage ?? service.thumbnail],
+    },
+  };
+}
+
+export default async function ServicePage({ params }: Props) {
+  const { category: categorySlug, service: serviceSlug } = await params;
+
+  const category = serviceCategories.find((item) => item.slug === categorySlug);
+  if (!category) notFound();
 
   const service = category.services.find((item) => item.slug === serviceSlug);
-
-  if (!service) return notFound();
+  if (!service) notFound();
 
   const heroImage = service.heroImage ?? service.thumbnail;
-  const introText = service.longDescription ?? service.description;
+  const description = service.longDescription ?? service.description;
 
   return (
-    <main className="bg-bg-page pb-16 pt-28">
-      {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-black">
-        <div className="relative min-h-[42dvh] md:min-h-[48dvh]">
+    <ServiceSidebarLayout category={category} activeServiceSlug={service.slug}>
+      <article className="space-y-12 md:space-y-14">
+        {/* HERO IMAGE */}
+        <section className="relative aspect-16/7 min-h-[260px] overflow-hidden rounded-[24px]">
           <Image
             src={heroImage}
             alt={service.title}
             fill
             priority
-            sizes="100vw"
             className="object-cover"
           />
 
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-black/20" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
-          <div className="container-page relative flex min-h-[42dvh] md:min-h-[48dvh] items-end py-10 md:py-14">
-            <div className="max-w-3xl text-white">
-              <nav className="mb-5 text-sm text-white/65">
-                <Link href="/" className="transition hover:text-white">
-                  Начало
-                </Link>
-                <span className="mx-2">/</span>
-                <Link href="/services" className="transition hover:text-white">
-                  Услуги
-                </Link>
-                <span className="mx-2">/</span>
-                <Link
-                  href={`/services/${category.slug}`}
-                  className="transition hover:text-white"
-                >
-                  {category.shortTitle ?? category.title}
-                </Link>
-              </nav>
-
-              {service.meta && (
-                <p className="typo-kicker text-white/80">{service.meta}</p>
-              )}
-
-              <h1 className="mt-3 typo-h2 text-white">{service.title}</h1>
-
-              <p className="mt-4 max-w-2xl text-base leading-7 text-white/82 md:text-lg">
-                {introText}
+          <div className="absolute inset-x-0 bottom-0 p-6 text-white md:p-8">
+            {service.meta && (
+              <p className="text-xs uppercase tracking-[0.2em] text-white/75">
+                {service.meta}
               </p>
-            </div>
+            )}
+
+            <h1 className="typo-h3 font-semibold text-tx-inverse/95">{service.title}</h1>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main content */}
-      <section className="py-10 md:py-14">
-        <div className="container-page grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-          <div className="space-y-6">
-            {service.neededWhen && service.neededWhen.length > 0 && (
-              <section className="rounded-3xl border border-br-light bg-bg-surface p-6 md:p-8">
-                <h2 className="text-2xl font-semibold text-tx-primary">
-                  Кога е подходящо
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {service.neededWhen.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-tx-secondary">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                      <span className="leading-7">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+        {/* MAIN CONTENT */}
+        <section className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_300px]">
+          {/* LEFT CONTENT */}
+          <div>
+            <p className="max-w-3xl text-base leading-8 text-tx-secondary md:text-lg">
+              {description}
+            </p>
 
-            {service.requiredDocs && service.requiredDocs.length > 0 && (
-              <section className="rounded-3xl border border-br-light bg-bg-surface p-6 md:p-8">
-                <h2 className="text-2xl font-semibold text-tx-primary">
-                  Необходими документи
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {service.requiredDocs.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-tx-secondary">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                      <span className="leading-7">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {service.deliverables && service.deliverables.length > 0 && (
-              <section className="rounded-3xl border border-br-light bg-bg-surface p-6 md:p-8">
-                <h2 className="text-2xl font-semibold text-tx-primary">
-                  Какво получавате
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {service.deliverables.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-tx-secondary">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                      <span className="leading-7">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {service.processSteps && service.processSteps.length > 0 && (
-              <section className="rounded-3xl border border-br-light bg-bg-surface p-6 md:p-8">
-                <h2 className="text-2xl font-semibold text-tx-primary">Как протича</h2>
-                <ol className="mt-5 grid gap-4 md:grid-cols-2">
-                  {service.processSteps.map((step, index) => (
-                    <li
-                      key={step}
-                      className="rounded-2xl border border-br-light bg-bg-page p-5"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-semibold text-tx-inverse">
-                          {index + 1}
-                        </span>
-                        <p className="font-medium text-tx-primary">{step}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <aside className="lg:sticky lg:top-28">
-            <div className="rounded-3xl border border-br-light bg-bg-surface p-6 md:p-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
-                {category.shortTitle ?? category.title}
-              </p>
-
-              <h2 className="mt-3 text-2xl font-semibold text-tx-primary">
-                Нуждаете се от насоки?
+            <div className="mt-10 space-y-6">
+              <h2 className="text-2xl font-semibold text-tx-primary">
+                Какво представлява услугата
               </h2>
 
-              <p className="mt-3 leading-7 text-tx-secondary">
-                Опишете накратко случая и ще получите насоки за подходящата услуга,
-                необходимите документи и следващите стъпки.
+              <p className="text-base leading-7 text-tx-secondary">
+                Услугата осигурява точна основа за вземане на решения, проектиране и
+                последващи административни действия. Подходът е съобразен с конкретния
+                имот, терен и инвестиционно намерение.
               </p>
 
-              <div className="mt-6 flex flex-col gap-3">
-                <Link
-                  href="/contacts"
-                  className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse"
-                >
-                  Изпратете запитване
-                </Link>
+              <p className="text-base leading-7 text-tx-secondary">
+                Извършва се прецизно измерване, обработка на данни и подготовка на
+                необходимата документация, така че резултатите да могат да бъдат
+                използвани директно в следващите етапи.
+              </p>
+            </div>
 
-                <Link
-                  href={`/services/${category.slug}`}
-                  className="inline-flex items-center justify-center rounded-xl border border-br-light bg-bg-page px-5 py-3 text-sm font-semibold text-tx-primary transition hover:bg-bg-section"
-                >
-                  Назад към {category.shortTitle ?? category.title}
-                </Link>
+            <div className="mt-10 space-y-6">
+              <h2 className="text-2xl font-semibold text-tx-primary">Защо е важна</h2>
+
+              <p className="text-base leading-7 text-tx-secondary">
+                Точните измервания и правилно подготвената документация намаляват риска от
+                грешки, забавяния и допълнителни разходи в по-късен етап.
+              </p>
+
+              <p className="text-base leading-7 text-tx-secondary">
+                Това позволява на проектанти, инвеститори и институции да работят върху
+                надеждна основа и да вземат информирани решения.
+              </p>
+            </div>
+
+            {service.processSteps?.length && (
+              <div className="mt-12">
+                <h2 className="text-2xl font-semibold text-tx-primary">
+                  Как протича услугата
+                </h2>
+
+                <div className="mt-6 space-y-5">
+                  {service.processSteps.map((step, index) => (
+                    <div key={step} className="flex gap-4">
+                      <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-semibold text-tx-inverse">
+                        {index + 1}
+                      </div>
+
+                      <p className="text-base leading-7 text-tx-secondary">{step}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
+            )}
+          </div>
+
+          {/* RIGHT SIDE */}
+          <aside className="space-y-8">
+            {service.neededWhen?.length && (
+              <div>
+                <h3 className="text-lg font-semibold text-tx-primary">
+                  Кога е необходима
+                </h3>
+
+                <ul className="mt-4 space-y-3">
+                  {service.neededWhen.map((item) => (
+                    <li key={item} className="text-sm leading-6 text-tx-secondary">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {service.requiredDocs?.length && (
+              <div>
+                <h3 className="text-lg font-semibold text-tx-primary">
+                  Необходими документи
+                </h3>
+
+                <ul className="mt-4 space-y-3">
+                  {service.requiredDocs.map((item) => (
+                    <li key={item} className="text-sm leading-6 text-tx-secondary">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {service.deliverables?.length && (
+              <div>
+                <h3 className="text-lg font-semibold text-tx-primary">
+                  Какво получавате
+                </h3>
+
+                <ul className="mt-4 space-y-3">
+                  {service.deliverables.map((item) => (
+                    <li key={item} className="text-sm leading-6 text-tx-secondary">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="border-t border-br-light pt-6">
+              <h3 className="text-lg font-semibold text-tx-primary">Следваща стъпка</h3>
+
+              <p className="mt-3 text-sm leading-6 text-tx-secondary">
+                Свържете се с нас за консултация и насоки според Вашия случай.
+              </p>
+
+              <Link
+                href="/contacts"
+                className="mt-5 inline-flex items-center justify-center bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse transition hover:-translate-y-0.5"
+              >
+                Изпратете запитване
+              </Link>
             </div>
           </aside>
-        </div>
-      </section>
-    </main>
+        </section>
+      </article>
+    </ServiceSidebarLayout>
   );
 }

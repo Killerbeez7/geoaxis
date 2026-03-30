@@ -28,16 +28,20 @@ export default function Home() {
         cta={hero.cta}
       />
 
+      <TrustBar />
+
       <ServiceSection
         id={services.id}
+        kicker={services.kicker}
         title={services.title}
         subtitle={services.subtitle}
         items={serviceCategories}
       />
 
-      <TrustBar className="border-y border-br-default/30" />
+      {/* all above id done */}
 
       <WhyChooseUs />
+
       <Stats />
 
       <WorkflowSection

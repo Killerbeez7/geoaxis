@@ -1,12 +1,19 @@
 export interface ServicesContent {
   id: "services";
+  kicker: string;
   title: string;
   subtitle: string;
 }
 
 export const services: ServicesContent = {
   id: "services",
-  title: "Услуги",
+  kicker: "Какво предлагаме",
+  title: "Точност във всяка услуга",
   subtitle:
-    "Геодезически и кадастрални дейности, необходими за проектиране, строителство и регулация на имоти.",
+    "Предлагаме пълен набор от геодезически решения за проектиране, строителство и регулация.",
+  // id: "services",
+  // kicker: "Какво предлагаме",
+  // title: "Точност във всяка услуга",
+  // subtitle:
+  //   "Предлагаме пълен набор от геодезически решения за проектиране, строителство и регулация.",
 } as const;

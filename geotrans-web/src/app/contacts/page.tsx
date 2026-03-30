@@ -3,6 +3,7 @@ import { siteContent } from "@/config/site-content";
 import { CtaButton } from "@/components/parts/CtaButton";
 import Image from "next/image";
 import { Section } from "@/components/layout/Section";
+import clsx from "clsx";
 
 type Item = {
   icon: React.ReactNode;
@@ -135,11 +136,16 @@ export default function Contacts() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/projects/project-5.jpg"
+          // src="/images/projects/project-5.jpg"
+          src="/images/plamen.png"
           alt="Геодезически тахеометър / Robotic total station for precise surveying"
           fill
-          className="w-full h-full object-cover object-center brightness-[0.45] contrast-[1.25] saturate-[0.85]"
           fetchPriority="high"
+          className={clsx(
+            "w-full h-full object-cover",
+            "object-[15%_50%]", // 15% from left, 50% (centered) vertically
+            "brightness-[0.35] contrast-[1.1]" // Darken slightly more for text legibility
+          )}
         />
         {/* Green Brand Overlay */}
         <div className="absolute inset-0 z-1 bg-[rgba(63,76,69,0.18)]" />

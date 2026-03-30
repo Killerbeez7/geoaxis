@@ -17,10 +17,10 @@ export default function About() {
   return (
     <main id={id} className="relative min-h-screen">
       {/* HERO */}
-      <Section className="relative isolate h-150 overflow-hidden" variant="hero">
+      <Section className="relative isolate h-130 overflow-hidden" variant="hero">
         <div className="absolute inset-0 -z-20">
           <Image
-            src="/images/plamen.png"
+            src={hero.imageBg}
             alt=""
             fill
             priority
@@ -29,19 +29,6 @@ export default function About() {
           />
         </div>
 
-        <div className="absolute inset-0 -z-10 bg-linear-to-b from-black/50 via-black/40 to-black/60" />
-        <div className="absolute top-1/2 left-1/2 -z-10 h-125 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/3 blur-3xl" />
-
-        <div className="h-full container-page flex flex-col items-center justify-center text-center">
-          <h1 className="typo-hero text-tx-inverse">{title}</h1>
-          <p className="typo-lead mt-4 text-tx-inverse/90 text-balance">{hero.intro}</p>
-        </div>
-      </Section>
-      {/* <Section className="relative isolate h-150 overflow-hidden" variant="hero">
-        <div
-          className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${hero.imageBg}')` }}
-        />
         <div className="absolute inset-0 -z-10 bg-linear-to-b from-black/70 via-black/60 to-black/80" />
         <div className="absolute top-1/2 left-1/2 -z-10 h-125 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/3 blur-3xl" />
 
@@ -49,7 +36,7 @@ export default function About() {
           <h1 className="typo-hero text-tx-inverse">{title}</h1>
           <p className="typo-lead mt-4 text-tx-inverse/90 text-balance">{hero.intro}</p>
         </div>
-      </Section> */}
+      </Section>
 
       {/* STORY */}
       <Section className="py-20 md:py-28 bg-bg-page">

@@ -143,8 +143,12 @@ export default function Contacts() {
           fetchPriority="high"
           className={clsx(
             "w-full h-full object-cover",
-            "object-[15%_50%]", // 15% from left, 50% (centered) vertically
-            "brightness-[0.35] contrast-[1.1]" // Darken slightly more for text legibility
+            "object-cover",
+            "brightness-[0.35] contrast-[1.1]", // Darken slightly more for text legibility
+            "object-[40%_65%]",
+            "sm:object-[35%_72%]",
+            "md:object-[40%_68%]",
+            "lg:object-[80%_62%]"
           )}
         />
         {/* Green Brand Overlay */}

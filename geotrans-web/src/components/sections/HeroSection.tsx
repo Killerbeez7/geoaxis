@@ -11,7 +11,7 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-bg-inverse">
-      <div className="relative min-h-[65dvh] md:min-h-[calc(103dvh)] flex items-center pb-20">
+      <div className="relative min-h-[70dvh] md:min-h-[calc(103dvh)] flex items-center pb-0 md:pb-20">
         {/* Background Image */}
         <HeroBackground src={image} />
 

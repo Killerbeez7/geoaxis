@@ -1,10 +1,34 @@
-import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { brand } from "@/config/content/brand";
-
+import Image from "next/image";
+import { notFound } from "next/navigation";
+// Components
 import { serviceCategories } from "@/config/services/categories";
 import { ServiceSidebarLayout } from "../../ServiceSidebarLayout";
+// SEO
+import { createSeo } from "@/lib/seo";
+import { brand } from "@/config/content/brand";
+
+export async function generateMetadata({ params }: Props) {
+  const { category: categorySlug, service: serviceSlug } = await params;
+
+  const category = serviceCategories.find((item) => item.slug === categorySlug);
+  const service = category?.services.find((item) => item.slug === serviceSlug);
+
+  if (!category || !service) {
+    return createSeo({
+      title: "Услуга",
+      description: `Подробности за услугата на ${brand.name}.`,
+      path: `/services/${categorySlug}/${serviceSlug}`,
+    });
+  }
+
+  return createSeo({
+    title: service.title,
+    description: service.longDescription ?? service.description,
+    path: `/services/${categorySlug}/${serviceSlug}`,
+    image: service.heroImage ?? service.thumbnail,
+  });
+}
 
 type Props = {
   params: Promise<{
@@ -20,29 +44,6 @@ export async function generateStaticParams() {
       service: service.slug,
     }))
   );
-}
-
-export async function generateMetadata({ params }: Props) {
-  const { category: categorySlug, service: serviceSlug } = await params;
-
-  const category = serviceCategories.find((item) => item.slug === categorySlug);
-  const service = category?.services.find((item) => item.slug === serviceSlug);
-
-  if (!category || !service) {
-    return { title: `Услуга | ${brand.name}` };
-  }
-
-  const description = service.longDescription ?? service.description;
-
-  return {
-    title: `${service.title} | ${category.title} | ${brand.name}`,
-    description,
-    openGraph: {
-      title: `${service.title} | ${category.title} | ${brand.name}`,
-      description,
-      images: [service.heroImage ?? service.thumbnail],
-    },
-  };
 }
 
 export default async function ServicePage({ params }: Props) {

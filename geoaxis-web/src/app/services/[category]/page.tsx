@@ -1,10 +1,39 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-
+import { notFound } from "next/navigation";
+// data
 import { serviceCategories } from "@/config/services/categories";
-import { ServiceSidebarLayout } from "../ServiceSidebarLayout";
+// Components
 import { Section } from "@/components/layout/Section";
+import { ServiceSidebarLayout } from "../ServiceSidebarLayout";
+// SEO
+import { brand } from "@/config/content/brand";
+import { createSeo } from "@/lib/seo";
+import { getCategoryBySlug } from "@/lib/selectors";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const categoryData = getCategoryBySlug(category);
+
+  if (!categoryData) {
+    return createSeo({
+      title: "Услуги",
+      description: `Разгледайте геодезическите услуги на ${brand.name}.`,
+      path: "/services",
+    });
+  }
+
+  return createSeo({
+    title: categoryData.title,
+    description: categoryData.longDescription ?? categoryData.description,
+    path: `/services/${categoryData.slug}`,
+    image: categoryData.heroImage ?? categoryData.thumbnail,
+  });
+}
 
 type Props = {
   params: Promise<{

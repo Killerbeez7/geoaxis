@@ -1,18 +1,20 @@
 import "./globals.css";
-import type { Metadata } from "next";
-// vercel
+// Vercel
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+// Fonts
 import { Montserrat, Sofia_Sans } from "next/font/google";
+// Components
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { getLocalBusinessSchema } from "@/utils/structured-data";
+// Data
 import { SITE_URL } from "@/config/site";
-import { siteContent } from "@/config/site-content";
+import { brand } from "@/config/content/brand";
+// SEO
+import { createSeo } from "@/lib/seo";
+import { getLocalBusinessSchema } from "@/lib/structured-data";
+// Utils
 import SquintTest from "@/utils/squintTest";
-
-const { name, tagline } = siteContent.brand;
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
@@ -25,48 +27,11 @@ const sofia = Sofia_Sans({
   variable: "--font-sofia",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-
-  title: {
-    default: `${name} | ${tagline}`,
-    template: `%s | ${name}`,
-  },
-
-  description:
-    "Геодезически услуги в София и Софийска област - геодезическо заснемане, трасиране, кадастър и вертикална планировка с гарантирана точност.",
-
-  keywords: [
-    "геодезист София",
-    "геодезически услуги София",
-    "геодезическо заснемане София",
-    "трасиране София",
-    "кадастър София",
-    "вертикална планировка София",
-    "GeoTrans",
-    "София",
-    "Софийска област",
-  ],
-
-  openGraph: {
-    title: `${name} | ${tagline}`,
-    description:
-      "Професионални геодезически услуги в София и Софийска област - геодезическо заснемане, трасиране, кадастър и вертикална планировка с гарантирана точност.",
-    url: SITE_URL,
-    siteName: name,
-    locale: "bg_BG",
-    type: "website",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-  },
-
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+export const metadata = createSeo({
+  title: brand.tagline,
+  description: brand.description,
+  path: "/",
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

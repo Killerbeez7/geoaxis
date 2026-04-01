@@ -1,6 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
+// vercel
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import { Montserrat, Sofia_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -85,8 +88,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
 
         {/* Utility / Helper */}
-        <Analytics />
         <SquintTest isEnabled={false} />
+        {/* Vercel */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

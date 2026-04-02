@@ -40,8 +40,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Геодезическо заснемане",
     shortTitle: "Заснемане",
     meta: "Терен • Сгради • Инфраструктура",
-    thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
-    heroImage: "/images/services/geodezichesko-zasnemane-og.jpg",
+    thumbnail: "/images/category/zasnemane-thumb.jpg",
+    heroImage: "/images/category/zasnemane-og.jpg",
     description: "Прецизно заснемане на терени и обекти за проектиране и строителство.",
     longDescription:
       "Геодезическото заснемане осигурява точна основа за проектиране, строителство и техническа документация. Подходящо е при ново строителство, реконструкция и подготовка на инвестиционни намерения.",
@@ -193,7 +193,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-imotni-granici",
         title: "Трасиране на имотни граници",
         meta: "Граници • Точки",
-        thumbnail: "/images/services/trasirane-thumb.jpg",
+        thumbnail: "/images/services/trasirane-granici-thumb.png",
         heroImage: "/images/services/trasirane-og.png",
         description: "Точно обозначаване на границите на имота на място.",
         longDescription:
@@ -463,8 +463,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Проектиране",
     shortTitle: "Проектиране",
     meta: "Коти • Данни • Координация",
-    thumbnail: "/images/services/design.avif",
-    heroImage: "/images/services/design-og.avif",
+    thumbnail: "/images/category/design.avif",
+    heroImage: "/images/category/design-og.avif",
     description:
       "Проектантски услуги и изходни данни за реализация на инвестиционни намерения.",
     longDescription:
@@ -571,8 +571,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Градоустройство",
     shortTitle: "Градоустройство",
     meta: "ПУП • Регулация • УПИ",
-    thumbnail: "/images/category/urban.avif",
-    heroImage: "/images/category/urban.avif",
+    thumbnail: "/images/category/urban4.png",
+    heroImage: "/images/category/urban.png",
     description: "Устройствени процедури, ПУП и регулация на имоти.",
     longDescription:
       "Градоустройствените услуги обхващат изработване и изменение на устройствени планове, регулация и развитие на имоти. Необходими са при промени в предназначението и параметрите на застрояване.",
@@ -585,7 +585,7 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Изработване на ПУП",
         meta: "ПУП • Устройство",
         thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.avif",
+        heroImage: "/images/category/urban.png",
         description: "Изработване на подробен устройствен план за имота.",
         longDescription:
           "Подробният устройствен план (ПУП) определя предназначението, параметрите на застрояване и регулацията на имота. Изготвя се при ново строителство или промяна на предназначението.",
@@ -612,7 +612,7 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Изменение на ПУП",
         meta: "Промяна • План",
         thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.avif",
+        heroImage: "/images/category/urban.png",
         description: "Промяна на действащ устройствен план.",
         longDescription:
           "Изменението на ПУП се извършва при необходимост от промяна в параметрите на застрояване, граници или предназначение на имота.",
@@ -635,7 +635,7 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Работен устройствен план",
         meta: "РУП • Параметри",
         thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.avif",
+        heroImage: "/images/category/urban.png",
         description: "Уточняване на параметрите на застрояване.",
         longDescription:
           "Работният устройствен план (РУП) уточнява параметрите на застрояване в рамките на действащ план. Използва се при сложни случаи и необходимост от детайлизиране.",
@@ -653,7 +653,7 @@ export const serviceCategories: ServiceCategory[] = [
         title: "План за регулация",
         meta: "Регулация • УПИ",
         thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.avif",
+        heroImage: "/images/category/urban.png",
         description: "Определяне на регулационни линии и УПИ.",
         longDescription:
           "Планът за регулация определя границите на урегулираните поземлени имоти (УПИ), уличните линии и устройствената структура.",
@@ -671,7 +671,7 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Разделяне и обединяване на УПИ",
         meta: "УПИ • Промени",
         thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.avif",
+        heroImage: "/images/category/urban.png",
         description: "Разделяне или обединяване на урегулирани имоти.",
         longDescription:
           "Процедури за разделяне или обединяване на УПИ според нуждите на собственика и устройствените изисквания.",

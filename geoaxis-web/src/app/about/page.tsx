@@ -1,4 +1,5 @@
 import Image from "next/image";
+import clsx from "clsx";
 import { FaCheckCircle, FaMapMarkedAlt, FaUsers } from "react-icons/fa";
 // Components
 import { Section } from "@/components/layout/Section";
@@ -31,12 +32,20 @@ export default function About() {
       <Section className="relative isolate h-150 overflow-hidden" variant="hero">
         <div className="absolute inset-0 -z-20">
           <Image
-            src="/images/toni.jpg"
+            src="/images/t2.jpeg"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            // className="object-cover object-center scale-80 "
+            className={clsx(
+              "w-full h-full object-cover",
+              "object-cover",
+              "object-[40%_65%]",
+              "sm:object-[35%_72%]",
+              "md:object-[40%_68%]",
+              "lg:object-[80%_46%]"
+            )}
           />
         </div>
 

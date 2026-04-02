@@ -1,12 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-// data
+
 import { serviceCategories } from "@/config/services/categories";
-// Components
-import { Section } from "@/components/layout/Section";
-import { ServiceSidebarLayout } from "../ServiceSidebarLayout";
-// SEO
+import { ServicePageLayout } from "../ServicePageLayout";
+
 import { brand } from "@/config/content/brand";
 import { createSeo } from "@/lib/seo";
 import { getCategoryBySlug } from "@/lib/selectors";
@@ -51,143 +48,83 @@ export default async function CategoryPage({ params }: Props) {
   const { category: categorySlug } = await params;
 
   const category = serviceCategories.find((item) => item.slug === categorySlug);
-
   if (!category) notFound();
 
   return (
-    <ServiceSidebarLayout category={category}>
-      <Section className="space-y-14 md:space-y-16">
-        {/* INTRO */}
-        <section className="max-w-4xl">
-          <p className="typo-kicker text-accent">Категория</p>
+    <ServicePageLayout category={category}>
+      <article className="mx-auto max-w-5xl">
+        {/* SERVICES LIST */}
+        <section className="mt-12 space-y-16 md:space-y-20">
+          {category.services.map((service, index) => {
+            const imageLeft = index % 2 === 0;
+            const imageSrc = service.thumbnail;
 
-          <h2 className="mt-3 typo-h2 text-tx-primary">{category.title}</h2>
-
-          <p className="mt-5 max-w-3xl typo-body text-tx-secondary">
-            {category.longDescription ?? category.description}
-          </p>
-
-          <div className="mt-8 grid gap-6 border-t border-br-light pt-7 md:grid-cols-3 md:gap-8">
-            <div className="space-y-2">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-tx-muted">
-                Подуслуги
-              </p>
-              <p className="text-3xl font-semibold leading-none text-tx-muted">
-                {category.services.length}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-tx-muted">
-                Подход
-              </p>
-              <p className="text-base leading-7 text-tx-muted">
-                Точност, яснота и практични насоки
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-tx-muted">
-                Подходящо за
-              </p>
-              <p className="text-base leading-7 text-tx-muted">
-                Имотни, строителни и административни казуси
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* SERVICES INTRO */}
-        <section className="max-w-3xl">
-          <p className="typo-kicker text-accent">Подуслуги</p>
-
-          <h3 className="mt-3 typo-h3 text-tx-primary">Изберете конкретна услуга</h3>
-
-          <p className="mt-4 typo-body text-tx-secondary">
-            Всяка услуга има собствена страница с подробно описание, изображения, процес
-            на работа, необходими документи и полезни насоки според конкретния случай.
-          </p>
-        </section>
-
-        {/* SERVICES GRID */}
-        <section>
-          <div className="grid gap-6 md:grid-cols-2">
-            {category.services.map((service) => (
-              <Link
+            return (
+              <section
                 key={service.slug}
-                href={`/services/${category.slug}/${service.slug}`}
-                className="group overflow-hidden rounded-[24px] border border-br-light bg-bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-br-strong hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                className="grid items-start gap-8 md:grid-cols-2 md:gap-10"
               >
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <Image
-                    src={service.thumbnail}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
+                <div className={imageLeft ? "" : "md:order-2"}>
+                  <div className="relative overflow-hidden rounded-[20px] bg-bg-surface">
+                    <div className="relative aspect-4/3 min-h-[260px]">
+                      <Image
+                        src={imageSrc}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                <div className={imageLeft ? "" : "md:order-1"}>
+                  <h3 className="mt-3 text-2xl font-semibold leading-tight text-tx-primary md:text-3xl">
+                    {service.title}
+                  </h3>
 
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                    {service.meta ? (
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-white/75">
-                        {service.meta}
-                      </p>
+                  <div className="mt-5 space-y-4 text-base leading-8 text-tx-secondary">
+                    <p>{service.longDescription ?? service.description}</p>
+
+                    {service.neededWhen?.length ? (
+                      <ul className="space-y-2 pt-1">
+                        {service.neededWhen.slice(0, 5).map((item) => (
+                          <li key={item} className="flex gap-3">
+                            <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     ) : null}
-
-                    <h3 className="mt-2 text-xl font-semibold leading-tight text-white md:text-2xl">
-                      {service.title}
-                    </h3>
                   </div>
                 </div>
-
-                <div className="p-5 md:p-6">
-                  <p className="line-clamp-3 text-sm leading-6 text-tx-secondary md:text-[15px]">
-                    {service.description}
-                  </p>
-
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-transform duration-300 group-hover:translate-x-0.5">
-                    Виж подробности
-                    <span aria-hidden="true">→</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+              </section>
+            );
+          })}
         </section>
 
         {/* CTA */}
-        <section className="border-t border-br-light pt-10 md:pt-12">
+        <section className="mt-16 border-t border-br-light pt-10 md:pt-12">
           <div className="max-w-2xl">
             <p className="typo-kicker text-accent">Запитване</p>
 
-            <h3 className="mt-3 typo-h3 text-tx-primary">
-              Не сте сигурни коя услуга е подходяща?
-            </h3>
+            <h3 className="mt-3 typo-h3 text-tx-primary">Нуждаете се от консултация?</h3>
 
             <p className="mt-4 typo-body text-tx-secondary">
-              Опишете накратко Вашия случай и ще получите насоки за подходящата услуга,
-              нужните документи и логичните следващи стъпки.
+              Свържете се с нас и ще получите насоки според Вашия случай, нуждите на имота
+              и следващите стъпки.
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-4">
-              <Link
+            <div className="mt-7">
+              <a
                 href="/contacts"
                 className="inline-flex items-center justify-center rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
               >
                 Изпратете запитване
-              </Link>
-
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center rounded-xl border border-br-light bg-transparent px-6 py-3 text-sm font-semibold text-tx-primary transition-colors duration-300 hover:border-br-strong hover:bg-bg-surface"
-              >
-                Всички услуги
-              </Link>
+              </a>
             </div>
           </div>
         </section>
-      </Section>
-    </ServiceSidebarLayout>
+      </article>
+    </ServicePageLayout>
   );
 }

@@ -147,8 +147,8 @@ export default function Contacts() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          // src="/images/projects/project-5.jpg"
-          src="/images/plamen.png"
+          src="/images/t2.jpeg"
+          // src="/images/plamen.png"
           alt="Геодезически тахеометър / Robotic total station for precise surveying"
           fill
           fetchPriority="high"
@@ -159,7 +159,7 @@ export default function Contacts() {
             "object-[40%_65%]",
             "sm:object-[35%_72%]",
             "md:object-[40%_68%]",
-            "lg:object-[80%_62%]"
+            "lg:object-[80%_55%]"
           )}
         />
         {/* Green Brand Overlay */}

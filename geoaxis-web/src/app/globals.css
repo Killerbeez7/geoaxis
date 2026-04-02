@@ -247,7 +247,7 @@ body {
   }
 
   .nav-link {
-    @apply flex items-center font-medium;
+    @apply flex items-center font-medium text-[14px] lg:text-base;
   }
 
   /* ==================== CONTAINERS ==================== */

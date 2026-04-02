@@ -30,7 +30,6 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   const NAV_H = { DEFAULT: 72, SHRUNK: 60, DEFAULT_PX: "72px", SHRUNK_PX: "60px" };
-
   const SHRINK_SCROLL_Y = 16;
   const NAV_TRANSITION_MS = 300;
 
@@ -117,6 +116,21 @@ export const Navbar = () => {
     setDesktopDropdown(null);
     setDesktopDropdownPos(null);
   };
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (!desktopDropdown) return;
@@ -303,7 +317,7 @@ export const Navbar = () => {
         ref={headerRef}
         id="navbar"
         className={clsx(
-          "fixed inset-x-0 z-55",
+          "fixed inset-x-0 z-100",
           glassEffect,
           "border-b",
           "no-drag transition-[top,height] duration-300 ease-in-out",
@@ -355,53 +369,51 @@ export const Navbar = () => {
               }}
             />
           </div>
-
-          {/* Mobile menu */}
-
-          {mobileOpen && (
-            <div className="md:hidden">
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={closeAll}
-                className="fixed inset-x-0 bottom-0 z-40 bg-black/40"
-                style={{ top: mobilePanelTop }}
-              />
-
-              <div
-                className={clsx(
-                  "fixed inset-x-0 z-70 transition-all duration-300 ease-in-out",
-                  glassEffect,
-                  mobileOpen
-                    ? "translate-y-0 opacity-100"
-                    : "pointer-events-none -translate-y-2 opacity-0"
-                )}
-                style={{ top: mobilePanelTop }}
-              >
-                <div
-                  className="overflow-y-auto border-b border-white/10"
-                  style={{ height: `calc(100dvh - ${mobilePanelTop})` }}
-                >
-                  <div className="container-page flex flex-col pb-8 pt-2">
-                    {NAV_LINKS.map(renderMobileItem)}
-
-                    <Link
-                      href="/contacts"
-                      onClick={closeAll}
-                      className="mt-3 rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-tx-inverse"
-                    >
-                      Запитване
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </nav>
       </header>
 
-      {/* Desktop dropdown overlay - separate from navbar DOM */}
+      {/* Mobile Panel*/}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-70 md:hidden">
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={closeAll}
+            className="fixed inset-x-0 bottom-0 z-40 bg-black/40"
+            style={{ top: mobilePanelTop }}
+          />
 
+          <div
+            className={clsx(
+              "fixed inset-x-0 z-70 transition-all duration-300 ease-in-out",
+              glassEffect,
+              mobileOpen
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-2 opacity-0"
+            )}
+            style={{ top: mobilePanelTop }}
+          >
+            <div
+              className="overflow-y-auto border-b border-white/10"
+              style={{ height: `calc(100dvh - ${mobilePanelTop})` }}
+            >
+              <div className="container-page flex flex-col pb-8 pt-2">
+                {NAV_LINKS.map(renderMobileItem)}
+
+                <Link
+                  href="/contacts"
+                  onClick={closeAll}
+                  className="mt-3 rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-tx-inverse"
+                >
+                  Запитване
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop dropdown*/}
       <div className="pointer-events-none fixed inset-0 z-70 hidden md:block">
         {desktopDropdown && desktopDropdownPos && !isTransitioning && (
           <div

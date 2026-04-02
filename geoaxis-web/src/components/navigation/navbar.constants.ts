@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 export const glassEffect =
-  "bg-bg-nav/95 md:bg-bg-nav/80 backdrop-blur-xl border-white/10";
+  "bg-bg-nav/85 md:bg-bg-nav/80 backdrop-blur-xl border-white/10";
 
 export const navLinkCls = (active: boolean) =>
   clsx(
@@ -34,7 +34,3 @@ export const mobileRowCls = (active: boolean) =>
     "flex w-full min-h-[56px] items-center justify-between px-6 text-base leading-none transition-all",
     active ? "font-medium text-tx-inverse" : "text-tx-inverse/75 hover:text-tx-inverse"
   );
-
-export const NAV_H = { DEFAULT: 72, SHRUNK: 60, DEFAULT_PX: "72px", SHRUNK_PX: "60px" };
-export const SHRINK_SCROLL_Y = 16;
-export const NAV_TRANSITION_MS = 300;

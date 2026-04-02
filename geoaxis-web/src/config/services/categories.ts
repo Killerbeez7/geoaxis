@@ -322,8 +322,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Кадастър",
     shortTitle: "Кадастър",
     meta: "Скици • Промени • Процедури",
-    thumbnail: "/images/services/kadastyr-thumb.jpg",
-    heroImage: "/images/services/kadastyr-og.png",
+    thumbnail: "/images/category/cadaster.png",
+    heroImage: "/images/category/cadaster.png",
     description: "Кадастрални услуги, промени и съдействие по административни процедури.",
     longDescription:
       "Кадастралните услуги включват подготовка на документи, отразяване на обекти и съдействие при административни процедури. Подходящи са при сделки, промени в имоти и необходимост от актуални данни.",
@@ -584,8 +584,8 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "izrabotvane-na-pup",
         title: "Изработване на ПУП",
         meta: "ПУП • Устройство",
-        thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.png",
+        thumbnail: "/images/services/pup.png",
+        heroImage: "/images/category/pup.png",
         description: "Изработване на подробен устройствен план за имота.",
         longDescription:
           "Подробният устройствен план (ПУП) определя предназначението, параметрите на застрояване и регулацията на имота. Изготвя се при ново строителство или промяна на предназначението.",
@@ -693,8 +693,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Консултации и документи",
     shortTitle: "Консултации",
     meta: "Не сте сигурни? • Насоки • Документи",
-    thumbnail: "/images/category/konsult.jpg",
-    heroImage: "/images/category/konsult.avif",
+    thumbnail: "/images/category/consulting.png",
+    heroImage: "/images/category/consulting.png",
     description: "Насоки, документи и избор на най-подходящата услуга.",
     longDescription:
       "Консултациите помагат да се ориентирате в процеса, да изберете правилната услуга и да подготвите необходимите документи. Подходящи са, когато не сте сигурни откъде да започнете.",

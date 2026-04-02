@@ -1,22 +1,26 @@
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { brand } from "@/config/content/brand";
+import { useScrollShrink } from "@/hooks/use-scroll-shrink";
 
-import clsx from "clsx";
+// Content
+import { brand } from "@/config/content/brand";
+import { siteContent } from "@/config/site-content";
+import { NAV_LINKS, type NavLink } from "@/config/nav";
+
+// Components
+import { NavSrvList } from "../navigation/NavSrvList";
+import { NavHelpList } from "../navigation/NavHelpList";
+import { MobileMenuToggle } from "../parts/mobileMenuToggle";
+
+// Icons
 import { IoIosArrowDown } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 
-import { NavSrvList } from "./NavSrvList";
-import { NAV_LINKS, NavLink } from "@/config/nav";
-import { siteContent } from "@/config/site-content";
-import { MobileMenuToggle } from "../parts/mobileMenuToggle";
-import { useScrollShrink } from "@/hooks/use-scroll-shrink";
-
 /* ==================== STYLES ==================== */
-
 const navbarGlass = "bg-bg-nav/95 md:bg-bg-nav/85 backdrop-blur-xl border-white/10";
 const dropdownGlass = "bg-bg-nav/95 border border-white/10 shadow-xl";
 
@@ -24,6 +28,7 @@ const navLinkCls = (active: boolean) =>
   clsx(
     "nav-link text-tx-inverse",
     "relative group gap-1 px-2 py-1",
+    // "relative group gap-1 px-1.5 py-1",
     "after:absolute after:left-1/2 after:bottom-0",
     "after:h-[2px] after:w-full after:-translate-x-1/2",
     "after:origin-center after:scale-x-0 after:bg-accent",
@@ -36,7 +41,6 @@ const dropdownSrvCls = (active: boolean) =>
   clsx(
     "nav-link gap-2 px-4 py-2 whitespace-nowrap transition",
     active ? "text-accent hover:bg-bg-muted/10" : "hover:bg-bg-muted/10"
-    // active ? "bg-bg-muted/20" : "hover:bg-bg-muted/10"
   );
 
 const mobileRowCls = (active: boolean) =>
@@ -46,10 +50,10 @@ const mobileRowCls = (active: boolean) =>
   );
 
 /* ==================== COMPONENT ==================== */
-
 export const Navbar = () => {
   const pathname = usePathname();
 
+  // Navbar const
   const DEFAULT_NAV_H_PX = "72px";
   const SHRUNK_NAV_H_PX = "60px";
   const SHRINK_SCROLL_Y = 16;
@@ -73,8 +77,47 @@ export const Navbar = () => {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  /* ==================== DESKTOP ==================== */
+  /* ==================== Dropdown Component ==================== */
+  const renderDropdownContent = (item: NavLink, mode: "desktop" | "mobile") => {
+    if (item.dropdownType === "helpful") {
+      return (
+        <NavHelpList
+          onClick={closeAll}
+          itemClass={(active) =>
+            mode === "desktop"
+              ? clsx(
+                  "nav-link group flex gap-2 px-4 py-3 transition",
+                  active ? "text-accent hover:bg-bg-muted/10" : "hover:bg-bg-muted/10"
+                )
+              : clsx(
+                  "mx-3 flex rounded-xl px-9 py-2 text-[15px] transition-all",
+                  active
+                    ? "font-medium text-accent"
+                    : "text-tx-inverse/75 hover:bg-white/5 hover:text-tx-inverse"
+                )
+          }
+        />
+      );
+    }
 
+    return (
+      <NavSrvList
+        onClick={closeAll}
+        itemClass={(active) =>
+          mode === "desktop"
+            ? dropdownSrvCls(active)
+            : clsx(
+                "mx-3 flex rounded-xl px-9 py-2 text-[15px] transition-all",
+                active
+                  ? "font-medium text-accent"
+                  : "text-tx-inverse/75 hover:bg-white/5 hover:text-tx-inverse"
+              )
+        }
+      />
+    );
+  };
+
+  /* ==================== Render Desktop ==================== */
   const renderDesktopItem = (item: NavLink) => {
     const isActive = isActivePath(item.href);
     const isOpen = desktopDropdown === item.label;
@@ -119,17 +162,14 @@ export const Navbar = () => {
               "will-change-[transform,margin-top]"
             )}
           >
-            <ul className="py-2">
-              <NavSrvList itemClass={dropdownSrvCls} onClick={closeAll} />
-            </ul>
+            <ul className="py-2">{renderDropdownContent(item, "desktop")}</ul>
           </div>
         )}
       </li>
     );
   };
 
-  /* ==================== MOBILE ==================== */
-
+  /* ==================== Render Mobile ==================== */
   const renderMobileItem = (item: NavLink) => {
     const isActive = isActivePath(item.href);
     const isOpen = mobileDropdown === item.label;
@@ -182,28 +222,7 @@ export const Navbar = () => {
           )}
         >
           <ul className="overflow-hidden pt-1">
-            <NavSrvList
-              onClick={closeAll}
-              // itemClass={(active) =>
-              //   clsx(
-              //     "relative mx-3 flex items-center rounded-xl py-2 px-9 text-[15px] transition-all duration-300",
-              //     "before:absolute before:left-5 before:h-1 before:w-1 before:rounded-full before:bg-accent before:content-['']",
-              //     "before:transition-all before:duration-300 before:ease-out",
-
-              //     active
-              //       ? "text-accent font-medium before:opacity-100 before:scale-100"
-              //       : "text-tx-inverse/75 hover:bg-white/5 before:opacity-0 before:scale-0"
-              //   )
-              // }
-              itemClass={(active) =>
-                clsx(
-                  "mx-3 flex rounded-xl px-9 py-2 text-[15px] transition-all",
-                  active
-                    ? "font-medium text-accent"
-                    : "text-tx-inverse/75 hover:bg-white/5 hover:text-tx-inverse"
-                )
-              }
-            />
+            {renderDropdownContent(item, "mobile")}
           </ul>
         </div>
       </div>
@@ -223,8 +242,8 @@ export const Navbar = () => {
           isShrunk ? "pointer-events-none h-0 border-b-0" : "h-(--top-bar-h)"
         )}
       >
-        <div className="container-page flex h-(--top-bar-h) items-center justify-between px-4">
-          <span className="text-tx-inverse/65 tracking-wide">
+        <div className="container-page flex h-(--top-bar-h) items-center justify-between">
+          <span className="text-tx-inverse/65 tracking-wide pl-2">
             Пон - Пет: 08:30 - 17:30
           </span>
 
@@ -233,7 +252,7 @@ export const Navbar = () => {
             className="flex items-center gap-2 text-accent transition-all hover:brightness-110"
           >
             <FaPhone />
-            <span className="font-medium tracking-wider">
+            <span className="font-medium tracking-wider pr-2">
               {siteContent.contacts.phone}
             </span>
           </a>
@@ -267,14 +286,14 @@ export const Navbar = () => {
                   "text-white transition-all duration-300 ease-in-out",
                   isShrunk
                     ? "text-2xl font-semibold tracking-tight"
-                    : "text-3xl font-semibold tracking-tight"
+                    : "text-[28px] lg:text-3xl font-semibold tracking-tight"
                 )}
               >
                 {brand.name}
               </div>
             </Link>
 
-            <ul className="hidden items-center gap-6 md:flex">
+            <ul className="hidden items-center md:gap-3 lg:gap-6 md:flex">
               {NAV_LINKS.map(renderDesktopItem)}
             </ul>
 

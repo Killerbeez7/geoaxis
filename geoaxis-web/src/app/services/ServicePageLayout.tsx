@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function ServicePageLayout({ category, activeServiceSlug, children }: Props) {
-  const heroImage = category.heroImage ?? category.thumbnail;
+  const heroImage = category.thumbnail;
   const heroDescription = category.longDescription ?? category.description;
 
   return (
@@ -23,12 +23,12 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
             alt={category.title}
             fill
             priority
-            className="object-cover"
+            className="object-cover object-[50%_30%]"
           />
         </div>
 
         <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/45 to-black/25" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/35 to-black/15" />
 
         <div className="container-page relative pt-[calc(var(--header-h,96px)+2.5rem)] pb-14 md:pt-[calc(var(--header-h,96px)+3rem)] md:pb-16">
           <nav aria-label="Breadcrumb" className="text-sm text-white/70">
@@ -53,9 +53,9 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
             </ol>
           </nav>
 
-          {/* {category.meta ? (
+          {category.meta ? (
             <p className="mt-6 typo-kicker text-accent">{category.meta}</p>
-          ) : null} */}
+          ) : null}
 
           <h1 className="mt-3 max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-5xl">
             {category.title}

@@ -71,7 +71,8 @@ export default async function CategoryPage({ params }: Props) {
                         src={imageSrc}
                         alt={service.title}
                         fill
-                        className="object-cover"
+                        // className="object-cover scale-75"
+                        className="object-cover scale-90"
                       />
                     </div>
                   </div>

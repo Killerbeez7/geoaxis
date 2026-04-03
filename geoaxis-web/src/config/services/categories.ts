@@ -54,8 +54,8 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Геодезическо заснемане за проектиране",
         shortTitle: "Заснемане за проект",
         meta: "Терен • Основа за проект",
-        thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
-        heroImage: "/images/services/geodezichesko-zasnemane-og.jpg",
+        thumbnail: "/images/services/zasnemane-plocha.jpeg",
+        heroImage: "/images/services/zasnemane-plocha.jpeg",
         description: "Подробно заснемане на имота като основа за проектиране.",
         longDescription:
           "Геодезическото заснемане за проектиране предоставя точна и актуална информация за съществуващото положение на терена. Използва се като основа за инвестиционни проекти и гарантира правилно позициониране и съобразяване с реалните условия.",
@@ -132,7 +132,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-tehnicheska-infrastruktura",
         title: "Геодезическо заснемане на техническа инфраструктура",
         meta: "Мрежи • Съоръжения",
-        thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
+        thumbnail: "/images/plamen.jpg",
         description: "Заснемане на мрежи и съоръжения за координация и проектиране.",
         longDescription:
           "Заснемането на техническа инфраструктура включва подземни и надземни мрежи и съоръжения. Използва се за координация, проектиране и предотвратяване на конфликти между системи.",
@@ -153,7 +153,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-darvesna-rastitelnost",
         title: "Геодезическо заснемане на дървесна растителност",
         meta: "Дървета • Терен",
-        thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
+        thumbnail: "/images/services/durvestna.jpeg",
         description: "Заснемане на дървета и зелени площи за проектиране и регулация.",
         longDescription:
           "Заснемането на дървесна растителност се използва при проектиране, благоустройство и устройствени процедури. Позволява точно позициониране и съобразяване със съществуващата среда.",
@@ -584,7 +584,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "izrabotvane-na-pup",
         title: "Изработване на ПУП",
         meta: "ПУП • Устройство",
-        thumbnail: "/images/services/pup.png",
+        thumbnail: "/images/category/pup.png",
         heroImage: "/images/category/pup.png",
         description: "Изработване на подробен устройствен план за имота.",
         longDescription:
@@ -611,8 +611,8 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "izmenenie-na-pup",
         title: "Изменение на ПУП",
         meta: "Промяна • План",
-        thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.png",
+        thumbnail: "/images/category/pup.png",
+        heroImage: "/images/category/pup.png",
         description: "Промяна на действащ устройствен план.",
         longDescription:
           "Изменението на ПУП се извършва при необходимост от промяна в параметрите на застрояване, граници или предназначение на имота.",
@@ -634,8 +634,8 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "raboten-ustroistven-plan",
         title: "Работен устройствен план",
         meta: "РУП • Параметри",
-        thumbnail: "/images/services/docs-thumb.jpg",
-        heroImage: "/images/category/urban.png",
+        thumbnail: "/images/services/proektirane-og.png",
+        heroImage: "/images/service/proektirane-og.png",
         description: "Уточняване на параметрите на застрояване.",
         longDescription:
           "Работният устройствен план (РУП) уточнява параметрите на застрояване в рамките на действащ план. Използва се при сложни случаи и необходимост от детайлизиране.",

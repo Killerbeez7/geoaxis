@@ -150,7 +150,7 @@ export default function ServicesPage() {
                   className={clsx(
                     "inline-flex items-center justify-center rounded-xl",
                     "bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse",
-                    "transition-all duration-300 hover:translate-y-[-1px] hover:opacity-95"
+                    "transition-all duration-300 hover:translate-y-1px hover:opacity-95"
                   )}
                 >
                   Изпратете запитване

@@ -30,9 +30,10 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
                     backdrop-blur-md
                     tracking-wider
                     text-[11px] md:text-sm
+                    text-tx-inverse/70
                     md:bg-transparent md:rounded-none
                     md:px-0 md:py-0
-                    md:border-l-2 md:border-accent md:pl-4
+                    md:border-l-2 md:border-white/30 md:pl-4
                   "
                 >
                   {kicker}

@@ -8,17 +8,28 @@ export const navLinkCls = (active: boolean) =>
     "nav-link text-tx-inverse",
     "relative group gap-1 px-2 py-1",
     "after:absolute after:left-1/2 after:bottom-0",
-    "after:h-[2px] after:w-full after:-translate-x-1/2",
+
+    // hover: underline
+    "after:h-px after:w-full after:-translate-x-1/2",
     "after:origin-center after:scale-x-0 after:bg-accent",
+
     "after:transition-transform after:duration-300",
     "group-hover:after:scale-x-100",
-    active && "md:after:scale-x-100"
+
+    // active: underline
+    active && "md:font-medium md:after:scale-x-100 md:after:bg-accent"
   );
 
 export const dropdownLinkCls = (active: boolean) =>
   clsx(
     "nav-link group gap-2 px-4 py-2 whitespace-nowrap transition",
-    active ? "text-accent hover:bg-bg-muted/10" : "hover:bg-bg-muted/10"
+    active
+      ? [
+          "relative text-tx-inverse bg-white/10",
+          // "before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2",
+          // "before:h-5 before:w-[2px] before:rounded-r before:bg-accent/70",
+        ]
+      : "text-tx-inverse/80 hover:text-tx-inverse hover:bg-bg-muted/5 "
   );
 
 export const mobileDropdownCls = (active: boolean) =>

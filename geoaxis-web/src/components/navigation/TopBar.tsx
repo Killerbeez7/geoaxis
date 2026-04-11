@@ -20,16 +20,18 @@ export const TopBar = ({ isShrunk }: TopBarProps) => {
       )}
     >
       <div className="container-page flex h-(--top-bar-h) items-center justify-between">
-        <span className="pl-2 text-tx-inverse/65 tracking-wide">
+        <span className="pl-2 font-medium text-tx-inverse/70 tracking-wide">
           Пон - Пет: 08:30 - 17:30
         </span>
 
         <a
           href={`tel:${phoneNumber}`}
-          className="flex items-center gap-2 text-accent transition-all hover:brightness-110"
+          className="flex items-center gap-2 transition-colors"
         >
-          <FaPhone />
-          <span className="pr-2 font-medium tracking-wider">{phoneNumber}</span>
+          <FaPhone className="text-accent" />
+          <span className="pr-2 font-medium tracking-wider text-tx-inverse/70 hover:text-accent-hover">
+            {phoneNumber}
+          </span>
         </a>
       </div>
     </div>

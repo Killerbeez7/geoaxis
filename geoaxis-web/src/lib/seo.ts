@@ -22,7 +22,7 @@ export function createSeo({
     title: fullTitle,
     description,
     alternates: {
-      fullPath,
+      canonical: fullPath,
     },
     openGraph: {
       title: fullTitle,

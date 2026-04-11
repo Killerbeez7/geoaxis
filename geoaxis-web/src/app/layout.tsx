@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import "./globals.css";
 // Vercel
 import { Analytics } from "@vercel/analytics/next";
@@ -27,11 +28,20 @@ const sofia = Sofia_Sans({
   variable: "--font-sofia",
 });
 
-export const metadata = createSeo({
-  title: brand.tagline,
-  description: brand.description,
-  path: "/",
-});
+export const metadata: Metadata = {
+  ...createSeo({
+    title: brand.tagline,
+    description: brand.description,
+    path: "/",
+  }),
+  icons: {
+    icon: [
+      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

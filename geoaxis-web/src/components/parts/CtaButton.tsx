@@ -61,9 +61,10 @@ export function CtaButton({
       "hover:bg-(--surface-overlay-lg)"
     ),
     glassAccent: clsx(
-      "backdrop-blur-md",
-      "border  border-white/30",
-      "text-white hover:bg-white/10"
+      "bg-(--surface-overlay-sm) backdrop-blur-md",
+      "border border-white/20",
+      "text-white",
+      "hover:bg-(--surface-overlay-lg)"
     ),
   };
 

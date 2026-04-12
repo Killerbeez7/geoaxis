@@ -118,18 +118,35 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    const html = document.documentElement;
+    const body = document.body;
 
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    if (mobileOpen) {
+      html.classList.add("menu-open");
+      body.classList.add("menu-open");
+    } else {
+      html.classList.remove("menu-open");
+      body.classList.remove("menu-open");
+    }
 
     return () => {
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
+      html.classList.remove("menu-open");
+      body.classList.remove("menu-open");
     };
   }, [mobileOpen]);
+  // useEffect(() => {
+  //   if (!mobileOpen) return;
+
+  //   const prevBody = document.body.style.overflow;
+  //   const prevHtml = document.documentElement.style.overflow;
+  //   document.body.style.overflow = "hidden";
+  //   document.documentElement.style.overflow = "hidden";
+
+  //   return () => {
+  //     document.body.style.overflow = prevBody;
+  //     document.documentElement.style.overflow = prevHtml;
+  //   };
+  // }, [mobileOpen]);
 
   useEffect(() => {
     if (!desktopDropdown) return;
@@ -325,6 +342,7 @@ export const Navbar = () => {
         style={{
           top: isShrunk ? "0px" : "var(--top-bar-h)",
           height: navHeight,
+          touchAction: mobileOpen ? "none" : "auto",
         }}
       >
         <nav className="container-page h-full">
@@ -396,7 +414,7 @@ export const Navbar = () => {
             style={{ top: mobilePanelTop }}
           >
             <div
-              className="overflow-y-auto overscroll-y-contain border-b border-white/10"
+              className="overflow-y-auto border-b border-white/10"
               style={{ height: `calc(100dvh - ${mobilePanelTop})` }}
             >
               <div className="container-page flex flex-col pb-8 pt-2">

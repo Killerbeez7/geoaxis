@@ -4,7 +4,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { FaAngleRight } from "react-icons/fa6";
-import { HELPFUL_NAV_ITEMS } from "@/config/helpfull/helpful-nav";
+import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 
 type NavHelpListProps = {
   onClick?: () => void;

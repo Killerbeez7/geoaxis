@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
-
-import { HELPFUL_NAV_ITEMS } from "@/config/helpfull/helpful-nav";
+import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { Section } from "@/components/layout/Section";
+import { createSeo } from "@/lib/seo";
+
+export const metadata = createSeo({
+  title: "Полезни материали",
+  description: "Полезни статии, въпроси и отговори, ръководства, ресурси",
+  path: "/polezno",
+});
 
 type Props = {
   params: Promise<{
@@ -24,11 +30,11 @@ export default async function HelpfulPlaceholderPage({ params }: Props) {
 
   return (
     <main className="bg-bg-page">
-      <Section className="min-h-[72vh]">
+      <Section className="min-h-[70vh]">
         <div className="container-page flex min-h-[60vh] flex-col items-center justify-center text-center">
-          <p className="typo-kicker text-accent">задай въпрос</p>
+          <p className="typo-kicker text-accent">{currentItem.label}</p>
 
-          <h1 className="mt-3 typo-hero text-tx-primary">{currentItem.label}</h1>
+          <h1 className="mt-3 typo-h1 text-tx-primary">{currentItem.label}</h1>
 
           <p className="mt-4 max-w-2xl text-sm leading-7 text-tx-secondary md:text-base">
             {currentItem.description ?? "Подготвяме съдържанието за тази секция."}
@@ -36,10 +42,8 @@ export default async function HelpfulPlaceholderPage({ params }: Props) {
 
           <div className="mt-10 flex flex-col items-center">
             <div className="h-16 w-16 animate-spin rounded-full border-4 border-br-light border-t-accent" />
-
-            <p className="mt-5 text-lg font-semibold text-tx-primary">Очаквайте скоро</p>
-
-            <p className="mt-2 text-sm text-tx-secondary">Бъдете търпеливи.</p>
+            <p className="mt-5 text-base font-medium text-tx-primary">Coming soon</p>
+            <p className="mt-2 text-sm text-tx-secondary">Be patient.</p>
           </div>
         </div>
       </Section>

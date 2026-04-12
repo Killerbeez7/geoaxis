@@ -8,8 +8,17 @@ import {
   SERVICES_HERO_MIN_HEIGHT,
 } from "./services-hero.constants";
 
+import { createSeo } from "@/lib/seo";
+
 import { CategoryCard } from "@/components/parts/CategoryCard";
 import { Section } from "@/components/layout/Section";
+
+export const metadata = createSeo({
+  title: "Услуги",
+  description:
+    "Геодезически услуги в София и Софийска област. Геодезия, кадастър, градоустройство.",
+  path: "/contacts",
+});
 
 export default function ServicesPage() {
   return (

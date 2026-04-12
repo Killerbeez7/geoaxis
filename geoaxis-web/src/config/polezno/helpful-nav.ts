@@ -9,31 +9,31 @@ export const HELPFUL_NAV_ITEMS: readonly HelpfulNavItem[] = [
   {
     slug: "statii",
     label: "Статии",
-    href: "/helpfull/statii",
+    href: "/polezno/statii",
     description: "Практически теми и обяснения",
   },
   {
     slug: "faq",
     label: "Въпроси и отговори",
-    href: "/helpfull/faq",
+    href: "/polezno/faq",
     description: "Кратки отговори на често задавани въпроси",
   },
   {
     slug: "rechnik",
     label: "Речник",
-    href: "/helpfull/rechnik",
+    href: "/polezno/rechnik",
     description: "Основни термини в геодезията и кадастъра",
   },
   {
     slug: "resursi",
     label: "Полезни ресурси",
-    href: "/helpfull/resursi",
+    href: "/polezno/resursi",
     description: "Институции, справки и външни източници",
   },
   {
     slug: "rakovodstva",
     label: "Ръководства",
-    href: "/helpfull/rakovodstva",
+    href: "/polezno/rakovodstva",
     description: "По-подробни насоки и материали",
   },
 ] as const;

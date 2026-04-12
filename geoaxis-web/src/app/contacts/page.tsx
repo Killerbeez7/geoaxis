@@ -173,6 +173,18 @@ export default function Contacts() {
           <p className="typo-hero-sub mt-4 mx-auto md:mx-0 text-tx-inverse/87">
             {subtitle}
           </p>
+
+          {/* <div className="mx-auto mt-8 max-w-3xl text-center text-white/80 space-y-4">
+            <p>
+              Свържете се с GeoAxis за геодезически услуги в София и Софийска област.
+              Можете да изпратите запитване при нужда от геодезическо заснемане,
+              трасиране, кадастър, проектиране и градоустройство.
+            </p>
+            <p>
+              Отговаряме според конкретния случай, вида на имота и необходимите следващи
+              стъпки, за да получите по-ясна насока още в началото.
+            </p>
+          </div> */}
         </div>
 
         <div className="grid items-start gap-16 lg:grid-cols-2">

@@ -120,15 +120,14 @@ export const Navbar = () => {
   useEffect(() => {
     if (!mobileOpen) return;
 
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
     };
   }, [mobileOpen]);
 
@@ -326,7 +325,6 @@ export const Navbar = () => {
         style={{
           top: isShrunk ? "0px" : "var(--top-bar-h)",
           height: navHeight,
-          touchAction: mobileOpen ? "none" : "auto",
         }}
       >
         <nav className="container-page h-full">
@@ -398,7 +396,7 @@ export const Navbar = () => {
             style={{ top: mobilePanelTop }}
           >
             <div
-              className="overflow-y-auto border-b border-white/10"
+              className="overflow-y-auto overscroll-y-contain border-b border-white/10"
               style={{ height: `calc(100dvh - ${mobilePanelTop})` }}
             >
               <div className="container-page flex flex-col pb-8 pt-2">

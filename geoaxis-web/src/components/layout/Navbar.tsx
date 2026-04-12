@@ -118,35 +118,18 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
+    if (!mobileOpen) return;
 
-    if (mobileOpen) {
-      html.classList.add("menu-open");
-      body.classList.add("menu-open");
-    } else {
-      html.classList.remove("menu-open");
-      body.classList.remove("menu-open");
-    }
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
     return () => {
-      html.classList.remove("menu-open");
-      body.classList.remove("menu-open");
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
     };
   }, [mobileOpen]);
-  // useEffect(() => {
-  //   if (!mobileOpen) return;
-
-  //   const prevBody = document.body.style.overflow;
-  //   const prevHtml = document.documentElement.style.overflow;
-  //   document.body.style.overflow = "hidden";
-  //   document.documentElement.style.overflow = "hidden";
-
-  //   return () => {
-  //     document.body.style.overflow = prevBody;
-  //     document.documentElement.style.overflow = prevHtml;
-  //   };
-  // }, [mobileOpen]);
 
   useEffect(() => {
     if (!desktopDropdown) return;

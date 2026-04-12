@@ -321,9 +321,3 @@ img {
   background-image: radial-gradient(circle at top, rgba(0, 0, 0, 0.02), transparent 40%);
   background-color: var(--color-bg-muted);
 }
-
-html.menu-open,
-body.menu-open {
-  overflow: hidden;
-  overscroll-behavior: none;
-}

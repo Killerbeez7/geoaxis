@@ -102,29 +102,6 @@ export default async function CategoryPage({ params }: Props) {
             );
           })}
         </section>
-
-        {/* CTA */}
-        <section className="mt-16 border-t border-br-light pt-10 md:pt-12">
-          <div className="max-w-2xl">
-            <p className="typo-kicker text-accent">Запитване</p>
-
-            <h3 className="mt-3 typo-h3 text-tx-primary">Нуждаете се от консултация?</h3>
-
-            <p className="mt-4 typo-body text-tx-secondary">
-              Свържете се с нас и ще получите насоки според Вашия случай, нуждите на имота
-              и следващите стъпки.
-            </p>
-
-            <div className="mt-7">
-              <a
-                href="/contacts"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
-              >
-                Изпратете запитване
-              </a>
-            </div>
-          </div>
-        </section>
       </article>
     </ServicePageLayout>
   );

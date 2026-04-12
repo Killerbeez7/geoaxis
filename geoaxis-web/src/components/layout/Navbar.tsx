@@ -350,6 +350,9 @@ export const Navbar = () => {
                 )}
               >
                 <>
+                  {/* <span>
+                    <img src="/logo.png" className="w-14 inline pr-2" />
+                  </span> */}
                   <span className="text-white">{BRAND_WORDMARK_PRIMARY}</span>
                   <span className="text-accent">{BRAND_WORDMARK_SECONDARY}</span>
                 </>

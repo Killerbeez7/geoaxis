@@ -3,6 +3,8 @@ import Image from "next/image";
 import clsx from "clsx";
 import { SERVICES_HERO_MIN_HEIGHT } from "./services-hero.constants";
 import { ServiceCategory } from "@/config/services/categories";
+import { Section } from "@/components/layout/Section";
+import FinalCTA from "@/components/sections/FinalCta";
 
 type Props = {
   category: ServiceCategory;
@@ -97,11 +99,8 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
       </section>
 
       {/* CONTENT */}
-      <section className="py-10 md:py-14 lg:py-16">
-        <div className="container-page">
-          <div className="mx-auto max-w-5xl">{children}</div>
-        </div>
-      </section>
+      <Section>{children}</Section>
+      <FinalCTA />
     </main>
   );
 }

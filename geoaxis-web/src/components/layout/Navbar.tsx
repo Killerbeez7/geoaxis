@@ -326,6 +326,7 @@ export const Navbar = () => {
         style={{
           top: isShrunk ? "0px" : "var(--top-bar-h)",
           height: navHeight,
+          touchAction: mobileOpen ? "none" : "auto",
         }}
       >
         <nav className="container-page h-full">

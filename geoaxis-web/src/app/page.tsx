@@ -1,7 +1,7 @@
 import { HorizontalDivider } from "../components/parts/HorizontalDivider";
 import { siteContent } from "@/config/site-content";
 import { serviceCategories } from "@/config/services/categories";
-
+import { createSeo } from "@/lib/seo-builder";
 // Sections
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
@@ -13,6 +13,13 @@ import { Stats } from "@/components/sections/StatsSection";
 import TrustBar from "@/components/sections/TrustBar";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import FinalCta from "@/components/sections/FinalCta";
+
+export const metadata = createSeo({
+  title: "Геодезически услуги в София",
+  description:
+    "GeoAxis предлага професионални геодезически услуги в София и Софийска област – заснемане, трасиране, кадастър, проектиране и градоустройство.",
+  canonical: "",
+});
 
 export default function Home() {
   const { hero, services, workflow, stats, projects } = siteContent;

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 // Vercel
 import { Analytics } from "@vercel/analytics/next";
@@ -12,8 +12,8 @@ import { Footer } from "@/components/layout/Footer";
 import { SITE_URL } from "@/config/site";
 import { brand } from "@/config/content/brand";
 // SEO
-import { createSeo } from "@/lib/seo";
-import { getLocalBusinessSchema } from "@/lib/structured-data";
+import { createSeo } from "@/lib/seo-builder";
+import { getLocalBusinessSchema } from "@/lib/schemas";
 // Utils
 import SquintTest from "@/utils/squintTest";
 
@@ -26,13 +26,16 @@ const montserrat = Montserrat({
 const sofia = Sofia_Sans({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
   variable: "--font-sofia",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   ...createSeo({
-    title: brand.tagline,
-    description: brand.description,
-    path: "/",
+    title: "Геодезически услуги в София и Софийска област",
+    description:
+      "GeoAxis предлага професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство.",
+    canonical: "",
   }),
   icons: {
     icon: [
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#132018",
 };
 
@@ -59,18 +62,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify(getLocalBusinessSchema(SITE_URL)),
           }}
         />
-
+        {/* Content  */}
         <Navbar />
-
         <main className="grow bg-bg-page">{children}</main>
-
         <Footer />
 
-        {/* Utility / Helper */}
-        <SquintTest isEnabled={false} />
-        {/* Vercel */}
+        {/* Utils */}
         <Analytics />
         <SpeedInsights />
+        <SquintTest isEnabled={false} />
       </body>
     </html>
   );

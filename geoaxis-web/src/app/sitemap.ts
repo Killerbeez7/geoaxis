@@ -3,29 +3,31 @@ import { serviceCategories } from "@/config/services/categories";
 import { SITE_URL } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = SITE_URL
-
+  const baseUrl = SITE_URL;
   const lastModified = new Date();
 
-  const serviceUrls: MetadataRoute.Sitemap = serviceCategories.flatMap((category) => {
-    const categoryUrl: MetadataRoute.Sitemap = [
-      { url: `${baseUrl}/services/${category.slug}`, lastModified },
-    ];
+  // All static pages
+  const staticPages = ["", "/uslugi", "/polezno", "/projects", "/about", "/contacts"].map(
+    (route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified,
+    })
+  );
 
-    const detailUrls: MetadataRoute.Sitemap = category.services.map((service) => ({
-      url: `${baseUrl}/services/${category.slug}/${service.slug}`,
+  // Services: Categories + Service Entries
+  const serviceUrls: MetadataRoute.Sitemap = serviceCategories.flatMap((category) => {
+    const categoryUrl = {
+      url: `${baseUrl}/uslugi/${category.slug}`,
+      lastModified,
+    };
+
+    const detailUrls = category.services.map((service) => ({
+      url: `${baseUrl}/uslugi/${category.slug}/${service.slug}`,
       lastModified,
     }));
 
-    return [...categoryUrl, ...detailUrls];
+    return [categoryUrl, ...detailUrls];
   });
 
-  return [
-    { url: baseUrl, lastModified },
-    { url: `${baseUrl}/services`, lastModified },
-    { url: `${baseUrl}/projects`, lastModified },
-    { url: `${baseUrl}/about`, lastModified },
-    { url: `${baseUrl}/contacts`, lastModified },
-    ...serviceUrls,
-  ];
+  return [...staticPages, ...serviceUrls];
 }

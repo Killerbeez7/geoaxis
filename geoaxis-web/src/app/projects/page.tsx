@@ -11,6 +11,15 @@ import type { ProjectsContent } from "@/config/content/projects";
 import { ProjectsLightbox } from "./ProjectsLightbox";
 import { Section } from "@/components/layout/Section";
 
+import { createSeo } from "@/lib/seo-builder";
+
+export const metadata = createSeo({
+  title: "Проекти",
+  description:
+    "Разгледайте реализирани проекти и примери от работата на GeoAxis в областта на геодезията, кадастъра, трасирането и проектирането в София и Софийска област.",
+  canonical: "/projects",
+});
+
 export default function ProjectsPage() {
   const [selectedImage, setSelectedImage] = useState<
     ProjectsContent["items"][number] | null

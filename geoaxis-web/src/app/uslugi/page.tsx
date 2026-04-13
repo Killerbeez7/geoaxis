@@ -14,11 +14,17 @@ import { CategoryCard } from "@/components/parts/CategoryCard";
 import { Section } from "@/components/layout/Section";
 
 export const metadata = createSeo({
-  title: "Геодезически услуги",
+  title: "Услуги",
   description:
-    "Разгледайте геодезически услуги на GeoAxis – заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
+    "Разгледайте геодезически услуги на GeoAxis — заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
   canonical: "/uslugi",
 });
+// export const metadata = createSeo({
+//   title: "Геодезически услуги",
+//   description:
+//     "Разгледайте геодезически услуги на GeoAxis – заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
+//   canonical: "/uslugi",
+// });
 
 export default function ServicesPage() {
   return (

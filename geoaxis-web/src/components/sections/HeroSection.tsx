@@ -6,14 +6,22 @@ import type { HeroContent } from "@/config/content/hero";
 import { ScrollHint } from "../parts/ScrollHint";
 import { MdArrowRightAlt } from "react-icons/md";
 
-export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroContent) {
+export function HeroSection({
+  id,
+  title,
+  subtitle,
+  kicker,
+  image,
+  imageAlt,
+  cta,
+}: HeroContent) {
   const [line1, accent] = title.split("||").map((s) => s.trim());
 
   return (
     <header id={id} className="relative isolate overflow-hidden bg-bg-inverse">
       <div className="relative min-h-[70dvh] md:min-h-[calc(103dvh)] flex items-center pb-0 md:pb-20">
         {/* Background Image */}
-        <HeroBackground src={image} />
+        <HeroBackground src={image} alt={imageAlt} />
 
         {/* Content */}
         <div className="container-page relative w-full pt-(--header-h)">
@@ -83,14 +91,14 @@ export function HeroSection({ id, title, subtitle, kicker, image, cta }: HeroCon
   );
 }
 
-function HeroBackground({ src }: { src: string }) {
+function HeroBackground({ src, alt }: { src: string; alt: string }) {
   return (
     <>
       {/* Background Image */}
       <div className="absolute inset-0 -z-20 overflow-hidden">
         <Image
           src={src}
-          alt="Professional Surveying Services"
+          alt={alt}
           fill
           priority
           sizes="100vw"

@@ -13,7 +13,7 @@ export const metadata = createSeo({
   title: "Контакти",
   description:
     "Свържете се с GeoAxis за геодезически услуги в София и Софийска област. Изпратете запитване за заснемане, трасиране, кадастър, проектиране и градоустройство.",
-  path: "/contacts",
+  canonical: "/contacts",
 });
 
 type Item = {

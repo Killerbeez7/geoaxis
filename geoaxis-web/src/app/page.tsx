@@ -17,7 +17,7 @@ import FinalCta from "@/components/sections/FinalCta";
 export const metadata = createSeo({
   title: "Геодезически услуги в София",
   description:
-    "GeoAxis предлага професионални геодезически услуги в София и Софийска област – заснемане, трасиране, кадастър, проектиране и градоустройство.",
+    "GeoAxis предлага професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство.",
   canonical: "",
 });
 
@@ -32,6 +32,7 @@ export default function Home() {
         subtitle={hero.subtitle}
         kicker={hero.kicker}
         image={hero.image}
+        imageAlt={hero.imageAlt}
         cta={hero.cta}
       />
 

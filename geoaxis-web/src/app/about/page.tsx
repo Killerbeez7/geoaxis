@@ -13,8 +13,8 @@ import { createSeo } from "@/lib/seo-builder";
 export const metadata = createSeo({
   title: "За нас",
   description:
-    "Научете повече за GeoAxis, нашия подход към геодезическите услуги в София и Софийска област, и как помагаме с точност, яснота и професионално съдействие.",
-  path: "/about",
+    "Научете повече за GeoAxis — екип с опит в геодезията, кадастъра и градоустройството, работещ с клиенти и обекти в София и Софийска област.",
+  canonical: "/about",
 });
 
 const valueIcon = {

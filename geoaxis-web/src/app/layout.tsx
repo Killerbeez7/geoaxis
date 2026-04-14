@@ -32,7 +32,7 @@ const sofia = Sofia_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   ...createSeo({
-    title: "Геодезически услуги в София и Софийска област",
+    title: "Геодезически услуги в София",
     description:
       "GeoAxis предлага професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство.",
     canonical: "",

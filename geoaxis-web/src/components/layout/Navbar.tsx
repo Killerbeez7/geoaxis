@@ -346,7 +346,7 @@ export const Navbar = () => {
                   "transition-all duration-300 ease-in-out",
                   isShrunk
                     ? "text-2xl font-semibold tracking-tight"
-                    : "text-[28px] font-semibold tracking-tight lg:text-3xl"
+                    : "text-[24px] font-semibold tracking-tight lg:text-3xl"
                 )}
               >
                 <>

@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* Content  */}
         <Navbar />
-        <main className="grow bg-bg-page">{children}</main>
+        <main className="grow bg-bg-page min-h-dvh">{children}</main>
         <Footer />
 
         {/* Utils */}

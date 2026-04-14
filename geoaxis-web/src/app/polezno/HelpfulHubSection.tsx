@@ -32,21 +32,21 @@ const featuredArticles: HelpfulArticle[] = [
     title: "Какво е геодезическо заснемане?",
     description: "Кратко и ясно обяснение кога се налага и защо е важно.",
     category: "Геодезия",
-    href: "/polezno/statii",
+    href: "/polezno/statii/kakvo-e-geodezichesko-zasnemane",
   },
   {
-    slug: "faq",
+    slug: "statii-2",
     title: "Колко струва трасиране?",
     description: "Факторите, които влияят върху цената и какво да очаквате.",
     category: "Трасиране",
-    href: "/polezno/faq",
+    href: "/polezno/statii/kolko-struva-trasirane",
   },
   {
-    slug: "resursi",
-    title: "Какви документи са нужни за кадастър?",
-    description: "Списък с най-често необходимите документи.",
-    category: "Кадастър",
-    href: "/polezno/resursi",
+    slug: "faq",
+    title: "Въпроси и отговори",
+    description: "Кратки отговори на често задавани въпроси по реални казуси.",
+    category: "FAQ",
+    href: "/polezno/faq",
   },
 ];
 
@@ -54,23 +54,23 @@ const latestArticles: HelpfulArticle[] = [
   {
     slug: "rakovodstva",
     title: "Кога ви трябва геодезист?",
-    description: "Ситуации, в които геодезистът е задължителен.",
-    category: "Полезно",
+    description: "Ситуации, в които професионалната помощ спестява време и грешки.",
+    category: "Ръководства",
     href: "/polezno/rakovodstva",
   },
   {
     slug: "rechnik",
     title: "Разлика между кадастър и регулация",
-    description: "Основни понятия, обяснени просто.",
-    category: "Градоустройство",
+    description: "Основни понятия, обяснени ясно и практично.",
+    category: "Речник",
     href: "/polezno/rechnik",
   },
   {
-    slug: "statii",
-    title: "Какво е ПУП?",
-    description: "Кратко ръководство за подробния устройствен план.",
-    category: "ПУП",
-    href: "/polezno/statii",
+    slug: "resursi",
+    title: "Полезни ресурси",
+    description: "Институции, справки и източници, които често трябват на клиентите.",
+    category: "Ресурси",
+    href: "/polezno/resursi",
   },
 ];
 
@@ -99,7 +99,7 @@ const categories: HelpfulCategory[] = HELPFUL_NAV_ITEMS.map((item) => ({
 }));
 
 const surfaceCardCls = clsx(
-  "group relative rounded-[var(--radius-card)] border border-br-light bg-white",
+  "group relative rounded-(--radius-card) border border-br-light bg-white",
   "p-6 shadow-sm transition-all duration-300",
   "hover:-translate-y-1 hover:border-br-default hover:shadow-md"
 );

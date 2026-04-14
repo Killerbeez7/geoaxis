@@ -27,7 +27,7 @@ export default function About() {
   const { id, title, hero, story, values, cta } = siteContent.about;
 
   return (
-    <main id={id} className="relative min-h-screen">
+    <main id={id} className="relative">
       {/* HERO */}
       <Section className="relative isolate h-150 overflow-hidden" variant="hero">
         <div className="absolute inset-0 -z-20">

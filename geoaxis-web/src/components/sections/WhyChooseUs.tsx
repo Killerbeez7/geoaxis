@@ -28,7 +28,7 @@ export default function WhyChooseUs() {
     <Section tone="muted" className="overflow-hidden">
       <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div className="reveal-img opacity-0 translate-y-10 transition-all duration-700 max-w-xl text-center md:text-left">
-          <span className="typo-kicker">Кой сме ние</span>
+          <span className="typo-kicker">Кои сме ние</span>
 
           <h2 className="typo-h2 mb-6 text-balance">
             Защо да изберете <span className="text-accent">{siteContent.brand.name}</span>

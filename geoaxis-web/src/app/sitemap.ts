@@ -1,46 +1,77 @@
 import { MetadataRoute } from "next";
 import { serviceCategories } from "@/config/services/categories";
-import { SITE_URL } from "@/config/site";
-import { getLastModified } from "@/lib/getLastModified";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = SITE_URL;
+const BASE_URL = "https://geoaxis.bg";
 
-  // Static pages mapped to their actual files
-  const staticPageMap = [
-    { route: "", file: "app/page.tsx" },
-    { route: "/uslugi", file: "app/uslugi/page.tsx" },
-    { route: "/polezno", file: "app/polezno/page.tsx" },
-    { route: "/projects", file: "app/projects/page.tsx" },
-    { route: "/about", file: "app/about/page.tsx" },
-    { route: "/contacts", file: "app/contacts/page.tsx" },
-  ];
+// ──────────────────────────────────────────────
+// Update dates here when you change a page.
+// Format: YYYY-MM-DD
+// ──────────────────────────────────────────────
+const staticPages = [
+  {
+    url: "/",
+    lastModified: "2026-04-15",
+    priority: 1.0,
+    changeFrequency: "weekly" as const,
+  },
+  {
+    url: "/uslugi",
+    lastModified: "2026-04-12",
+    priority: 0.9,
+    changeFrequency: "weekly" as const,
+  },
+  {
+    url: "/polezno",
+    lastModified: "2026-04-10",
+    priority: 0.8,
+    changeFrequency: "weekly" as const,
+  },
+  {
+    url: "/projects",
+    lastModified: "2026-04-01",
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+  },
+  {
+    url: "/about",
+    lastModified: "2026-04-01",
+    priority: 0.5,
+    changeFrequency: "monthly" as const,
+  },
+  {
+    url: "/contacts",
+    lastModified: "2026-03-28",
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+  },
+];
 
-  const staticPages = await Promise.all(
-    staticPageMap.map(async ({ route, file }) => ({
-      url: `${baseUrl}${route}`,
-      lastModified: await getLastModified(file),
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Static pages
+  const staticUrls = staticPages.map((page) => ({
+    url: `${BASE_URL}${page.url}`,
+    lastModified: page.lastModified,
+    priority: page.priority,
+    changeFrequency: page.changeFrequency,
+  }));
+
+  // Category pages — uses category.updatedAt
+  const categoryUrls = serviceCategories.map((category) => ({
+    url: `${BASE_URL}/uslugi/${category.slug}`,
+    lastModified: category.updatedAt,
+    priority: 0.8,
+    changeFrequency: "weekly" as const,
+  }));
+
+  // Service detail pages — falls back to category.updatedAt
+  const serviceUrls = serviceCategories.flatMap((category) =>
+    category.services.map((service) => ({
+      url: `${BASE_URL}/uslugi/${category.slug}/${service.slug}`,
+      lastModified: service.updatedAt ?? category.updatedAt,
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
     }))
   );
 
-  // Services (based on config file changes)
-  const servicesFile = "config/services/categories.ts";
-
-  const serviceLastModified = await getLastModified(servicesFile);
-
-  const serviceUrls: MetadataRoute.Sitemap = serviceCategories.flatMap((category) => {
-    const categoryUrl = {
-      url: `${baseUrl}/uslugi/${category.slug}`,
-      lastModified: serviceLastModified,
-    };
-
-    const detailUrls = category.services.map((service) => ({
-      url: `${baseUrl}/uslugi/${category.slug}/${service.slug}`,
-      lastModified: serviceLastModified,
-    }));
-
-    return [categoryUrl, ...detailUrls];
-  });
-
-  return [...staticPages, ...serviceUrls];
+  return [...staticUrls, ...categoryUrls, ...serviceUrls];
 }

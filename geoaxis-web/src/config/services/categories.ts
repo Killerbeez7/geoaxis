@@ -16,6 +16,7 @@ export type Service = {
   requiredDocs?: string[];
   deliverables?: string[];
   processSteps?: string[];
+  updatedAt?: string;
 };
 
 export type ServiceCategory = {
@@ -30,6 +31,7 @@ export type ServiceCategory = {
   ctaLabel?: string;
   featured?: boolean;
   order?: number;
+  updatedAt?: string;
   services: Service[];
 };
 
@@ -47,6 +49,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Геодезическото заснемане осигурява точна основа за проектиране, строителство и техническа документация. Подходящо е при ново строителство, реконструкция и подготовка на инвестиционни намерения.",
     featured: true,
     order: 1,
+    updatedAt: "2026-04-15",
 
     services: [
       {
@@ -191,6 +194,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Трасирането осигурява точното пренасяне на проектните решения върху терена. Използва се при строителство, огради, инфраструктура и всички дейности, при които е необходима прецизна геометрия и контрол.",
     featured: true,
     order: 2,
+    updatedAt: "2026-04-15",
 
     services: [
       {
@@ -333,6 +337,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Кадастралните услуги включват подготовка на документи, отразяване на обекти и съдействие при административни процедури. Подходящи са при сделки, промени в имоти и необходимост от актуални данни.",
     featured: true,
     order: 3,
+    updatedAt: "2026-04-15",
 
     services: [
       {
@@ -475,6 +480,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Проектирането включва подготовка на изходни данни, вертикална планировка и координация между различните участници. Осигурява ясна основа за реализация на инвестиционни проекти.",
     featured: true,
     order: 4,
+    updatedAt: "2026-04-15",
 
     services: [
       {
@@ -582,6 +588,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Градоустройствените услуги обхващат изработване и изменение на устройствени планове, регулация и развитие на имоти. Необходими са при промени в предназначението и параметрите на застрояване.",
     featured: true,
     order: 5,
+    updatedAt: "2026-04-15",
 
     services: [
       {
@@ -704,6 +711,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Консултациите помагат да се ориентирате в процеса, да изберете правилната услуга и да подготвите необходимите документи. Подходящи са, когато не сте сигурни откъде да започнете.",
     featured: true,
     order: 6,
+    updatedAt: "2026-04-15",
 
     services: [
       {

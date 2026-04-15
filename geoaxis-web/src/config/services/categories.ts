@@ -40,8 +40,8 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Геодезическо заснемане",
     shortTitle: "Заснемане",
     meta: "Терен • Сгради • Инфраструктура",
-    thumbnail: "/images/category/zasnemane-thumb.jpg",
-    heroImage: "/images/category/zasnemane-og.jpg",
+    thumbnail: "/images/category/zasnemane.webp",
+    heroImage: "/images/category/zasnemane.webp",
     description: "Прецизно заснемане на терени и обекти за проектиране и строителство.",
     longDescription:
       "Геодезическото заснемане осигурява точна основа за проектиране, строителство и техническа документация. Подходящо е при ново строителство, реконструкция и подготовка на инвестиционни намерения.",

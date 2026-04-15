@@ -94,3 +94,50 @@ export function getArticleSchema(siteUrl: string, article: HelpfulArticle) {
       : `${siteUrl}/og-image.jpg`,
   };
 }
+
+export function getServiceFAQSchema(service: Service) {
+  const faqs: { question: string; answer: string }[] = [];
+
+  if (service.neededWhen?.length) {
+    faqs.push({
+      question: `Кога е необходима услугата "${service.title}"?`,
+      answer: service.neededWhen.join(". ") + ".",
+    });
+  }
+
+  if (service.deliverables?.length) {
+    faqs.push({
+      question: `Какво получавам при "${service.title}"?`,
+      answer: service.deliverables.join(". ") + ".",
+    });
+  }
+
+  if (service.requiredDocs?.length) {
+    faqs.push({
+      question: `Какви документи са необходими за "${service.title}"?`,
+      answer: service.requiredDocs.join(". ") + ".",
+    });
+  }
+
+  if (service.processSteps?.length) {
+    faqs.push({
+      question: `Как протича процесът за "${service.title}"?`,
+      answer: service.processSteps.map((step, i) => `${i + 1}. ${step}`).join(" "),
+    });
+  }
+
+  if (faqs.length === 0) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}

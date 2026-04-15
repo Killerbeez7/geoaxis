@@ -7,6 +7,7 @@ import { serviceCategories } from "@/config/services/categories";
 import { ServicePageLayout } from "../../ServicePageLayout";
 
 import { createSeo, createServiceSeo } from "@/lib/seo-builder";
+import { getServiceFAQSchema } from "@/lib/schemas";
 
 type Props = {
   params: Promise<{
@@ -72,6 +73,15 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <ServicePageLayout category={category} activeServiceSlug={service.slug}>
+      {(() => {
+        const faq = getServiceFAQSchema(service);
+        return faq ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
+          />
+        ) : null;
+      })()}
       <article className="mx-auto max-w-4xl">
         {/* ============ HERO SECTION ============ */}
         <section className="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-10 lg:gap-14 md:items-center">

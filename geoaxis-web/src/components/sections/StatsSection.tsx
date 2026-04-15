@@ -31,19 +31,20 @@ function CountUpNumber({
   const target = extractNumber(value);
   const suffix = extractSuffix(value);
 
-  const motionValue = useMotionValue(0);
-  const [displayValue, setDisplayValue] = useState(0);
+  const motionValue = useMotionValue(target);
+  const [displayValue, setDisplayValue] = useState(target);
 
   useEffect(() => {
     const unsubscribe = motionValue.on("change", (latest) => {
       setDisplayValue(Math.round(latest));
     });
-
     return () => unsubscribe();
   }, [motionValue]);
 
   useEffect(() => {
     if (!isInView) return;
+
+    motionValue.jump(0);
 
     const controls = animate(motionValue, target, {
       duration: target >= 1000 ? 1.8 : 1.2,

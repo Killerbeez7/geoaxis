@@ -7,24 +7,17 @@ import {
   SERVICES_HERO_CONTENT_CLASS,
   SERVICES_HERO_MIN_HEIGHT,
 } from "./services-hero.constants";
-
 import { createSeo } from "@/lib/seo-builder";
 
-import { CategoryCard } from "@/components/parts/CategoryCard";
 import { Section } from "@/components/layout/Section";
+import { CategoryCard } from "@/components/parts/CategoryCard";
 
 export const metadata = createSeo({
   title: "Услуги",
   description:
-    "Разгледайте геодезически услуги на GeoAxis — заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
+    "Разгледайте нашите услуги — заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
   canonical: "/uslugi",
 });
-// export const metadata = createSeo({
-//   title: "Геодезически услуги",
-//   description:
-//     "Разгледайте геодезически услуги на GeoAxis – заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
-//   canonical: "/uslugi",
-// });
 
 export default function ServicesPage() {
   return (
@@ -41,9 +34,9 @@ export default function ServicesPage() {
             src="/images/5.jpeg"
             alt="Геодезически и кадастрални услуги"
             fill
-            priority
-            className="object-cover object-[50%_42%]"
+            preload
             sizes="100vw"
+            className="object-cover object-[50%_42%]"
           />
         </div>
 

@@ -108,7 +108,7 @@ function HeroBackground({ src, alt }: { src: string; alt: string }) {
           src={src}
           alt={alt}
           fill
-          priority
+          preload
           sizes="100vw"
           className="
             object-cover

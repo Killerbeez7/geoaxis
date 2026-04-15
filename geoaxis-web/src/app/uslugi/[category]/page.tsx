@@ -74,11 +74,12 @@ export default async function CategoryPage({ params }: Props) {
                       "hover:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]"
                     )}
                   >
-                    <div className="relative aspect-[4/3] md:aspect-[4/3.2] overflow-hidden">
+                    <div className="relative aspect-4/3 md:aspect-[4/3.2] overflow-hidden">
                       <Image
                         src={imageSrc}
                         alt={service.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className={clsx(
                           "object-cover",
                           "transition-transform duration-500",

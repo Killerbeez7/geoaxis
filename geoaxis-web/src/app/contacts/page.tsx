@@ -63,13 +63,13 @@ export default function Contacts() {
   return (
     <Section className="relative isolate min-h-[calc(103dvh)]" variant="hero">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-(--brand-olive-900)">
         <Image
-          src="/images/t2.jpeg"
-          // src="/images/plamen.png"
+          src="/images/sections/hero-contacts.webp"
           alt="Геодезически тахеометър / Robotic total station for precise surveying"
           fill
-          fetchPriority="high"
+          preload
+          sizes="100vw"
           className={clsx(
             "w-full h-full object-cover",
             "object-cover",

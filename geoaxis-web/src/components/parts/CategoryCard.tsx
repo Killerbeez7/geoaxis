@@ -52,6 +52,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
         src={imageSrc}
         alt={`${title} - ${category.description}`}
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         className="object-cover opacity-95 transition-all duration-500 group-hover:scale-106 group-hover:opacity-50"
       />
 

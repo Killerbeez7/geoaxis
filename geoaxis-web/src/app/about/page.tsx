@@ -32,8 +32,7 @@ export default function About() {
       <Section className="relative isolate h-150 overflow-hidden" variant="hero">
         <div className="absolute inset-0 -z-20">
           <Image
-            src="/toni-left.jpg"
-            // src="/images/t2.jpeg"
+            src={hero.imageBg}
             alt=""
             fill
             priority
@@ -94,6 +93,8 @@ export default function About() {
                   src={story.image.src}
                   alt={story.image.alt}
                   fill
+                  preload
+                  sizes="100vw"
                   className="object-cover"
                 />
               </div>

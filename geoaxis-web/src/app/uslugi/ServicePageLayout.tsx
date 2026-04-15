@@ -30,7 +30,8 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
             src={heroImage}
             alt={category.title}
             fill
-            priority
+            preload
+            sizes="100vw"
             className="object-cover object-[50%_30%]"
           />
         </div>

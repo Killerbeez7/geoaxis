@@ -12,8 +12,8 @@ type SectionProps = {
 const toneClassMap: Record<NonNullable<SectionProps["tone"]>, string> = {
   page: "bg-bg-page",
   section: "bg-bg-section",
-  muted: "muted-section",
-  brand: "bg-bg-soft",
+  muted: "bg-bg-muted",
+  brand: "bg-bg-brand",
   inverse: "bg-bg-inverse text-tx-inverse",
 };
 
@@ -33,7 +33,7 @@ export function Section({
         toneClassMap[tone],
         variant === "hero"
           ? "pt-[calc(var(--header-h)+4rem)] pb-16 sm:pb-20"
-          : "py-16 sm:py-20 lg:py-24",
+          : "pt-12 sm:pt-14 lg:pt-24 pb-16 sm:pb-20 lg:pb-24",
         className
       )}
     >

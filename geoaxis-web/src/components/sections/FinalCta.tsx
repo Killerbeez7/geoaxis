@@ -8,8 +8,8 @@ export function FinalCta() {
 
   return (
     <Section tone="brand" className="border-t border-br-light/70">
-      <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
-        <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0">
+      <div className="flex items-center">
+        <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0 pl-4">
           <p className="typo-kicker text-accent">Контакт</p>
 
           <h2 className="mt-3 typo-h2 text-tx-inverse">

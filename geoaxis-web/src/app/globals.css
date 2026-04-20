@@ -299,5 +299,9 @@ img {
 
 html,
 body {
-  background: var(--color-bg-brand);
+  background: #131a17;
 }
+
+/* .safe-top {
+  padding-top: env(safe-area-inset-top);
+} */

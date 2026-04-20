@@ -41,12 +41,12 @@
   --gray-900: #0f0f0f;
 
   /* Neutral UI text / border support */
-  --neutral-100: #dde4e0;
-  --neutral-200: #c7d1cc;
+  --neutral-100: #dce0d8;
+  --neutral-200: #c8cec4;
   --neutral-300: #acb3af;
-  --neutral-700: #6f7875;
-  --neutral-800: #48504d;
-  --neutral-900: #0f0f0f;
+  --neutral-700: #6b7470;
+  --neutral-800: #454d49;
+  --neutral-900: #1a1f1c;
 
   /* Layout */
   --nav-h: 72px;
@@ -83,17 +83,16 @@
   --color-accent-strong: var(--brand-ochre-600);
 
   /* backgrounds */
-  --color-bg-page: #f3f5f4;
-  --color-bg-section: #fafcfb;
-  --color-bg-muted: #e9eeec;
-  --color-bg-soft: #e4ebe3;
-  --color-bg-inverse: #16221c;
+  --color-bg-page: #fff;
+  --color-bg-section: #f4f5f2;
+  --color-bg-muted: #f5f5f5;
+  --color-bg-brand: var(--brand-olive-700);
+  --color-bg-inverse: var(--brand-olive-800);
 
   /* nav */
   --color-bg-nav: var(--brand-olive-800);
   --color-bg-top-nav: #132018;
   --color-bg-footer: var(--brand-olive-800);
-  /* --color-bg-footer: #122019; */
 
   /* text */
   --color-tx-primary: var(--neutral-900);
@@ -167,8 +166,6 @@ body {
 
 @layer components {
   /* ==================== TYPOGRAPHY ==================== */
-
-  /* Hero Kicker */
   .typo-kicker {
     @apply uppercase font-semibold text-accent;
     font-size: var(--fs-meta);
@@ -176,26 +173,20 @@ body {
     line-height: var(--lh-heading);
   }
 
-  /* Hero Title */
   .typo-hero {
-    /* @apply font-semibold text-tx-inverse tracking-tight; */
     @apply text-tx-inverse tracking-tight;
     font-size: var(--fs-hero);
     line-height: var(--lh-tight);
     font-weight: 500;
   }
 
-  /* @apply text-tx-inverse/60; */
-  /* font-size: clamp(0.88rem, 0.35vw + 0.82rem, 1.05rem); */
-  /* Hero Subtitle */
   .typo-hero-sub {
-    @apply text-tx-inverse/67;
+    @apply text-tx-inverse/70;
     font-size: clamp(0.95rem, 0.4vw + 0.9rem, 1.15rem);
     line-height: 1.55;
     font-weight: 400;
   }
 
-  /* Section Title */
   .typo-h2 {
     @apply text-tx-primary;
     font-size: var(--fs-h2);
@@ -204,7 +195,6 @@ body {
     font-weight: 500;
   }
 
-  /* Card Title */
   .typo-h3 {
     @apply text-tx-primary;
     font-size: var(--fs-h3);
@@ -212,13 +202,6 @@ body {
     line-height: 1.25;
     font-weight: 500;
   }
-
-  /* Important Intro */
-  /* .typo-lead {
-    @apply text-tx-inverse/85 leading-relaxed;
-    font-size: var(--fs-lead);
-    font-weight: 500;
-  } */
 
   .typo-lead {
     @apply text-tx-inverse;
@@ -228,7 +211,6 @@ body {
     letter-spacing: 0.01em;
   }
 
-  /* Section Intro */
   .typo-subtitle {
     @apply text-tx-secondary;
     font-size: 1rem;
@@ -236,14 +218,12 @@ body {
     line-height: var(--lh-body);
   }
 
-  /* Default Body Text */
   .typo-body {
     @apply text-tx-secondary;
     font-size: var(--fs-body);
     line-height: var(--lh-relaxed);
   }
 
-  /* Small Meta Text */
   .typo-meta {
     @apply text-tx-muted;
     font-size: var(--fs-meta);
@@ -254,13 +234,10 @@ body {
     @apply flex items-center font-medium text-[14px] lg:text-base;
   }
 
-  /* ==================== CONTAINERS ==================== */
   .container-page {
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-6 2xl:px-2;
   }
 }
-
-/* ==================== UI UTILITIES ==================== */
 
 /* ==================== INTERACTION ==================== */
 
@@ -271,7 +248,7 @@ img {
   -webkit-user-select: none;
 }
 
-/* ==================== SWIPER OVERRIDES ==================== */
+/* ==================== SWIPER ==================== */
 
 .services-pagination .swiper-pagination-bullet {
   width: 6px;
@@ -289,7 +266,6 @@ img {
   height: 6px;
 }
 
-/* Animation */
 @keyframes scrollHintPulse {
   0% {
     transform: translateY(0);
@@ -319,9 +295,4 @@ img {
     --top-bar-h: 0px;
     --header-h: var(--nav-h);
   }
-}
-
-.muted-section {
-  background-image: radial-gradient(circle at top, rgba(0, 0, 0, 0.02), transparent 40%);
-  background-color: var(--color-bg-muted);
 }

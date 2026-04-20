@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { FaCheckCircle, FaMapMarkedAlt, FaUsers } from "react-icons/fa";
 // Components
 import { Section } from "@/components/layout/Section";
-import { CtaButton } from "@/components/parts/CtaButton";
 import { Stats } from "@/components/sections/StatsSection";
 // Data
 import { siteContent } from "@/config/site-content";
@@ -25,12 +24,15 @@ const valueIcon = {
 } as const;
 
 export default function About() {
-  const { id, title, hero, story, values, cta } = siteContent.about;
+  const { id, title, hero, story, values } = siteContent.about;
 
   return (
     <main id={id} className="relative">
       {/* HERO */}
-      <Section className="relative isolate h-150 overflow-hidden" variant="hero">
+      <Section
+        className="relative isolate overflow-hidden min-h-[min(58dvh,26rem)] md:min-h-[min(54dvh,32rem)] lg:min-h-[min(60dvh,34rem)]"
+        variant="hero"
+      >
         <div className="absolute inset-0 -z-20 bg-[#7e9fb5]">
           <Image
             src={hero.imageBg}

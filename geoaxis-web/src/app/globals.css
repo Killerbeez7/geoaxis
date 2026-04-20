@@ -286,9 +286,9 @@ img {
   will-change: transform, opacity;
 }
 
-.page-offset {
+/* .page-offset {
   padding-top: var(--header-h);
-}
+} */
 
 @media (max-width: 767px) {
   :root {
@@ -300,8 +300,7 @@ img {
 /* TEST NOTCH COLOR */
 html,
 body {
-  /* background: #131a17; */
-  background: #1f3a2f;
+  background: #131a17;
 }
 
 .safe-top {

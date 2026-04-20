@@ -21,7 +21,7 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
       {/* HERO */}
       <Section
         className={clsx(
-          "relative isolate overflow-hidden border-b border-br-light !pt-0 !pb-0",
+          "relative isolate overflow-hidden border-b border-br-light pt-0! pb-0!",
           SERVICES_HERO_MIN_HEIGHT
         )}
       >

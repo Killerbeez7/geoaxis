@@ -10,7 +10,7 @@ const BASE_URL = "https://geoaxis.bg";
 const staticPages = [
   {
     url: "/",
-    lastModified: "2026-04-15",
+    lastModified: "2026-04-20",
     priority: 1.0,
     changeFrequency: "weekly" as const,
   },

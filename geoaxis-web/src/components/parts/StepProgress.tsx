@@ -18,7 +18,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
         {/* left connector */}
         <div
           aria-hidden
-          className="pointer-events-none absolute left-[18px] top-3 bottom-3 w-px bg-br-default"
+          className="pointer-events-none absolute left-[30px] top-3 bottom-3 w-px bg-br-default"
         />
 
         {steps.map((step, index) => {
@@ -29,7 +29,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
               key={index}
               className={clsx(
                 "relative rounded-[--radius-card] bg-white",
-                "border border-black/10",
+                "border border-black/10 rounded-3xl",
                 "shadow-[0_14px_44px_-42px_rgba(0,0,0,0.22)]",
                 "px-5 py-4"
               )}
@@ -55,7 +55,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                       "inline-flex items-center rounded-full px-2.5 py-1",
                       "border border-black/10 bg-bg-muted/60",
                       "text-[11px] font-semibold uppercase tracking-[0.18em]",
-                      "text-tx-muted"
+                      "text-tx-muted/80"
                     )}
                   >
                     {step.meta}

@@ -50,7 +50,7 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold tracking-wide text-tx-inverse">
               {brand.name}
             </h3>
-            <p className="mt-4 text-md leading-relaxed text-tx-inverse/75 text-balance">
+            <p className="mt-4 text-sm md:text-base leading-relaxed text-tx-inverse/75 text-balance">
               {brand.tagline}
             </p>
             <p className="font-mont mt-4 text-xs uppercase tracking-[0.16em] text-balance text-tx-inverse/60">

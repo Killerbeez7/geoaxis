@@ -33,7 +33,7 @@ export function HeroSection({
               <div className="mb-4 flex justify-center md:justify-start">
                 <span
                   className={clsx(
-                    "rounded-full px-5 py-2 bg-white/10",
+                    "rounded-full px-4 py-2 bg-white/10",
                     "typo-kicker",
                     "text-[11px] md:text-[13px]",
                     "text-tx-inverse/72",

@@ -160,7 +160,7 @@ export const Footer = () => {
       <div className="relative mt-12 border-t border-br-strong/40 bg-black/20">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-center px-6 sm:px-8 lg:px-12">
           <p className="text-center text-sm tracking-wide text-tx-inverse/80">
-            © {new Date().getFullYear()} {brand.name}. Всички права запазени.
+            © {new Date().getFullYear()} {brand.name} - Bulgaria. Всички права запазени.
           </p>
         </div>
       </div>

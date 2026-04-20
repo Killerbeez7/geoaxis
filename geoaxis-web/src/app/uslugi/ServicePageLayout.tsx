@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { SERVICES_HERO_MIN_HEIGHT } from "./services-hero.constants";
 import { ServiceCategory } from "@/config/services/categories";
 import { Section } from "@/components/layout/Section";
-import FinalCTA from "@/components/sections/FinalCta";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 type Props = {
   category: ServiceCategory;
@@ -19,9 +19,9 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
   return (
     <main className="bg-bg-page">
       {/* HERO */}
-      <section
+      <Section
         className={clsx(
-          "relative isolate overflow-hidden border-b border-br-light bg-white",
+          "relative isolate overflow-hidden border-b border-br-light !pt-0 !pb-0",
           SERVICES_HERO_MIN_HEIGHT
         )}
       >
@@ -97,11 +97,11 @@ export function ServicePageLayout({ category, activeServiceSlug, children }: Pro
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* CONTENT */}
       <Section>{children}</Section>
-      <FinalCTA />
+      <FinalCta />
     </main>
   );
 }

@@ -11,6 +11,7 @@ import { createSeo } from "@/lib/seo-builder";
 
 import { Section } from "@/components/layout/Section";
 import { CategoryCard } from "@/components/parts/CategoryCard";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata = createSeo({
   title: "Услуги",
@@ -21,11 +22,12 @@ export const metadata = createSeo({
 
 export default function ServicesPage() {
   return (
-    <main className="bg-bg-page">
+    <>
       {/* Hero / intro */}
-      <section
+      <Section
         className={clsx(
-          "relative isolate overflow-hidden border-b border-br-light",
+          "relative isolate overflow-hidden border-b border-br-light bg-white",
+          "pt-0! pb-0!",
           SERVICES_HERO_MIN_HEIGHT
         )}
       >
@@ -85,7 +87,7 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Categories grid */}
       <section id="categories" className="py-10 md:py-14 lg:py-16">
@@ -110,6 +112,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Guidance / CTA */}
+
       <Section className="bg-bg-page pb-16 md:pb-20">
         <div className="container-page">
           <div
@@ -125,14 +128,12 @@ export default function ServicesPage() {
               )}
             />
 
-            <div className="relative p-6 md:p-8 lg:p-10">
+            <div className="relative p-6 md:p-8 lg:p-10 bg-bg-page">
               <div className="max-w-3xl">
                 <p className="typo-kicker text-accent">Насоки</p>
-
                 <h2 className="mt-3 typo-h3 text-tx-primary">
                   Не сте сигурни коя услуга е подходяща?
                 </h2>
-
                 <p className="mt-4 typo-body text-tx-secondary">
                   Изпратете кратко описание на случая и ще получите насоки какви документи
                   са нужни, каква е логичната последователност на работа и коя услуга е
@@ -144,13 +145,13 @@ export default function ServicesPage() {
                 <div
                   className={clsx(
                     "rounded-2xl border border-br-light",
-                    "bg-bg-page/70 p-5 backdrop-blur-sm"
+                    "bg-bg-section/70 p-5 backdrop-blur-sm"
                   )}
                 >
                   <h3 className="text-base font-semibold text-tx-primary md:text-lg">
                     Консултация и оценка
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-tx-secondary">
+                  <p className="mt-2 text-sm leading-6 text-tx-secondary ">
                     Ще получите яснота какво е необходимо, какви документи липсват и кой е
                     най-логичният ред за действие.
                   </p>
@@ -159,7 +160,7 @@ export default function ServicesPage() {
                 <div
                   className={clsx(
                     "rounded-2xl border border-br-light",
-                    "bg-bg-page/70 p-5 backdrop-blur-sm"
+                    "bg-bg-section/70 p-5 backdrop-blur-sm"
                   )}
                 >
                   <h3 className="text-base font-semibold text-tx-primary md:text-lg">
@@ -172,33 +173,22 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/contacts"
-                  className={clsx(
-                    "inline-flex items-center justify-center rounded-xl",
-                    "bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse",
-                    "transition-all duration-300 hover:translate-y-px hover:opacity-95"
-                  )}
-                >
-                  Изпратете запитване
-                </Link>
-
+              <div className="mt-6">
                 <Link
                   href="/uslugi/konsultacia"
                   className={clsx(
-                    "inline-flex items-center justify-center rounded-xl border border-br-light",
-                    "bg-transparent px-6 py-3 text-sm font-semibold text-tx-primary",
-                    "transition-colors duration-300 hover:border-br-strong hover:bg-bg-surface"
+                    "inline-flex items-center gap-2 text-sm font-semibold text-accent",
+                    "transition-opacity hover:opacity-75"
                   )}
                 >
-                  Вижте консултациите
+                  Вижте услугата Консултации →
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </Section>
-    </main>
+      <FinalCta />
+    </>
   );
 }

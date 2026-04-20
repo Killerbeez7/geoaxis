@@ -10,6 +10,7 @@ import type { ProjectsContent } from "@/config/content/projects";
 
 import { ProjectsLightbox } from "./ProjectsLightbox";
 import { Section } from "@/components/layout/Section";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function ProjectsPageClient() {
   const [selectedImage, setSelectedImage] = useState<
@@ -21,16 +22,13 @@ export default function ProjectsPageClient() {
   const hasFew = useMemo(() => items.length < 6, [items.length]);
 
   return (
-    <main className="relative min-h-screen bg-(--bg-page) pt-[calc(var(--header-h)+24px)]">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04]"
-        style={{
-          backgroundImage: "url(/images/topo-pattern-light.svg)",
-          backgroundSize: "cover",
-        }}
-      />
-
-      <Section id="projects" className="pt-28 pb-20 md:pt-36 md:pb-28">
+    <>
+      <Section
+        id="projects"
+        variant="hero"
+        tone="page"
+        className="pt-28 pb-20 md:pt-36 md:pb-28"
+      >
         <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-14">
           <header className="col-span-12 text-center lg:col-span-8 lg:col-start-3">
             <h1 className="text-4xl font-bold tracking-tight text-(--text-primary) sm:text-5xl">
@@ -89,6 +87,7 @@ export default function ProjectsPageClient() {
       </Section>
 
       <ProjectsLightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
-    </main>
+      <FinalCta />
+    </>
   );
 }

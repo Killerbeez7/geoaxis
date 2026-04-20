@@ -9,6 +9,7 @@ import { Stats } from "@/components/sections/StatsSection";
 import { siteContent } from "@/config/site-content";
 // SEO
 import { createSeo } from "@/lib/seo-builder";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata = createSeo({
   title: "За нас",
@@ -132,18 +133,7 @@ export default function About() {
       <Stats />
 
       {/* CTA */}
-      <Section className="py-28 bg-bg-nav text-tx-inverse">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="typo-h2">{cta.title}</h2>
-          <p className="mt-6 typo-body">{cta.text}</p>
-
-          <div className="mt-10">
-            <CtaButton href={cta.buttonHref} size="lg">
-              {cta.buttonLabel}
-            </CtaButton>
-          </div>
-        </div>
-      </Section>
+      <FinalCta />
     </main>
   );
 }

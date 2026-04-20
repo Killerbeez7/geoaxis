@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { Section } from "@/components/layout/Section";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 type HelpfulArticle = {
   slug: string;
@@ -218,66 +219,69 @@ function CategoryCard({ item }: { item: HelpfulCategory }) {
 
 export function HelpfulHubSection() {
   return (
-    <Section
-      id="polezno"
-      variant="hero"
-      tone="section"
-      className="overflow-hidden"
-      containerClassName="relative"
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_left,rgba(199,157,50,0.08),transparent_42%)]" />
+    <>
+      <Section
+        id="polezno"
+        variant="hero"
+        tone="section"
+        className="overflow-hidden"
+        containerClassName="relative"
+      >
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_left,rgba(199,157,50,0.08),transparent_42%)]" />
 
-      <div className="relative">
-        <div className="max-w-3xl p-4">
-          <SectionEyebrow />
+        <div className="relative">
+          <div className="max-w-3xl p-4">
+            <SectionEyebrow />
 
-          <h1 className="typo-h2 max-w-2xl">Полезни материали, въпроси и насоки</h1>
+            <h1 className="typo-h2 max-w-2xl">Полезни материали, въпроси и насоки</h1>
 
-          <p className="typo-subtitle mt-5 max-w-2xl">
-            Практична информация за геодезия, кадастър, трасиране и устройствени
-            процедури. Съдържание, което помага на клиентите да вземат по-информирано
-            решение и да намерят точната услуга по-бързо.
-          </p>
-        </div>
+            <p className="typo-subtitle mt-5 max-w-2xl">
+              Практична информация за геодезия, кадастър, трасиране и устройствени
+              процедури. Съдържание, което помага на клиентите да вземат по-информирано
+              решение и да намерят точната услуга по-бързо.
+            </p>
+          </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {featuredArticles.map((article) => (
-            <ArticleCard key={article.slug} article={article} featured />
-          ))}
-        </div>
-
-        <div className="mt-20">
-          <SectionHeader
-            title="Категории"
-            description="Раздели съдържанието по теми, за да е лесно за потребителя и за Google."
-          />
-
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {categories.map((item) => (
-              <CategoryCard key={item.title} item={item} />
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {featuredArticles.map((article) => (
+              <ArticleCard key={article.slug} article={article} featured />
             ))}
           </div>
-        </div>
 
-        <div className="mt-20">
-          <SectionHeader
-            title="Последни статии"
-            description="Кратки ръководства и практически теми с висок SEO потенциал."
-            action={
-              <Link href="/polezno" className={sectionHeaderLinkCls}>
-                Виж всички
-                <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            }
-          />
+          <div className="mt-20">
+            <SectionHeader
+              title="Категории"
+              description="Раздели съдържанието по теми, за да е лесно за потребителя и за Google."
+            />
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            {latestArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))}
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {categories.map((item) => (
+                <CategoryCard key={item.title} item={item} />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-20">
+            <SectionHeader
+              title="Последни статии"
+              description="Кратки ръководства и практически теми с висок SEO потенциал."
+              action={
+                <Link href="/polezno" className={sectionHeaderLinkCls}>
+                  Виж всички
+                  <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              }
+            />
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {latestArticles.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+      <FinalCta />
+    </>
   );
 }

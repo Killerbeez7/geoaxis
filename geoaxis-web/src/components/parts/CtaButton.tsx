@@ -40,12 +40,12 @@ export function CtaButton({
   };
 
   const variants: Record<Variant, string> = {
-    primary: clsx("bg-accent", "text-tx-inverse", "hover:bg-accent-hover"),
+    primary: clsx("bg-accent/90", "text-tx-inverse", "hover:bg-accent-hover"),
 
     outline: clsx(
-      "border border-accent",
-      "text-accent",
-      "hover:bg-accent hover:text-tx-inverse"
+      "border border-br-light/50",
+      "text-white bg-white/10",
+      "hover:bg-white/20 hover:text-tx-inverse"
     ),
 
     glass: clsx(

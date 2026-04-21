@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef } from "react";
 import clsx from "clsx";
 import { FaPhone } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 import { CtaButton } from "@/components/parts/CtaButton";
 import { Section } from "../layout/Section";
 import { siteContent } from "@/config/site-content";
@@ -92,7 +93,7 @@ function Field({
 }
 
 export function FinalCta() {
-  const { phone } = siteContent.contacts;
+  const { phone, email } = siteContent.contacts;
   const formRef = useRef<HTMLFormElement>(null);
 
   const [state, formAction, isPending] = useActionState(quickContactAction, {
@@ -119,11 +120,19 @@ export function FinalCta() {
           </p>
 
           <a href={`tel:${phone}`} className="mt-8 flex w-fit items-center gap-3 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent transition group-hover:bg-accent/25">
-              <FaPhone className="h-4 w-4" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-accent transition">
+              <FaPhone className="h-4 w-4 text-accent/80 group-hover:text-accent-hover" />
             </div>
-            <span className="typo-body font-medium text-tx-inverse/75 transition group-hover:text-accent">
+            <span className="typo-body font-medium text-tx-inverse/75 transition group-hover:text-accent-hover">
               {phone}
+            </span>
+          </a>
+          <a href={`tel:${email}`} className="mt-8 flex w-fit items-center gap-3 group">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-accent transition">
+              <FaEnvelope className="h-4 w-4 group-hover:text-accent-hover" />
+            </div>
+            <span className="typo-body font-medium text-tx-inverse/75 transition group-hover:text-accent-hover">
+              {email}
             </span>
           </a>
         </div>

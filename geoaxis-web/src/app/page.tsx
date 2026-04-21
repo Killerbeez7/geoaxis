@@ -3,7 +3,7 @@ import { serviceCategories } from "@/config/services/categories";
 import { createSeo } from "@/lib/seo-builder";
 // Sections
 import { HeroSection } from "@/components/sections/HeroSection";
-import { WhatWeDoSection } from "@/components/sections/whatwedo";
+import { TrustSection } from "@/components/sections/TrustSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { WorkflowSection } from "@/components/sections/WorkflowSection";
@@ -35,7 +35,7 @@ export default function Home() {
       />
 
       {/* What we do? */}
-      <WhatWeDoSection />
+      <TrustSection />
 
       {/* What we offer? */}
       <ServiceSection

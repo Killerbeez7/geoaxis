@@ -145,7 +145,7 @@ body {
 
 @layer base {
   body {
-    @apply font-mont bg-bg-page text-tx-primary text-base text-balance;
+    @apply font-mont bg-bg-page text-tx-primary text-base;
     line-height: 1.55;
   }
 
@@ -212,7 +212,7 @@ body {
   }
 
   .typo-subtitle {
-    @apply text-tx-secondary;
+    @apply text-tx-secondary/90;
     font-size: 1rem;
     font-weight: 400;
     line-height: var(--lh-body);

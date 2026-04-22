@@ -64,10 +64,9 @@ function Field({
 }) {
   const base = clsx(
     "w-full rounded-xl px-4 text-white",
-    "bg-white/12 hover:bg-white/18",
+    "bg-white/12 hover:bg-white/30",
     "border border-white/20 hover:border-white/40",
     "transition-all duration-300 ease-in-out",
-    "caret-accent",
     "placeholder:text-white/40 backdrop-blur-md",
     "focus:border-white/40 focus:ring-2 focus:ring-white/30 focus:outline-none"
   );

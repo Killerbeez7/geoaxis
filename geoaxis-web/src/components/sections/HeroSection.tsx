@@ -27,20 +27,20 @@ export function HeroSection({
         {/* Content */}
         <div className="container-page relative w-full pt-(--header-h)">
           {/* <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left md:translate-x-6 lg:translate-x-10"> */}
-          <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
+          <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left ">
             {/* Kicker */}
             {kicker && (
               <div className="mb-4 flex justify-center md:justify-start">
                 <span
                   className={clsx(
-                    "rounded-full px-4 py-2 bg-white/10",
-                    "typo-kicker",
+                    "typo-kicker text-tx-inverse/72",
                     "text-[11px] md:text-[13px]",
-                    "text-tx-inverse/72",
-                    "tracking-[0.14em] md:tracking-[0.18em]",
-                    "md:border-l-2 md:border-accent/50 md:pl-4 md:py-1",
-
-                    "md:bg-transparent md:rounded-none"
+                    "tracking-[0.12em] md:tracking-[0.18em]",
+                    // mobile pill
+                    "md:bg-transparent md:rounded-none",
+                    "px-4 py-2 bg-white/10 rounded-full ",
+                    // desktop border left
+                    "md:border-l-2 md:border-accent/50 md:pl-4 md:py-1"
                   )}
                 >
                   {kicker}
@@ -56,7 +56,6 @@ export function HeroSection({
                   className={clsx(
                     "block mt-0.5",
                     // "font-semibold text-accent",
-                    // "font-bold text-accent ",
                     "font-bold text-transparent bg-clip-text bg-linear-to-r from-accent to-accent/87",
                     "drop-shadow-sm"
                   )}
@@ -68,7 +67,7 @@ export function HeroSection({
 
             {/* Subtitle - optional */}
             {subtitle && (
-              <p className="typo-hero-sub mt-7 md:mt-8 max-w-lg mx-auto md:mx-0 ">
+              <p className="typo-lead mt-7 md:mt-8 max-w-lg mx-auto md:mx-0 ">
                 {subtitle_1}
                 <br />
                 {subtitle_2}

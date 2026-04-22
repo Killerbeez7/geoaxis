@@ -112,17 +112,14 @@ export function WhyChooseUs({
           </h2>
 
           {/* {subtitle && (
-            <p className="mt-6 text-lg font-medium leading-relaxed text-tx-inverse/90 text-left">
+            <p className="mt-4 text-lg font-medium leading-relaxed text-tx-inverse/90 text-left">
               {subtitle}
             </p>
           )} */}
 
           <div className={clsx("space-y-5 text-left", subtitle ? "mt-4" : "mt-8")}>
             {paragraphs.map((paragraph, i) => (
-              <p
-                key={i}
-                className="typo-body text-tx-inverse/80 leading-relaxed font-light lg:text-[17px]"
-              >
+              <p key={i} className="typo-body text-tx-inverse/80">
                 {paragraph}
               </p>
             ))}
@@ -138,17 +135,18 @@ export function WhyChooseUs({
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             variants={scaleUp}
             className={clsx(
-              "relative ml-auto w-full overflow-hidden rounded-[2.5rem] lg:w-[95%]",
-              "shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] border border-white/10"
+              "relative ml-auto w-full overflow-hidden rounded-3xl lg:w-[95%] group",
+              "shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-white/10",
+              "transition-transform hover:scale-110 duration-1000"
             )}
           >
-            <div className="relative aspect-[4/3] lg:aspect-[5/4]">
+            <div className="relative aspect-4/3 lg:aspect-5/4">
               <Image
                 src={image}
                 alt={imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-1000 hover:scale-105"
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               {/* Градиент за дълбочина вместо плосък цвят */}
               <div className="absolute inset-0 bg-linear-to-tr from-brand-olive-900/40 via-transparent to-accent/5" />

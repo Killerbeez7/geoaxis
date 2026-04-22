@@ -20,7 +20,7 @@ export const metadata = createSeo({
 });
 
 export default function Home() {
-  const { brand, hero, trust, services, whyUs, workflow, projects, stats } = siteContent;
+  const { brand, hero, trust, services, whyUs, workflow, projects } = siteContent;
 
   return (
     <>

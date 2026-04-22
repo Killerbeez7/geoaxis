@@ -58,22 +58,6 @@
   --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);
   --surface-overlay-md: color-mix(in srgb, var(--gray-0) 12%, transparent);
   --surface-overlay-lg: color-mix(in srgb, var(--gray-0) 18%, transparent);
-
-  /* ==================== TYPE SCALE ==================== */
-
-  --fs-hero: clamp(1.85rem, 3.2vw + 0.9rem, 3.5rem);
-  --fs-h2: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  --fs-h3: clamp(1.2rem, 0.8vw + 1rem, 2rem);
-  --fs-lead: clamp(0.9rem, 0.5vw + 0.8rem, 1.25rem);
-  --fs-body: 1.0625rem;
-  --fs-meta: 0.85rem;
-
-  --lh-tight: 1.08;
-  --lh-heading: 1.18;
-  --lh-body: 1.65;
-  --lh-relaxed: 1.7;
-
-  --tracking-widest-xl: 0.2em;
 }
 
 @theme inline {
@@ -167,71 +151,58 @@ body {
 @layer components {
   /* ==================== TYPOGRAPHY ==================== */
   .typo-kicker {
-    @apply uppercase font-semibold text-accent;
-    font-size: var(--fs-meta);
-    letter-spacing: var(--tracking-widest-xl);
-    line-height: var(--lh-heading);
+    @apply uppercase font-semibold text-accent text-sm tracking-[0.18em] leading-[1.18];
   }
 
   .typo-hero {
-    @apply text-tx-inverse tracking-tight;
-    font-size: var(--fs-hero);
-    line-height: var(--lh-tight);
-    font-weight: 500;
-  }
-
-  .typo-hero-sub {
-    @apply text-tx-inverse/70;
-    font-size: clamp(0.95rem, 0.4vw + 0.9rem, 1.15rem);
-    line-height: 1.55;
-    font-weight: 400;
-  }
-
-  .typo-h2 {
-    @apply text-tx-primary;
-    font-size: var(--fs-h2);
-    line-height: var(--lh-heading);
-    letter-spacing: -0.01em;
-    font-weight: 500;
-  }
-
-  .typo-h3 {
-    @apply text-tx-primary;
-    font-size: var(--fs-h3);
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-    font-weight: 500;
+    /* base */
+    @apply text-tx-inverse font-medium tracking-tight text-3xl leading-[1.08];
+    /* mobile -md */
+    @apply min-[420px]:text-4xl md:text-5xl;
+    /* desktop -lg */
+    @apply lg:text-[3.5rem];
   }
 
   .typo-lead {
-    @apply text-tx-inverse;
-    font-size: var(--fs-lead);
-    font-weight: 400;
-    line-height: 1.6;
-    letter-spacing: 0.01em;
+    /* base */
+    @apply text-base text-tx-inverse/70;
+    /* mobile -md */
+    @apply md:leading-[1.55] md:text-[1.15rem];
+  }
+
+  .typo-h2 {
+    /* base */
+    @apply text-tx-primary font-medium text-2xl tracking-[-0.01em] leading-[1.18];
+    /* mobile -md */
+    @apply md:text-3xl;
+    /* desktop -lg */
+    @apply lg:text-4xl;
+  }
+
+  .typo-h3 {
+    /* base */
+    @apply text-tx-primary font-medium text-[1.2rem] tracking-[0.01em] leading-tight;
+    /* mobile -md */
+    @apply md:text-[1.1rem];
+    /* desktop -lg */
+    @apply lg:text-[2rem];
   }
 
   .typo-subtitle {
-    @apply text-tx-secondary/90;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: var(--lh-body);
+    @apply text-tx-secondary/90 text-base leading-[1.65];
   }
 
   .typo-body {
-    @apply text-tx-secondary;
-    font-size: var(--fs-body);
-    line-height: var(--lh-relaxed);
+    @apply text-tx-secondary text-base leading-relaxed;
+    @apply lg:text-[17px];
   }
 
   .typo-meta {
-    @apply text-tx-muted;
-    font-size: var(--fs-meta);
-    line-height: 1.6;
+    @apply text-tx-muted text-[0.85rem] leading-[1.6];
   }
 
   .nav-link {
-    @apply flex items-center font-medium text-[14px] lg:text-base;
+    @apply flex items-center font-medium text-sm lg:text-base;
   }
 
   .container-page {

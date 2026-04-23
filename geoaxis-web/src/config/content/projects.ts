@@ -23,7 +23,7 @@ export type ProjectsContent = {
 export const projects: ProjectsContent = {
   id: "projects",
   kicker: "Проекти",
-  title: "Изпълнени обекти",
+  title: "Завършени обекти",
   subtitle: "Подбрани примери от реализирани геодезически и кадастрални дейности.",
   cta: {
     label: "Всички проекти",

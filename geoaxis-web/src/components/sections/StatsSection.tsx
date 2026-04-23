@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useMotionValue } from "framer-motion";
 import clsx from "clsx";
 import { siteContent } from "@/config/site-content";
+import { Section } from "../layout/Section";
 
 function extractNumber(value: string | number) {
   const raw = String(value);
@@ -64,7 +65,7 @@ export function Stats() {
   const stats = siteContent.stats;
 
   return (
-    <section className="relative overflow-hidden bg-bg-muted py-16 md:py-20 lg:py-24">
+    <Section tone="muted">
       <div
         aria-hidden="true"
         className={clsx(
@@ -74,17 +75,20 @@ export function Stats() {
       />
 
       <div className="container-page relative">
-        <div className="mb-8 text-center md:mb-10">
-          <p className="typo-kicker text-accent typo-kicker inline-block border-b border-accent/40 pb-2">
+        <div className="mx-auto max-w-xl text-center">
+          <p className="typo-kicker inline-block border-b border-accent/40 pb-2 md:px-2">
             Доказани резултати
           </p>
-          <h2 className="mt-3 typo-h3 text-tx-primary">Прецизност във всеки детайл</h2>
+          <h2 className="mt-1 md:mt-2 typo-h3 text-tx-primary">
+            Прецизност във всеки детайл
+          </h2>
         </div>
 
         <div
           className={clsx(
             "rounded-[28px] border border-br-light",
-            "bg-bg-page/70 p-6 backdrop-blur-sm md:p-8"
+            "bg-bg-page/70 p-6 backdrop-blur-sm md:p-8",
+            "mt-8 md:mt-12"
           )}
         >
           <div className="grid gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-6">
@@ -109,6 +113,6 @@ export function Stats() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

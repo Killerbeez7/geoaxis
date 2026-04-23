@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -20,12 +21,26 @@ export function ProjectDisplayCard({ image, onClick }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
+    //   <Link
+    //   href={href}
+    //   aria-label={`Детайли за ${title}`}
+    //   className={clsx(
+    //     "group relative flex flex-col justify-end overflow-hidden rounded-4xl bg-black",
+    //     "h-[260px] md:h-[300px]",
+    //     "border border-br-default shadow-lg",
+    //     "transition-all duration-300",
+    //     "hover:-translate-y-1 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]"
+    //   )}
+    // >
+
     <div
-      className={`
-        group relative aspect-[4/3] rounded-2xl overflow-hidden
-        shadow-md hover:shadow-xl transition-all duration-300
-        cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2
-      `}
+      className={clsx(
+        "group relative flex flex-col justify-end overflow-hidden rounded-4xl bg-black",
+        "h-[260px] md:h-[300px]",
+        "border border-br-default shadow-lg",
+        "transition-all duration-300",
+        "hover:-translate-y-1 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]"
+      )}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

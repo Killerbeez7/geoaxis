@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { motion, animate, useInView, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 import type { WhyUsContent } from "@/config/content/why-us";
-
-/* ============ ANIMATIONS ============ */
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -18,61 +15,6 @@ const scaleUp = {
   hidden: { opacity: 0, y: 18, scale: 0.97 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
-
-/* ============ STATS COUNTER ============ */
-
-function extractNumber(value: string | number) {
-  const raw = String(value);
-  const numeric = Number(raw.replace(/[^\d]/g, ""));
-  return Number.isNaN(numeric) ? 0 : numeric;
-}
-
-function extractSuffix(value: string | number) {
-  const raw = String(value);
-  const match = raw.match(/[^\d\s]+$/);
-  return match ? match[0] : "";
-}
-
-function CountUpNumber({ value }: { value: string | number }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-
-  const target = extractNumber(value);
-  const suffix = extractSuffix(value);
-
-  const motionValue = useMotionValue(target);
-  const [displayValue, setDisplayValue] = useState(target);
-
-  useEffect(() => {
-    const unsubscribe = motionValue.on("change", (latest) => {
-      setDisplayValue(Math.round(latest));
-    });
-    return () => unsubscribe();
-  }, [motionValue]);
-
-  useEffect(() => {
-    if (!isInView) return;
-    motionValue.jump(0);
-
-    const controls = animate(motionValue, target, {
-      duration: target >= 1000 ? 1.8 : 1.2,
-      ease: [0.22, 1, 0.36, 1],
-    });
-
-    return () => controls.stop();
-  }, [isInView, motionValue, target]);
-
-  return (
-    <span ref={ref}>
-      {displayValue.toLocaleString("bg-BG")}
-      {suffix && <span className="text-accent">{suffix}</span>}
-    </span>
-  );
-}
-
-/* ============ MAIN ============ */
-
-/* ============ ОБНОВЕН MAIN КОМПОНЕНТ ============ */
 
 export function WhyChooseUs({
   id,
@@ -87,7 +29,7 @@ export function WhyChooseUs({
   return (
     <Section id={id} tone="brand" className="overflow-hidden">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-        {/* Текстова колона */}
+        {/* Text - left side */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -97,18 +39,13 @@ export function WhyChooseUs({
           className="text-left"
         >
           {kicker && (
-            <span className="typo-kicker text-accent/90 brightness-110 inline-block border-b border-accent/40 pb-2">
+            <p className="typo-kicker inline-block border-b border-accent/40 pb-2 md:px-2">
               {kicker}{" "}
-              {/* <span className="absolute -bottom-1.5 left-0 h-[2px] w-full bg-accent/30 rounded-full" /> */}
-            </span>
+            </p>
           )}
 
-          <h2 className="mt-3 typo-h2 text-tx-inverse lg:text-4xl lg:leading-[1.15] text-left">
-            {title}{" "}
-            <span className="relative inline-block text-accent">
-              {brandName}
-              {/* <span className="absolute -bottom-1.5 left-0 h-[2px] w-full bg-accent/30 rounded-full" /> */}
-            </span>
+          <h2 className="typo-h2 text-tx-inverse mt-1 md:mt-2">
+            {title} <span className="relative inline-block text-accent">{brandName}</span>
           </h2>
 
           {/* {subtitle && (
@@ -116,17 +53,22 @@ export function WhyChooseUs({
               {subtitle}
             </p>
           )} */}
-
-          <div className={clsx("space-y-5 text-left", subtitle ? "mt-4" : "mt-8")}>
+          {/* <p className="typo-subtitle mt-2 md:mt-4 max-w-2xl mx-0 md:mx-auto whitespace-normal md:whitespace-pre-line"></p> */}
+          <div
+            className={clsx(
+              "space-y-5 text-left",
+              subtitle ? "mt-2 md:mt-4" : "mt-4 md:mt-8"
+            )}
+          >
             {paragraphs.map((paragraph, i) => (
-              <p key={i} className="typo-body text-tx-inverse/80">
+              <p key={i} className="typo-body text-tx-inverse/80 font-medium">
                 {paragraph}
               </p>
             ))}
           </div>
         </motion.div>
 
-        {/* Колона с изображение */}
+        {/* Image - Right side */}
         <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
           <motion.div
             initial="hidden"
@@ -148,13 +90,8 @@ export function WhyChooseUs({
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
-              {/* Градиент за дълбочина вместо плосък цвят */}
-              <div className="absolute inset-0 bg-linear-to-tr from-brand-olive-900/40 via-transparent to-accent/5" />
             </div>
           </motion.div>
-
-          {/* Декоративно сияние зад снимката */}
-          <div className="absolute -bottom-10 -left-10 -z-10 h-64 w-64 rounded-full bg-accent/10 blur-[100px]" />
         </div>
       </div>
     </Section>

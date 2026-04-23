@@ -12,6 +12,7 @@ import { createSeo } from "@/lib/seo-builder";
 import { Section } from "@/components/layout/Section";
 import { CategoryCard } from "@/components/parts/CategoryCard";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { CtaButton } from "@/components/parts/CtaButton";
 
 export const metadata = createSeo({
   title: "Услуги",
@@ -26,11 +27,15 @@ export default function ServicesPage() {
       {/* Hero / intro */}
       <Section
         className={clsx(
-          "relative isolate overflow-hidden border-b border-br-light bg-white",
+          // "isolate bg-white",
+          "relative overflow-hidden border-b border-br-light ",
+          "bg-bg-canvas!",
+          // "bg-linear-to-b from-bg-section via-bg-section to-bg-sectio",
           "pt-0! pb-0!",
           SERVICES_HERO_MIN_HEIGHT
         )}
       >
+        {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_30%)]" /> */}
         <div className="absolute inset-0">
           <Image
             src="/images/5.jpeg"
@@ -53,37 +58,22 @@ export default function ServicesPage() {
         <div className={SERVICES_HERO_CONTENT_CLASS}>
           <div className="max-w-4xl">
             <h1 className="typo-h2 text-white drop-shadow-sm md:text-[2.25rem] md:leading-tight lg:text-[2.5rem]">
-              Геодезически и кадастрални услуги
+              Всички услуги
             </h1>
 
             <p className="mt-4 max-w-3xl typo-body text-white/88">
-              Изберете категория според конкретната нужда - заснемане, трасиране,
-              кадастър, проектиране или градоустройство. Всяка услуга е представена с
-              кратко описание, за да откриете по-лесно най-подходящата следваща стъпка.
+              Разгледайте услугите според конкретния случай и открийте най-подходящата
+              следваща стъпка за вашия имот или проект.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/contacts"
-                className={clsx(
-                  "inline-flex items-center justify-center rounded-xl",
-                  "bg-accent px-6 py-3 text-sm font-semibold text-tx-inverse",
-                  "transition-all duration-300 hover:translate-y-px hover:opacity-95"
-                )}
-              >
-                Изпратете запитване
-              </Link>
+              <CtaButton href="/contacts" variant="primary">
+                Изпрати запитване
+              </CtaButton>
 
-              <Link
-                href="#categories"
-                className={clsx(
-                  "inline-flex items-center justify-center rounded-xl border border-white/25",
-                  "bg-white/8 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm",
-                  "transition-colors duration-300 hover:border-white/40 hover:bg-white/14"
-                )}
-              >
-                Разгледайте категориите
-              </Link>
+              <CtaButton href="#categories" variant="glass">
+                Категории
+              </CtaButton>
             </div>
           </div>
         </div>

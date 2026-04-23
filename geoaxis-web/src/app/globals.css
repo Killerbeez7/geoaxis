@@ -2,6 +2,7 @@
 
 :root {
   /* ==================== RAW PALETTE ==================== */
+  --canvas: #ececec;
 
   /* Brand Olive */
   --brand-olive-50: #f2f5f3;
@@ -72,6 +73,7 @@
   --color-bg-muted: #f5f5f5;
   --color-bg-brand: var(--brand-olive-700);
   --color-bg-inverse: var(--brand-olive-800);
+  --color-bg-canvas: var(--canvas);
 
   /* nav */
   --color-bg-nav: var(--brand-olive-800);

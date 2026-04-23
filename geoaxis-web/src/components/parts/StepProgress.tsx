@@ -35,7 +35,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
               )}
             >
               {/* node */}
-              <div className="absolute left-2.5 top-5">
+              <div className="absolute left-2.5 top-2.5">
                 <div
                   className={clsx(
                     "grid h-9 w-9 place-items-center rounded-full",
@@ -49,7 +49,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
 
               <div className="pl-10">
                 {/* meta pill */}
-                {!!step.meta && (
+                {/* {!!step.meta && (
                   <div
                     className={clsx(
                       "inline-flex items-center rounded-full px-2.5 py-1",
@@ -60,8 +60,19 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                   >
                     {step.meta}
                   </div>
-                )}
+                )} */}
 
+                {!!step.meta && (
+                  <div
+                    className={clsx(
+                      "inline items-center pt-2 pb-1",
+                      "text-[10px] font-semibold uppercase tracking-[0.18em]",
+                      "text-tx-muted/70 border-b border-br-default"
+                    )}
+                  >
+                    {step.meta}
+                  </div>
+                )}
                 <div className={clsx("mt-2", !step.meta && "mt-1")}>
                   <div className="text-[15px] font-semibold text-tx-primary leading-snug">
                     {step.title}

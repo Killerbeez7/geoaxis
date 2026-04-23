@@ -24,12 +24,14 @@ export function ProjectsSection({
   return (
     <Section id={id} tone="page">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-2xl text-left">
-          <span className="typo-kicker inline-block border-b border-accent/40 pb-2">
+        <div className="max-w-3xl text-left px-4 md:px-0">
+          <p className="typo-kicker inline-block border-b border-accent/40 pb-2 md:px-2">
             {kicker}
-          </span>
-          <h2 className="typo-h2 mt-2">{title}</h2>
-          <p className="mt-2 typo-subtitle">{subtitle}</p>
+          </p>
+          <h2 className="typo-h2 mt-1 md:mt-2">{title}</h2>
+          <p className="typo-subtitle mt-2 md:mt-4 mx-0 md:mx-auto max-w-sm md:max-w-lg lg:max-w-2xl">
+            {subtitle}
+          </p>
         </div>
 
         <CtaButton variant="primary" href={cta.href} className="shrink-0">
@@ -37,7 +39,7 @@ export function ProjectsSection({
         </CtaButton>
       </div>
 
-      <div className="mt-10 sm:mt-12">
+      <div className="mt-8 sm:mt-12">
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
           {visible.map((image) => (
             <ProjectDisplayCard
@@ -49,6 +51,9 @@ export function ProjectsSection({
         </div>
       </div>
 
+      <div className="flex justify-center pt-12">
+        <CtaButton variant="primary">Покажи още снимки</CtaButton>
+      </div>
       <ProjectsLightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
     </Section>
   );

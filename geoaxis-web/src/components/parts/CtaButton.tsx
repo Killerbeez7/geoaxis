@@ -28,7 +28,7 @@ export function CtaButton({
     "rounded-2xl",
     "transition-all duration-200",
     "shadow-lg hover:shadow-xl",
-    "hover:scale-105",
+    "hover:scale-101",
     "active:scale-100",
     "leading-none"
   );

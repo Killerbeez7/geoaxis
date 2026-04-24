@@ -28,7 +28,7 @@ export function WhyChooseUs({
 }: WhyUsContent) {
   return (
     <Section id={id} tone="brand" className="overflow-hidden">
-      <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+      <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
         {/* Text - left side */}
         <motion.div
           initial="hidden"
@@ -44,7 +44,7 @@ export function WhyChooseUs({
             </p>
           )}
 
-          <h2 className="typo-h2 text-tx-inverse mt-1 md:mt-2">
+          <h2 className="typo-h2 mt-1 text-tx-inverse md:mt-2">
             {title} <span className="relative inline-block text-accent">{brandName}</span>
           </h2>
 
@@ -54,14 +54,15 @@ export function WhyChooseUs({
             </p>
           )} */}
           {/* <p className="typo-subtitle mt-2 md:mt-4 max-w-2xl mx-0 md:mx-auto whitespace-normal md:whitespace-pre-line"></p> */}
-          <div
-            className={clsx(
-              "space-y-5 text-left",
-              subtitle ? "mt-2 md:mt-4" : "mt-4 md:mt-8"
-            )}
-          >
+          {subtitle && (
+            <p className="mt-4 max-w-xl text-base leading-7 text-tx-inverse/82">
+              {subtitle}
+            </p>
+          )}
+
+          <div className={clsx("space-y-4 text-left", "mt-5 md:mt-7")}>
             {paragraphs.map((paragraph, i) => (
-              <p key={i} className="typo-body text-tx-inverse/80 font-medium">
+              <p key={i} className="text-base leading-8 text-tx-inverse/78">
                 {paragraph}
               </p>
             ))}
@@ -77,9 +78,8 @@ export function WhyChooseUs({
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             variants={scaleUp}
             className={clsx(
-              "relative ml-auto w-full overflow-hidden rounded-3xl lg:w-[95%] group",
-              "shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-white/10",
-              "transition-transform hover:scale-110 duration-1000"
+              "group relative ml-auto w-full overflow-hidden rounded-card lg:w-[95%]",
+              "border border-white/10 shadow-2xl shadow-black/20"
             )}
           >
             <div className="relative aspect-4/3 lg:aspect-5/4">
@@ -88,7 +88,7 @@ export function WhyChooseUs({
                 alt={imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           </motion.div>

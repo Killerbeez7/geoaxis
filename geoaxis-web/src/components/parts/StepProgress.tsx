@@ -28,9 +28,8 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
             <div
               key={index}
               className={clsx(
-                "relative rounded-[--radius-card] bg-white",
-                "border border-black/10 rounded-3xl",
-                "shadow-[0_14px_44px_-42px_rgba(0,0,0,0.22)]",
+                "relative rounded-card bg-bg-page",
+                "border border-br-light shadow-sm",
                 "px-5 py-4"
               )}
             >
@@ -39,8 +38,8 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                 <div
                   className={clsx(
                     "grid h-9 w-9 place-items-center rounded-full",
-                    "bg-white border border-br-default",
-                    "text-[12px] font-semibold text-tx-muted"
+                    "border border-br-accent-soft bg-accent/10",
+                    "text-[12px] font-semibold text-accent-strong"
                   )}
                 >
                   {n}
@@ -74,11 +73,11 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                   </div>
                 )}
                 <div className={clsx("mt-2", !step.meta && "mt-1")}>
-                  <div className="text-[15px] font-semibold text-tx-primary leading-snug">
+                  <div className="text-base font-semibold leading-snug text-tx-primary">
                     {step.title}
                   </div>
 
-                  <div className="mt-1.5 text-[13px] leading-relaxed text-tx-secondary/80">
+                  <div className="mt-1.5 text-sm leading-6 text-tx-muted">
                     {step.description}
                   </div>
                 </div>
@@ -107,10 +106,10 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                   <div
                     className={clsx(
                       "relative z-10 mx-auto grid h-11 w-11 place-items-center rounded-full",
-                      "bg-white border border-br-default",
-                      "shadow-[0_12px_32px_-26px_rgba(0,0,0,0.35)]",
-                      "text-[12px] font-semibold text-tx-muted"
-                    )}
+                    "border border-br-accent-soft bg-accent/10",
+                    "shadow-sm",
+                    "text-[12px] font-semibold text-accent-strong"
+                  )}
                   >
                     {n}
                   </div>
@@ -134,7 +133,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
 
                 {/* content */}
                 <div className={clsx("mt-3", !step.meta && "mt-4")}>
-                  <div className="text-[15px] lg:text-[16px] font-semibold text-tx-primary leading-snug">
+                  <div className="text-[15px] font-semibold leading-snug text-tx-primary lg:text-base">
                     {step.title}
                   </div>
 
@@ -144,7 +143,7 @@ export default function StepProgress({ steps, className }: StepProgressProps) {
                   <div
                     className={clsx(
                       "mx-auto mt-3 max-w-[28ch]",
-                      "text-[13px] lg:text-[14px] leading-relaxed text-tx-secondary/80",
+                      "text-sm leading-6 text-tx-muted",
                       "line-clamp-4 lg:line-clamp-5"
                     )}
                   >

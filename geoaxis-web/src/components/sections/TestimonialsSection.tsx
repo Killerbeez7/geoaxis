@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa";
 import { Section } from "@/components/layout/Section";
+import { TestimonialsContent } from "@/config/content/testimonials";
 
 const testimonials = [
   {
@@ -19,18 +20,20 @@ const testimonials = [
   },
 ];
 
-export function Testimonials() {
+export function TestimonialsSection({
+  id,
+  kicker,
+  title,
+  subtitle,
+}: TestimonialsContent) {
   return (
-    <Section tone="muted">
-      <div className="max-w-2xl mx-auto text-left md:text-center mb-12 sm:mb-14">
+    <Section id={id} tone="muted">
+      <div className="max-w-4xl mb-12 sm:mb-14">
         <span className="typo-kicker inline-block border-b border-accent/40 pb-2">
-          Отзиви
+          {kicker}
         </span>
-        <h2 className="typo-h2 mt-2">Какво казват нашите клиентите</h2>
-        <p className="typo-subtitle mt-3">
-          Доверието на нашите клиенти е най-доброто доказателство за качеството на нашата
-          работа.
-        </p>
+        <h2 className="typo-h2 mt-2">{title}</h2>
+        <p className="typo-subtitle mt-3">{subtitle}</p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

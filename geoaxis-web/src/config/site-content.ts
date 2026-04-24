@@ -9,6 +9,7 @@ import { whyUs } from "./content/why-us";
 import { workflow } from "./content/workflow";
 import { clients } from "./content/clients";
 import { stats } from "./content/stats";
+import { testimonials } from "./content/testimonials";
 
 export const siteContent = {
   brand,
@@ -22,4 +23,5 @@ export const siteContent = {
   clients,
   stats,
   projects,
+  testimonials,
 } as const;

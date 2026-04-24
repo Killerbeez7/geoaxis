@@ -140,8 +140,8 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Геодезическо заснемане на техническа инфраструктура",
         shortTitle: "Заснемане на техн. инфраструктура",
         meta: "Мрежи • Съоръжения",
-        thumbnail: "/images/plocha-thumb.jpg",
-        heroImage: "/images/plocha-og.jpg",
+        thumbnail: "/images/services/plocha-thumb.jpg",
+        heroImage: "/images/services/plocha-og.jpg",
         description: "Заснемане на мрежи и съоръжения за координация и проектиране.",
         longDescription:
           "Заснемането на техническа инфраструктура включва подземни и надземни мрежи и съоръжения. Използва се за координация, проектиране и предотвратяване на конфликти между системи.",
@@ -652,8 +652,8 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "raboten-ustroistven-plan",
         title: "Работен устройствен план",
         meta: "РУП • Параметри",
-        thumbnail: "/images/services/proektirane-og.png",
-        heroImage: "/images/service/proektirane-thumb.png",
+        thumbnail: "/images/services/proektirane-thumb.jpg",
+        heroImage: "/images/services/proektirane-og.jpg",
         description: "Уточняване на параметрите на застрояване.",
         longDescription:
           "Работният устройствен план (РУП) уточнява параметрите на застрояване в рамките на действащ план. Използва се при сложни случаи и необходимост от детайлизиране.",
@@ -688,7 +688,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "razdelyane-i-obedinyavane-na-upi",
         title: "Разделяне и обединяване на УПИ",
         meta: "УПИ • Промени",
-        thumbnail: "/images/services/docs-thumb.jpg",
+        thumbnail: "/images/category/urban2-thumb.avif",
         heroImage: "/images/category/urban.png",
         description: "Разделяне или обединяване на урегулирани имоти.",
         longDescription:
@@ -809,8 +809,8 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "proverka-na-danni-i-syvpadeniya",
         title: "Проверка на данни и съвпадения",
         meta: "Имот • Проверка",
-        thumbnail: "/images/services/urban2-thumb.avif",
-        heroImage: "/images/services/urban2-og.avif",
+        thumbnail: "/images/category/urban2-thumb.avif",
+        heroImage: "/images/category/urban2-og.avif",
         description: "Проверка за несъответствия в данни и документи.",
         longDescription:
           "Услугата включва сравнение на данни от документи, скици, схеми и кадастрални записи с цел установяване на несъответствия и уточняване на конкретния казус.",

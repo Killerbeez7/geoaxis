@@ -1,2 +1,2 @@
 export const SITE_URL =
-  process.env.PUBLIC_URL?.replace(/\/$/, "") || "http://localhost:3000";
+  process.env.PUBLIC_URL?.replace(/\/$/, "") || "https://geoaxis.bg";

@@ -3,7 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { CategoryCard } from "@/components/parts/CategoryCard";
 
 import type { ServiceCategory } from "@/config/services/categories";
-// import { CtaButton } from "../parts/CtaButton";
+import { CtaButton } from "../parts/CtaButton";
 
 type Props = {
   id: string;
@@ -18,8 +18,8 @@ export const ServiceSection = ({ id, kicker, title, subtitle, items }: Props) =>
 
   return (
     <Section id={id} tone="page">
-      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-3xl">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
           {kicker && (
             <p className="typo-kicker inline-block border-b border-accent/40 pb-2 md:px-2">
               {kicker}
@@ -28,10 +28,15 @@ export const ServiceSection = ({ id, kicker, title, subtitle, items }: Props) =>
 
           <h2 className="typo-h2 mt-1 md:mt-2">{title}</h2>
 
-          <p className="typo-subtitle mt-2 max-w-2xl md:mt-4">{subtitle}</p>
+          {/* <p className="typo-subtitle max-w-lg lg:max-w-2xl mt-2 md:mt-4">{subtitle}</p> */}
+          <p className="typo-subtitle max-w-2xl lg:max-w-4xl mt-2 md:mt-4">{subtitle}</p>
         </div>
 
-        {/* <CtaButton variant="soft" href="/uslugi" className="w-full shrink-0 md:w-auto">
+        {/* <CtaButton
+          variant="primary"
+          href="/uslugi"
+          className="self-start w-full md:w-auto md:self-auto"
+        >
           <span>Всички услуги</span>
         </CtaButton> */}
       </div>

@@ -1,184 +1,131 @@
-import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
+import { MdArrowRightAlt } from "react-icons/md";
 
-import { serviceCategories } from "@/config/services/categories";
-import {
-  SERVICES_HERO_CONTENT_CLASS,
-  SERVICES_HERO_MIN_HEIGHT,
-} from "./services-hero.constants";
-import { createSeo } from "@/lib/seo-builder";
-
-import { Section } from "@/components/layout/Section";
-import { CategoryCard } from "@/components/parts/CategoryCard";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { CtaButton } from "@/components/parts/CtaButton";
+import { Section } from "@/components/layout/Section";
+// import { FinalCta } from "@/components/sections/FinalCta";
+import { serviceCategories } from "@/config/services/categories";
+import { createSeo } from "@/lib/seo-builder";
+import {
+  CategoryOverviewCard,
+  HelpPanel,
+  SectionIntro,
+  ServicesHero,
+} from "./_components/ServicesUi";
 
 export const metadata = createSeo({
-  title: "Услуги",
+  title: "Геодезически услуги в София",
   description:
-    "Разгледайте нашите услуги — заснемане, трасиране, кадастър, проектиране, градоустройство и консултации в София и Софийска област.",
+    "Геодезически услуги в София и Софийска област: заснемане, трасиране, кадастър, проектиране, градоустройство и консултации.",
   canonical: "/uslugi",
+  image: "/images/sections/hero-home.webp",
 });
 
+const scenarios = [
+  {
+    title: "Започвате проект",
+    text: "Най-често се започва със заснемане за проектиране и проверка на наличните данни.",
+    href: "/uslugi/zasnemane/za-proektirane",
+  },
+  {
+    title: "Ще строите или ограждате",
+    text: "При строителство, ограда или спор за граници най-подходящо е трасиране на място.",
+    href: "/uslugi/trasirane",
+  },
+  {
+    title: "Имате кадастрален казус",
+    text: "За скици, схеми, промени в кадастъра или нанасяне на сграда започнете от кадастър.",
+    href: "/uslugi/kadastar",
+  },
+];
+
 export default function ServicesPage() {
+  const serviceCount = serviceCategories.reduce(
+    (total, category) => total + category.services.length,
+    0
+  );
+
   return (
     <>
-      {/* Hero / intro */}
-      <Section
-        className={clsx(
-          // "isolate bg-white",
-          "relative overflow-hidden border-b border-br-light ",
-          "bg-bg-canvas!",
-          // "bg-linear-to-b from-bg-section via-bg-section to-bg-sectio",
-          "pt-0! pb-0!",
-          SERVICES_HERO_MIN_HEIGHT
-        )}
+      <ServicesHero
+        eyebrow="Геодезически услуги"
+        title="Изберете услуга според вашия случай"
+        description={`Подредихме ${serviceCategories.length} категории и ${serviceCount} конкретни услуги, за да намерите бързо правилната следваща стъпка за имот, проект или процедура.`}
+        image="/images/sections/hero-home.webp"
+        imageAlt="Геодезист работи с тотална станция на терен"
+        imagePosition="object-[78%_55%]"
       >
-        {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_30%)]" /> */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/5.jpeg"
-            alt="Геодезически и кадастрални услуги"
-            fill
-            preload
-            sizes="100vw"
-            className="object-cover object-[50%_42%]"
+        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
+          Изпрати запитване
+        </CtaButton>
+        <CtaButton
+          href="#categories"
+          variant="glass"
+          className="min-h-12 w-full sm:w-auto"
+        >
+          Виж категориите
+        </CtaButton>
+      </ServicesHero>
+
+      <Section id="categories" tone="page">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <SectionIntro
+            eyebrow="Категории"
+            title="Всички услуги на едно място"
+            description="Изберете категорията, която най-добре описва вашия казус. Вътре ще намерите конкретните услуги, необходими документи и последователност на работа."
           />
+          <CtaButton
+            href="/contacts"
+            variant="soft"
+            className="w-full shrink-0 md:w-auto"
+          >
+            Попитайте ни
+          </CtaButton>
         </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-black/42" />
-        <div
-          className={clsx(
-            "pointer-events-none absolute inset-0",
-            "bg-linear-to-t from-black/45 via-black/22 to-transparent"
-          )}
+        <div className="mt-8 grid gap-5 md:mt-12 md:grid-cols-2 xl:grid-cols-3">
+          {serviceCategories.map((category) => (
+            <CategoryOverviewCard key={category.slug} category={category} />
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="muted">
+        <SectionIntro
+          eyebrow="Бърза ориентация"
+          title="Ако не знаете откъде да започнете"
+          description="Тези насоки покриват най-честите случаи. Ако ситуацията е по-специфична, изпратете кратко описание и ще ви насочим."
         />
 
-        <div className={SERVICES_HERO_CONTENT_CLASS}>
-          <div className="max-w-4xl">
-            <h1 className="typo-h2 text-white drop-shadow-sm md:text-[2.25rem] md:leading-tight lg:text-[2.5rem]">
-              Всички услуги
-            </h1>
-
-            <p className="mt-4 max-w-3xl typo-body text-white/88">
-              Разгледайте услугите според конкретния случай и открийте най-подходящата
-              следваща стъпка за вашия имот или проект.
-            </p>
-
-            <div className="mt-7 flex flex-wrap gap-3">
-              <CtaButton href="/contacts" variant="primary">
-                Изпрати запитване
-              </CtaButton>
-
-              <CtaButton href="#categories" variant="glass">
-                Категории
-              </CtaButton>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* Categories grid */}
-      <section id="categories" className="py-10 md:py-14 lg:py-16 scroll-mt-10">
-        <div className="container-page">
-          <div className="mb-6 md:mb-8">
-            <p className="typo-kicker text-accent">Категории</p>
-            <h2 className="mt-2 typo-h3 text-tx-primary">
-              Изберете услуга според конкретния случай
-            </h2>
-            <p className="mt-3 max-w-2xl typo-body text-tx-secondary">
-              От начално заснемане и трасиране до кадастрални процедури, проектиране и
-              съдействие с документи.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
-            {serviceCategories.map((category) => (
-              <CategoryCard key={category.slug} category={category} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Guidance / CTA */}
-
-      <Section className="bg-bg-page pb-16 md:pb-20">
-        <div className="container-page">
-          <div
-            className={clsx(
-              "relative overflow-hidden rounded-3xl border border-br-light",
-              "bg-bg-section"
-            )}
-          >
-            <div
+        <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3">
+          {scenarios.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
               className={clsx(
-                "pointer-events-none absolute inset-0",
-                "bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_28%),linear-gradient(to_bottom,rgba(255,255,255,0.02),transparent)]"
+                "group rounded-card border border-br-light bg-bg-page p-5 shadow-sm",
+                "transition duration-300 hover:border-br-accent-soft hover:shadow-md sm:p-6"
               )}
-            />
+            >
+              <h3 className="text-lg font-semibold leading-tight text-tx-primary">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-tx-muted">{item.text}</p>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent-strong">
+                Виж подходящата услуга
+                <MdArrowRightAlt className="text-lg transition group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
 
-            <div className="relative p-6 md:p-8 lg:p-10 bg-bg-page">
-              <div className="max-w-3xl">
-                <p className="typo-kicker text-accent">Насоки</p>
-                <h2 className="mt-3 typo-h3 text-tx-primary">
-                  Не сте сигурни коя услуга е подходяща?
-                </h2>
-                <p className="mt-4 typo-body text-tx-secondary">
-                  Изпратете кратко описание на случая и ще получите насоки какви документи
-                  са нужни, каква е логичната последователност на работа и коя услуга е
-                  най-подходяща за вашата ситуация.
-                </p>
-              </div>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <div
-                  className={clsx(
-                    "rounded-2xl border border-br-light",
-                    "bg-bg-section/70 p-5 backdrop-blur-sm"
-                  )}
-                >
-                  <h3 className="text-base font-semibold text-tx-primary md:text-lg">
-                    Консултация и оценка
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-tx-secondary ">
-                    Ще получите яснота какво е необходимо, какви документи липсват и кой е
-                    най-логичният ред за действие.
-                  </p>
-                </div>
-
-                <div
-                  className={clsx(
-                    "rounded-2xl border border-br-light",
-                    "bg-bg-section/70 p-5 backdrop-blur-sm"
-                  )}
-                >
-                  <h3 className="text-base font-semibold text-tx-primary md:text-lg">
-                    Документи и процедури
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-tx-secondary">
-                    Съдействие при подготовка, подреждане и уточняване на материали за
-                    институции, административни процедури и проектантска работа.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <Link
-                  href="/uslugi/konsultacia"
-                  className={clsx(
-                    "inline-flex items-center gap-2 text-sm font-semibold text-accent",
-                    "transition-opacity hover:opacity-75"
-                  )}
-                >
-                  Вижте услугата Консултации →
-                </Link>
-              </div>
-            </div>
-          </div>
+        <div className="mt-8 md:mt-10">
+          <HelpPanel />
         </div>
       </Section>
-      <FinalCta />
+
+      {/* <FinalCta /> */}
     </>
   );
 }

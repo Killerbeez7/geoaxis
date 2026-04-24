@@ -1,129 +1,70 @@
-import Link from "next/link";
-import Image from "next/image";
-import clsx from "clsx";
-import { SERVICES_HERO_MIN_HEIGHT } from "./services-hero.constants";
-import { ServiceCategory } from "@/config/services/categories";
+import type { ReactNode } from "react";
+
+import { CtaButton } from "@/components/parts/CtaButton";
 import { Section } from "@/components/layout/Section";
-import { FinalCta } from "@/components/sections/FinalCta";
+// import { FinalCta } from "@/components/sections/FinalCta";
+import type { Service, ServiceCategory } from "@/config/services/categories";
+import { ServiceSubnav, ServicesHero } from "./_components/ServicesUi";
 
 type Props = {
   category: ServiceCategory;
-  activeServiceSlug?: string;
-  children: React.ReactNode;
+  service?: Service;
+  children: ReactNode;
 };
 
-export function ServicePageLayout({ category, activeServiceSlug, children }: Props) {
-  const heroImage = category.thumbnail;
-  const heroDescription = category.longDescription ?? category.description;
+export function ServicePageLayout({ category, service, children }: Props) {
+  const isServicePage = Boolean(service);
+  const title = service?.title ?? category.title;
+  const description = service
+    ? service.description
+    : (category.longDescription ?? category.description);
+  const image =
+    service?.heroImage ?? service?.thumbnail ?? category.heroImage ?? category.thumbnail;
+  const eyebrow = service?.meta ?? category.meta ?? "Услуги";
+
+  const breadcrumbs = [
+    { label: "Начало", href: "/" },
+    { label: "Услуги", href: "/uslugi" },
+    ...(service
+      ? [
+          {
+            label: category.shortTitle ?? category.title,
+            href: `/uslugi/${category.slug}`,
+          },
+        ]
+      : []),
+    { label: title },
+  ];
 
   return (
     <main className="bg-bg-page">
-      {/* HERO */}
-      <Section
-        className={clsx(
-          "relative isolate overflow-hidden border-b border-br-light pt-0! pb-0!",
-          SERVICES_HERO_MIN_HEIGHT
-        )}
+      <ServicesHero
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        image={image}
+        imageAlt={title}
+        breadcrumbs={breadcrumbs}
       >
-        <div className="absolute inset-0">
-          <Image
-            src={heroImage}
-            alt={category.title}
-            fill
-            preload
-            sizes="100vw"
-            className="object-cover object-[50%_30%]"
-          />
-        </div>
+        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
+          Изпрати запитване
+        </CtaButton>
+        <CtaButton
+          href={isServicePage ? `/uslugi/${category.slug}` : "#services"}
+          variant="glass"
+          className="min-h-12 w-full sm:w-auto"
+        >
+          {isServicePage ? "Към категорията" : "Виж услугите"}
+        </CtaButton>
+      </ServicesHero>
 
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/20 to-transparent" />
-        {/* <div className="absolute inset-0 bg-black/55" /> */}
-        {/* <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/35 to-black/15" /> */}
+      <ServiceSubnav category={category} activeServiceSlug={service?.slug} />
 
-        <div className="container-page relative pt-[calc(var(--header-h,96px)+2.5rem)] pb-14 md:pt-[calc(var(--header-h,96px)+3rem)] md:pb-16">
-          {activeServiceSlug && (
-            <nav aria-label="Breadcrumb" className="text-sm text-white/70">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className="transition hover:text-white">
-                    Начало
-                  </Link>
-                </li>
-
-                <li className="text-white/35">/</li>
-
-                <li>
-                  <Link href="/uslugi" className="transition hover:text-white">
-                    Услуги
-                  </Link>
-                </li>
-
-                <li className="text-white/35">/</li>
-
-                <li className="text-white">{category.title}</li>
-              </ol>
-            </nav>
-          )}
-
-          {category.meta ? (
-            // <p className="mt-6 typo-kicker text-accent">{category.meta}</p>
-            <p className="mt-6 typo-kicker text-white/65">{category.meta}</p>
-          ) : null}
-
-          <h1 className="mt-3 max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-5xl">
-            {category.title}
-          </h1>
-
-          <p className="mt-5 max-w-3xl text-base leading-7 text-white/85 md:text-lg">
-            {heroDescription}
-          </p>
-
-          {/* LIGHT TOP NAV INSTEAD OF SIDEBAR */}
-          <div className="mt-8 flex flex-wrap gap-3">
-            <SubnavLink
-              href={`/uslugi/${category.slug}`}
-              label="Общ преглед"
-              active={!activeServiceSlug}
-            />
-
-            {category.services.map((service) => (
-              <SubnavLink
-                key={service.slug}
-                href={`/uslugi/${category.slug}/${service.slug}`}
-                label={service.shortTitle ?? service.title}
-                active={activeServiceSlug === service.slug}
-              />
-            ))}
-          </div>
-        </div>
+      <Section id="services" tone="page">
+        {children}
       </Section>
 
-      {/* CONTENT */}
-      <Section>{children}</Section>
-      <FinalCta />
+      {/* <FinalCta /> */}
     </main>
-  );
-}
-
-type SubnavLinkProps = {
-  href: string;
-  label: string;
-  active?: boolean;
-};
-
-function SubnavLink({ href, label, active = false }: SubnavLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        "inline-flex items-center rounded-full px-4 py-2 text-sm transition",
-        active
-          ? "bg-white text-tx-primary"
-          : "border border-white/10 bg-white/5 text-white/85 backdrop-blur-sm hover:bg-white/15 hover:text-white"
-      )}
-    >
-      {label}
-    </Link>
   );
 }

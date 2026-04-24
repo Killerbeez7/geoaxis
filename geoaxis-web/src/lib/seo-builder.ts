@@ -22,13 +22,20 @@ function buildTitle(title?: string) {
 }
 
 function buildAbsoluteUrl(path: string = "") {
-  // EXAMPLE: "geoaxis.bg/services.."
+  if (path.startsWith("http")) return path;
+
   return `${SITE_URL}${path}`;
 }
 
 function buildImageUrl(image?: string) {
   const selected = image || seoConfig.defaultOgImage;
   return selected.startsWith("http") ? selected : `${SITE_URL}${selected}`;
+}
+
+function addAreaContext(description: string) {
+  if (description.includes("София")) return description;
+
+  return `${description} София и Софийска област.`;
 }
 
 export function createSeo({
@@ -91,7 +98,7 @@ export function createSeo({
 export function createCategorySeo(category: ServiceCategory): Metadata {
   return createSeo({
     title: `${category.title} в София и Софийска област`,
-    description: category.description,
+    description: addAreaContext(category.longDescription ?? category.description),
     canonical: `/uslugi/${category.slug}`,
     image: category.heroImage || category.thumbnail || seoConfig.defaultOgImage,
   });
@@ -100,7 +107,7 @@ export function createCategorySeo(category: ServiceCategory): Metadata {
 export function createServiceSeo(category: ServiceCategory, service: Service): Metadata {
   return createSeo({
     title: `${service.title} в София и Софийска област`,
-    description: service.description,
+    description: addAreaContext(service.longDescription ?? service.description),
     canonical: `/uslugi/${category.slug}/${service.slug}`,
     image:
       service.heroImage || service.thumbnail || category.heroImage || category.thumbnail,

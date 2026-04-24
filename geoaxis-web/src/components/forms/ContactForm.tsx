@@ -92,10 +92,12 @@ function FloatingSelect({
   label,
   name,
   options,
+  defaultValue = "",
 }: {
   label: string;
   name: string;
   options: { value: string; label: string }[];
+  defaultValue?: string;
 }) {
   return (
     <div className="relative">
@@ -104,7 +106,7 @@ function FloatingSelect({
       </label>
       <select
         name={name}
-        defaultValue=""
+        defaultValue={defaultValue}
         className={clsx(
           "w-full rounded-xl border border-white/10 bg-white/5 px-4 pt-7 pb-2",
           "text-sm text-white backdrop-blur-md appearance-none",
@@ -113,7 +115,7 @@ function FloatingSelect({
           "[&>option]:bg-[#1c2823] [&>option]:text-white"
         )}
       >
-        <option value="" disabled className="text-white/30">
+        <option value="" disabled={Boolean(defaultValue)} className="text-white/30">
           —
         </option>
         {options.map((o) => (
@@ -224,6 +226,7 @@ function FileUpload({
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [files, setFiles] = useState<File[]>([]);
+
   const [state, setState] = useState<FormState>({ error: null, success: false });
   const [isPending, startTransition] = useTransition();
 
@@ -257,6 +260,7 @@ export function ContactForm() {
         setState({ error: null, success: true });
         form.reset();
         setFiles([]);
+        // setWantsAttachments(false);
       } catch {
         setState({ error: "Грешка при изпращане. Опитайте отново.", success: false });
       }
@@ -291,8 +295,8 @@ export function ContactForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <FloatingInput name="name" label="Вашето име *" />
           <FloatingInput name="phone" label="Телефон" type="tel" required={false} />
-          <FloatingInput name="email" label="Имейл адрес *" type="email" />
-          <FloatingInput name="location" label="Населено място / имот" required={false} />
+          <FloatingInput name="email" label="Имейл адрес" type="email" required={false} />
+          <FloatingInput name="location" label="Населено място" required={false} />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -311,10 +315,10 @@ export function ContactForm() {
           <FloatingSelect
             name="preferredContact"
             label="Предпочитан контакт"
+            defaultValue="phone"
             options={[
               { value: "phone", label: "По телефон" },
               { value: "email", label: "По имейл" },
-              { value: "either", label: "Без предпочитание" },
             ]}
           />
         </div>

@@ -13,6 +13,7 @@ type ContactPayload = {
   preferredContact: string;
   message: string;
   files: File[];
+  source: "quick" | "full";
 };
 
 function escapeHtml(str: string) {
@@ -39,6 +40,7 @@ async function parseContactRequest(req: Request): Promise<ContactPayload> {
         typeof body.preferredContact === "string" ? body.preferredContact.trim() : "",
       message: typeof body.message === "string" ? body.message.trim() : "",
       files: [],
+      source: "quick",
     };
   }
 
@@ -53,12 +55,21 @@ async function parseContactRequest(req: Request): Promise<ContactPayload> {
     preferredContact: asString(formData.get("preferredContact")),
     message: asString(formData.get("message")),
     files: formData.getAll("files").filter((file): file is File => file instanceof File),
+    source: "full",
   };
 }
 
-function validatePayload({ name, email, message, files }: ContactPayload) {
-  if (!name || !email || !message) {
+function validatePayload({ name, email, phone, message, files, source }: ContactPayload) {
+  if (!name || !message) {
+    return "Моля, попълнете име и съобщение.";
+  }
+
+  if (source === "quick" && !email) {
     return "Моля, попълнете име, имейл и съобщение.";
+  }
+
+  if (source === "full" && !email && !phone) {
+    return "Моля, оставете телефон или имейл за връзка.";
   }
 
   for (const file of files) {
@@ -116,7 +127,6 @@ export async function POST(req: Request) {
     const contactMap: Record<string, string> = {
       phone: "По телефон",
       email: "По имейл",
-      either: "Без предпочитание",
     };
 
     const resend = new Resend(resendApiKey);
@@ -138,7 +148,7 @@ export async function POST(req: Request) {
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #666;">Имейл:</td>
-              <td style="padding: 8px 0;">${escapeHtml(email)}</td>
+              <td style="padding: 8px 0;">${escapeHtml(email || "-")}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #666;">Телефон:</td>

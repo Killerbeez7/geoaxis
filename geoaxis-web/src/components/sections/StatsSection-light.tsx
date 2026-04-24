@@ -67,7 +67,7 @@ export function StatsLight() {
             transition={{ duration: 0.4, delay: i * 0.06 }}
             className="text-center"
           >
-            <div className="text-3xl font-semibold tracking-tight text-tx-primary sm:text-4xl">
+            <div className="text-3xl font-semibold tracking-normal text-tx-primary sm:text-4xl">
               <CountUpNumber value={s.number} />
             </div>
 

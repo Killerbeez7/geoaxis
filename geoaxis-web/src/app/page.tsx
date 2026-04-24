@@ -33,7 +33,7 @@ export default function Home() {
 
       {/* What we offer? */}
       <ServiceSection {...services} items={serviceCategories} />
-      <Stats></Stats>
+      <Stats />
 
       {/* Why choose us? */}
       <WhyChooseUs {...whyUs} brandName={brand.name} />

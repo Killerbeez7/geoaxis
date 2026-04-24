@@ -36,7 +36,7 @@ function ContactItem({ icon, title, text, href }: Item) {
         <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-tx-muted">
           {title}
         </h3>
-        <p className="mt-1 break-words text-base leading-relaxed text-tx-primary">
+        <p className="mt-1 wrap-break-word text-base leading-relaxed text-tx-primary">
           {text}
         </p>
       </div>
@@ -77,19 +77,17 @@ export default function Contacts() {
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="lg:pt-8">
           <h1 className="typo-h2">{title}</h1>
-          <p className="typo-subtitle mt-4 max-w-xl">
-            {subtitle}
-          </p>
+          <p className="typo-subtitle mt-4 max-w-xl">{subtitle}</p>
 
           <div className="mt-6 max-w-xl border-l-2 border-accent pl-4">
             <p className="typo-meta">
-              Обикновено отговаряме в рамките на работния ден. Ако случаят е
-              спешен, най-бързо е по телефон.
+              Обикновено отговаряме в рамките на работния ден. Ако случаят е спешен,
+              най-бързо е по телефона.
             </p>
           </div>
 
           <div className="relative mt-8 overflow-hidden rounded-2xl border border-br-light bg-bg-page p-5 shadow-sm sm:p-6">
-            <div className="absolute inset-x-0 top-0 h-1 bg-accent" />
+            {/* <div className="absolute inset-x-0 top-0 h-1 bg-accent" /> */}
             <h2 className="text-xl font-semibold text-tx-primary">Директен контакт</h2>
             <p className="typo-meta mt-2">
               За спешни въпроси се обадете директно. За конкретен имот или услуга

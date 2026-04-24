@@ -297,7 +297,9 @@ export function ContactForm() {
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20 text-3xl text-accent-strong">
           ✓
         </div>
-        <h3 className="text-xl font-semibold text-tx-primary">Запитването е изпратено!</h3>
+        <h3 className="text-xl font-semibold text-tx-primary">
+          Запитването е изпратено!
+        </h3>
         <p className="mt-2 text-sm text-tx-muted">
           Ще се свържем с вас възможно най-скоро.
         </p>
@@ -313,11 +315,9 @@ export function ContactForm() {
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-br-light bg-bg-page p-5 shadow-xl shadow-black/10 sm:p-6 lg:p-7">
-      <div className="absolute inset-x-0 top-0 h-1 bg-accent" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-accent/70" />
       <div className="mb-5">
-        <h3 className="text-2xl font-semibold text-tx-primary">
-          Разкажете ни накратко
-        </h3>
+        <h3 className="text-2xl font-semibold text-tx-primary">Разкажете ни накратко</h3>
         <p className="mt-2 text-sm leading-6 text-tx-muted">
           Попълнете само основното. Ще се свържем с вас, за да уточним детайлите.
         </p>

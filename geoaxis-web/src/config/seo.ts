@@ -3,7 +3,7 @@ export const seoConfig = {
   defaultTitle: "GeoAxis",
   titleTemplate: "%s - GeoAxis",
   defaultDescription:
-    "GeoAxis предлага професионални геодезически услуги в София и Софийска област.",
+    "GeoAxis предлага геодезически услуги в София и Софийска област - заснемане, трасиране, кадастър, проектиране и консултации.",
   defaultOgImage: "/og-image.jpg",
   locale: "bg_BG",
   robots: {

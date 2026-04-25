@@ -7,6 +7,8 @@ import type { Service, ServiceCategory } from "@/config/services/categories";
 import { servicesVisuals } from "@/config/services/visuals";
 import { ServiceSubnav, ServicesHero } from "./_components/ServicesUi";
 
+const SHOW_SERVICE_MENU = false;
+
 type Props = {
   category: ServiceCategory;
   service?: Service;
@@ -14,26 +16,15 @@ type Props = {
 };
 
 export function ServicePageLayout({ category, service, children }: Props) {
-  const isServicePage = Boolean(service);
   const title = service?.title ?? category.title;
   const description = service
     ? service.description
     : (category.longDescription ?? category.description);
   const eyebrow = service?.meta ?? category.meta ?? "Услуги";
-
-  const breadcrumbs = [
-    { label: "Начало", href: "/" },
-    { label: "Услуги", href: "/uslugi" },
-    ...(service
-      ? [
-          {
-            label: category.shortTitle ?? category.title,
-            href: `/uslugi/${category.slug}`,
-          },
-        ]
-      : []),
-    { label: title },
-  ];
+  const categoryVisual =
+    servicesVisuals.categoryHeroes[
+      category.slug as keyof typeof servicesVisuals.categoryHeroes
+    ];
 
   return (
     <main className="bg-bg-page">
@@ -41,25 +32,19 @@ export function ServicePageLayout({ category, service, children }: Props) {
         eyebrow={eyebrow}
         title={title}
         description={description}
-        image={servicesVisuals.heroImage}
-        imageAlt={servicesVisuals.heroAlt}
+        image={categoryVisual?.image ?? servicesVisuals.heroImage}
+        imageAlt={categoryVisual?.alt ?? servicesVisuals.heroAlt}
         imagePosition={servicesVisuals.heroPosition}
         tone="light"
-        breadcrumbs={breadcrumbs}
       >
         <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
           Изпрати запитване
         </CtaButton>
-        <CtaButton
-          href={isServicePage ? `/uslugi/${category.slug}` : "#services"}
-          variant="soft"
-          className="min-h-12 w-full sm:w-auto"
-        >
-          {isServicePage ? "Към категорията" : "Виж услугите"}
-        </CtaButton>
       </ServicesHero>
 
-      <ServiceSubnav category={category} activeServiceSlug={service?.slug} />
+      {SHOW_SERVICE_MENU ? (
+        <ServiceSubnav category={category} activeServiceSlug={service?.slug} />
+      ) : null}
 
       <Section id="services" tone="page">
         {children}

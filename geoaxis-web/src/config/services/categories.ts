@@ -161,7 +161,7 @@ export const serviceCategories: ServiceCategory[] = [
       {
         slug: "na-darvesna-rastitelnost",
         title: "Геодезическо заснемане на дървесна растителност",
-        shortTitle: "Заснемане на дървестна растителност",
+        shortTitle: "Заснемане на дървесна растителност",
         meta: "Дървета • Терен",
         thumbnail: "/images/services/durvestna-thumb.jpeg",
         heroImage: "/images/services/durvestna-og.jpeg",

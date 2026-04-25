@@ -1,12 +1,12 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { MdArrowRightAlt } from "react-icons/md";
-
-import { CtaButton } from "@/components/parts/CtaButton";
-import { Section } from "@/components/layout/Section";
-// import { FinalCta } from "@/components/sections/FinalCta";
+// Config
 import { serviceCategories } from "@/config/services/categories";
 import { servicesVisuals } from "@/config/services/visuals";
+// Components
+import { CtaButton } from "@/components/parts/CtaButton";
+import { Section } from "@/components/layout/Section";
 import { createSeo } from "@/lib/seo-builder";
 import {
   CategoryOverviewCard,
@@ -14,6 +14,7 @@ import {
   SectionIntro,
   ServicesHero,
 } from "./_components/ServicesUi";
+// import { FinalCta } from "@/components/sections/FinalCta";
 
 export const metadata = createSeo({
   title: "Геодезически услуги в София",

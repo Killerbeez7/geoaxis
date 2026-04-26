@@ -17,10 +17,7 @@ function ContactAction({
   value: string;
 }) {
   return (
-    <a
-      href={href}
-      className="group flex items-center gap-4 py-3 transition"
-    >
+    <a href={href} className="group flex items-center gap-4 py-3 transition">
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-accent transition group-hover:bg-white/14">
         {icon}
       </span>
@@ -41,21 +38,23 @@ export function FinalCta() {
 
   return (
     <Section tone="brand" className="border-t border-white/10">
-      <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,0.72fr)] lg:gap-14">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,0.72fr)] lg:gap-14">
         <div className="max-w-2xl">
           <p className="typo-kicker inline-block border-b border-accent/40 pb-2 text-accent">
             Контакт
           </p>
           <h2 className="mt-4 text-3xl font-semibold leading-[1.12] text-tx-inverse md:text-4xl">
-            Имате нужда от <span className="text-accent">геодезическа услуга?</span>
+            Имате нужда от
+            <br />
+            <span className="text-accent">геодезическа услуга?</span>
           </h2>
           <p className="mt-4 max-w-xl text-base leading-8 text-tx-inverse/72 md:text-lg">
-            Свържете се с нас за консултация. Ще разгледаме случая и ще ви
-            насочим към правилната услуга, документи и следваща стъпка.
+            Свържете се с нас за консултация. Ще разгледаме случая и ще ви насочим към
+            правилната услуга, документи и следваща стъпка.
           </p>
         </div>
 
-        <div className="lg:justify-self-end lg:w-full lg:max-w-md">
+        <div className="lg:w-full lg:max-w-md lg:justify-self-end lg:pt-8">
           <div className="grid gap-1">
             <ContactAction
               href={`tel:${phone}`}
@@ -71,13 +70,10 @@ export function FinalCta() {
             />
           </div>
 
-          <div className="mt-5 border-t border-white/14 pt-5">
+          <div className="mt-6 border-t border-white/14 pt-5">
             <CtaButton href="/contacts" size="lg" className="w-full sm:w-auto">
               Изпрати запитване
             </CtaButton>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-tx-inverse/55">
-              Използвайте формата, ако искате да добавите повече детайли или файлове.
-            </p>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ function ContactItem({ icon, title, text, href }: Item) {
     <>
       <div
         className={clsx(
-          "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
+          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-11 sm:w-11",
           "border border-br-light bg-bg-page text-base text-accent",
           "transition group-hover:border-br-accent group-hover:bg-accent/10"
         )}
@@ -44,7 +44,7 @@ function ContactItem({ icon, title, text, href }: Item) {
   );
 
   const className =
-    "group flex items-start gap-4 rounded-xl p-3 transition hover:bg-accent/10";
+    "group flex items-start gap-3 rounded-xl p-2.5 transition hover:bg-accent/10 sm:gap-4 sm:p-3";
 
   if (href) {
     return (
@@ -71,30 +71,30 @@ export default function Contacts() {
     <Section
       variant="hero"
       tone="section"
-      className="min-h-[calc(100dvh)] overflow-hidden"
+      className="min-h-[calc(100dvh)] overflow-hidden !pt-[calc(var(--header-h)+2rem)] !pb-8 sm:!pt-[calc(var(--header-h)+3rem)] sm:!pb-12 lg:!pt-[calc(var(--header-h)+4rem)] lg:!pb-16"
       containerClassName="max-w-7xl"
     >
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+      <div className="grid gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="lg:pt-8">
           <h1 className="typo-h2">{title}</h1>
-          <p className="typo-subtitle mt-4 max-w-xl">{subtitle}</p>
+          <p className="mt-3 max-w-xl text-base leading-7 text-tx-secondary/90">{subtitle}</p>
 
-          <div className="mt-6 max-w-xl border-l-2 border-accent pl-4">
+          <div className="mt-4 max-w-xl border-l-2 border-accent pl-4 sm:mt-6">
             <p className="typo-meta">
               Обикновено отговаряме в рамките на работния ден. Ако случаят е спешен,
               най-бързо е по телефона.
             </p>
           </div>
 
-          <div className="relative mt-8 overflow-hidden rounded-2xl border border-br-light bg-bg-page p-5 shadow-sm sm:p-6">
+          <div className="relative mt-5 overflow-hidden rounded-2xl border border-br-light bg-bg-page p-4 shadow-sm sm:mt-8 sm:p-6">
             {/* <div className="absolute inset-x-0 top-0 h-1 bg-accent" /> */}
-            <h2 className="text-xl font-semibold text-tx-primary">Директен контакт</h2>
-            <p className="typo-meta mt-2">
+            <h2 className="text-lg font-semibold text-tx-primary sm:text-xl">Директен контакт</h2>
+            <p className="typo-meta mt-2 hidden sm:block">
               За спешни въпроси се обадете директно. За конкретен имот или услуга
               изпратете кратко запитване през формата.
             </p>
 
-            <div className="mt-5 space-y-2">
+            <div className="mt-3 space-y-1 sm:mt-5 sm:space-y-2">
               <ContactItem
                 icon={<FaPhone />}
                 title="Телефон"

@@ -314,17 +314,17 @@ export function ContactForm() {
   }
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-br-light bg-bg-page p-5 shadow-xl shadow-black/10 sm:p-6 lg:p-7">
+    <div className="relative overflow-hidden rounded-2xl border border-br-light bg-bg-page p-4 shadow-xl shadow-black/10 sm:p-6 lg:p-7">
       <div className="absolute inset-x-0 top-0 h-1 bg-accent/70" />
-      <div className="mb-5">
-        <h3 className="text-2xl font-semibold text-tx-primary">Разкажете ни накратко</h3>
-        <p className="mt-2 text-sm leading-6 text-tx-muted">
+      <div className="mb-4 sm:mb-5">
+        <h3 className="text-xl font-semibold text-tx-primary sm:text-2xl">Разкажете ни накратко</h3>
+        <p className="mt-1.5 text-sm leading-6 text-tx-muted sm:mt-2">
           Попълнете само основното. Ще се свържем с вас, за да уточним детайлите.
         </p>
       </div>
 
-      <form ref={formRef} onSubmit={handleSubmit} className="space-y-3.5">
-        <div className="grid gap-3.5 sm:grid-cols-2">
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5">
           <FloatingInput name="name" label="Вашето име *" />
           <FloatingSelect
             name="contactMethod"
@@ -338,7 +338,7 @@ export function ContactForm() {
           />
         </div>
 
-        <div className="grid gap-3.5 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5">
           <FloatingInput
             key={preferredContact}
             name="contactValue"
@@ -361,7 +361,7 @@ export function ContactForm() {
 
         <FloatingInput name="location" label="Населено място / имот" required={false} />
 
-        <FloatingTextarea name="message" label="Какво ви е необходимо? *" rows={4} />
+        <FloatingTextarea name="message" label="Какво ви е необходимо? *" rows={3} />
 
         <FileUpload files={files} onChange={setFiles} />
 

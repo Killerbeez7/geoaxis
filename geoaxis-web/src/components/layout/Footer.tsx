@@ -2,12 +2,13 @@ import Link from "next/link";
 import clsx from "clsx";
 import { FaPhone, FaEnvelope, FaLocationDot } from "react-icons/fa6";
 import { SiViber, SiWhatsapp } from "react-icons/si";
-import { CtaButton } from "../parts/CtaButton";
+// import { CtaButton } from "../parts/CtaButton";
 
 import { FOOTER } from "@/config/footer";
 
 export const Footer = () => {
-  const { brand, sections, contact, ctas } = FOOTER;
+  // const { brand, sections, contact, ctas } = FOOTER;
+  const { brand, sections, contact } = FOOTER;
 
   const [quickLinksSection, serviceLinksSection] = sections;
 
@@ -143,7 +144,7 @@ export const Footer = () => {
             </div>
 
             {/* CTAs */}
-            <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
+            {/* <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Link href={ctas.inquiry.href}>
                 <CtaButton size="sm">{ctas.inquiry.label}</CtaButton>
               </Link>
@@ -153,7 +154,7 @@ export const Footer = () => {
                   {ctas.projects.label}
                 </CtaButton>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

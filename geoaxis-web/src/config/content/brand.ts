@@ -13,7 +13,7 @@ export const BRAND_WORDMARK_SECONDARY = "Axis";
 
 export const brand: BrandContent = {
   name: "GeoAxis",
-  logo: "/images/brand/logo.svg",
+  logo: "/logo.svg",
   slogan: "Прецизност във всеки детайл",
   tagline: "Геодезия • Кадастър • Градоустройство",
   location: "София и Софийска област",

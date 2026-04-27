@@ -19,6 +19,13 @@ export type Service = {
   updatedAt?: string;
 };
 
+export type ServiceSeo = {
+  title?: string;
+  description?: string;
+  mainKeyword?: string;
+  keywords?: string[];
+};
+
 export type ServiceCategory = {
   slug: string;
   title: string;
@@ -32,6 +39,7 @@ export type ServiceCategory = {
   featured?: boolean;
   order?: number;
   updatedAt?: string;
+  seo?: ServiceSeo;
   services: Service[];
 };
 
@@ -44,12 +52,26 @@ export const serviceCategories: ServiceCategory[] = [
     meta: "Терен • Сгради • Инфраструктура",
     thumbnail: "/images/category/zasnemane-thumb.webp",
     heroImage: "/images/category/zasnemane-og.webp",
-    description: "Прецизно заснемане на терени и обекти за проектиране и строителство.",
+    description:
+      "Прецизно геодезическо заснемане на терени, сгради и обекти за проектиране, строителство и документация.",
     longDescription:
       "Геодезическото заснемане осигурява точна основа за проектиране, строителство и техническа документация. Подходящо е при ново строителство, реконструкция и подготовка на инвестиционни намерения.",
     featured: true,
     order: 1,
     updatedAt: "2026-04-27",
+    seo: {
+      title: "Геодезическо заснемане в София",
+      description:
+        "Геодезическо заснемане на терени, сгради и инфраструктура в София и Софийска област. Подходящо за проектиране, строителство и документация.",
+      mainKeyword: "геодезическо заснемане софия",
+      keywords: [
+        "заснемане за проектиране",
+        "геодезическо заснемане на сграда",
+        "заснемане на фасади",
+        "топографско заснемане",
+        "заснемане на терен",
+      ],
+    },
 
     services: [
       {
@@ -123,7 +145,7 @@ export const serviceCategories: ServiceCategory[] = [
         thumbnail: "/images/services/geodezichesko-zasnemane-thumb.jpg",
         heroImage: "/images/services/geodezichesko-zasnemane-og.jpg",
         description:
-          "Прецизно заснемане на фасади за архитектурни и реставрационни цели.",
+          "Прецизно заснемане на фасади на сгради за архитектурни и реставрационни цели.",
         longDescription:
           "Заснемането на фасади осигурява точна геометрия и детайли за архитектурни проекти, реставрации и анализ на съществуващи сгради.",
         neededWhen: [
@@ -193,13 +215,25 @@ export const serviceCategories: ServiceCategory[] = [
     thumbnail: "/images/category/trasirane-thumb.jpg",
     heroImage: "/images/category/trasirane-og.jpg",
     description:
-      "Точно пренасяне на проектни оси, линии, граници и характерни точки на терен.",
+      "Точно пренасяне на проектни оси, линии, граници и характерни точки върху терена.",
     longDescription:
       "Трасирането осигурява точното пренасяне на проектните решения върху терена. Използва се при строителство, огради, инфраструктура и всички дейности, при които е необходима прецизна геометрия и контрол.",
     featured: true,
     order: 2,
     updatedAt: "2026-04-27",
-
+    seo: {
+      title: "Трасиране в София",
+      description:
+        "Геодезическо трасиране на имотни граници, сгради и оси в София и Софийска област. Полезно при строителство, огради, регулация и контрол на място.",
+      mainKeyword: "трасиране софия",
+      keywords: [
+        "геодезическо трасиране",
+        "трасиране на имот",
+        "трасиране на сграда",
+        "трасиране на ограда",
+        "трасиране на граници",
+      ],
+    },
     services: [
       {
         slug: "na-imotni-granici",
@@ -232,8 +266,8 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
-        slug: "na-sgradi",
-        title: "Трасиране на сгради",
+        slug: "na-sgrada",
+        title: "Трасиране на сграда",
         meta: "Оси • Контури",
         thumbnail: "/images/services/trasirane-thumb.jpg",
         heroImage: "/images/services/trasirane-og.jpg",
@@ -285,7 +319,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
-        slug: "na-lineyni-saorazhenia",
+        slug: "na-lineyni-saorazheniya",
         title: "Трасиране на линейни съоръжения",
         meta: "Трасета • Канали",
         thumbnail: "/images/services/trasirane-granici-thumb.png",
@@ -336,13 +370,26 @@ export const serviceCategories: ServiceCategory[] = [
     meta: "Скици • Промени • Процедури",
     thumbnail: "/images/category/cadaster-thumb.png",
     heroImage: "/images/category/cadaster-og.png",
-    description: "Кадастрални услуги, промени и съдействие по административни процедури.",
+    description:
+      "Кадастрални услуги, изготвяне на документи и съдействие при процедури – скици, схеми, промени и нанасяне на обекти.",
     longDescription:
       "Кадастралните услуги включват подготовка на документи, отразяване на обекти и съдействие при административни процедури. Подходящи са при сделки, промени в имоти и необходимост от актуални данни.",
     featured: true,
     order: 3,
     updatedAt: "2026-04-27",
-
+    seo: {
+      title: "Кадастрални услуги в София",
+      description:
+        "Кадастрални услуги в София и Софийска област: скици, схеми, изменения в кадастъра и нанасяне на сгради. Съдействие при процедури и документи.",
+      mainKeyword: "кадастрални услуги софия",
+      keywords: [
+        "скица на поземлен имот",
+        "схема на самостоятелен обект",
+        "изменение на кадастрална карта",
+        "нанасяне на сграда в кадастъра",
+        "кадастър софия",
+      ],
+    },
     services: [
       {
         slug: "skica-na-pozemlen-imot",
@@ -350,7 +397,7 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Имот • Скица",
         thumbnail: "/images/services/kadastyr-thumb.jpg",
         heroImage: "/images/services/kadastyr-og.jpg",
-        description: "Съдействие за издаване на скица на поземлен имот.",
+        description: "Съдействие за издаване на скица на поземлен имот от кадастъра.",
         longDescription:
           "Скицата на поземлен имот е основен документ при сделки, процедури и справки. Съдействаме за подготовка и издаване на необходимите документи, както и за ориентиране в процеса.",
         neededWhen: [
@@ -377,7 +424,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Апартамент • Обект",
         thumbnail: "/images/services/kadastyr-thumb.jpg",
         heroImage: "/images/services/kadastyr-og.jpg",
-        description: "Съдействие за издаване на схема на апартамент или обект.",
+        description:
+          "Съдействие за издаване на схема на самостоятелен обект от кадастъра.",
         longDescription:
           "Схемата на самостоятелен обект е необходима при сделки, ипотека или административни процедури. Осигуряваме съдействие при подготовка и издаване на документа.",
         neededWhen: [
@@ -396,7 +444,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         slug: "proekt-za-izmenenie",
-        title: "Проект за изменение в кадастралната карта",
+        title: "Проект за изменение на кадастрална карта",
         meta: "Промяна • Карта",
         thumbnail: "/images/services/vertical_plan-thumb.jpg",
         heroImage: "/images/services/vertical_plan-og.jpg",
@@ -423,7 +471,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         slug: "nanasyane-na-novi-sgradi",
-        title: "Нанасяне на нови сгради и обекти",
+        title: "Нанасяне на сграда в кадастъра",
         meta: "Сгради • Отразяване",
         thumbnail: "/images/services/vertical_plan-thumb.jpg",
         heroImage: "/images/services/vertical_plan-og.jpg",
@@ -446,7 +494,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         slug: "udostoverenie-za-identichnost",
-        title: "Удостоверяване на идентичност",
+        title: "Удостоверение за идентичност на имот",
         meta: "Документи • Данни",
         thumbnail: "/images/services/kadastyr-thumb.jpg",
         heroImage: "/images/services/kadastyr-og.jpg",
@@ -485,6 +533,17 @@ export const serviceCategories: ServiceCategory[] = [
     featured: true,
     order: 4,
     updatedAt: "2026-04-27",
+    seo: {
+      title: "Геодезическо проектиране в София",
+      description:
+        "Геодезическо проектиране и вертикална планировка за проекти в София и Софийска област. Подходящо при инвестиционни проекти и строителство.",
+      mainKeyword: "геодезическо проектиране софия",
+      keywords: [
+        "вертикална планировка",
+        "геодезически данни за проектиране",
+        "проектантски услуги",
+      ],
+    },
 
     services: [
       {
@@ -493,7 +552,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Коти • Наклони",
         thumbnail: "/images/services/vertical_plan-thumb.jpg",
         heroImage: "/images/services/vertical_plan-og.jpg",
-        description: "Решения за коти и наклони, съобразени с терена.",
+        description:
+          "Вертикална планировка с решения за коти, наклони и отводняване, съобразени с терена.",
         longDescription:
           "Вертикалната планировка определя нивата, наклоните и отводняването на терена. Осигурява правилно функциониране на дворове, алеи и прилежащи площи спрямо сградата и околната среда.",
         neededWhen: [
@@ -512,11 +572,12 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         slug: "proektantski-uslugi",
-        title: "Проектантски услуги",
+        title: "Геодезически услуги за проектиране",
         meta: "Данни • Координация",
         thumbnail: "/images/services/proektirane-thumb.jpg",
         heroImage: "/images/services/proektirane-og.jpg",
-        description: "Изходни данни и координация за проектиране.",
+        description:
+          "Подготовка на геодезически данни за проектиране и работа от проектанти.",
         longDescription:
           "Осигуряваме изходни данни и съдействие при координация между различни специалисти. Подпомагаме процеса от идея до готов проект.",
         neededWhen: [
@@ -539,7 +600,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Данни • Основа",
         thumbnail: "/images/services/proektirane-thumb.jpg",
         heroImage: "/images/services/proektirane-og.jpg",
-        description: "Подготовка на геодезически данни за проект.",
+        description:
+          "Предпроектно проучване за оценка на възможностите за застрояване и развитие на имота.",
         longDescription:
           "Осигуряване на необходимите геодезически данни за започване на проект. Включва обработка и структуриране на информацията за работа от проектанти.",
         neededWhen: ["Преди стартиране на проект", "При нужда от точни изходни данни"],
@@ -590,17 +652,33 @@ export const serviceCategories: ServiceCategory[] = [
     meta: "ПУП • Регулация • УПИ",
     thumbnail: "/images/category/urban-thumb.webp",
     heroImage: "/images/category/urban-og.webp",
-    description: "Устройствени процедури, ПУП и регулация на имоти.",
+    description:
+      "Градоустройствени услуги — ПУП, регулация и развитие на имоти при строителство и инвестиционни намерения.",
+
     longDescription:
       "Градоустройствените услуги обхващат изработване и изменение на устройствени планове, регулация и развитие на имоти. Необходими са при промени в предназначението и параметрите на застрояване.",
     featured: true,
     order: 5,
     updatedAt: "2026-04-27",
-
+    seo: {
+      title: "ПУП и градоустройство в София",
+      description:
+        "Изработване и изменение на ПУП, регулация и устройствено планиране в София и Софийска област. Съдействие при процедури и развитие на имоти.",
+      mainKeyword: "пуп софия",
+      keywords: [
+        "подробен устройствен план",
+        "смяна предназначение имот",
+        "изработване на пуп",
+        "изменение на пуп",
+        "регулация на имот",
+        "регулация софия",
+        "упи",
+      ],
+    },
     services: [
       {
         slug: "izrabotvane-na-pup",
-        title: "Изработване на ПУП",
+        title: "Изработване на ПУП (подробен устройствен план)",
         meta: "ПУП • Устройство",
         thumbnail: "/images/category/pup-thumb.png",
         heroImage: "/images/category/pup-og.png",
@@ -672,7 +750,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Регулация • УПИ",
         thumbnail: "/images/category/pup-thumb.png",
         heroImage: "/images/services/pup-og.png",
-        description: "Определяне на регулационни линии и УПИ.",
+        description:
+          "Определяне на регулационни линии и урегулирани поземлени имоти (УПИ).",
         longDescription:
           "Планът за регулация определя границите на урегулираните поземлени имоти (УПИ), уличните линии и устройствената структура.",
         neededWhen: [
@@ -713,13 +792,26 @@ export const serviceCategories: ServiceCategory[] = [
     meta: "Не сте сигурни? • Насоки • Документи",
     thumbnail: "/images/category/consulting-thumb.png",
     heroImage: "/images/category/consulting-og.png",
-    description: "Насоки, документи и избор на най-подходящата услуга.",
+    description:
+      "Консултация и насоки за избор на услуга, подготовка на документи и ориентация в процеса.",
     longDescription:
       "Консултациите помагат да се ориентирате в процеса, да изберете правилната услуга и да подготвите необходимите документи. Подходящи са, когато не сте сигурни откъде да започнете.",
     featured: true,
     order: 6,
     updatedAt: "2026-04-27",
-
+    seo: {
+      title: "Консултация с геодезист в София",
+      description:
+        "Консултация с геодезист в София и Софийска област. Насоки за услуги, документи и процедури при имотни, кадастрални и проектни казуси.",
+      mainKeyword: "геодезическа консултация",
+      keywords: [
+        "консултация геодезист",
+        "геодезист софия консултация",
+        "подготовка на документи",
+        "проверка на кадастрални данни",
+        "съдействие при процедури",
+      ],
+    },
     services: [
       {
         slug: "parvonalna-konsultacia",
@@ -727,7 +819,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Казус • Насоки",
         thumbnail: "/images/services/consulting-thumb.png",
         heroImage: "/images/services/consulting-og.png",
-        description: "Преглед на случая и насоки как да започнете.",
+        description:
+          "Първоначална консултация за изясняване на случая и следващите стъпки.",
         longDescription:
           "Първоначалната консултация помага да се изясни каква услуга е необходима, какви документи трябват и какъв е най-подходящият ред за действие. Подходяща е, когато искате бърза и ясна ориентация по конкретен казус.",
         neededWhen: [
@@ -757,7 +850,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Документи • Подреждане",
         thumbnail: "/images/services/konsult-thumb.jpg",
         heroImage: "/images/services/konsult-og.jpg",
-        description: "Съдействие при събиране и подреждане на документи.",
+        description:
+          "Съдействие при подготовка и подреждане на документи за сделки, процедури и услуги.",
         longDescription:
           "Подготовката на документи включва преглед на наличните материали, уточняване на липсващото и подреждане на необходимите документи за сделки, процедури, проектиране или административно обслужване.",
         neededWhen: [
@@ -784,7 +878,8 @@ export const serviceCategories: ServiceCategory[] = [
         meta: "Администрация • Координация",
         thumbnail: "/images/services/konsult-thumb.jpg",
         heroImage: "/images/services/konsult-og.jpg",
-        description: "Ориентиране и съдействие при административни процедури.",
+        description:
+          "Съдействие и насоки при административни, кадастрални и устройствени процедури.",
         longDescription:
           "Съдействието при процедури помага да се ориентирате в административните, кадастралните и устройствени стъпки по конкретния случай. Подходящо е, когато процесът е неясен или включва повече от една институция.",
         neededWhen: [

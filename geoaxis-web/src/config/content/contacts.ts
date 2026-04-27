@@ -10,8 +10,8 @@ export interface ContactsContent {
 
 export const contacts: ContactsContent = {
   id: "contacts",
-  title: "Свържи се",
-  subtitle: "Имаш въпрос или нужда от услуга? Свържи се с нас и ще ти съдействаме.",
+  title: "Свържете се",
+  subtitle: "Имате въпрос или нужда от услуга? Свържете се с нас и ще ви съдействаме.",
   phone: "+359 98 831 6263",
   email: "geoaxis.sofia@gmail.com",
   address: "1618 бул. България||София, България",

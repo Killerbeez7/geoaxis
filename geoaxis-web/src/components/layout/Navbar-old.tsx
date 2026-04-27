@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { BRAND_WORDMARK_PRIMARY, BRAND_WORDMARK_SECONDARY } from "@/config/content/brand";
 
@@ -26,12 +26,12 @@ import {
 } from "../navigation/navbar.constants";
 import type { DesktopDropdownType, DropdownPosition } from "../navigation/navbar.types";
 
-const NAV_H = { DEFAULT: 72, SHRUNK: 60, DEFAULT_PX: "72px", SHRUNK_PX: "60px" };
-const SHRINK_SCROLL_Y = 16;
-const NAV_TRANSITION_MS = 300;
-
 export const Navbar = () => {
   const pathname = usePathname();
+
+  const NAV_H = { DEFAULT: 72, SHRUNK: 60, DEFAULT_PX: "72px", SHRUNK_PX: "60px" };
+  const SHRINK_SCROLL_Y = 16;
+  const NAV_TRANSITION_MS = 300;
 
   const { isShrunk, isTransitioning } = useScrollShrink(
     SHRINK_SCROLL_Y,
@@ -65,13 +65,13 @@ export const Navbar = () => {
     }
   };
 
-  const getTriggerRef = useCallback((type: DesktopDropdownType) => {
+  const getTriggerRef = (type: DesktopDropdownType) => {
     if (type === "services") return servicesTriggerRef;
     if (type === "helpful") return helpfulTriggerRef;
     return null;
-  }, []);
+  };
 
-  const updateDesktopDropdownPosition = useCallback((type: Exclude<DesktopDropdownType, null>) => {
+  const updateDesktopDropdownPosition = (type: Exclude<DesktopDropdownType, null>) => {
     const triggerRef = getTriggerRef(type);
     const headerEl = headerRef.current;
 
@@ -85,7 +85,7 @@ export const Navbar = () => {
       top: headerRect.top + currentNavHeight,
       left: triggerRect.left - 8,
     });
-  }, [getTriggerRef, isShrunk]);
+  };
 
   const openDesktopDropdown = (type: Exclude<DesktopDropdownType, null>) => {
     if (isTransitioning) return;
@@ -143,13 +143,13 @@ export const Navbar = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [desktopDropdown, isShrunk, updateDesktopDropdownPosition]);
+  }, [desktopDropdown, isShrunk]);
 
   useEffect(() => {
     if (!desktopDropdown) return;
 
     updateDesktopDropdownPosition(desktopDropdown);
-  }, [desktopDropdown, isShrunk, updateDesktopDropdownPosition]);
+  }, [desktopDropdown, isShrunk]);
 
   useEffect(() => {
     if (!isTransitioning) return;
@@ -310,7 +310,7 @@ export const Navbar = () => {
     );
   };
 
-  const mobilePanelTop = `calc(${navHeight} + var(--top-bar-offset))`;
+  const mobilePanelTop = `calc(${navHeight} + var(--top-bar-h))`;
 
   return (
     <>
@@ -329,7 +329,7 @@ export const Navbar = () => {
           "will-change-[top,height]"
         )}
         style={{
-          top: isShrunk ? "0px" : "var(--top-bar-offset)",
+          top: isShrunk ? "0px" : "var(--top-bar-h)",
           height: navHeight,
           touchAction: mobileOpen ? "none" : "auto",
         }}

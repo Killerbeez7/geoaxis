@@ -6,10 +6,7 @@ import { createCategorySeo, createSeo } from "@/lib/seo-builder";
 import { getCategoryFAQSchema, getCategoryServicesSchema } from "@/lib/schemas";
 import { getCategoryBySlug } from "@/lib/selectors";
 import { ServicePageLayout } from "../ServicePageLayout";
-import {
-  CategoryServiceIndex,
-  CategoryServicePanel,
-} from "../_components/ServicesUi";
+import { CategoryServiceIndex, CategoryServicePanel } from "../_components/ServicesUi";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -22,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
   if (!categoryData) {
     return createSeo({
       title: "Услуги",
-      description: "Разгледайте геодезическите услуги на GeoAxis.",
+      description: "Разгледайте нашите геодезически услуги.",
       canonical: "/uslugi",
       noIndex: true,
     });

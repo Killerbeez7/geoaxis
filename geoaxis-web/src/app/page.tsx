@@ -1,6 +1,7 @@
 import { siteContent } from "@/config/site-content";
 import { serviceCategories } from "@/config/services/categories";
 import { SITE_URL } from "@/config/site";
+import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
 import { getWebSiteSchema } from "@/lib/schemas";
 // Sections
@@ -14,12 +15,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Stats } from "@/components/sections/StatsSection";
 
-export const metadata = createSeo({
-  title: "Геодезически услуги в София",
-  description:
-    "GeoAxis предлага професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство.",
-  canonical: "",
-});
+export const metadata = createSeo(pageSeo.home);
 
 export default function Home() {
   const { brand, hero, trust, services, whyUs, workflow, projects, testimonials } =

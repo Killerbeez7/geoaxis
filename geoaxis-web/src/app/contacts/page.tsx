@@ -2,15 +2,11 @@ import clsx from "clsx";
 import { FaEnvelope, FaHome, FaPhone } from "react-icons/fa";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Section } from "@/components/layout/Section";
+import { pageSeo } from "@/config/seo";
 import { siteContent } from "@/config/site-content";
 import { createSeo } from "@/lib/seo-builder";
 
-export const metadata = createSeo({
-  title: "Контакти",
-  description:
-    "Свържете се с GeoAxis за геодезически услуги в София и Софийска област. Изпратете запитване за заснемане, трасиране, кадастър, проектиране и градоустройство.",
-  canonical: "/contacts",
-});
+export const metadata = createSeo(pageSeo.contacts);
 
 type Item = {
   icon: React.ReactNode;

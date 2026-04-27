@@ -10,8 +10,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 // Data
 import { SITE_URL } from "@/config/site";
-// SEO
-import { createSeo } from "@/lib/seo-builder";
+import { defaultSeo } from "@/config/seo";
+// Schemas
 import { getLocalBusinessSchema } from "@/lib/schemas";
 // Utils
 import SquintTest from "@/utils/squintTest";
@@ -30,12 +30,27 @@ const sofia = Sofia_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...createSeo({
-    title: "Геодезически услуги в София",
-    description:
-      "GeoAxis предлага професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство.",
-    canonical: "",
-  }),
+  title: {
+    default: defaultSeo.defaultTitle,
+    template: defaultSeo.titleTemplate,
+  },
+  description: defaultSeo.defaultDescription,
+  openGraph: {
+    siteName: defaultSeo.siteName,
+    title: defaultSeo.defaultTitle,
+    description: defaultSeo.defaultDescription,
+    url: SITE_URL,
+    locale: defaultSeo.locale,
+    type: "website",
+    images: [defaultSeo.defaultOgImage],
+  },
+  twitter: {
+    card: defaultSeo.twitterCard,
+    title: defaultSeo.defaultTitle,
+    description: defaultSeo.defaultDescription,
+    images: [defaultSeo.defaultOgImage],
+  },
+  robots: defaultSeo.robots,
   icons: {
     icon: [
       { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },

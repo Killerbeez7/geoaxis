@@ -6,16 +6,12 @@ import { Section } from "@/components/layout/Section";
 import { Stats } from "@/components/sections/StatsSection";
 // Data
 import { siteContent } from "@/config/site-content";
+import { pageSeo } from "@/config/seo";
 // SEO
 import { createSeo } from "@/lib/seo-builder";
 import { FinalCta } from "@/components/sections/FinalCta";
 
-export const metadata = createSeo({
-  title: "За нас",
-  description:
-    "Научете повече за GeoAxis — екип с опит в геодезията, кадастъра и градоустройството, работещ с клиенти и обекти в София и Софийска област.",
-  canonical: "/about",
-});
+export const metadata = createSeo(pageSeo.about);
 
 const valueIcon = {
   precision: <FaCheckCircle className="h-10 w-10 text-accent" />,

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/config/site";
-import { seoConfig } from "@/config/seo";
+import { defaultSeo } from "@/config/seo";
 import type { ServiceCategory, Service } from "@/config/services/categories";
 
 type SeoInput = {
@@ -16,16 +16,16 @@ function buildTitle(title?: string) {
   // EXAMPLE: "Геодезически услуги София - GeoAxis"
   const normalizedTitle = title?.trim();
 
-  if (!normalizedTitle || normalizedTitle === seoConfig.defaultTitle) {
-    return seoConfig.defaultTitle;
+  if (!normalizedTitle || normalizedTitle === defaultSeo.defaultTitle) {
+    return defaultSeo.defaultTitle;
   }
 
-  const brandSuffix = ` - ${seoConfig.siteName}`;
+  const brandSuffix = ` - ${defaultSeo.siteName}`;
   if (normalizedTitle.endsWith(brandSuffix)) {
     return normalizedTitle;
   }
 
-  return seoConfig.titleTemplate.replace("%s", normalizedTitle);
+  return defaultSeo.titleTemplate.replace("%s", normalizedTitle);
 }
 
 function buildAbsoluteUrl(path: string = "") {
@@ -35,7 +35,7 @@ function buildAbsoluteUrl(path: string = "") {
 }
 
 function buildImageUrl(image?: string) {
-  const selected = image || seoConfig.defaultOgImage;
+  const selected = image || defaultSeo.defaultOgImage;
   return selected.startsWith("http") ? selected : `${SITE_URL}${selected}`;
 }
 
@@ -47,7 +47,7 @@ function addAreaContext(description: string) {
 
 export function createSeo({
   title,
-  description = seoConfig.defaultDescription,
+  description = defaultSeo.defaultDescription,
   canonical = "",
   image,
   noIndex = false,
@@ -81,7 +81,7 @@ export function createSeo({
       title: fullTitle,
       description,
       url: fullUrl,
-      siteName: seoConfig.siteName,
+      siteName: defaultSeo.siteName,
       images: [
         {
           url: fullImage,
@@ -90,11 +90,11 @@ export function createSeo({
           alt: fullTitle,
         },
       ],
-      locale: seoConfig.locale,
+      locale: defaultSeo.locale,
       type: "website",
     },
     twitter: {
-      card: seoConfig.twitterCard,
+      card: defaultSeo.twitterCard,
       title: fullTitle,
       description,
       images: [fullImage],
@@ -104,10 +104,12 @@ export function createSeo({
 
 export function createCategorySeo(category: ServiceCategory): Metadata {
   return createSeo({
-    title: `${category.title} в София и Софийска област`,
-    description: addAreaContext(category.longDescription ?? category.description),
+    title: category.seo?.title ?? `${category.title} в София и Софийска област`,
+    description:
+      category.seo?.description ??
+      addAreaContext(category.longDescription ?? category.description),
     canonical: `/uslugi/${category.slug}`,
-    image: category.heroImage || category.thumbnail || seoConfig.defaultOgImage,
+    image: category.heroImage || category.thumbnail || defaultSeo.defaultOgImage,
   });
 }
 

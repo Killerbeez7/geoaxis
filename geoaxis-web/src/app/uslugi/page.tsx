@@ -4,6 +4,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 // Config
 import { serviceCategories } from "@/config/services/categories";
 import { servicesVisuals } from "@/config/services/visuals";
+import { pageSeo } from "@/config/seo";
 // Components
 import { CtaButton } from "@/components/parts/CtaButton";
 import { Section } from "@/components/layout/Section";
@@ -15,13 +16,7 @@ import {
   ServicesHero,
 } from "./_components/ServicesUi";
 
-export const metadata = createSeo({
-  title: "Геодезически услуги в София",
-  description:
-    "Геодезически услуги в София и Софийска област: заснемане, трасиране, кадастър, проектиране, градоустройство и консултации.",
-  canonical: "/uslugi",
-  image: servicesVisuals.heroImage,
-});
+export const metadata = createSeo(pageSeo.uslugiIndex);
 
 const scenarios = [
   {

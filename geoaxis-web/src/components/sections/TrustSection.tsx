@@ -40,7 +40,7 @@ export function TrustSection({ id, kicker, title, subtitle, trustCards }: TrustC
             </div>
 
             <div>
-              <h3 className="text-[15px] font-semibold tracking-tight text-tx-/90">
+              <h3 className="text-[15px] font-semibold tracking-tight text-tx-primary">
                 {title}
               </h3>
               {/* <h3 className="text-base font-semibold tracking-tight text-tx-primary">

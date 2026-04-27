@@ -91,7 +91,7 @@ export const Footer = () => {
           <div>
             <p className={sectionTitle}>Контакти</p>
 
-            <div className="mt-4 space-y-2 just">
+            <div className="mt-4 space-y-2">
               <p className={metaCls}>
                 <span className="text-tx-inverse/60">Имейл:</span>{" "}
                 <a className={linkCls} href={mailHref}>

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { SITE_URL } from "@/config/site";
 import { serviceCategories } from "@/config/services/categories";
 import { createCategorySeo, createSeo } from "@/lib/seo-builder";
-import { getCategoryFAQSchema, getCategoryServicesSchema } from "@/lib/schemas";
+import { getCategoryServicesSchema } from "@/lib/schemas";
 import { getCategoryBySlug } from "@/lib/selectors";
 import { ServicePageLayout } from "../ServicePageLayout";
 import { CategoryServiceIndex, CategoryServicePanel } from "../_components/ServicesUi";
@@ -41,17 +41,14 @@ export default async function CategoryPage({ params }: Props) {
   if (!category) notFound();
 
   const categoryPath = `/uslugi/${category.slug}`;
-  const jsonLd = [
-    getCategoryServicesSchema(SITE_URL, categoryPath, category),
-    getCategoryFAQSchema(category),
-  ].filter(Boolean);
+  const jsonLd = getCategoryServicesSchema(SITE_URL, categoryPath, category);
 
   return (
     <ServicePageLayout category={category}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd.length === 1 ? jsonLd[0] : jsonLd),
+          __html: JSON.stringify(jsonLd),
         }}
       />
 

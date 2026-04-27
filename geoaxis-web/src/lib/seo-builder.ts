@@ -68,7 +68,9 @@ export function createSeo({
   const fullImage = buildImageUrl(image);
 
   return {
-    title: fullTitle,
+    title: {
+      absolute: fullTitle,
+    },
     description,
     alternates: {
       canonical: fullUrl,

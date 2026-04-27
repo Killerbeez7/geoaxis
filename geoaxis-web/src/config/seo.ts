@@ -4,7 +4,7 @@ export const defaultSeo = {
   titleTemplate: "%s - GeoAxis",
   defaultDescription:
     "Геодезически услуги в София и Софийска област за имоти, строителство и проекти: заснемане, трасиране, кадастър и консултации.",
-  defaultOgImage: "/og-image.webp",
+  defaultOgImage: "/images/og-image.webp",
   locale: "bg_BG",
   robots: {
     index: true,
@@ -50,7 +50,7 @@ export const pageSeo = {
     canonical: "/projects",
   },
 
-  polenzo: {
+  polezno: {
     title: "Полезно",
     description:
       "Практични статии и ръководства за геодезия, кадастър, трасиране и устройствени процедури в София и Софийска област.",

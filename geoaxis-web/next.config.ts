@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/uslugi/trasirane/na-sgradi",
+        destination: "/uslugi/trasirane#na-sgrada",
+        permanent: true,
+      },
+      {
+        source: "/uslugi/trasirane/na-lineyni-saorazhenia",
+        destination: "/uslugi/trasirane#na-lineyni-saorazheniya",
+        permanent: true,
+      },
+      {
         source: "/services",
         destination: "/uslugi",
         permanent: true,

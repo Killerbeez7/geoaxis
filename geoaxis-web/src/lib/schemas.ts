@@ -1,8 +1,11 @@
 import { siteContent } from "@/config/site-content";
+import { defaultSeo } from "@/config/seo";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import type { HelpfulArticle } from "@/config/polezno/articles";
 
 const stripSpaces = (s: string) => s.replace(/\s+/g, "");
+const absoluteUrl = (siteUrl: string, path: string) =>
+  path.startsWith("http") ? path : `${siteUrl}${path}`;
 
 export function getWebSiteSchema(siteUrl: string) {
   return {
@@ -22,8 +25,8 @@ export function getLocalBusinessSchema(siteUrl: string) {
     "@type": "LocalBusiness",
     name: brand.name,
     url: siteUrl,
-    logo: `${siteUrl}${brand.logo}`,
-    image: `${siteUrl}/og-image.jpg`,
+    logo: absoluteUrl(siteUrl, brand.logo),
+    image: absoluteUrl(siteUrl, defaultSeo.defaultOgImage),
     telephone: stripSpaces(contacts.phone),
     email: contacts.email,
     address: {
@@ -182,7 +185,7 @@ export function getArticleSchema(siteUrl: string, article: HelpfulArticle) {
     },
     image: article.coverImage
       ? `${siteUrl}${article.coverImage.src}`
-      : `${siteUrl}/og-image.jpg`,
+      : absoluteUrl(siteUrl, defaultSeo.defaultOgImage),
   };
 }
 

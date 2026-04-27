@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props) {
     title: article.title,
     description: article.description,
     canonical: `/polezno/${article.section}/${article.slug}`,
-    image: article.coverImage?.src || "/og-image.jpg",
+    image: article.coverImage?.src || "/images/og-image.webp",
   });
 }
 

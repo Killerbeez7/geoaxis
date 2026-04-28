@@ -379,10 +379,7 @@ export function ServiceSummaryCard({
 
 export function CategoryServiceIndex({ category }: { category: ServiceCategory }) {
   return (
-    <nav
-      aria-label="Услуги в категорията"
-      className="py-4 md:py-5"
-    >
+    <nav aria-label="Услуги в категорията" className="py-4 md:py-5">
       <p className="text-sm font-bold leading-6 text-tx-primary md:text-base">
         Изберете услуга от списъка:
       </p>
@@ -417,7 +414,7 @@ export function CategoryServicePanel({ service }: { service: Service }) {
       id={service.slug}
       className="scroll-mt-[calc(var(--header-h)+2rem)] border-b border-br-light py-9 first:pt-0 last:border-b-0 last:pb-0 md:py-12"
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(16rem,0.85fr)_minmax(0,1.45fr)] lg:gap-10">
+      <div className="grid gap-6 lg:grid-cols-[minmax(16rem,0.85fr)_minmax(0,1.45fr)] lg:gap-12">
         <div className="lg:pt-1">
           <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
             <Image
@@ -441,9 +438,18 @@ export function CategoryServicePanel({ service }: { service: Service }) {
           <h2 className="mt-3 text-2xl font-semibold leading-tight text-tx-primary md:text-3xl">
             {service.title}
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-tx-secondary">
+          {/* <div className="max-w-[640px] space-y-4 text-muted-foreground leading-relaxed"> */}
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            {Array.isArray(description) ? (
+              description.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+            ) : (
+              <p>{description}</p>
+            )}
+            {/* </div> */}
+          </div>
+          {/* <p className="mt-4 max-w-3xl text-base leading-8 text-tx-secondary">
             {description}
-          </p>
+          </p> */}
 
           <ServiceNarrative service={service} />
         </div>

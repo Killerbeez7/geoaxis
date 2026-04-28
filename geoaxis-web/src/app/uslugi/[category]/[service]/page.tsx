@@ -10,6 +10,11 @@ type Props = {
   }>;
 };
 
+function toSeoDescription(description: string | string[] | undefined, fallback: string) {
+  if (Array.isArray(description)) return description.join(" ");
+  return description ?? fallback;
+}
+
 export async function generateMetadata({ params }: Props) {
   const { category: categorySlug, service: serviceSlug } = await params;
   const result = getServiceBySlugs(categorySlug, serviceSlug);
@@ -27,7 +32,7 @@ export async function generateMetadata({ params }: Props) {
 
   return createSeo({
     title: `${service.title} в София и Софийска област`,
-    description: service.longDescription ?? service.description,
+    description: toSeoDescription(service.longDescription, service.description),
     canonical: `/uslugi/${category.slug}`,
     image: service.heroImage || service.thumbnail || category.heroImage || category.thumbnail,
     noIndex: true,

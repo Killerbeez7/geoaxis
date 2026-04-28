@@ -45,6 +45,10 @@ function addAreaContext(description: string) {
   return `${description} София и Софийска област.`;
 }
 
+function normalizeDescription(description: string | string[]) {
+  return Array.isArray(description) ? description.join(" ") : description;
+}
+
 export function createSeo({
   title,
   description = defaultSeo.defaultDescription,
@@ -118,7 +122,9 @@ export function createCategorySeo(category: ServiceCategory): Metadata {
 export function createServiceSeo(category: ServiceCategory, service: Service): Metadata {
   return createSeo({
     title: `${service.title} в София и Софийска област`,
-    description: addAreaContext(service.longDescription ?? service.description),
+    description: addAreaContext(
+      normalizeDescription(service.longDescription ?? service.description)
+    ),
     canonical: `/uslugi/${category.slug}`,
     image:
       service.heroImage || service.thumbnail || category.heroImage || category.thumbnail,

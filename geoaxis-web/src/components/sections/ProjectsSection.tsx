@@ -44,7 +44,7 @@ export function ProjectsSection({
         </div>
       </div>
 
-      <div className="flex justify-center pt-8 sm:pt-10">
+      <div className="flex justify-center pt-8 sm:pt-14">
         <CtaButton variant="primary" href={cta.href}>
           Покажи още снимки
         </CtaButton>

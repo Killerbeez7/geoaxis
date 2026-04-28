@@ -39,7 +39,7 @@ export interface AboutContent {
 
 export const about: AboutContent = {
   id: "about",
-  title: "За GeoAxis",
+  title: "За нас",
 
   hero: {
     intro:
@@ -63,7 +63,8 @@ export const about: AboutContent = {
 
   values: {
     title: "Как работим",
-    intro: "Добрият резултат идва от точни измервания, ясни решения и отговорност към детайла.",
+    intro:
+      "Добрият резултат идва от точни измервания, ясни решения и отговорност към детайла.",
     items: [
       {
         key: "precision",

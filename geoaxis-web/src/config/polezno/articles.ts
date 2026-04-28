@@ -446,7 +446,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     category: "geodezia",
     publishedAt: "2026-04-14",
     coverImage: {
-      src: "/images/sections/hero-img.jpeg",
+      src: "/images/category/zasnemane-og.webp",
       alt: "Геодезически измервания на терен",
     },
     keywords: ["геодезическо заснемане", "геодезия", "София"],

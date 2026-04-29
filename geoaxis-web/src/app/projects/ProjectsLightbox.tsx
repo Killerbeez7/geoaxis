@@ -217,7 +217,7 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
             )}
           </div>
           {activeImage.description && (
-            <p className="mt-2 line-clamp-3 max-w-2xl text-[13px] leading-5 text-tx-inverse/82 sm:text-sm sm:leading-6">
+            <p className="mt-2 line-clamp-3 max-w-4xl text-[13px] leading-5 text-tx-inverse/82 sm:text-sm sm:leading-6">
               {activeImage.description}
             </p>
           )}

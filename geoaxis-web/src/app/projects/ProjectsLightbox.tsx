@@ -83,7 +83,14 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
   const gallery = useMemo(() => {
     return image.gallery?.length
       ? image.gallery
-      : [{ src: image.src, alt: image.alt, caption: image.caption }];
+      : [
+          {
+            title: image.title,
+            src: image.src,
+            alt: image.alt,
+            description: image.description,
+          },
+        ];
   }, [image]);
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -147,7 +154,7 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/78 backdrop-blur-[2px] sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/78 backdrop-blur-[2px] sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -201,7 +208,7 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
         <div className="min-h-0 overflow-hidden border-t border-white/10 bg-gray-950 px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6  text-tx-inverse sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <p className="line-clamp-2 max-w-4xl text-[15px] font-semibold leading-snug text-tx-inverse sm:text-lg">
-              {activeImage.alt}
+              {activeImage.title}
             </p>
             {hasGallery && (
               <p className="order-first shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-amber-300 sm:order-0 sm:pt-1">
@@ -209,9 +216,9 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
               </p>
             )}
           </div>
-          {activeImage.caption && (
+          {activeImage.description && (
             <p className="mt-2 line-clamp-3 max-w-4xl text-[13px] leading-5 text-tx-inverse/82 sm:text-sm sm:leading-6">
-              {activeImage.caption}
+              {activeImage.description}
             </p>
           )}
         </div>

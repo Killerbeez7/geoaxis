@@ -5,8 +5,9 @@ import Image from "next/image";
 
 interface ProjectImageProps {
   src: string;
+  title?: string;
   alt: string;
-  caption?: string;
+  description?: string;
   category?: string;
 }
 
@@ -56,7 +57,7 @@ export function ProjectDisplayCard({ image, onClick, className }: ProjectCardPro
         )}
       >
         <p className="line-clamp-2 text-sm font-medium leading-6 text-white sm:text-base">
-          {image.caption || image.alt}
+          {image.title || image.description || image.alt}
         </p>
       </div>
     </div>

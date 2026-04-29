@@ -15,6 +15,26 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/uslugi/proektirane/proektantski-uslugi",
+        destination: "/uslugi/proektirane#geodezicheski-danni-za-proektirane",
+        permanent: true,
+      },
+      {
+        source: "/uslugi/konsultacia/sadeistvie-pri-proceduri",
+        destination: "/uslugi/konsultacia#analiz-i-nasoki",
+        permanent: true,
+      },
+      {
+        source: "/uslugi/konsultacia/proverka-na-danni-i-syvpadeniya",
+        destination: "/uslugi/konsultacia#analiz-i-nasoki",
+        permanent: true,
+      },
+      {
+        source: "/uslugi/konsultacia/nasoki-za-sledvashti-stypki",
+        destination: "/uslugi/konsultacia#analiz-i-nasoki",
+        permanent: true,
+      },
+      {
         source: "/services",
         destination: "/uslugi",
         permanent: true,

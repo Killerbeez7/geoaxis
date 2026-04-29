@@ -109,11 +109,15 @@ export function createSeo({
 }
 
 export function createCategorySeo(category: ServiceCategory): Metadata {
+  const categoryDescription = normalizeDescription(
+    category.longDescription ?? category.description
+  );
+
   return createSeo({
     title: category.seo?.title ?? `${category.title} в София и Софийска област`,
     description:
       category.seo?.description ??
-      addAreaContext(category.longDescription ?? category.description),
+      addAreaContext(categoryDescription),
     canonical: `/uslugi/${category.slug}`,
     image: category.heroImage || category.thumbnail || defaultSeo.defaultOgImage,
   });

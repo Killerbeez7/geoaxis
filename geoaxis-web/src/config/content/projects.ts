@@ -222,7 +222,7 @@ export const projects: ProjectsContent = {
       gallery: [
         {
           title: "Трасиране на основа с тотална станция",
-          src: "/images/projects/project-5/2.webp",
+          src: "/images/projects/project-5/image-2.webp",
           alt: "Геодезист при трасиране на строителен обект",
           description:
             "Работа на терен с тотална станция при пренасяне на проектните данни и позициониране на основата.",

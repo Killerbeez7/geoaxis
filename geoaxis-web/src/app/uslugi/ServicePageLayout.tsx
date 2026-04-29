@@ -17,9 +17,12 @@ type Props = {
 
 export function ServicePageLayout({ category, service, children }: Props) {
   const title = service?.title ?? category.title;
-  const description = service
+  const rawDescription = service
     ? service.description
     : (category.longDescription ?? category.description);
+  const description = Array.isArray(rawDescription)
+    ? rawDescription[0]
+    : rawDescription;
   const eyebrow = service?.meta ?? category.meta ?? "Услуги";
   const categoryVisual =
     servicesVisuals.categoryHeroes[

@@ -1,46 +1,96 @@
 import Link from "next/link";
 import clsx from "clsx";
-import type { ReactNode } from "react";
 import {
-  FaArrowRight,
-  FaBuilding,
   FaFileAlt,
-  FaMapMarkedAlt,
   FaQuestionCircle,
+  FaMapMarkedAlt,
+  FaBuilding,
   FaRulerCombined,
+  FaArrowRight,
 } from "react-icons/fa";
-
+import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { Section } from "@/components/layout/Section";
 import { FinalCta } from "@/components/sections/FinalCta";
-import { HELPFUL_ARTICLES, type HelpfulArticle } from "@/config/polezno/articles";
-import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
+
+type HelpfulArticle = {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  href: string;
+};
 
 type HelpfulCategory = {
   title: string;
   description: string;
   href: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
 };
 
-const featuredArticleSlugs = [
-  "kakvo-e-geodezichesko-zasnemane",
-  "kakvo-e-pup",
-  "koga-vi-tryabva-geodezist",
-] as const;
-const featuredArticleSlugSet = new Set<string>(featuredArticleSlugs);
+const featuredArticles: HelpfulArticle[] = [
+  {
+    slug: "statii",
+    title: "Какво е геодезическо заснемане?",
+    description: "Кратко и ясно обяснение кога се налага и защо е важно.",
+    category: "Геодезия",
+    href: "/polezno/statii/kakvo-e-geodezichesko-zasnemane",
+  },
+  {
+    slug: "statii-2",
+    title: "Колко струва трасиране?",
+    description: "Факторите, които влияят върху цената и какво да очаквате.",
+    category: "Трасиране",
+    href: "/polezno/statii/kolko-struva-trasirane",
+  },
+  {
+    slug: "faq",
+    title: "Въпроси и отговори",
+    description: "Кратки отговори на често задавани въпроси по реални казуси.",
+    category: "FAQ",
+    href: "/polezno/faq",
+  },
+];
 
-const featuredArticles = featuredArticleSlugs
-  .map((slug) => HELPFUL_ARTICLES.find((article) => article.slug === slug))
-  .filter(Boolean) as HelpfulArticle[];
+const latestArticles: HelpfulArticle[] = [
+  {
+    slug: "rakovodstva",
+    title: "Кога ви трябва геодезист?",
+    description: "Ситуации, в които професионалната помощ спестява време и грешки.",
+    category: "Ръководства",
+    href: "/polezno/rakovodstva",
+  },
+  {
+    slug: "rechnik",
+    title: "Разлика между кадастър и регулация",
+    description: "Основни понятия, обяснени ясно и практично.",
+    category: "Речник",
+    href: "/polezno/rechnik",
+  },
+  {
+    slug: "resursi",
+    title: "Полезни ресурси",
+    description: "Институции, справки и източници, които често трябват на клиентите.",
+    category: "Ресурси",
+    href: "/polezno/resursi",
+  },
+];
 
-const latestArticles = HELPFUL_ARTICLES.filter(
-  (article) => !featuredArticleSlugSet.has(article.slug)
-)
-  .slice()
-  .sort((a, b) =>
-    (b.updatedAt ?? b.publishedAt).localeCompare(a.updatedAt ?? a.publishedAt)
-  )
-  .slice(0, 3);
+function getCategoryIcon(slug: string) {
+  switch (slug) {
+    case "statii":
+      return <FaFileAlt className="h-5 w-5" />;
+    case "faq":
+      return <FaQuestionCircle className="h-5 w-5" />;
+    case "rechnik":
+      return <FaMapMarkedAlt className="h-5 w-5" />;
+    case "resursi":
+      return <FaBuilding className="h-5 w-5" />;
+    case "rakovodstva":
+      return <FaRulerCombined className="h-5 w-5" />;
+    default:
+      return <FaFileAlt className="h-5 w-5" />;
+  }
+}
 
 const categories: HelpfulCategory[] = HELPFUL_NAV_ITEMS.map((item) => ({
   title: item.label,
@@ -60,31 +110,6 @@ const sectionHeaderLinkCls = clsx(
   "text-sm font-medium text-accent transition-colors hover:text-accent-hover"
 );
 
-function articleHref(article: HelpfulArticle) {
-  return `/polezno/${article.section}/${article.slug}`;
-}
-
-function articleTypeLabel(article: HelpfulArticle) {
-  return article.section === "rakovodstva" ? "Ръководство" : "Статия";
-}
-
-function getCategoryIcon(slug: string) {
-  switch (slug) {
-    case "statii":
-      return <FaFileAlt className="h-5 w-5" />;
-    case "faq":
-      return <FaQuestionCircle className="h-5 w-5" />;
-    case "rechnik":
-      return <FaMapMarkedAlt className="h-5 w-5" />;
-    case "resursi":
-      return <FaBuilding className="h-5 w-5" />;
-    case "rakovodstva":
-      return <FaRulerCombined className="h-5 w-5" />;
-    default:
-      return <FaFileAlt className="h-5 w-5" />;
-  }
-}
-
 function SectionEyebrow() {
   return (
     <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-br-accent-soft bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
@@ -101,7 +126,7 @@ function SectionHeader({
 }: {
   title: string;
   description?: string;
-  action?: ReactNode;
+  action?: React.ReactNode;
 }) {
   return (
     <div className="mb-6 flex items-end justify-between gap-4">
@@ -114,7 +139,7 @@ function SectionHeader({
   );
 }
 
-function ArticleBadge({ children }: { children: ReactNode }) {
+function ArticleBadge({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-4 inline-flex rounded-full border border-br-accent-soft bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
       {children}
@@ -126,7 +151,7 @@ function ArrowLabel({
   children,
   accent = false,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   accent?: boolean;
 }) {
   return (
@@ -152,8 +177,8 @@ function ArticleCard({
   featured?: boolean;
 }) {
   return (
-    <Link href={articleHref(article)} className={surfaceCardCls}>
-      <ArticleBadge>{articleTypeLabel(article)}</ArticleBadge>
+    <Link href={article.href} className={surfaceCardCls}>
+      <ArticleBadge>{article.category}</ArticleBadge>
 
       <h3
         className={clsx(
@@ -167,7 +192,7 @@ function ArticleCard({
         {article.title}
       </h3>
 
-      <p className="typo-meta mt-3 leading-7">{article.excerpt}</p>
+      <p className="typo-meta mt-3 leading-7">{article.description}</p>
 
       <ArrowLabel>Прочети повече</ArrowLabel>
     </Link>
@@ -212,8 +237,8 @@ export function HelpfulHubSection() {
 
             <p className="typo-subtitle mt-5 max-w-2xl">
               Практична информация за геодезия, кадастър, трасиране и устройствени
-              процедури. Материали, които помагат да намерите правилната услуга по-бързо и
-              с по-малко колебание.
+              процедури. Съдържание, което помага на клиентите да вземат по-информирано
+              решение и да намерят точната услуга по-бързо.
             </p>
           </div>
 
@@ -231,18 +256,18 @@ export function HelpfulHubSection() {
 
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
               {categories.map((item) => (
-                <CategoryCard key={item.href} item={item} />
+                <CategoryCard key={item.title} item={item} />
               ))}
             </div>
           </div>
 
           <div className="mt-20">
             <SectionHeader
-              title="Още полезни теми"
-              description="Кратки ръководства и практически обяснения, свързани с реални имотни и строителни казуси."
+              title="Последни статии"
+              description="Кратки ръководства и практически теми с висок SEO потенциал."
               action={
-                <Link href="/polezno/statii" className={sectionHeaderLinkCls}>
-                  Виж статиите
+                <Link href="/polezno" className={sectionHeaderLinkCls}>
+                  Виж всички
                   <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               }

@@ -1,7 +1,5 @@
 import { MetadataRoute } from "next";
 import { serviceCategories } from "@/config/services/categories";
-import { HELPFUL_ARTICLES } from "@/config/polezno/articles";
-import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 
 const BASE_URL = "https://geoaxis.bg";
 
@@ -65,23 +63,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
   }));
 
-  // Useful pages — currently only for [statii, rakovodstava]
-  const usefulSectionUrls = HELPFUL_NAV_ITEMS.filter(
-    (item) => item.slug === "statii" || item.slug === "rakovodstva"
-  ).map((item) => ({
-    url: `${BASE_URL}${item.href}`,
-    lastModified: "2026-04-30",
-    priority: 0.7,
-    changeFrequency: "weekly" as const,
-  }));
-
-  // Article pages — uses article.updatedAt
-  const usefulArticleUrls = HELPFUL_ARTICLES.map((article) => ({
-    url: `${BASE_URL}/polezno/${article.section}/${article.slug}`,
-    lastModified: article.updatedAt ?? article.publishedAt,
-    priority: 0.65,
-    changeFrequency: "monthly" as const,
-  }));
-
-  return [...staticUrls, ...categoryUrls, ...usefulSectionUrls, ...usefulArticleUrls];
+  return [...staticUrls, ...categoryUrls];
 }

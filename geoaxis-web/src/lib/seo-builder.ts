@@ -125,13 +125,12 @@ export function createCategorySeo(category: ServiceCategory): Metadata {
 
 export function createServiceSeo(category: ServiceCategory, service: Service): Metadata {
   return createSeo({
-    title: `${service.title} в София и Софийска област`,
+    title: `${service.title} в София`,
     description: addAreaContext(
       normalizeDescription(service.longDescription ?? service.description)
     ),
-    canonical: `/uslugi/${category.slug}`,
+    canonical: `/uslugi/${category.slug}/${service.slug}`,
     image:
       service.heroImage || service.thumbnail || category.heroImage || category.thumbnail,
-    noIndex: true,
   });
 }

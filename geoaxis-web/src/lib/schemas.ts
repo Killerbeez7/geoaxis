@@ -2,6 +2,7 @@ import { siteContent } from "@/config/site-content";
 import { defaultSeo } from "@/config/seo";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import type { HelpfulArticle } from "@/config/polezno/articles";
+import { getServiceHref } from "@/utils/urlHelpers";
 
 const stripSpaces = (s: string) => s.replace(/\s+/g, "");
 const absoluteUrl = (siteUrl: string, path: string) =>
@@ -85,54 +86,59 @@ export function getCategoryServicesSchema(
     name: `${category.title} - услуги`,
     description: category.longDescription ?? category.description,
     url: `${siteUrl}${categoryPath}`,
-    itemListElement: category.services.map((service, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      url: `${siteUrl}${categoryPath}#${service.slug}`,
-      item: {
-        "@type": "Service",
-        name: service.title,
-        description: service.longDescription ?? service.description,
-        serviceType: service.title,
-        url: `${siteUrl}${categoryPath}#${service.slug}`,
-        areaServed: [
-          { "@type": "City", name: "София" },
-          { "@type": "AdministrativeArea", name: "Софийска област" },
-        ],
-        provider: {
-          "@type": "LocalBusiness",
-          name: siteContent.brand.name,
-          url: siteUrl,
-          telephone: stripSpaces(siteContent.contacts.phone),
-          email: siteContent.contacts.email,
+    itemListElement: category.services.map((service, index) => {
+      const servicePath = getServiceHref(category.slug, service);
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteUrl}${servicePath}`,
+        item: {
+          "@type": "Service",
+          name: service.title,
+          description: service.longDescription ?? service.description,
+          serviceType: service.title,
+          url: `${siteUrl}${servicePath}`,
+          areaServed: [
+            { "@type": "City", name: "София" },
+            { "@type": "AdministrativeArea", name: "Софийска област" },
+          ],
+          provider: {
+            "@type": "LocalBusiness",
+            name: siteContent.brand.name,
+            url: siteUrl,
+            telephone: stripSpaces(siteContent.contacts.phone),
+            email: siteContent.contacts.email,
+          },
         },
-      },
-    })),
+      };
+    }),
   };
 }
 
 export function getCategoryFAQSchema(category: ServiceCategory) {
   const mainEntity = category.services.flatMap((service) => {
+    const content = service.content;
     const entries: { question: string; answer: string }[] = [];
 
-    if (service.neededWhen?.length) {
+    if (content?.neededWhen?.length) {
       entries.push({
         question: `Кога е необходима услугата "${service.title}"?`,
-        answer: service.neededWhen.join(". ") + ".",
+        answer: content.neededWhen.join(". ") + ".",
       });
     }
 
-    if (service.deliverables?.length) {
+    if (content?.deliverables?.length) {
       entries.push({
         question: `Какво получавам при "${service.title}"?`,
-        answer: service.deliverables.join(". ") + ".",
+        answer: content.deliverables.join(". ") + ".",
       });
     }
 
-    if (service.requiredDocs?.length) {
+    if (content?.requiredDocs?.length) {
       entries.push({
         question: `Какви документи са необходими за "${service.title}"?`,
-        answer: service.requiredDocs.join(". ") + ".",
+        answer: content.requiredDocs.join(". ") + ".",
       });
     }
 
@@ -190,33 +196,34 @@ export function getArticleSchema(siteUrl: string, article: HelpfulArticle) {
 }
 
 export function getServiceFAQSchema(service: Service) {
+  const content = service.content;
   const faqs: { question: string; answer: string }[] = [];
 
-  if (service.neededWhen?.length) {
+  if (content?.neededWhen?.length) {
     faqs.push({
       question: `Кога е необходима услугата "${service.title}"?`,
-      answer: service.neededWhen.join(". ") + ".",
+      answer: content.neededWhen.join(". ") + ".",
     });
   }
 
-  if (service.deliverables?.length) {
+  if (content?.deliverables?.length) {
     faqs.push({
       question: `Какво получавам при "${service.title}"?`,
-      answer: service.deliverables.join(". ") + ".",
+      answer: content.deliverables.join(". ") + ".",
     });
   }
 
-  if (service.requiredDocs?.length) {
+  if (content?.requiredDocs?.length) {
     faqs.push({
       question: `Какви документи са необходими за "${service.title}"?`,
-      answer: service.requiredDocs.join(". ") + ".",
+      answer: content.requiredDocs.join(". ") + ".",
     });
   }
 
-  if (service.processSteps?.length) {
+  if (content?.processSteps?.length) {
     faqs.push({
       question: `Как протича процесът за "${service.title}"?`,
-      answer: service.processSteps.map((step, i) => `${i + 1}. ${step}`).join(" "),
+      answer: content.processSteps.map((step, i) => `${i + 1}. ${step}`).join(" "),
     });
   }
 

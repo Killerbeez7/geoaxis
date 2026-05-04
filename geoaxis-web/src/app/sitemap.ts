@@ -65,6 +65,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
   }));
 
+  // Dedicated service pages — only services restored as real pages.
+  const serviceUrls = serviceCategories.flatMap((category) =>
+    category.services
+      .filter((service) => service.hasDedicatedPage)
+      .map((service) => ({
+        url: `${BASE_URL}/uslugi/${category.slug}/${service.slug}`,
+        lastModified: service.updatedAt ?? category.updatedAt,
+        priority: 0.75,
+        changeFrequency: "monthly" as const,
+      }))
+  );
+
   // Useful pages — currently only for [statii, rakovodstava]
   const usefulSectionUrls = HELPFUL_NAV_ITEMS.filter(
     (item) => item.slug === "statii" || item.slug === "rakovodstva"
@@ -83,5 +95,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
   }));
 
-  return [...staticUrls, ...categoryUrls, ...usefulSectionUrls, ...usefulArticleUrls];
+  return [
+    ...staticUrls,
+    ...categoryUrls,
+    ...serviceUrls,
+    ...usefulSectionUrls,
+    ...usefulArticleUrls,
+  ];
 }

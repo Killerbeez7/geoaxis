@@ -137,7 +137,7 @@ export function CategoryServicesList({ category }: { category: ServiceCategory }
   const rightColumn = category.services.slice(midpoint);
 
   return (
-    <nav aria-label="Услуги в категорията" className="py-4 md:py-5">
+    <nav aria-label="Услуги в категорията" className="py-4 md:py-5 lg:hidden">
       <p className="text-sm font-bold leading-6 text-tx-primary md:text-base">
         Всички услуги:
       </p>

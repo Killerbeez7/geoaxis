@@ -20,3 +20,13 @@ export const getServiceRouteParams = () =>
       service: srv.slug,
     }))
   );
+
+export const getDedicatedServiceRouteParams = () =>
+  serviceCategories.flatMap((cat) =>
+    cat.services
+      .filter((srv) => srv.hasDedicatedPage)
+      .map((srv) => ({
+        category: cat.slug,
+        service: srv.slug,
+      }))
+  );

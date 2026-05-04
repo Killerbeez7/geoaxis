@@ -40,10 +40,10 @@ export default function About() {
             className={clsx(
               "w-full h-full object-cover",
               "object-cover",
-              "object-[40%_65%]",
+              "object-[78%_65%]",
               "sm:object-[35%_72%]",
               "md:object-[40%_68%]",
-              "lg:object-[80%_46%]"
+              "lg:object-[80%_35%]"
             )}
           />
         </div>
@@ -53,7 +53,7 @@ export default function About() {
 
         <div className="h-full container-page flex flex-col items-center justify-center text-center">
           <h1 className="typo-hero text-tx-inverse">{title}</h1>
-          <p className="typo-lead mt-4 text-balance">{hero.intro}</p>
+          <p className="typo-lead mt-4 text-balance text-tx-inverse/87">{hero.intro}</p>
         </div>
       </Section>
       {/* <Section className="relative isolate h-150 overflow-hidden" variant="hero">

@@ -5,9 +5,7 @@ import { Section } from "@/components/layout/Section";
 import { FinalCta } from "@/components/sections/FinalCta";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { servicesVisuals } from "@/config/services/visuals";
-import { ServiceSubnav, ServicesHero } from "./_components/ServicesUi";
-
-const SHOW_SERVICE_MENU = false;
+import { ServicesHero } from "./_components/ServicesUi";
 
 type Props = {
   category: ServiceCategory;
@@ -20,9 +18,7 @@ export function ServicePageLayout({ category, service, children }: Props) {
   const rawDescription = service
     ? service.description
     : (category.longDescription ?? category.description);
-  const description = Array.isArray(rawDescription)
-    ? rawDescription[0]
-    : rawDescription;
+  const description = Array.isArray(rawDescription) ? rawDescription[0] : rawDescription;
   const eyebrow = service?.meta ?? category.meta ?? "Услуги";
   const categoryVisual =
     servicesVisuals.categoryHeroes[
@@ -32,24 +28,19 @@ export function ServicePageLayout({ category, service, children }: Props) {
   return (
     <main className="bg-bg-page">
       <ServicesHero
-        eyebrow={eyebrow}
+        kicker={eyebrow}
         title={title}
         description={description}
         image={categoryVisual?.image ?? servicesVisuals.heroImage}
         imageAlt={categoryVisual?.alt ?? servicesVisuals.heroAlt}
         imagePosition={servicesVisuals.heroPosition}
-        tone="light"
       >
         <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
           Изпрати запитване
         </CtaButton>
       </ServicesHero>
 
-      {SHOW_SERVICE_MENU ? (
-        <ServiceSubnav category={category} activeServiceSlug={service?.slug} />
-      ) : null}
-
-      <Section id="services" tone="page" className="!pt-6 sm:!pt-8 lg:!pt-10">
+      <Section id="services" tone="page" className="pt-6! sm:pt-8! lg:pt-10!">
         {children}
       </Section>
 

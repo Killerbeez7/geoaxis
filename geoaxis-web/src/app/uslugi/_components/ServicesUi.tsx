@@ -3,55 +3,37 @@ import Link from "next/link";
 import clsx from "clsx";
 import { MdArrowRightAlt } from "react-icons/md";
 import type { ReactNode } from "react";
-
-import { CtaButton } from "@/components/parts/CtaButton";
 import type { Service, ServiceCategory } from "@/config/services/categories";
-
-type BreadcrumbItem = {
-  label: string;
-  href?: string;
-};
+import { getServiceHref } from "@/utils/urlHelpers";
+import { normalizeParagraphs } from "@/utils/normalizeText";
 
 type ServicesHeroProps = {
-  eyebrow?: string;
+  kicker?: string;
   title: string;
   description: string;
   image: string;
   imageAlt: string;
   imagePosition?: string;
-  tone?: "dark" | "light";
-  breadcrumbs?: BreadcrumbItem[];
   children?: ReactNode;
 };
 
 export function ServicesHero({
-  eyebrow,
+  kicker,
   title,
   description,
   image,
   imageAlt,
   imagePosition = "object-[72%_50%]",
-  tone = "light",
-  breadcrumbs,
   children,
 }: ServicesHeroProps) {
-  const isLight = tone === "light";
-
   return (
     <section
       className={clsx(
         "relative isolate overflow-hidden",
-        isLight
-          ? "border-b border-br-default bg-bg-section shadow-[inset_0_-1px_0_rgba(20,33,27,0.08)]"
-          : "bg-bg-inverse"
+        "border-b border-br-default bg-bg-section shadow-[inset_0_-1px_0_rgba(20,33,27,0.08)]"
       )}
     >
-      <div
-        className={clsx(
-          "absolute inset-0 -z-20",
-          isLight ? "bg-bg-section" : "bg-bg-inverse"
-        )}
-      >
+      <div className="absolute inset-0 -z-20 bg-bg-section">
         <Image
           src={image}
           alt={imageAlt}
@@ -59,64 +41,30 @@ export function ServicesHero({
           preload
           sizes="100vw"
           className={clsx(
-            "object-cover",
-            imagePosition,
-            isLight && "brightness-90 contrast-125 saturate-125"
+            "object-cover brightness-90 contrast-125 saturate-125",
+            imagePosition
           )}
         />
       </div>
 
-      <div
-        className={clsx(
-          "absolute inset-0 -z-10",
-          isLight ? "bg-bg-section/20" : "bg-bg-inverse/58"
-        )}
-      />
+      <div className="absolute inset-0 -z-10 bg-bg-section/20" />
       <div
         className={clsx(
           "absolute inset-0 -z-10 bg-linear-to-r",
-          isLight
-            ? "from-bg-page/98 via-bg-page/62 to-bg-section/8"
-            : "from-bg-inverse/94 via-bg-inverse/76 to-bg-inverse/28"
+          "from-bg-page/98 via-bg-page/62 to-bg-section/8"
         )}
       />
-      <div
-        className={clsx(
-          "absolute inset-x-0 bottom-0 -z-10 h-32 bg-linear-to-t to-transparent",
-          isLight ? "from-bg-section/80" : "from-bg-inverse/72"
-        )}
-      />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-linear-to-t to-transparent from-bg-section/80" />
 
       <div className="container-page relative flex min-h-[clamp(25rem,54dvh,34rem)] flex-col justify-end pb-10 pt-[calc(var(--header-h)+3rem)] sm:pb-12 lg:pb-14">
-        {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} tone={tone} /> : null}
-
         <div className="max-w-3xl">
-          {eyebrow ? (
-            <p
-              className={clsx(
-                "typo-kicker",
-                isLight ? "text-accent" : "text-tx-inverse/72"
-              )}
-            >
-              {eyebrow}
-            </p>
-          ) : null}
+          {kicker ? <p className={clsx("typo-kicker", "text-accent")}>{kicker}</p> : null}
 
-          <h1
-            className={clsx(
-              "mt-3 text-3xl font-semibold leading-[1.1] sm:text-4xl lg:text-5xl",
-              isLight ? "text-tx-primary" : "text-tx-inverse"
-            )}
-          >
+          <h1 className="mt-3 text-3xl font-semibold leading-[1.1] sm:text-4xl lg:text-5xl text-tx-primary">
             {title}
           </h1>
 
-          <p
-            className={clsx(
-              "mt-5 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8",
-              isLight ? "text-tx-secondary" : "text-tx-inverse/82"
-            )}
-          >
+          <p className="mt-5 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8 text-tx-secondary">
             {description}
           </p>
 
@@ -131,127 +79,10 @@ export function ServicesHero({
   );
 }
 
-export function Breadcrumbs({
-  items,
-  tone = "dark",
-}: {
-  items: BreadcrumbItem[];
-  tone?: "dark" | "light";
-}) {
-  const isLight = tone === "light";
-
-  return (
-    <nav
-      aria-label="Навигация"
-      className={clsx("mb-5 text-sm", isLight ? "text-tx-muted" : "text-tx-inverse/68")}
-    >
-      <ol className="flex flex-wrap items-center gap-2">
-        {items.map((item, index) => (
-          <li key={`${item.label}-${index}`} className="flex items-center gap-2">
-            {index > 0 ? (
-              <span className={isLight ? "text-tx-muted/45" : "text-tx-inverse/34"}>
-                /
-              </span>
-            ) : null}
-            {item.href ? (
-              <Link
-                href={item.href}
-                className={clsx(
-                  "transition",
-                  isLight ? "hover:text-accent-strong" : "hover:text-tx-inverse"
-                )}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span className={isLight ? "text-tx-primary" : "text-tx-inverse"}>
-                {item.label}
-              </span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
-export function ServiceSubnav({
-  category,
-  activeServiceSlug,
-}: {
-  category: ServiceCategory;
-  activeServiceSlug?: string;
-}) {
-  return (
-    <div className="sticky top-(--header-h) z-30 border-b border-br-light bg-bg-page/95 shadow-[0_8px_22px_rgba(20,33,27,0.05)] backdrop-blur">
-      <div className="container-page overflow-x-auto py-3">
-        <nav aria-label="Услуги в категорията" className="flex min-w-max gap-2">
-          <SubnavLink
-            href={`/uslugi/${category.slug}`}
-            label="Общ преглед"
-            active={!activeServiceSlug}
-          />
-          {category.services.map((service) => (
-            <SubnavLink
-              key={service.slug}
-              href={`/uslugi/${category.slug}#${service.slug}`}
-              label={service.shortTitle ?? service.title}
-              active={activeServiceSlug === service.slug}
-            />
-          ))}
-        </nav>
-      </div>
-    </div>
-  );
-}
-
-function SubnavLink({
-  href,
-  label,
-  active,
-}: {
-  href: string;
-  label: string;
-  active?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        "inline-flex min-h-10 items-center rounded-full border px-4 text-sm font-medium transition",
-        active
-          ? "border-accent/45 bg-accent/10 text-accent-strong shadow-sm"
-          : "border-br-light bg-bg-page text-tx-secondary hover:border-br-accent-soft hover:bg-bg-section hover:text-tx-primary"
-      )}
-    >
-      {label}
-    </Link>
-  );
-}
-
-export function SectionIntro({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-}) {
-  return (
-    <div className="max-w-3xl">
-      {eyebrow ? <p className="typo-kicker text-accent">{eyebrow}</p> : null}
-      <h2 className="typo-h2 mt-2">{title}</h2>
-      {description ? <p className="typo-subtitle mt-3 max-w-3xl">{description}</p> : null}
-    </div>
-  );
-}
-
+// category cards used in /uslugi
 export function CategoryOverviewCard({ category }: { category: ServiceCategory }) {
   const href = `/uslugi/${category.slug}`;
   const title = category.shortTitle ?? category.title;
-  // const visibleServices = category.services.slice(0, 3);
-  // const hiddenCount = Math.max(category.services.length - visibleServices.length, 0);
 
   return (
     <Link
@@ -285,22 +116,6 @@ export function CategoryOverviewCard({ category }: { category: ServiceCategory }
 
         <p className="mt-3 text-[15px] leading-7 text-tx-muted">{category.description}</p>
 
-        {/* <div className="mt-5 flex flex-wrap gap-2">
-          {visibleServices.map((service) => (
-            <span
-              key={service.slug}
-              className="rounded-full border border-br-light bg-bg-muted px-3 py-1 text-xs text-tx-muted"
-            >
-              {service.shortTitle ?? service.title}
-            </span>
-          ))}
-          {hiddenCount > 0 ? (
-            <span className="rounded-full border border-br-light bg-bg-muted px-3 py-1 text-xs text-tx-muted">
-              +{hiddenCount}
-            </span>
-          ) : null}
-        </div> */}
-
         <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <span className="text-sm font-semibold text-tx-muted">
             {category.services.length} услуги
@@ -315,108 +130,80 @@ export function CategoryOverviewCard({ category }: { category: ServiceCategory }
   );
 }
 
-export function ServiceSummaryCard({
-  category,
-  service,
-}: {
-  category: ServiceCategory;
-  service: Service;
-}) {
-  const href = `/uslugi/${category.slug}#${service.slug}`;
-  const description = service.longDescription ?? service.description;
+// list of all services in category page
+export function CategoryServicesList({ category }: { category: ServiceCategory }) {
+  const midpoint = Math.ceil(category.services.length / 2);
+  const leftColumn = category.services.slice(0, midpoint);
+  const rightColumn = category.services.slice(midpoint);
 
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        "group grid overflow-hidden rounded-card border border-br-light bg-bg-page",
-        "shadow-sm transition duration-300 hover:border-br-accent-soft hover:shadow-md sm:grid-cols-[14rem_1fr]"
-      )}
-    >
-      <div className="relative min-h-[190px] overflow-hidden bg-bg-muted sm:min-h-full">
-        <Image
-          src={service.thumbnail}
-          alt={service.title}
-          fill
-          sizes="(max-width: 640px) calc(100vw - 2rem), 14rem"
-          quality={70}
-          className="object-cover transition duration-500 group-hover:scale-105"
-        />
-      </div>
-
-      <div className="p-5 sm:p-6">
-        {service.meta ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
-            {service.meta}
-          </p>
-        ) : null}
-
-        <h3 className="mt-2 text-xl font-semibold leading-tight text-tx-primary md:text-2xl">
-          {service.title}
-        </h3>
-
-        <p className="mt-3 line-clamp-3 text-[15px] leading-7 text-tx-muted">
-          {description}
-        </p>
-
-        {service.neededWhen?.length ? (
-          <ul className="mt-4 grid gap-2">
-            {service.neededWhen.slice(0, 2).map((item) => (
-              <li key={item} className="flex gap-2 text-sm leading-6 text-tx-secondary">
-                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent-strong">
-          Детайли за услугата
-          <MdArrowRightAlt className="text-lg transition group-hover:translate-x-0.5" />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-export function CategoryServiceIndex({ category }: { category: ServiceCategory }) {
   return (
     <nav aria-label="Услуги в категорията" className="py-4 md:py-5">
       <p className="text-sm font-bold leading-6 text-tx-primary md:text-base">
-        Изберете услуга от списъка:
+        Всички услуги:
       </p>
 
-      <ol className="mt-2 grid gap-1 sm:grid-cols-2 sm:gap-x-6">
-        {category.services.map((service, index) => (
-          <li key={service.slug}>
-            <Link
-              href={`/uslugi/${category.slug}#${service.slug}`}
-              className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-section sm:px-2"
-            >
-              <span className="text-sm font-semibold tabular-nums text-accent-strong">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="min-w-0 flex-1 text-[15px] font-medium leading-6 text-tx-primary transition group-hover:text-accent-strong">
-                {service.shortTitle ?? service.title}
-              </span>
-              <MdArrowRightAlt className="shrink-0 text-xl text-tx-muted transition group-hover:translate-x-0.5 group-hover:text-accent-strong" />
-            </Link>
-          </li>
-        ))}
-      </ol>
+      <div className="mt-2 grid gap-1 md:grid-cols-2 sm:gap-x-6">
+        <ol className="space-y-1">
+          {leftColumn.map((service, index) => (
+            <li key={service.slug}>
+              <Link
+                href={getServiceHref(category.slug, service)}
+                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-section sm:px-2"
+              >
+                <span className="text-sm font-semibold tabular-nums text-accent-strong">
+                  {String(index + 1).padEnd(2, ".")}
+                </span>
+                <span className="min-w-0 flex-1 text-[15px] font-medium leading-6 text-tx-primary transition group-hover:text-accent-strong">
+                  {service.shortTitle ?? service.title}
+                </span>
+                <MdArrowRightAlt className="shrink-0 text-xl text-tx-muted transition group-hover:translate-x-0.5 group-hover:text-accent-strong" />
+              </Link>
+            </li>
+          ))}
+        </ol>
+
+        <ol className="space-y-1">
+          {rightColumn.map((service, index) => (
+            <li key={service.slug}>
+              <Link
+                href={getServiceHref(category.slug, service)}
+                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-section sm:px-2"
+              >
+                <span className="text-sm font-semibold tabular-nums text-accent-strong">
+                  {String(index + 1 + midpoint).padEnd(2, ".")}
+                </span>
+                <span className="min-w-0 flex-1 text-[15px] font-medium leading-6 text-tx-primary transition group-hover:text-accent-strong">
+                  {service.shortTitle ?? service.title}
+                </span>
+                <MdArrowRightAlt className="shrink-0 text-xl text-tx-muted transition group-hover:translate-x-0.5 group-hover:text-accent-strong" />
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
     </nav>
   );
 }
 
-export function CategoryServicePanel({ service }: { service: Service }) {
+// info about each service
+
+export function CategoryServiceDetails({
+  service,
+  categorySlug,
+}: {
+  service: Service;
+  categorySlug: string;
+}) {
   const description = service.longDescription ?? service.description;
 
   return (
     <section
       id={service.slug}
+      // className="scroll-mt-[calc(var(--header-h)+2rem)] py-9 first:pt-0 last:pb-0 md:py-12"
       className="scroll-mt-[calc(var(--header-h)+2rem)] border-b border-br-light py-9 first:pt-0 last:border-b-0 last:pb-0 md:py-12"
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(16rem,0.85fr)_minmax(0,1.45fr)] lg:gap-12">
+      {/* <div className="grid gap-6 lg:grid-cols-[minmax(16rem,0.85fr)_minmax(0,1.45fr)] lg:gap-12"> */}
+      <div className="grid gap-8 lg:grid-cols-[minmax(16rem,0.95fr)_minmax(0,1.15fr)] lg:gap-14">
         <div className="lg:pt-1">
           <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
             <Image
@@ -432,169 +219,39 @@ export function CategoryServicePanel({ service }: { service: Service }) {
         </div>
 
         <div>
-          {service.meta ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
-              {service.meta}
-            </p>
-          ) : null}
+          <div className="max-w-2xl">
+            {service.meta ? (
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+                {service.meta}
+              </p>
+            ) : null}
 
-          <h2 className="mt-3 text-2xl font-semibold leading-tight text-tx-primary md:text-3xl">
-            {service.title}
-          </h2>
-          {/* <div className="max-w-[640px] space-y-4 text-muted-foreground leading-relaxed"> */}
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            {Array.isArray(description) ? (
-              description.map((paragraph, i) => <p key={i}>{paragraph}</p>)
-            ) : (
-              <p>{description}</p>
-            )}
-            {/* </div> */}
+            <h2 className="typo-h2 mt-2 md:text-3xl leading-tight">
+              {service.shortTitle ?? service.title}
+            </h2>
+
+            <div className="space-y-4 mt-4 leading-relaxed text-muted-foreground">
+              {normalizeParagraphs(description).map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+
+              <div className="mt-5 sm:mt-6">
+                <Link
+                  href={getServiceHref(categorySlug, service)}
+                  className={clsx(
+                    "inline-flex items-center gap-2",
+                    "text-sm font-semibold text-accent",
+                    "transition-all duration-200",
+                    "hover:gap-3"
+                  )}
+                >
+                  Научете повече
+                  <span className="text-[13px]">→</span>
+                </Link>
+              </div>
+            </div>
           </div>
-          {/* <p className="mt-4 max-w-3xl text-base leading-8 text-tx-secondary">
-            {description}
-          </p> */}
-
-          <ServiceNarrative service={service} />
         </div>
-      </div>
-    </section>
-  );
-}
-
-function ServiceNarrative({ service }: { service: Service }) {
-  const neededWhen = toTextList(service.neededWhen);
-  const requiredDocs = toTextList(service.requiredDocs);
-  const deliverables = toTextList(service.deliverables);
-  const processSteps = toTextList(service.processSteps);
-
-  if (!neededWhen && !requiredDocs && !deliverables && !processSteps) return null;
-
-  return (
-    <div className="mt-6 space-y-3 border-l border-br-accent-soft pl-4 text-[15px] leading-7 text-tx-secondary">
-      {neededWhen ? (
-        <p>
-          <strong className="font-semibold text-tx-primary">Подходящо при: </strong>
-          {neededWhen}.
-        </p>
-      ) : null}
-
-      {requiredDocs ? (
-        <p>
-          <strong className="font-semibold text-tx-primary">За начало: </strong>
-          {requiredDocs}.
-        </p>
-      ) : null}
-
-      {deliverables ? (
-        <p>
-          <strong className="font-semibold text-tx-primary">Получавате: </strong>
-          {deliverables}.
-        </p>
-      ) : null}
-
-      {processSteps ? (
-        <p>
-          <strong className="font-semibold text-tx-primary">Процес: </strong>
-          {processSteps}. При нужда уточняваме детайлите предварително.
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
-function toTextList(items?: string[]) {
-  if (!items?.length) return "";
-
-  return items
-    .map((item) => item.trim())
-    .filter(Boolean)
-    .join(", ");
-}
-
-export function InfoList({
-  title,
-  items,
-  columns = true,
-}: {
-  title: string;
-  items?: string[];
-  columns?: boolean;
-}) {
-  if (!items?.length) return null;
-
-  return (
-    <section className="rounded-card border border-br-light bg-bg-page p-5 shadow-sm sm:p-6">
-      <h2 className="text-xl font-semibold leading-tight text-tx-primary">{title}</h2>
-      <ul
-        className={clsx(
-          "mt-5 grid gap-3",
-          columns && items.length > 2 ? "sm:grid-cols-2 sm:gap-x-8" : ""
-        )}
-      >
-        {items.map((item) => (
-          <li key={item} className="flex gap-3 text-[15px] leading-7 text-tx-secondary">
-            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
-export function ProcessList({ steps }: { steps?: string[] }) {
-  if (!steps?.length) return null;
-
-  return (
-    <section className="rounded-card border border-br-light bg-bg-page p-5 shadow-sm sm:p-6">
-      <h2 className="text-xl font-semibold leading-tight text-tx-primary">Как протича</h2>
-      <ol className="mt-5 grid gap-4">
-        {steps.map((step, index) => (
-          <li key={step} className="flex gap-4">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-br-accent-soft bg-accent/10 text-sm font-semibold text-accent-strong">
-              {index + 1}
-            </span>
-            <p className="pt-1 text-[15px] leading-7 text-tx-secondary">{step}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
-export function HelpPanel({
-  title = "Не сте сигурни коя услуга е подходяща?",
-  description = "Опишете накратко случая. Ще ви насочим какви документи са нужни и коя е най-подходящата следваща стъпка.",
-  secondaryHref = "/uslugi/konsultacia",
-  secondaryLabel = "Консултация",
-}: {
-  title?: string;
-  description?: string;
-  secondaryHref?: string;
-  secondaryLabel?: string;
-}) {
-  return (
-    <section className="relative overflow-hidden rounded-card border border-br-light bg-bg-section p-6 shadow-sm sm:p-8">
-      <div className="absolute inset-y-0 left-0 w-1 bg-accent/70" />
-      <div className="max-w-3xl">
-        <p className="typo-kicker text-accent">Насоки</p>
-        <h2 className="mt-2 text-2xl font-semibold leading-tight text-tx-primary">
-          {title}
-        </h2>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-tx-muted">{description}</p>
-      </div>
-
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
-          Изпрати запитване
-        </CtaButton>
-        <CtaButton
-          href={secondaryHref}
-          variant="soft"
-          className="min-h-12 w-full sm:w-auto"
-        >
-          {secondaryLabel}
-        </CtaButton>
       </div>
     </section>
   );

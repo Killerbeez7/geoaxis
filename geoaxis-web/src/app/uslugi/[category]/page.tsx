@@ -6,7 +6,7 @@ import { createCategorySeo, createSeo } from "@/lib/seo-builder";
 import { getCategoryServicesSchema } from "@/lib/schemas";
 import { getCategoryBySlug } from "@/lib/selectors";
 import { ServicePageLayout } from "../ServicePageLayout";
-import { CategoryServiceIndex, CategoryServicePanel } from "../_components/ServicesUi";
+import { CategoryServicesList, CategoryServiceDetails } from "../_components/ServicesUi";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -53,11 +53,15 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <article>
-        <CategoryServiceIndex category={category} />
+        <CategoryServicesList category={category} />
 
         <div className="mt-8 md:mt-10">
           {category.services.map((service) => (
-            <CategoryServicePanel key={service.slug} service={service} />
+            <CategoryServiceDetails
+              key={service.slug}
+              service={service}
+              categorySlug={category.slug}
+            />
           ))}
         </div>
       </article>

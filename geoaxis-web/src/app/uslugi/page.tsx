@@ -10,11 +10,8 @@ import { CtaButton } from "@/components/parts/CtaButton";
 import { Section } from "@/components/layout/Section";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { createSeo } from "@/lib/seo-builder";
-import {
-  CategoryOverviewCard,
-  SectionIntro,
-  ServicesHero,
-} from "./_components/ServicesUi";
+import { CategoryOverviewCard, ServicesHero } from "./_components/ServicesUi";
+import { SectionIntro } from "@/components/layout/SectionIntro";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 
@@ -37,24 +34,15 @@ const scenarios = [
 ];
 
 export default function ServicesPage() {
-  // const serviceCount = serviceCategories.reduce(
-  //   (total, category) => total + category.services.length,
-  //   0
-  // );
-
   return (
     <>
       <ServicesHero
-        eyebrow="Геодезически услуги"
+        kicker="Геодезически услуги"
         title="Изберете услуга според вашия случай"
-        // description={`Изберете категория и ще ви насочим към точната услуга за вашия имот, проект или процедура.`}
         description={`Структурирахме услугите по категории, за да откриете бързо правилното решение за вашия проект или имот.`}
-        // description={`Открийте правилната услуга за вашия имот или проект.`}
-        // description={`Подредихме ${serviceCategories.length} категории и ${serviceCount} конкретни услуги, за да намерите бързо правилната следваща стъпка за имот, проект или процедура.`}
         image={servicesVisuals.heroImage}
         imageAlt={servicesVisuals.heroAlt}
         imagePosition={servicesVisuals.heroPosition}
-        tone="light"
       >
         <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
           Изпрати запитване

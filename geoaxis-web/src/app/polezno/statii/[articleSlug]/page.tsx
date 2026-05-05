@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Section } from "@/components/layout/Section";
 import { SITE_URL } from "@/config/site";
 import {
   HELPFUL_ARTICLES,
   getArticleBySlug,
   getRelatedArticles,
 } from "@/config/polezno/articles";
-import { Section } from "@/components/layout/Section";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
+import { PoleznoPlainHero } from "../../PoleznoPlainHero";
 
 type Props = {
   params: Promise<{
@@ -64,8 +65,9 @@ export default async function HelpfulArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <Section tone="section" variant="hero">
-        <article className="mx-auto max-w-3xl">
+      <PoleznoPlainHero
+        eyebrow="Статия"
+        before={
           <div className="mb-6">
             <Link
               href="/polezno/statii"
@@ -74,21 +76,24 @@ export default async function HelpfulArticlePage({ params }: Props) {
               ← Назад към статии
             </Link>
           </div>
-
-          <h1 className="typo-h2">{article.title}</h1>
-
-          <p className="typo-subtitle mt-4 max-w-2xl">{article.excerpt}</p>
-
+        }
+        title={article.title}
+        description={article.excerpt}
+        after={
           <div className="mt-3 text-sm text-tx-muted">
             Публикувано: {article.publishedAt}
             {article.updatedAt ? ` • Обновено: ${article.updatedAt}` : ""}
           </div>
+        }
+      />
 
-          <div className="mt-8 space-y-6">
+      <Section tone="page" className="!pt-10 sm:!pt-12 lg:!pt-16">
+        <article className="mx-auto max-w-3xl">
+          <div className="space-y-6">
             {article.body.map((block, index) => {
               if (block.type === "paragraph") {
                 return (
-                  <p key={index} className="typo-body">
+                  <p key={`${article.slug}-paragraph-${index}`} className="typo-body">
                     {block.content}
                   </p>
                 );
@@ -96,13 +101,13 @@ export default async function HelpfulArticlePage({ params }: Props) {
 
               if (block.type === "list") {
                 return (
-                  <div key={index} className="space-y-4">
+                  <div key={`${article.slug}-list-${index}`} className="space-y-4">
                     {block.title ? <h2 className="typo-h3">{block.title}</h2> : null}
 
                     <ul className="space-y-3">
-                      {block.items.map((item) => (
+                      {block.items.map((item, itemIndex) => (
                         <li
-                          key={item}
+                          key={`${article.slug}-list-${index}-item-${itemIndex}`}
                           className="flex gap-3 text-base leading-7 text-tx-secondary"
                         >
                           <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />

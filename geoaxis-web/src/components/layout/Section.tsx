@@ -21,7 +21,7 @@ const variantClassMap: Record<NonNullable<SectionProps["variant"]>, string> = {
   default: "pt-12 sm:pt-14 lg:pt-24 pb-16 sm:pb-20 lg:pb-24",
   hero: "pt-[calc(var(--header-h)+4rem)] pb-16 sm:pb-20",
   compactHero:
-    "pt-[calc(var(--header-h)+2.5rem)] pb-12 sm:pb-14 lg:pb-16 border-b border-border-subtle",
+    "pt-[calc(var(--header-h)+2.25rem)] pb-10 sm:pt-[calc(var(--header-h)+2.75rem)] sm:pb-12 lg:pt-[calc(var(--header-h)+3rem)] lg:pb-14 border-b border-br-light",
 };
 
 export function Section({

@@ -1,10 +1,13 @@
 import Link from "next/link";
+import clsx from "clsx";
 import { notFound } from "next/navigation";
 
+import { Section } from "@/components/layout/Section";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { getArticlesBySection } from "@/config/polezno/articles";
-import { Section } from "@/components/layout/Section";
 import { createSeo } from "@/lib/seo-builder";
+import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
+// import { PoleznoCta } from "../_components/PoleznoCta";
 
 type Props = {
   params: Promise<{
@@ -29,9 +32,8 @@ export async function generateMetadata({ params }: Props) {
   const hasPublishedContent = slug === "statii" || slug === "rakovodstva";
 
   return createSeo({
-    title: currentItem.label,
-    description:
-      currentItem.description ?? `Полезни материали от GeoAxis: ${currentItem.label}.`,
+    title: currentItem.seo.title,
+    description: currentItem.seo.description,
     canonical: `/polezno/${currentItem.slug}`,
     noIndex: !hasPublishedContent,
   });
@@ -54,66 +56,45 @@ export default async function HelpfulSectionPage({ params }: Props) {
 
   return (
     <main className="bg-bg-page">
-      <Section tone="section" variant="hero">
-        <div className="max-w-3xl">
-          <p className="typo-kicker text-accent">Полезно</p>
-          <h1 className="typo-h2 mt-3">{currentItem.label}</h1>
-          <p className="typo-subtitle mt-4 max-w-2xl">
-            {currentItem.description ?? "Подготвяме съдържанието за тази секция."}
-          </p>
+      <PoleznoPlainHero
+        id={currentItem.slug}
+        title={currentItem.heroTitle}
+        description={currentItem.heroDescription}
+      />
+
+      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
+        <div className="grid gap-x-8 gap-y-6 lg:grid-cols-2">
+          {articles.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/polezno/${article.section}/${article.slug}`}
+              className={clsx(
+                "group block rounded-2xl px-5 py-5",
+                "border border-transparent",
+                "transition duration-200",
+                "hover:border-br-light/70 hover:bg-bg-section/70"
+              )}
+            >
+              <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-tx-tertiary">
+                {article.section === "statii" ? "Статия" : "Ръководство"}
+              </p>
+
+              <h2 className="mt-2 text-lg font-semibold leading-snug text-tx-primary transition group-hover:text-accent-strong">
+                {article.title}
+              </h2>
+
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-tx-secondary">
+                {article.excerpt}
+              </p>
+
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent-strong">
+                Прочети →
+              </span>
+            </Link>
+          ))}
         </div>
-
-        {articles.length > 0 ? (
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/polezno/${article.section}/${article.slug}`}
-                className="group rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-              >
-                <div className="mb-3 inline-flex rounded-full border border-br-accent-soft bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  {article.section === "statii" ? "Статия" : "Ръководство"}
-                </div>
-
-                <h2 className="text-xl font-semibold leading-tight text-tx-primary transition-colors group-hover:text-accent">
-                  {article.title}
-                </h2>
-
-                <p className="typo-meta mt-3 leading-7">{article.excerpt}</p>
-
-                <div className="mt-5 text-sm font-medium text-accent">
-                  Прочети повече →
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-8 shadow-sm">
-            <h2 className="typo-h3">Съдържанието се подготвя</h2>
-            <p className="typo-body mt-4 max-w-2xl">
-              Тази секция е планирана и ще бъде запълнена с полезни материали.
-              Междувременно можете да разгледате другите раздели или да изпратите
-              конкретно запитване.
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/polezno"
-                className="inline-flex items-center justify-center rounded-xl border border-br-light bg-bg-section px-5 py-3 text-sm font-medium text-tx-primary transition-colors hover:bg-bg-muted"
-              >
-                Назад към полезно
-              </Link>
-
-              <Link
-                href="/contacts"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse transition-opacity hover:opacity-95"
-              >
-                Свържете се с нас
-              </Link>
-            </div>
-          </div>
-        )}
       </Section>
+      {/* <PoleznoCta /> */}
     </main>
   );
 }

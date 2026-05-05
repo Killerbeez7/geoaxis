@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { serviceCategories } from "@/config/services/categories";
 import { HELPFUL_ARTICLES } from "@/config/polezno/articles";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
@@ -24,7 +24,7 @@ const staticPages = [
   },
   {
     url: "/polezno",
-    lastModified: "2026-04-19",
+    lastModified: "2026-05-06",
     priority: 0.8,
     changeFrequency: "weekly" as const,
   },
@@ -47,6 +47,41 @@ const staticPages = [
     changeFrequency: "monthly" as const,
   },
 ];
+
+const helpfulSectionMeta: Record<
+  (typeof HELPFUL_NAV_ITEMS)[number]["slug"],
+  {
+    lastModified: string;
+    priority: number;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }
+> = {
+  statii: {
+    lastModified: "2026-05-06",
+    priority: 0.7,
+    changeFrequency: "weekly",
+  },
+  rakovodstva: {
+    lastModified: "2026-05-06",
+    priority: 0.7,
+    changeFrequency: "weekly",
+  },
+  faq: {
+    lastModified: "2026-05-06",
+    priority: 0.55,
+    changeFrequency: "monthly",
+  },
+  rechnik: {
+    lastModified: "2026-05-06",
+    priority: 0.55,
+    changeFrequency: "monthly",
+  },
+  resursi: {
+    lastModified: "2026-05-06",
+    priority: 0.55,
+    changeFrequency: "monthly",
+  },
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
@@ -77,18 +112,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }))
   );
 
-  // Useful pages — currently only for [statii, rakovodstava]
-  const usefulSectionUrls = HELPFUL_NAV_ITEMS.filter(
-    (item) => item.slug === "statii" || item.slug === "rakovodstva"
-  ).map((item) => ({
-    url: `${BASE_URL}${item.href}`,
-    lastModified: "2026-04-30",
-    priority: 0.7,
-    changeFrequency: "weekly" as const,
-  }));
+  // Useful pages
+  const helpfulSectionUrls = HELPFUL_NAV_ITEMS.map((item) => {
+    const meta = helpfulSectionMeta[item.slug];
 
-  // Article pages — uses article.updatedAt
-  const usefulArticleUrls = HELPFUL_ARTICLES.map((article) => ({
+    return {
+      url: `${BASE_URL}${item.href}`,
+      lastModified: meta.lastModified,
+      priority: meta.priority,
+      changeFrequency: meta.changeFrequency,
+    };
+  });
+
+  // Article pages
+  const helpfulArticleUrls = HELPFUL_ARTICLES.map((article) => ({
     url: `${BASE_URL}/polezno/${article.section}/${article.slug}`,
     lastModified: article.updatedAt ?? article.publishedAt,
     priority: 0.65,
@@ -99,7 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticUrls,
     ...categoryUrls,
     ...serviceUrls,
-    ...usefulSectionUrls,
-    ...usefulArticleUrls,
+    ...helpfulSectionUrls,
+    ...helpfulArticleUrls,
   ];
 }

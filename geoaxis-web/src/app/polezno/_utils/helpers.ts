@@ -1,8 +1,4 @@
-import {
-  HELPFUL_ARTICLES,
-  HelpfulArticle,
-  type HelpfulArticleSection,
-} from "@/config/polezno/articles";
+import { HELPFUL_ARTICLES, type HelpfulArticleSection } from "@/config/polezno/articles";
 
 export function getArticleBySlug(slug: string) {
   return HELPFUL_ARTICLES.find((article) => article.slug === slug);

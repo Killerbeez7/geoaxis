@@ -14,6 +14,7 @@ import { Section } from "@/components/layout/Section";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { HELPFUL_ARTICLES, type HelpfulArticle } from "@/config/polezno/articles";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
+import { PoleznoPlainHero } from "./PoleznoPlainHero";
 
 type HelpfulCategory = {
   title: string;
@@ -83,15 +84,6 @@ function getCategoryIcon(slug: string) {
     default:
       return <FaFileAlt className="h-5 w-5" />;
   }
-}
-
-function SectionEyebrow() {
-  return (
-    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-br-accent-soft bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-      <FaFileAlt className="h-4 w-4" />
-      Полезно
-    </div>
-  );
 }
 
 function SectionHeader({
@@ -195,67 +187,52 @@ function CategoryCard({ item }: { item: HelpfulCategory }) {
 export function HelpfulHubSection() {
   return (
     <>
-      <Section
+      <PoleznoPlainHero
         id="polezno"
-        variant="hero"
-        tone="section"
-        className="overflow-hidden"
-        containerClassName="relative"
-      >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_left,rgba(199,157,50,0.08),transparent_42%)]" />
+        title="Полезни материали, въпроси и насоки"
+        description="Практична информация за геодезия, кадастър, трасиране и устройствени процедури. Кратко, ясно и без излишна терминология."
+      />
 
-        <div className="relative">
-          <div className="max-w-3xl p-4">
-            <SectionEyebrow />
+      <Section tone="page" className="!pt-10 sm:!pt-12 lg:!pt-16">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {featuredArticles.map((article) => (
+            <ArticleCard key={article.slug} article={article} featured />
+          ))}
+        </div>
 
-            <h1 className="typo-h2 max-w-2xl">Полезни материали, въпроси и насоки</h1>
+        <div className="mt-16 lg:mt-20">
+          <SectionHeader
+            title="Категории"
+            description="Изберете раздел според въпроса, който имате в момента."
+          />
 
-            <p className="typo-subtitle mt-5 max-w-2xl">
-              Практична информация за геодезия, кадастър, трасиране и устройствени
-              процедури. Материали, които помагат да намерите правилната услуга по-бързо и
-              с по-малко колебание.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {featuredArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} featured />
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {categories.map((item) => (
+              <CategoryCard key={item.href} item={item} />
             ))}
           </div>
+        </div>
 
-          <div className="mt-20">
-            <SectionHeader
-              title="Категории"
-              description="Раздели съдържанието по теми, за да се ориентирате по-бързо."
-            />
+        <div className="mt-16 lg:mt-20">
+          <SectionHeader
+            title="Още полезни теми"
+            description="Кратки ръководства и практически обяснения за реални имотни и строителни казуси."
+            action={
+              <Link href="/polezno/statii" className={sectionHeaderLinkCls}>
+                Виж статиите
+                <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            }
+          />
 
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-              {categories.map((item) => (
-                <CategoryCard key={item.href} item={item} />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-20">
-            <SectionHeader
-              title="Още полезни теми"
-              description="Кратки ръководства и практически обяснения, свързани с реални имотни и строителни казуси."
-              action={
-                <Link href="/polezno/statii" className={sectionHeaderLinkCls}>
-                  Виж статиите
-                  <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              }
-            />
-
-            <div className="grid gap-6 lg:grid-cols-3">
-              {latestArticles.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {latestArticles.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
           </div>
         </div>
       </Section>
+
       <FinalCta />
     </>
   );

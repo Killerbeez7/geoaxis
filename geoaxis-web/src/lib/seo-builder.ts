@@ -115,9 +115,7 @@ export function createCategorySeo(category: ServiceCategory): Metadata {
 
   return createSeo({
     title: category.seo?.title ?? `${category.title} в София и Софийска област`,
-    description:
-      category.seo?.description ??
-      addAreaContext(categoryDescription),
+    description: category.seo?.description ?? addAreaContext(categoryDescription),
     canonical: `/uslugi/${category.slug}`,
     image: category.heroImage || category.thumbnail || defaultSeo.defaultOgImage,
   });

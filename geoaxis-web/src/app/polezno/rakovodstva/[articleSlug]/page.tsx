@@ -3,11 +3,8 @@ import { notFound } from "next/navigation";
 
 import { Section } from "@/components/layout/Section";
 import { SITE_URL } from "@/config/site";
-import {
-  HELPFUL_ARTICLES,
-  getArticleBySlug,
-  getRelatedArticles,
-} from "@/config/polezno/articles";
+import { HELPFUL_ARTICLES } from "@/config/polezno/articles";
+import { getArticleBySlug, getRelatedArticles } from "@/utils/polezno/helpers";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
 import { PoleznoPlainHero } from "../../PoleznoPlainHero";
@@ -87,7 +84,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
         }
       />
 
-      <Section tone="page" className="!pt-10 sm:!pt-12 lg:!pt-16">
+      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <article className="mx-auto max-w-3xl">
           <div className="space-y-6">
             {article.body.map((block, index) => {
@@ -124,7 +121,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
           </div>
 
           {article.relatedServices?.length ? (
-            <section className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
+            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
               <h2 className="typo-h3">Свързани услуги</h2>
 
               <div className="mt-5 flex flex-wrap gap-3">
@@ -142,7 +139,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
           ) : null}
 
           {relatedArticles.length ? (
-            <section className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
+            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
               <h2 className="typo-h3">Още по темата</h2>
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -163,33 +160,6 @@ export default async function HelpfulArticlePage({ params }: Props) {
               </div>
             </section>
           ) : null}
-
-          <div className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
-            <h2 className="typo-h3">
-              {article.cta?.title ?? "Нужна Ви е конкретна насока?"}
-            </h2>
-
-            <p className="typo-body mt-3">
-              {article.cta?.text ??
-                "Ако случаят Ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки."}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href={article.cta?.primaryHref ?? "/contacts"}
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse transition-opacity hover:opacity-95"
-              >
-                {article.cta?.primaryLabel ?? "Изпратете запитване"}
-              </Link>
-
-              <Link
-                href={article.cta?.secondaryHref ?? "/uslugi"}
-                className="inline-flex items-center justify-center rounded-xl border border-br-light bg-bg-section px-5 py-3 text-sm font-medium text-tx-primary transition-colors hover:bg-bg-muted"
-              >
-                {article.cta?.secondaryLabel ?? "Разгледайте услугите"}
-              </Link>
-            </div>
-          </div>
         </article>
       </Section>
     </main>

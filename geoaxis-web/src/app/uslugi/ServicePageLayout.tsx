@@ -20,9 +20,7 @@ export function ServicePageLayout({ category, service, children }: Props) {
   const rawDescription = service
     ? service.description
     : (category.longDescription ?? category.description);
-  const description = Array.isArray(rawDescription)
-    ? rawDescription[0]
-    : rawDescription;
+  const description = Array.isArray(rawDescription) ? rawDescription[0] : rawDescription;
   const eyebrow = service?.meta ?? category.meta ?? "Услуги";
   const categoryVisual =
     servicesVisuals.categoryHeroes[
@@ -49,7 +47,7 @@ export function ServicePageLayout({ category, service, children }: Props) {
         <ServiceSubnav category={category} activeServiceSlug={service?.slug} />
       ) : null}
 
-      <Section id="services" tone="page" className="!pt-6 sm:!pt-8 lg:!pt-10">
+      <Section id="services" tone="page" className="pt-6! sm:pt-8! lg:pt-10!">
         {children}
       </Section>
 

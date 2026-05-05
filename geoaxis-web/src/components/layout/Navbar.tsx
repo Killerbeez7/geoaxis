@@ -71,21 +71,24 @@ export const Navbar = () => {
     return null;
   }, []);
 
-  const updateDesktopDropdownPosition = useCallback((type: Exclude<DesktopDropdownType, null>) => {
-    const triggerRef = getTriggerRef(type);
-    const headerEl = headerRef.current;
+  const updateDesktopDropdownPosition = useCallback(
+    (type: Exclude<DesktopDropdownType, null>) => {
+      const triggerRef = getTriggerRef(type);
+      const headerEl = headerRef.current;
 
-    if (!triggerRef?.current || !headerEl) return;
+      if (!triggerRef?.current || !headerEl) return;
 
-    const triggerRect = triggerRef.current.getBoundingClientRect();
-    const headerRect = headerEl.getBoundingClientRect();
-    const currentNavHeight = isShrunk ? NAV_H.SHRUNK : NAV_H.DEFAULT;
+      const triggerRect = triggerRef.current.getBoundingClientRect();
+      const headerRect = headerEl.getBoundingClientRect();
+      const currentNavHeight = isShrunk ? NAV_H.SHRUNK : NAV_H.DEFAULT;
 
-    setDesktopDropdownPos({
-      top: headerRect.top + currentNavHeight,
-      left: triggerRect.left - 8,
-    });
-  }, [getTriggerRef, isShrunk]);
+      setDesktopDropdownPos({
+        top: headerRect.top + currentNavHeight,
+        left: triggerRect.left - 8,
+      });
+    },
+    [getTriggerRef, isShrunk]
+  );
 
   const openDesktopDropdown = (type: Exclude<DesktopDropdownType, null>) => {
     if (isTransitioning) return;

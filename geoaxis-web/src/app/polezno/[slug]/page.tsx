@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Section } from "@/components/layout/Section";
-import { getArticlesBySection } from "@/config/polezno/articles";
+import { getArticlesBySection } from "@/utils/polezno/helpers";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { PoleznoPlainHero } from "../PoleznoPlainHero";

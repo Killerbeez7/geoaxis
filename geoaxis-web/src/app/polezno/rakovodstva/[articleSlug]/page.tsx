@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -10,8 +11,6 @@ import {
 } from "@/config/polezno/articles";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
-import { PoleznoCta } from "../../_components/PoleznoCta";
-import { PoleznoPlainHero } from "../../_components/PoleznoPlainHero";
 
 type Props = {
   params: Promise<{
@@ -21,7 +20,6 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { articleSlug } = await params;
-
   const article = getArticleBySlug(articleSlug);
 
   if (!article || article.section !== "rakovodstva") {
@@ -51,7 +49,6 @@ export async function generateStaticParams() {
 
 export default async function HelpfulArticlePage({ params }: Props) {
   const { articleSlug } = await params;
-
   const article = getArticleBySlug(articleSlug);
 
   if (!article || article.section !== "rakovodstva") notFound();
@@ -66,36 +63,45 @@ export default async function HelpfulArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <PoleznoPlainHero
-        eyebrow="Ръководство"
-        before={
+      <Section tone="page" variant="hero">
+        <article className="mx-auto max-w-3xl">
           <Link
             href="/polezno/rakovodstva"
-            className="mb-6 inline-flex text-sm font-medium text-accent-strong transition hover:text-accent"
+            className="text-sm font-medium text-accent-strong transition hover:text-accent"
           >
             ← Назад към ръководства
           </Link>
-        }
-        title={article.title}
-        description={article.excerpt}
-        after={
-          <p className="mt-4 text-sm text-tx-muted">
-            Публикувано: {article.publishedAt}
-            {article.updatedAt ? ` • Обновено: ${article.updatedAt}` : ""}
-          </p>
-        }
-      />
 
-      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
-        <article className="mx-auto max-w-3xl">
-          <div className="space-y-7">
+          <header className="mt-6 border-b border-br-light/60 pb-8">
+            <h1 className="typo-h2 font-semibold">{article.title}</h1>
+
+            <p className="typo-subtitle mt-4 lg:text-lg">{article.excerpt}</p>
+
+            <p className="typo-meta mt-4">
+              Публикувано: {article.publishedAt}
+              {article.updatedAt ? ` • Обновено: ${article.updatedAt}` : ""}
+            </p>
+          </header>
+
+          {article.coverImage ? (
+            <figure className="mt-8 overflow-hidden rounded-2xl border border-br-light/60 bg-bg-section">
+              <Image
+                src={article.coverImage.src}
+                alt={article.coverImage.alt}
+                width={1200}
+                height={720}
+                sizes="(min-width: 1024px) 768px, 100vw"
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </figure>
+          ) : null}
+
+          <div className="mt-10 space-y-7">
             {article.body.map((block, index) => {
               if (block.type === "paragraph") {
                 return (
-                  <p
-                    key={`${article.slug}-paragraph-${index}`}
-                    className="text-base leading-8 text-tx-secondary"
-                  >
+                  <p key={`${article.slug}-paragraph-${index}`} className="typo-body">
                     {block.content}
                   </p>
                 );
@@ -105,7 +111,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
                 return (
                   <section key={`${article.slug}-list-${index}`} className="space-y-4">
                     {block.title ? (
-                      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
+                      <h2 className="text-xl font-semibold leading-snug text-tx-primary sm:text-2xl">
                         {block.title}
                       </h2>
                     ) : null}
@@ -131,20 +137,19 @@ export default async function HelpfulArticlePage({ params }: Props) {
 
           {relatedArticles.length ? (
             <section className="mt-12 border-t border-br-light/60 pt-8">
-              <h2 className="text-lg font-semibold text-tx-primary">
-                Още по темата
-              </h2>
+              <h2 className="text-lg font-semibold text-tx-primary">Още по темата</h2>
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {relatedArticles.map((related) => (
                   <Link
                     key={related.slug}
                     href={`/polezno/${related.section}/${related.slug}`}
-                    className="group block rounded-xl px-3 py-3 transition hover:bg-bg-muted"
+                    className="group block rounded-lg px-4 py-3 transition hover:bg-bg-muted"
                   >
                     <h3 className="text-sm font-semibold text-tx-primary transition group-hover:text-accent-strong">
                       {related.title}
                     </h3>
+
                     <p className="mt-1 line-clamp-2 text-xs leading-5 text-tx-secondary">
                       {related.excerpt}
                     </p>
@@ -155,17 +160,15 @@ export default async function HelpfulArticlePage({ params }: Props) {
           ) : null}
 
           {article.relatedServices?.length ? (
-            <section className="mt-10 border-t border-br-light/60 pt-8">
-              <h2 className="text-lg font-semibold text-tx-primary">
-                Свързани услуги
-              </h2>
+            <section className="mt-8">
+              <h2 className="text-sm font-semibold text-tx-secondary">Свързани услуги</h2>
 
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {article.relatedServices.map((service) => (
                   <Link
                     key={service.href}
                     href={service.href}
-                    className="inline-flex items-center rounded-lg border border-br-light/70 px-3 py-2 text-sm text-tx-primary transition hover:bg-bg-muted"
+                    className="inline-flex items-center rounded-md border border-br-light/60 px-3 py-1.5 text-xs text-tx-primary transition hover:bg-bg-muted"
                   >
                     {service.label}
                   </Link>
@@ -175,8 +178,6 @@ export default async function HelpfulArticlePage({ params }: Props) {
           ) : null}
         </article>
       </Section>
-
-      <PoleznoCta />
     </main>
   );
 }

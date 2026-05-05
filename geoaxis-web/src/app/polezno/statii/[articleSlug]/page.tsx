@@ -1,13 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Section } from "@/components/layout/Section";
 import { SITE_URL } from "@/config/site";
 import {
   HELPFUL_ARTICLES,
   getArticleBySlug,
   getRelatedArticles,
 } from "@/config/polezno/articles";
-import { Section } from "@/components/layout/Section";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
 
@@ -64,27 +65,41 @@ export default async function HelpfulArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <Section tone="section" variant="hero">
+      <Section tone="page" variant="hero">
         <article className="mx-auto max-w-3xl">
-          <div className="mb-6">
-            <Link
-              href="/polezno/statii"
-              className="text-sm font-medium text-accent transition-colors hover:text-accent-hover"
-            >
-              ← Назад към статии
-            </Link>
-          </div>
+          <Link
+            href="/polezno/statii"
+            className="text-sm font-medium text-accent-strong transition hover:text-accent"
+          >
+            ← Назад към статии
+          </Link>
 
-          <h1 className="typo-h2">{article.title}</h1>
+          <header className="mt-6 border-b border-br-light/60 pb-8">
+            <h1 className="typo-h2 font-semibold leading-tight">{article.title}</h1>
 
-          <p className="typo-subtitle mt-4 max-w-2xl">{article.excerpt}</p>
+            <p className="typo-subtitle lg:text-lg mt-4">{article.excerpt}</p>
 
-          <div className="mt-3 text-sm text-tx-muted">
-            Публикувано: {article.publishedAt}
-            {article.updatedAt ? ` • Обновено: ${article.updatedAt}` : ""}
-          </div>
+            <p className="typo-meta mt-4">
+              Публикувано: {article.publishedAt}
+              {article.updatedAt ? ` • Обновено: ${article.updatedAt}` : ""}
+            </p>
+          </header>
 
-          <div className="mt-8 space-y-6">
+          {article.coverImage ? (
+            <figure className="mt-8 overflow-hidden rounded-2xl border border-br-light/60 bg-bg-section">
+              <Image
+                src={article.coverImage.src}
+                alt={article.coverImage.alt}
+                width={1200}
+                height={720}
+                sizes="(min-width: 1024px) 768px, 100vw"
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </figure>
+          ) : null}
+
+          <div className="mt-10 space-y-7">
             {article.body.map((block, index) => {
               if (block.type === "paragraph") {
                 return (
@@ -96,8 +111,12 @@ export default async function HelpfulArticlePage({ params }: Props) {
 
               if (block.type === "list") {
                 return (
-                  <div key={index} className="space-y-4">
-                    {block.title ? <h2 className="typo-h3">{block.title}</h2> : null}
+                  <section key={index} className="space-y-4">
+                    {block.title ? (
+                      <h2 className="text-xl font-semibold leading-snug text-tx-primary sm:text-2xl">
+                        {block.title}
+                      </h2>
+                    ) : null}
 
                     <ul className="space-y-3">
                       {block.items.map((item) => (
@@ -110,7 +129,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 );
               }
 
@@ -118,39 +137,24 @@ export default async function HelpfulArticlePage({ params }: Props) {
             })}
           </div>
 
-          {article.relatedServices?.length ? (
-            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
-              <h2 className="typo-h3">Свързани услуги</h2>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                {article.relatedServices.map((service) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className="inline-flex items-center justify-center rounded-xl border border-br-light bg-bg-section px-4 py-3 text-sm font-medium text-tx-primary transition-colors hover:bg-bg-muted"
-                  >
-                    {service.label}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ) : null}
-
           {relatedArticles.length ? (
-            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
-              <h2 className="typo-h3">Още по темата</h2>
+            <section className="mt-12 border-t border-br-light/60 pt-8">
+              <h2 className="text-xl font-semibold leading-snug text-tx-primary sm:text-2xl">
+                Още по темата
+              </h2>
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {relatedArticles.map((related) => (
                   <Link
                     key={related.slug}
                     href={`/polezno/${related.section}/${related.slug}`}
-                    className="rounded-2xl border border-br-light bg-bg-section p-4 transition-colors hover:bg-bg-muted"
+                    className="group block rounded-lg px-4 py-3 transition hover:bg-bg-muted"
                   >
-                    <h3 className="text-base font-semibold text-tx-primary">
+                    <h3 className="text-sm font-semibold text-tx-primary transition group-hover:text-accent-strong">
                       {related.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-tx-secondary">
+
+                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-tx-secondary">
                       {related.excerpt}
                     </p>
                   </Link>
@@ -159,32 +163,23 @@ export default async function HelpfulArticlePage({ params }: Props) {
             </section>
           ) : null}
 
-          <div className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
-            <h2 className="typo-h3">
-              {article.cta?.title ?? "Нужна Ви е конкретна насока?"}
-            </h2>
+          {article.relatedServices?.length ? (
+            <section className="mt-8">
+              <h2 className="text-sm font-semibold text-tx-secondary">Свързани услуги</h2>
 
-            <p className="typo-body mt-3">
-              {article.cta?.text ??
-                "Ако случаят Ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки."}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href={article.cta?.primaryHref ?? "/contacts"}
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse transition-opacity hover:opacity-95"
-              >
-                {article.cta?.primaryLabel ?? "Изпратете запитване"}
-              </Link>
-
-              <Link
-                href={article.cta?.secondaryHref ?? "/uslugi"}
-                className="inline-flex items-center justify-center rounded-xl border border-br-light bg-bg-section px-5 py-3 text-sm font-medium text-tx-primary transition-colors hover:bg-bg-muted"
-              >
-                {article.cta?.secondaryLabel ?? "Разгледайте услугите"}
-              </Link>
-            </div>
-          </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {article.relatedServices.map((service) => (
+                  <Link
+                    key={service.href}
+                    href={service.href}
+                    className="inline-flex items-center rounded-md border border-br-light/60 px-3 py-1.5 text-xs text-tx-primary transition hover:bg-bg-muted"
+                  >
+                    {service.label}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ) : null}
         </article>
       </Section>
     </main>

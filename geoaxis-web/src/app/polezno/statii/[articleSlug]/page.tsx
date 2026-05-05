@@ -119,7 +119,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
           </div>
 
           {article.relatedServices?.length ? (
-            <section className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
+            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
               <h2 className="typo-h3">Свързани услуги</h2>
 
               <div className="mt-5 flex flex-wrap gap-3">
@@ -137,7 +137,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
           ) : null}
 
           {relatedArticles.length ? (
-            <section className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
+            <section className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
               <h2 className="typo-h3">Още по темата</h2>
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -159,7 +159,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
             </section>
           ) : null}
 
-          <div className="mt-12 rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm">
+          <div className="mt-12 rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm">
             <h2 className="typo-h3">
               {article.cta?.title ?? "Нужна Ви е конкретна насока?"}
             </h2>

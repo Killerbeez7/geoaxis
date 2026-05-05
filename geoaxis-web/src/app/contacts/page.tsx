@@ -67,13 +67,15 @@ export default function Contacts() {
     <Section
       variant="hero"
       tone="section"
-      className="min-h-[calc(100dvh)] overflow-hidden !pt-[calc(var(--header-h)+2rem)] !pb-8 sm:!pt-[calc(var(--header-h)+3rem)] sm:!pb-12 lg:!pt-[calc(var(--header-h)+4rem)] lg:!pb-16"
+      className="min-h-[calc(100dvh)] overflow-hidden pt-[calc(var(--header-h)+2rem)]! pb-8! sm:pt-[calc(var(--header-h)+3rem)]! sm:pb-12! lg:pt-[calc(var(--header-h)+4rem)]! lg:pb-16!"
       containerClassName="max-w-7xl"
     >
       <div className="grid gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="lg:pt-8">
           <h1 className="typo-h2">{title}</h1>
-          <p className="mt-3 max-w-xl text-base leading-7 text-tx-secondary/90">{subtitle}</p>
+          <p className="mt-3 max-w-xl text-base leading-7 text-tx-secondary/90">
+            {subtitle}
+          </p>
 
           <div className="mt-4 max-w-xl border-l-2 border-accent pl-4 sm:mt-6">
             <p className="typo-meta">
@@ -84,7 +86,9 @@ export default function Contacts() {
 
           <div className="relative mt-5 overflow-hidden rounded-2xl border border-br-light bg-bg-page p-4 shadow-sm sm:mt-8 sm:p-6">
             {/* <div className="absolute inset-x-0 top-0 h-1 bg-accent" /> */}
-            <h2 className="text-lg font-semibold text-tx-primary sm:text-xl">Директен контакт</h2>
+            <h2 className="text-lg font-semibold text-tx-primary sm:text-xl">
+              Директен контакт
+            </h2>
             <p className="typo-meta mt-2 hidden sm:block">
               За спешни въпроси се обадете директно. За конкретен имот или услуга
               изпратете кратко запитване през формата.

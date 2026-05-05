@@ -2,11 +2,11 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
 import { Section } from "@/components/layout/Section";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { HELPFUL_ARTICLES } from "@/config/polezno/articles";
 import { HELPFUL_NAV_ITEMS, type HelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { CompactArticleLink, getArticleHref } from "./_components/HelpfulArticleUi";
 import { PoleznoPlainHero } from "./_components/PoleznoPlainHero";
+import { PoleznoCta } from "./_components/PoleznoCta";
 
 const FEATURED_ARTICLE_SLUG = "kakvo-e-geodezichesko-zasnemane";
 
@@ -106,7 +106,7 @@ export function PoleznoPageContent() {
         </div>
       </Section>
 
-      <FinalCta />
+      <PoleznoCta />
     </>
   );
 }

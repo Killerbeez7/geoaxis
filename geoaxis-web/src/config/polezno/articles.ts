@@ -27,7 +27,7 @@ export type HelpfulArticleLink = {
 export type HelpfulArticle = {
   slug: string;
   title: string;
-  excerpt: string;
+  excerpt?: string;
   description: string;
   section: HelpfulArticleSection;
   category: HelpfulArticleCategory;
@@ -46,14 +46,14 @@ export type HelpfulArticle = {
 
   relatedServices?: HelpfulArticleLink[];
   relatedArticles?: HelpfulArticleLink[];
-  cta?: {
-    title: string;
-    text: string;
-    primaryLabel: string;
-    primaryHref: string;
-    secondaryLabel?: string;
-    secondaryHref?: string;
-  };
+  // cta?: {
+  //   title: string;
+  //   text: string;
+  //   primaryLabel: string;
+  //   primaryHref: string;
+  //   secondaryLabel?: string;
+  //   secondaryHref?: string;
+  // };
 };
 
 export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
@@ -70,6 +70,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "statii",
     category: "kadastar",
     publishedAt: "2026-04-16",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/cadaster-og.webp",
+      alt: "Кадастрална карта и данни за имот",
+    },
     keywords: [
       "кадастрална карта",
       "какво е кадастрална карта",
@@ -127,14 +132,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/rakovodstva/koga-vi-tryabva-geodezist",
       },
     ],
-    cta: {
-      title: "Имате въпрос за кадастралната карта?",
-      text: "Опишете случая си и ще получите насоки каква процедура е нужна и какви документи да подготвите.",
-      primaryLabel: "Изпратете запитване",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте кадастралните услуги",
-      secondaryHref: "/uslugi/kadastar",
-    },
+    // cta: {
+    //   title: "Имате въпрос за кадастралната карта?",
+    //   text: "Опишете случая си и ще получите насоки каква процедура е нужна и какви документи да подготвите.",
+    //   primaryLabel: "Изпратете запитване",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте кадастралните услуги",
+    //   secondaryHref: "/uslugi/kadastar",
+    // },
   },
 
   // ─────────────────────────────────────────────
@@ -150,6 +155,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "statii",
     category: "gradoustroistvo",
     publishedAt: "2026-04-16",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/urban-og.webp",
+      alt: "ПУП и устройствено планиране на имот",
+    },
     keywords: [
       "ПУП",
       "подробен устройствен план",
@@ -200,14 +210,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/rakovodstva/koga-vi-tryabva-geodezist",
       },
     ],
-    cta: {
-      title: "Трябва ли Ви ПУП?",
-      text: "Изпратете информация за имота и намеренията си и ще получите насоки дали е необходим ПУП и какви са следващите стъпки.",
-      primaryLabel: "Направете запитване",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте градоустройствените услуги",
-      secondaryHref: "/uslugi/gradoustroistvo",
-    },
+    // cta: {
+    //   title: "Трябва ли Ви ПУП?",
+    //   text: "Изпратете информация за имота и намеренията си и ще получите насоки дали е необходим ПУП и какви са следващите стъпки.",
+    //   primaryLabel: "Направете запитване",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте градоустройствените услуги",
+    //   secondaryHref: "/uslugi/gradoustroistvo",
+    // },
   },
 
   // ─────────────────────────────────────────────
@@ -223,6 +233,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "statii",
     category: "geodezia",
     publishedAt: "2026-04-16",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/zasnemane-og.webp",
+      alt: "Геодезическо заснемане на терен",
+    },
     keywords: [
       "цена геодезическо заснемане",
       "колко струва заснемане",
@@ -275,14 +290,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/statii/kolko-struva-trasirane",
       },
     ],
-    cta: {
-      title: "Искате конкретна оферта?",
-      text: "Опишете накратко обекта и целта на заснемането — ще получите ориентировъчна цена и следващи стъпки.",
-      primaryLabel: "Поискайте оферта",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте видовете заснемане",
-      secondaryHref: "/uslugi/zasnemane",
-    },
+    // cta: {
+    //   title: "Искате конкретна оферта?",
+    //   text: "Опишете накратко обекта и целта на заснемането — ще получите ориентировъчна цена и следващи стъпки.",
+    //   primaryLabel: "Поискайте оферта",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте видовете заснемане",
+    //   secondaryHref: "/uslugi/zasnemane",
+    // },
   },
 
   // ─────────────────────────────────────────────
@@ -298,6 +313,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "rakovodstva",
     category: "polezno",
     publishedAt: "2026-04-16",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/design-og.webp",
+      alt: "Документи и проектна подготовка за строеж",
+    },
     keywords: [
       "документи за строеж",
       "разрешение за строеж",
@@ -348,14 +368,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/statii/kakvo-e-geodezichesko-zasnemane",
       },
     ],
-    cta: {
-      title: "Планирате строеж?",
-      text: "Изпратете кратка информация за имота и ще получите конкретни насоки какво е необходимо и в какъв ред.",
-      primaryLabel: "Поискайте консултация",
-      primaryHref: "/contacts",
-      secondaryLabel: "Разгледайте услугите",
-      secondaryHref: "/uslugi",
-    },
+    // cta: {
+    //   title: "Планирате строеж?",
+    //   text: "Изпратете кратка информация за имота и ще получите конкретни насоки какво е необходимо и в какъв ред.",
+    //   primaryLabel: "Поискайте консултация",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Разгледайте услугите",
+    //   secondaryHref: "/uslugi",
+    // },
   },
 
   // ─────────────────────────────────────────────
@@ -370,6 +390,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "statii",
     category: "kadastar",
     publishedAt: "2026-04-16",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/cadaster-og.webp",
+      alt: "Кадастрални данни и удостоверение по чл. 54а",
+    },
     keywords: [
       "чл 54а ЗКИР",
       "удостоверение 54а",
@@ -423,14 +448,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/rakovodstva/koga-vi-tryabva-geodezist",
       },
     ],
-    cta: {
-      title: "Предстои Ви сделка?",
-      text: "Ако ви трябва удостоверение по чл. 54а, изпратете данни за имота и ще получите насоки какво е необходимо.",
-      primaryLabel: "Изпратете запитване",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте кадастралните услуги",
-      secondaryHref: "/uslugi/kadastar",
-    },
+    // cta: {
+    //   title: "Предстои Ви сделка?",
+    //   text: "Ако ви трябва удостоверение по чл. 54а, изпратете данни за имота и ще получите насоки какво е необходимо.",
+    //   primaryLabel: "Изпратете запитване",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте кадастралните услуги",
+    //   secondaryHref: "/uslugi/kadastar",
+    // },
   },
 
   // ─────────────────────────────────────────────
@@ -439,12 +464,13 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvo-e-geodezichesko-zasnemane",
     title: "Какво е геодезическо заснемане?",
-    excerpt: "Кратко и ясно обяснение кога се налага и защо е важно.",
+    // excerpt: "Кратко и ясно обяснение кога се налага и защо е важно.",
     description:
       "Научете какво представлява геодезическото заснемане, кога се изисква и как помага при проектиране, строителство и кадастър.",
     section: "statii",
     category: "geodezia",
     publishedAt: "2026-04-14",
+    updatedAt: "2026-04-30",
     coverImage: {
       src: "/images/category/zasnemane-og.webp",
       alt: "Геодезически измервания на терен",
@@ -493,14 +519,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/rakovodstva/koga-vi-tryabva-geodezist",
       },
     ],
-    cta: {
-      title: "Нужна Ви е конкретна насока?",
-      text: "Ако случаят Ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки.",
-      primaryLabel: "Изпратете запитване",
-      primaryHref: "/contacts",
-      secondaryLabel: "Разгледайте услугите",
-      secondaryHref: "/uslugi",
-    },
+    // cta: {
+    //   title: "Нужна Ви е конкретна насока?",
+    //   text: "Ако случаят Ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки.",
+    //   primaryLabel: "Изпратете запитване",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Разгледайте услугите",
+    //   secondaryHref: "/uslugi",
+    // },
   },
   // ─────────────────────────────────────────────
   // 7. "Колко струва трасиране"
@@ -514,6 +540,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "statii",
     category: "trasirane",
     publishedAt: "2026-04-14",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/trasirane-og.webp",
+      alt: "Трасиране и геодезически точки на терен",
+    },
     keywords: ["трасиране", "цена трасиране", "геодезия"],
     body: [
       {
@@ -559,14 +590,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/rakovodstva/koga-vi-tryabva-geodezist",
       },
     ],
-    cta: {
-      title: "Искате по-точна насока за цена?",
-      text: "Опишете накратко обекта, документацията и какво трябва да се трасира, за да получите по-ясна ориентация.",
-      primaryLabel: "Свържете се с нас",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте услугите по трасиране",
-      secondaryHref: "/uslugi/trasirane",
-    },
+    // cta: {
+    //   title: "Искате по-точна насока за цена?",
+    //   text: "Опишете накратко обекта, документацията и какво трябва да се трасира, за да получите по-ясна ориентация.",
+    //   primaryLabel: "Свържете се с нас",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте услугите по трасиране",
+    //   secondaryHref: "/uslugi/trasirane",
+    // },
   },
   // ─────────────────────────────────────────────
   // 8. "Кога ви трябва геодезист"
@@ -580,6 +611,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     section: "rakovodstva",
     category: "polezno",
     publishedAt: "2026-04-14",
+    updatedAt: "2026-04-30",
+    coverImage: {
+      src: "/images/category/consulting-og.webp",
+      alt: "Консултация с геодезист по имотен казус",
+    },
     keywords: ["кога трябва геодезист", "геодезически услуги"],
     body: [
       {
@@ -628,14 +664,14 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
         href: "/polezno/statii/kolko-struva-trasirane",
       },
     ],
-    cta: {
-      title: "Не сте сигурни откъде да започнете?",
-      text: "Кратка консултация може да Ви спести време, грешки и ненужни разходи още в началото.",
-      primaryLabel: "Направете запитване",
-      primaryHref: "/contacts",
-      secondaryLabel: "Вижте консултациите",
-      secondaryHref: "/uslugi/konsultacia",
-    },
+    // cta: {
+    //   title: "Не сте сигурни откъде да започнете?",
+    //   text: "Кратка консултация може да Ви спести време, грешки и ненужни разходи още в началото.",
+    //   primaryLabel: "Направете запитване",
+    //   primaryHref: "/contacts",
+    //   secondaryLabel: "Вижте консултациите",
+    //   secondaryHref: "/uslugi/konsultacia",
+    // },
   },
 ] as const;
 

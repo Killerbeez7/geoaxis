@@ -57,19 +57,17 @@ export default async function HelpfulSectionPage({ params }: Props) {
     <main className="bg-bg-page">
       <PoleznoPlainHero
         title={currentItem.label}
-        description={
-          currentItem.description ?? "Подготвяме съдържанието за тази секция."
-        }
+        description={currentItem.description ?? "Подготвяме съдържанието за тази секция."}
       />
 
-      <Section tone="page" className="!pt-10 sm:!pt-12 lg:!pt-16">
+      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         {articles.length > 0 ? (
           <div className="grid gap-6 lg:grid-cols-2">
             {articles.map((article) => (
               <Link
                 key={article.slug}
                 href={`/polezno/${article.section}/${article.slug}`}
-                className="group rounded-[var(--radius-card)] border border-br-light bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                className="group rounded-(--radius-card) border border-br-light bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="mb-3 inline-flex rounded-full border border-br-accent-soft bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   {article.section === "statii" ? "Статия" : "Ръководство"}
@@ -88,7 +86,7 @@ export default async function HelpfulSectionPage({ params }: Props) {
             ))}
           </div>
         ) : (
-          <div className="rounded-[var(--radius-card)] border border-br-light bg-white p-8 shadow-sm">
+          <div className="rounded-(--radius-card) border border-br-light bg-white p-8 shadow-sm">
             <h2 className="typo-h3">Съдържанието се подготвя</h2>
             <p className="typo-body mt-4 max-w-2xl">
               Тази секция е планирана и ще бъде запълнена с полезни материали.

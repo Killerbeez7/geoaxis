@@ -30,8 +30,7 @@ export default function FaqPage() {
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <div className="max-w-5xl">
           {HELPFUL_FAQ_GROUPS.map((group, groupIndex) => {
-            const plainNumber = String(groupIndex + 1);
-            const groupNumber = String(groupIndex + 1).padStart(2, "0");
+            const groupNumber = String(groupIndex + 1);
 
             return (
               <section
@@ -41,12 +40,8 @@ export default function FaqPage() {
               >
                 <header className="grid gap-4 md:grid-cols-[16rem_1fr] md:gap-10">
                   <div>
-                    {/* <p className="text-xs font-semibold tracking-[0.12em] text-accent">
-                      {groupNumber}
-                    </p> */}
-
                     <h2 className="mt-2 text-2xl font-semibold leading-tight text-tx-primary">
-                      {plainNumber}. {group.title}
+                      {groupNumber}. {group.title}
                     </h2>
                   </div>
 

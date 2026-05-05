@@ -1,26 +1,33 @@
 import Link from "next/link";
 import clsx from "clsx";
+import { notFound } from "next/navigation";
 
 import { Section } from "@/components/layout/Section";
-import { createSeo } from "@/lib/seo-builder";
 import { getArticlesBySection } from "@/config/polezno/articles";
+import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
+import { createSeo } from "@/lib/seo-builder";
 import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
 
-export const metadata = createSeo({
-  title: "Статии за геодезия и имоти",
-  description:
-    "Практични статии за кадастър, ПУП, геодезическо заснемане и работа с имоти.",
-  canonical: "/polezno/statii",
-});
+const pageContent = getHelpfulNavItem("statii");
+
+export const metadata = pageContent
+  ? createSeo({
+      title: pageContent.seo.title,
+      description: pageContent.seo.description,
+      canonical: pageContent.href,
+    })
+  : {};
 
 export default function StatiiPage() {
+  if (!pageContent) notFound();
+
   const articles = getArticlesBySection("statii");
 
   return (
     <main className="bg-bg-page">
       <PoleznoPlainHero
-        title="Статии за геодезия и имоти"
-        description="Практични обяснения за често срещани ситуации при кадастър, строителство и работа с имоти."
+        title={pageContent.heroTitle}
+        description={pageContent.heroDescription}
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">

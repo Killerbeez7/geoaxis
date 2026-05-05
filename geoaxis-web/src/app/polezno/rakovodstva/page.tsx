@@ -1,26 +1,33 @@
 import Link from "next/link";
 import clsx from "clsx";
+import { notFound } from "next/navigation";
 
 import { Section } from "@/components/layout/Section";
-import { createSeo } from "@/lib/seo-builder";
 import { getArticlesBySection } from "@/config/polezno/articles";
+import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
+import { createSeo } from "@/lib/seo-builder";
 import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
 
-export const metadata = createSeo({
-  title: "Ръководства за геодезия и строителство",
-  description:
-    "Практични ръководства и стъпки при документи, кадастър, проектиране и строителство.",
-  canonical: "/polezno/rakovodstva",
-});
+const pageContent = getHelpfulNavItem("rakovodstva");
+
+export const metadata = pageContent
+  ? createSeo({
+      title: pageContent.seo.title,
+      description: pageContent.seo.description,
+      canonical: pageContent.href,
+    })
+  : {};
 
 export default function RakovodstvaPage() {
+  if (!pageContent) notFound();
+
   const articles = getArticlesBySection("rakovodstva");
 
   return (
     <main className="bg-bg-page">
       <PoleznoPlainHero
-        title="Практични ръководства"
-        description="Подредени стъпки и насоки при документи, кадастър, проектиране и строителство."
+        title={pageContent.heroTitle}
+        description={pageContent.heroDescription}
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
@@ -36,7 +43,7 @@ export default function RakovodstvaPage() {
                 "hover:border-br-light/70 hover:bg-bg-section/70"
               )}
             >
-              <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-tx-tertiary">
+              <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-accent-strong">
                 Ръководство
               </p>
 
@@ -49,7 +56,7 @@ export default function RakovodstvaPage() {
               </p>
 
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent-strong">
-                Прочети →
+                Виж стъпките →
               </span>
             </Link>
           ))}

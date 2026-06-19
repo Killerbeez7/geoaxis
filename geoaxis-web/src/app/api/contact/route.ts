@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILES = 5;
+const MAX_TOTAL_UPLOAD_SIZE = 20 * 1024 * 1024; // 20MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
+const PUBLIC_SEND_ERROR =
+  "Не успяхме да изпратим запитването. Моля, опитайте отново или се свържете с нас по телефон.";
 
 type ContactPayload = {
   name: string;
@@ -13,6 +18,7 @@ type ContactPayload = {
   preferredContact: string;
   message: string;
   files: File[];
+  privacyConsent: boolean;
   source: "quick" | "full";
 };
 
@@ -22,6 +28,19 @@ function escapeHtml(str: string) {
 
 function asString(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function isAllowedFile(file: File) {
+  const lowerName = file.name.toLowerCase();
+
+  return (
+    ALLOWED_TYPES.includes(file.type) ||
+    ALLOWED_EXTENSIONS.some((extension) => lowerName.endsWith(extension))
+  );
+}
+
+function formatMb(bytes: number) {
+  return `${Math.round(bytes / 1024 / 1024)}MB`;
 }
 
 async function parseContactRequest(req: Request): Promise<ContactPayload> {
@@ -40,6 +59,7 @@ async function parseContactRequest(req: Request): Promise<ContactPayload> {
         typeof body.preferredContact === "string" ? body.preferredContact.trim() : "",
       message: typeof body.message === "string" ? body.message.trim() : "",
       files: [],
+      privacyConsent: body.privacyConsent === true || body.privacyConsent === "true",
       source: "quick",
     };
   }
@@ -55,13 +75,26 @@ async function parseContactRequest(req: Request): Promise<ContactPayload> {
     preferredContact: asString(formData.get("preferredContact")),
     message: asString(formData.get("message")),
     files: formData.getAll("files").filter((file): file is File => file instanceof File),
+    privacyConsent: formData.get("privacyConsent") === "on",
     source: "full",
   };
 }
 
-function validatePayload({ name, email, phone, message, files, source }: ContactPayload) {
+function validatePayload({
+  name,
+  email,
+  phone,
+  message,
+  files,
+  privacyConsent,
+  source,
+}: ContactPayload) {
   if (!name || !message) {
     return "Моля, попълнете име и съобщение.";
+  }
+
+  if (!privacyConsent) {
+    return "Моля, потвърдете, че сте запознати с Политиката за поверителност.";
   }
 
   if (source === "quick" && !email) {
@@ -72,12 +105,21 @@ function validatePayload({ name, email, phone, message, files, source }: Contact
     return "Моля, оставете телефон или имейл за връзка.";
   }
 
+  if (files.length > MAX_FILES) {
+    return `Можете да прикачите до ${MAX_FILES} файла.`;
+  }
+
+  const totalUploadSize = files.reduce((sum, file) => sum + file.size, 0);
+  if (totalUploadSize > MAX_TOTAL_UPLOAD_SIZE) {
+    return `Общият размер на файловете не трябва да надвишава ${formatMb(MAX_TOTAL_UPLOAD_SIZE)}.`;
+  }
+
   for (const file of files) {
     if (file.size > MAX_FILE_SIZE) {
-      return `Файлът "${file.name}" надвишава 10MB.`;
+      return `Файлът "${file.name}" е по-голям от ${formatMb(MAX_FILE_SIZE)}.`;
     }
 
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (!isAllowedFile(file)) {
       return `Невалиден тип файл: "${file.name}". Позволени са JPG, PNG, WebP и PDF.`;
     }
   }
@@ -90,10 +132,15 @@ export async function POST(req: Request) {
     const resendApiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.CONTACT_EMAIL;
 
-    if (!resendApiKey)
-      return NextResponse.json({ error: "RESEND_API_KEY is not set" }, { status: 500 });
-    if (!toEmail)
-      return NextResponse.json({ error: "CONTACT_EMAIL is not set" }, { status: 500 });
+    if (!resendApiKey) {
+      console.error("Contact form error: RESEND_API_KEY is not set");
+      return NextResponse.json({ error: PUBLIC_SEND_ERROR }, { status: 500 });
+    }
+
+    if (!toEmail) {
+      console.error("Contact form error: CONTACT_EMAIL is not set");
+      return NextResponse.json({ error: PUBLIC_SEND_ERROR }, { status: 500 });
+    }
 
     const payload = await parseContactRequest(req);
     const validationError = validatePayload(payload);
@@ -183,8 +230,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, result });
   } catch (error) {
-    const msg = error instanceof Error ? error.message : "Email failed";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Contact form error:", error);
+    return NextResponse.json({ error: PUBLIC_SEND_ERROR }, { status: 500 });
   }
 }
 

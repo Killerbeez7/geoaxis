@@ -46,6 +46,18 @@ const staticPages = [
     priority: 0.7,
     changeFrequency: "monthly" as const,
   },
+  {
+    url: "/politika-za-poveritelnost",
+    lastModified: "2026-06-19",
+    priority: 0.2,
+    changeFrequency: "yearly" as const,
+  },
+  {
+    url: "/usloviya-za-polzvane",
+    lastModified: "2026-06-19",
+    priority: 0.2,
+    changeFrequency: "yearly" as const,
+  },
 ];
 
 const helpfulSectionMeta: Record<

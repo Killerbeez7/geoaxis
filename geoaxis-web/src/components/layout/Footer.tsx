@@ -8,7 +8,7 @@ import { FOOTER } from "@/config/footer";
 
 export const Footer = () => {
   // const { brand, sections, contact, ctas } = FOOTER;
-  const { brand, sections, contact } = FOOTER;
+  const { brand, sections, contact, legalLinks } = FOOTER;
 
   const [quickLinksSection, serviceLinksSection] = sections;
 
@@ -161,10 +161,25 @@ export const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="relative border-t border-br-strong/40 bg-black/20">
-        <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-center px-6 py-4 text-center sm:px-8 lg:px-12">
+        <div className="mx-auto flex min-h-16 max-w-7xl flex-col items-center justify-center gap-3 px-6 py-4 text-center sm:px-8 lg:flex-row lg:justify-between lg:px-12">
           <p className="text-sm tracking-wide text-tx-inverse/80">
             © {new Date().getFullYear()} {brand.name} - Bulgaria. Всички права запазени.
           </p>
+
+          <nav
+            aria-label="Правна информация"
+            className="flex flex-wrap justify-center gap-x-4 gap-y-2"
+          >
+            {legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-xs font-medium text-tx-inverse/65 transition hover:text-accent"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

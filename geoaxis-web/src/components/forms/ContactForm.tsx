@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { LuUpload, LuX, LuFile, LuImage } from "react-icons/lu";
 import { CtaButton } from "@/components/parts/CtaButton";
@@ -9,6 +10,24 @@ type FormState = {
   error: string | null;
   success: boolean;
 };
+
+const MAX_FILES = 5;
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_TOTAL_UPLOAD_SIZE = 20 * 1024 * 1024;
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+const ALLOWED_FILE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
+
+function isAllowedFile(file: File) {
+  const lowerName = file.name.toLowerCase();
+  return (
+    ALLOWED_FILE_TYPES.includes(file.type) ||
+    ALLOWED_FILE_EXTENSIONS.some((extension) => lowerName.endsWith(extension))
+  );
+}
+
+function formatMb(bytes: number) {
+  return `${Math.round(bytes / 1024 / 1024)}MB`;
+}
 
 function FloatingInput({
   label,
@@ -167,12 +186,43 @@ function FileUpload({
   onChange: (files: File[]) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleFiles = (incoming: FileList | null) => {
     if (!incoming) return;
+    setUploadError(null);
+
     const newFiles = Array.from(incoming).filter(
       (f) => !files.find((existing) => existing.name === f.name)
     );
+
+    if (files.length + newFiles.length > MAX_FILES) {
+      setUploadError(`Можете да прикачите до ${MAX_FILES} файла.`);
+      return;
+    }
+
+    const invalidType = newFiles.find((file) => !isAllowedFile(file));
+    if (invalidType) {
+      setUploadError(
+        `Файлът "${invalidType.name}" не е позволен. Използвайте JPG, PNG, WebP или PDF.`
+      );
+      return;
+    }
+
+    const oversized = newFiles.find((file) => file.size > MAX_FILE_SIZE);
+    if (oversized) {
+      setUploadError(
+        `Файлът "${oversized.name}" е по-голям от ${formatMb(MAX_FILE_SIZE)}.`
+      );
+      return;
+    }
+
+    const totalSize = [...files, ...newFiles].reduce((sum, file) => sum + file.size, 0);
+    if (totalSize > MAX_TOTAL_UPLOAD_SIZE) {
+      setUploadError(`Общият размер на файловете не трябва да надвишава ${formatMb(MAX_TOTAL_UPLOAD_SIZE)}.`);
+      return;
+    }
+
     onChange([...files, ...newFiles]);
   };
 
@@ -186,6 +236,11 @@ function FileUpload({
         <p className="text-sm font-medium text-tx-primary">Документи или снимки</p>
         <p className="mt-0.5 text-xs leading-5 text-tx-muted">
           По желание. Ако нямате файл, изпратете само описанието.
+        </p>
+        <p className="mt-1 text-xs leading-5 text-tx-muted">
+          Прикачвайте само документи, свързани със запитването. По възможност
+          скрийте чувствителни данни, които не са необходими за първоначалната
+          консултация.
         </p>
       </div>
       <button
@@ -208,7 +263,9 @@ function FileUpload({
           <p className="text-sm text-tx-secondary">
             Прикачи файл <span className="text-accent-strong">или го плъзни тук</span>
           </p>
-          <p className="text-xs text-tx-muted">JPG, PNG, WebP, PDF · до 10MB</p>
+          <p className="text-xs text-tx-muted">
+            JPG, PNG, WebP, PDF · до {MAX_FILES} файла · до {formatMb(MAX_FILE_SIZE)} на файл
+          </p>
         </div>
       </button>
 
@@ -250,6 +307,10 @@ function FileUpload({
           ))}
         </ul>
       )}
+
+      {uploadError ? (
+        <p className="mt-2 text-xs leading-5 text-red-700">{uploadError}</p>
+      ) : null}
     </div>
   );
 }
@@ -384,6 +445,33 @@ export function ContactForm() {
         <FloatingTextarea name="message" label="Какво ви е необходимо? *" rows={3} />
 
         <FileUpload files={files} onChange={setFiles} />
+
+        <div className="space-y-3 rounded-xl border border-br-light bg-bg-section px-4 py-3">
+          <label className="flex items-start gap-3 text-sm leading-6 text-tx-secondary">
+            <input
+              name="privacyConsent"
+              type="checkbox"
+              required
+              aria-required="true"
+              className="mt-1 h-4 w-4 shrink-0 rounded border-br-default text-accent focus:ring-2 focus:ring-accent/20"
+            />
+            <span>
+              Запознах се с{" "}
+              <Link
+                href="/politika-za-poveritelnost"
+                className="font-medium text-accent-strong underline underline-offset-2"
+              >
+                Политиката за поверителност
+              </Link>
+              .
+            </span>
+          </label>
+
+          <p className="text-xs leading-5 text-tx-muted">
+            С изпращането на запитването предоставените данни ще бъдат използвани
+            единствено за връзка с Вас и подготовка на отговор или оферта.
+          </p>
+        </div>
 
         <CtaButton type="submit" size="lg" className="w-full" disabled={isPending}>
           {isPending ? "Изпращане..." : "Изпрати запитване"}

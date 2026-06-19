@@ -45,4 +45,14 @@ export const FOOTER = {
     inquiry: { label: "Запитване", href: "/contacts" },
     projects: { label: "Проекти", href: "/projects" },
   },
+  legalLinks: [
+    {
+      label: "Политика за поверителност",
+      href: "/politika-za-poveritelnost",
+    },
+    {
+      label: "Условия за ползване",
+      href: "/usloviya-za-polzvane",
+    },
+  ],
 } as const;

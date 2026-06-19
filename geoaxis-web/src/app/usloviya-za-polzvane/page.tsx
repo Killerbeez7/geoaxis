@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Section } from "@/components/layout/Section";
 import { siteContent } from "@/config/site-content";
 import { createSeo } from "@/lib/seo-builder";
@@ -47,36 +49,56 @@ export default function TermsPage() {
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <div className="mx-auto max-w-4xl space-y-10">
-          <TermsSection title="1. Информационен характер на сайта">
+          <TermsSection title="1. За сайта">
             <p>
-              Сайтът на GeoAxis представя услуги, проекти и полезна информация в
-              областта на геодезията, кадастъра, трасирането, проектирането и
-              устройствените процедури.
+              GeoAxis е публичното търговско наименование/брандинг, използвано за
+              представяне на геодезически услуги чрез сайта geoaxis.bg.
             </p>
+            <p>
+              Сайтът представя услуги, проекти и полезна информация в областта на
+              геодезията, кадастъра, трасирането, проектирането и устройствените
+              процедури.
+            </p>
+          </TermsSection>
+
+          <TermsSection title="2. Информационен характер">
             <p>
               Публикуваната информация е обща и не замества индивидуална
               професионална консултация за конкретен имот, проект или
               административна процедура.
             </p>
+            <p>
+              Всяка услуга зависи от конкретните документи, изходни данни,
+              теренни условия и приложимите административни изисквания.
+            </p>
           </TermsSection>
 
-          <TermsSection title="2. Запитвания и предоставена информация">
+          <TermsSection title="3. Запитвания и предоставена информация">
             <p>
               Когато изпращате запитване, моля предоставяйте вярна и достатъчно
               ясна информация, за да можем да Ви насочим към подходяща услуга или
               следваща стъпка.
             </p>
             <p>
-              GeoAxis може да поиска допълнителни документи или уточнения, когато
+              Може да бъдат поискани допълнителни документи или уточнения, когато
               първоначалната информация не е достатъчна за надеждна преценка.
+            </p>
+            <p>
+              Данните от контактната форма се обработват съгласно{" "}
+              <Link
+                className="font-medium text-accent-strong underline"
+                href="/politika-za-poveritelnost"
+              >
+                Политиката за поверителност
+              </Link>
+              .
             </p>
           </TermsSection>
 
-          <TermsSection title="3. Външни връзки">
+          <TermsSection title="4. Външни връзки">
             <p>
-              Сайтът може да съдържа връзки към външни институции, портали,
-              карти или други ресурси. Те са предоставени за удобство и
-              ориентация.
+              Сайтът може да съдържа връзки към външни институции, портали, карти
+              или други ресурси. Те са предоставени за удобство и ориентация.
             </p>
             <p>
               GeoAxis не носи отговорност за съдържанието, достъпността или
@@ -84,7 +106,7 @@ export default function TermsPage() {
             </p>
           </TermsSection>
 
-          <TermsSection title="4. Интелектуална собственост">
+          <TermsSection title="5. Интелектуална собственост">
             <p>
               Текстовете, структурата, изображенията и визуалните елементи на
               сайта принадлежат на GeoAxis или са използвани на законно основание,
@@ -96,23 +118,29 @@ export default function TermsPage() {
             </p>
           </TermsSection>
 
-          <TermsSection title="5. Промени в сайта">
+          <TermsSection title="6. Промени в сайта">
             <p>
-              GeoAxis може да обновява съдържанието, услугите и тези условия, за
-              да отразява промени в практиката, нормативната рамка или начина на
+              Съдържанието, услугите и тези условия могат да бъдат обновявани, за
+              да отразяват промени в практиката, нормативната рамка или начина на
               работа.
             </p>
           </TermsSection>
 
-          <TermsSection title="6. Контакт">
+          <TermsSection title="7. Контакт">
             <p>
               За въпроси относно сайта или услугите можете да се свържете с нас
               на{" "}
-              <a className="font-medium text-accent-strong underline" href={`mailto:${contactEmail}`}>
+              <a
+                className="font-medium text-accent-strong underline"
+                href={`mailto:${contactEmail}`}
+              >
                 {contactEmail}
               </a>{" "}
               или на{" "}
-              <a className="font-medium text-accent-strong underline" href={`tel:${contactPhone.replace(/\s+/g, "")}`}>
+              <a
+                className="font-medium text-accent-strong underline"
+                href={`tel:${contactPhone.replace(/\s+/g, "")}`}
+              >
                 {contactPhone}
               </a>
               .

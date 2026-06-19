@@ -13,10 +13,6 @@ export const metadata = createSeo({
 
 const privacyEmail = siteContent.contacts.email;
 
-// TODO: Replace these placeholders with the exact legal entity, EIK/BULSTAT and registered address.
-const controllerName = "GeoAxis / [попълнете юридическо лице или администратор]";
-const controllerAddress = "[попълнете адрес на регистрация, ако е приложимо]";
-
 const collectedData = [
   "име",
   "телефон и/или имейл адрес",
@@ -29,6 +25,13 @@ const processors = [
   "Vercel - хостинг, CDN, инфраструктура, Vercel Analytics и Speed Insights",
   "Resend - изпращане на имейл съобщения от контактната форма",
   "доставчикът на получаващата имейл поща",
+];
+
+const technicalLocations = [
+  "посочения служебен имейл адрес",
+  "пощенската кореспонденция на получателя",
+  "Resend, доколкото е необходимо за изпращане и техническа обработка на имейла",
+  "хостинг/serverless логове, когато това е технически необходимо за сигурност и диагностика",
 ];
 
 const userRights = [
@@ -66,31 +69,35 @@ export default function PrivacyPolicyPage() {
           <p className="typo-kicker text-accent">Правна информация</p>
           <h1 className="typo-h2 mt-3">Политика за поверителност</h1>
           <p className="typo-subtitle mt-4">
-            Тази страница обяснява как обработваме данните, изпратени чрез сайта
-            и контактната форма на GeoAxis.
+            Тази страница обяснява как се обработват данните, изпратени чрез
+            сайта и контактната форма на GeoAxis.
           </p>
         </div>
       </Section>
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <div className="mx-auto max-w-4xl space-y-10">
-          <LegalSection title="1. Администратор на данните">
+          <LegalSection title="1. Кой стои зад сайта">
             <p>
-              Администратор на личните данни е {controllerName}. Адрес за
-              кореспонденция: {controllerAddress}.
+              GeoAxis е търговско наименование/брандинг, използвано за
+              представяне на геодезически услуги чрез сайта geoaxis.bg.
             </p>
             <p>
-              За въпроси, свързани с лични данни, можете да ни пишете на{" "}
-              <a className="font-medium text-accent-strong underline" href={`mailto:${privacyEmail}`}>
+              За въпроси относно обработката на лични данни можете да се свържете
+              с нас на{" "}
+              <a
+                className="font-medium text-accent-strong underline"
+                href={`mailto:${privacyEmail}`}
+              >
                 {privacyEmail}
               </a>
               .
             </p>
           </LegalSection>
 
-          <LegalSection title="2. Какви данни събираме">
+          <LegalSection title="2. Какви данни се обработват">
             <p>
-              Когато изпратите запитване през сайта, обработваме само данните,
+              Когато изпратите запитване през сайта, се обработват само данните,
               които са необходими, за да разберем случая и да Ви отговорим.
             </p>
             <ul className="list-disc space-y-2 pl-6">
@@ -100,11 +107,11 @@ export default function PrivacyPolicyPage() {
             </ul>
           </LegalSection>
 
-          <LegalSection title="3. Защо използваме данните">
+          <LegalSection title="3. Защо се използват данните">
             <p>
               Данните се използват за отговор на Вашето запитване, уточняване на
-              детайли, подготовка на оферта и последваща комуникация по конкретния
-              казус.
+              детайли, подготовка на отговор или оферта и последваща комуникация
+              по конкретния казус.
             </p>
             <p>
               Правното основание е предприемане на стъпки по Ваше искане преди
@@ -113,7 +120,21 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="4. Прикачени файлове">
+          <LegalSection title="4. Как се обработват запитванията">
+            <p>
+              Запитванията не се съхраняват в клиентски профили или вътрешна база
+              данни на сайта. Информацията, изпратена чрез формата, се препраща
+              към посочения служебен имейл адрес с цел обработка на конкретното
+              запитване.
+            </p>
+            <p>
+              Това е обработване на лични данни, но не представлява създаване на
+              потребителски профил, CRM запис или отделна база данни с клиенти в
+              сайта.
+            </p>
+          </LegalSection>
+
+          <LegalSection title="5. Прикачени файлове">
             <p>
               Прикачените файлове се използват единствено за конкретното
               запитване. Моля, изпращайте само документи, снимки или скици, които
@@ -125,9 +146,22 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="5. Доставчици и обработващи данни">
+          <LegalSection title="6. Къде може да остане информацията">
             <p>
-              За работата на сайта и контактната форма използваме външни
+              Данните от запитването и прикачените файлове могат да останат в
+              технически системи, необходими за изпращане и получаване на
+              съобщението:
+            </p>
+            <ul className="list-disc space-y-2 pl-6">
+              {technicalLocations.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </LegalSection>
+
+          <LegalSection title="7. Доставчици и обработващи данни">
+            <p>
+              За работата на сайта и контактната форма се използват външни
               доставчици. Те обработват данни само доколкото е необходимо за
               предоставяне на съответната техническа услуга.
             </p>
@@ -138,7 +172,7 @@ export default function PrivacyPolicyPage() {
             </ul>
           </LegalSection>
 
-          <LegalSection title="6. Аналитика и бисквитки">
+          <LegalSection title="8. Аналитика и бисквитки">
             <p>
               Сайтът не използва рекламни или маркетингови бисквитки и не съдържа
               рекламни пиксели. Използваме Vercel Analytics и Vercel Speed
@@ -146,16 +180,16 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="7. Срок на съхранение">
+          <LegalSection title="9. Срок на съхранение">
             <p>
-              Запитванията и свързаната с тях кореспонденция се съхраняват до 12
-              месеца след последната комуникация, освен ако има договорна,
-              счетоводна, законова или друга основателна причина за по-дълго
-              съхранение.
+              Запитванията и свързаната с тях кореспонденция се съхраняват в
+              пощенската кореспонденция до 12 месеца след последната комуникация,
+              освен ако има договорна, счетоводна, законова или друга
+              основателна причина за по-дълго съхранение.
             </p>
           </LegalSection>
 
-          <LegalSection title="8. Вашите права">
+          <LegalSection title="10. Вашите права">
             <p>Имате право да поискате:</p>
             <ul className="list-disc space-y-2 pl-6">
               {userRights.map((item) => (
@@ -164,7 +198,10 @@ export default function PrivacyPolicyPage() {
             </ul>
             <p>
               Можете да упражните правата си чрез имейл до{" "}
-              <a className="font-medium text-accent-strong underline" href={`mailto:${privacyEmail}`}>
+              <a
+                className="font-medium text-accent-strong underline"
+                href={`mailto:${privacyEmail}`}
+              >
                 {privacyEmail}
               </a>
               . Ако считате, че правата Ви са нарушени, можете да подадете жалба
@@ -174,7 +211,10 @@ export default function PrivacyPolicyPage() {
 
           <div className="rounded-2xl border border-br-light bg-bg-section p-5 text-sm leading-7 text-tx-secondary">
             Последна актуализация: 19 юни 2026 г. Вижте също{" "}
-            <Link className="font-medium text-accent-strong underline" href="/usloviya-za-polzvane">
+            <Link
+              className="font-medium text-accent-strong underline"
+              href="/usloviya-za-polzvane"
+            >
               Условия за ползване
             </Link>
             .

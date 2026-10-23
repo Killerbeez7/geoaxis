@@ -1,32 +1,29 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
+import { track } from "@vercel/analytics";
 import { LuUpload, LuX, LuFile, LuImage } from "react-icons/lu";
 import { CtaButton } from "@/components/parts/CtaButton";
+import {
+  CONTACT_SERVICE_OPTIONS,
+  HONEYPOT_FIELD,
+  MAX_FILES,
+  MAX_TOTAL_UPLOAD_SIZE,
+  STARTED_AT_FIELD,
+  formatMb,
+  isAllowedFileName,
+} from "@/lib/contact";
 
 type FormState = {
   error: string | null;
   success: boolean;
 };
 
-const MAX_FILES = 5;
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const MAX_TOTAL_UPLOAD_SIZE = 20 * 1024 * 1024;
-const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-const ALLOWED_FILE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
-
-function isAllowedFile(file: File) {
-  const lowerName = file.name.toLowerCase();
-  return (
-    ALLOWED_FILE_TYPES.includes(file.type) ||
-    ALLOWED_FILE_EXTENSIONS.some((extension) => lowerName.endsWith(extension))
-  );
-}
-
-function formatMb(bytes: number) {
-  return `${Math.round(bytes / 1024 / 1024)}MB`;
+function fileKey(file: File) {
+  return `${file.name}-${file.size}-${file.lastModified}`;
 }
 
 function FloatingInput({
@@ -34,11 +31,15 @@ function FloatingInput({
   name,
   type = "text",
   required = true,
+  autoComplete,
+  maxLength,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  autoComplete?: string;
+  maxLength?: number;
 }) {
   const fieldId = `field-${name}`;
 
@@ -48,6 +49,8 @@ function FloatingInput({
         id={fieldId}
         name={name}
         type={type}
+        autoComplete={autoComplete}
+        maxLength={maxLength}
         required={required}
         aria-required={required}
         placeholder=" "
@@ -64,7 +67,7 @@ function FloatingInput({
           "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2",
           "text-base text-tx-muted transition-all duration-200",
           "peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-sm",
-          "peer-focus:text-accent-strong",
+          "peer-focus:text-accent-text",
           "peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:translate-y-0",
           "peer-not-placeholder-shown:text-sm"
         )}
@@ -93,6 +96,7 @@ function FloatingTextarea({
         name={name}
         required
         aria-required="true"
+        maxLength={5000}
         rows={rows}
         placeholder=" "
         className={clsx(
@@ -108,7 +112,7 @@ function FloatingTextarea({
           "pointer-events-none absolute left-4 top-5 -translate-y-1/2",
           "text-base text-tx-muted transition-all duration-200",
           "peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-sm",
-          "peer-focus:text-accent-strong",
+          "peer-focus:text-accent-text",
           "peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:translate-y-0",
           "peer-not-placeholder-shown:text-sm"
         )}
@@ -156,7 +160,7 @@ function FloatingSelect({
         )}
       >
         <option value="" disabled={Boolean(defaultValue)}>
-          —
+          Изберете
         </option>
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -193,7 +197,7 @@ function FileUpload({
     setUploadError(null);
 
     const newFiles = Array.from(incoming).filter(
-      (f) => !files.find((existing) => existing.name === f.name)
+      (f) => !files.find((existing) => fileKey(existing) === fileKey(f))
     );
 
     if (files.length + newFiles.length > MAX_FILES) {
@@ -201,7 +205,7 @@ function FileUpload({
       return;
     }
 
-    const invalidType = newFiles.find((file) => !isAllowedFile(file));
+    const invalidType = newFiles.find((file) => !isAllowedFileName(file.name));
     if (invalidType) {
       setUploadError(
         `Файлът "${invalidType.name}" не е позволен. Използвайте JPG, PNG, WebP или PDF.`
@@ -209,24 +213,18 @@ function FileUpload({
       return;
     }
 
-    const oversized = newFiles.find((file) => file.size > MAX_FILE_SIZE);
-    if (oversized) {
-      setUploadError(
-        `Файлът "${oversized.name}" е по-голям от ${formatMb(MAX_FILE_SIZE)}.`
-      );
-      return;
-    }
-
     const totalSize = [...files, ...newFiles].reduce((sum, file) => sum + file.size, 0);
     if (totalSize > MAX_TOTAL_UPLOAD_SIZE) {
-      setUploadError(`Общият размер на файловете не трябва да надвишава ${formatMb(MAX_TOTAL_UPLOAD_SIZE)}.`);
+      setUploadError(
+        `Общият размер на файловете не трябва да надвишава ${formatMb(MAX_TOTAL_UPLOAD_SIZE)}. По-големи файлове можете да изпратите на имейл след като се свържем.`
+      );
       return;
     }
 
     onChange([...files, ...newFiles]);
   };
 
-  const remove = (name: string) => onChange(files.filter((f) => f.name !== name));
+  const remove = (key: string) => onChange(files.filter((f) => fileKey(f) !== key));
 
   const isImage = (f: File) => f.type.startsWith("image/");
 
@@ -258,13 +256,13 @@ function FileUpload({
           "focus:border-br-accent focus:ring-2 focus:ring-accent/20 focus:outline-none"
         )}
       >
-        <LuUpload className="h-4 w-4 shrink-0 text-accent-strong" />
+        <LuUpload className="h-4 w-4 shrink-0 text-accent-text" />
         <div>
           <p className="text-sm text-tx-secondary">
-            Прикачи файл <span className="text-accent-strong">или го плъзни тук</span>
+            Прикачете файл <span className="text-accent-text">или го плъзнете тук</span>
           </p>
           <p className="text-xs text-tx-muted">
-            JPG, PNG, WebP, PDF · до {MAX_FILES} файла · до {formatMb(MAX_FILE_SIZE)} на файл
+            JPG, PNG, WebP, PDF · до {MAX_FILES} файла · до {formatMb(MAX_TOTAL_UPLOAD_SIZE)} общо
           </p>
         </div>
       </button>
@@ -283,13 +281,13 @@ function FileUpload({
         <ul className="mt-3 space-y-2">
           {files.map((f) => (
             <li
-              key={f.name}
+              key={fileKey(f)}
               className="flex items-center gap-3 rounded-lg border border-br-light bg-bg-section px-3 py-2"
             >
               {isImage(f) ? (
-                <LuImage className="h-4 w-4 shrink-0 text-accent-strong" />
+                <LuImage className="h-4 w-4 shrink-0 text-accent-text" />
               ) : (
-                <LuFile className="h-4 w-4 shrink-0 text-accent-strong" />
+                <LuFile className="h-4 w-4 shrink-0 text-accent-text" />
               )}
               <span className="flex-1 truncate text-sm text-tx-primary">{f.name}</span>
               <span className="text-xs text-tx-muted">
@@ -297,7 +295,7 @@ function FileUpload({
               </span>
               <button
                 type="button"
-                onClick={() => remove(f.name)}
+                onClick={() => remove(fileKey(f))}
                 aria-label={`Премахни файл ${f.name}`}
                 className="text-tx-muted transition hover:text-red-600"
               >
@@ -309,7 +307,9 @@ function FileUpload({
       )}
 
       {uploadError ? (
-        <p className="mt-2 text-xs leading-5 text-red-700">{uploadError}</p>
+        <p role="alert" className="mt-2 text-xs leading-5 text-red-700">
+          {uploadError}
+        </p>
       ) : null}
     </div>
   );
@@ -317,11 +317,27 @@ function FileUpload({
 
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const successRef = useRef<HTMLHeadingElement>(null);
+  const searchParams = useSearchParams();
+  const requestedService = searchParams.get("service") ?? "";
+  const defaultService = CONTACT_SERVICE_OPTIONS.some((o) => o.value === requestedService)
+    ? requestedService
+    : "";
+
   const [files, setFiles] = useState<File[]>([]);
   const [preferredContact, setPreferredContact] = useState("phone");
+  const [startedAt, setStartedAt] = useState(0);
 
   const [state, setState] = useState<FormState>({ error: null, success: false });
   const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    setStartedAt(Date.now());
+  }, []);
+
+  useEffect(() => {
+    if (state.success) successRef.current?.focus();
+  }, [state.success]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -340,7 +356,9 @@ export function ContactForm() {
     }
 
     formData.set("preferredContact", preferredContact);
+    formData.set(STARTED_AT_FIELD, String(startedAt));
     formData.delete("contactValue");
+    formData.delete("contactMethod");
     files.forEach((f) => formData.append("files", f));
 
     startTransition(async () => {
@@ -362,7 +380,9 @@ export function ContactForm() {
           return;
         }
 
+        track("inquiry_sent", { service: String(formData.get("service") || "none") });
         setState({ error: null, success: true });
+        setStartedAt(Date.now());
         form.reset();
         setFiles([]);
         setPreferredContact("phone");
@@ -374,19 +394,26 @@ export function ContactForm() {
 
   if (state.success) {
     return (
-      <div className="rounded-2xl border border-br-light bg-bg-page p-8 text-center shadow-xl shadow-black/10">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20 text-3xl text-accent-strong">
+      <div
+        role="status"
+        className="rounded-2xl border border-br-light bg-bg-page p-8 text-center shadow-xl shadow-black/10"
+      >
+        <div
+          aria-hidden="true"
+          className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20 text-3xl text-accent-text"
+        >
           ✓
         </div>
-        <h3 className="text-xl font-semibold text-tx-primary">
+        <h3 ref={successRef} tabIndex={-1} className="text-xl font-semibold text-tx-primary">
           Запитването е изпратено!
         </h3>
         <p className="mt-2 text-sm text-tx-muted">
-          Ще се свържем с вас възможно най-скоро.
+          Ще се свържем с вас в рамките на работния ден.
         </p>
         <button
+          type="button"
           onClick={() => setState({ error: null, success: false })}
-          className="mt-6 text-sm font-medium text-accent-strong underline-offset-2 hover:underline"
+          className="mt-6 text-sm font-medium text-accent-text underline-offset-2 hover:underline"
         >
           Изпрати ново запитване
         </button>
@@ -405,8 +432,14 @@ export function ContactForm() {
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+        {/* Honeypot: hidden from people, filled in by bots */}
+        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+          <label htmlFor={`field-${HONEYPOT_FIELD}`}>Не попълвайте това поле</label>
+          <input id={`field-${HONEYPOT_FIELD}`} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" />
+        </div>
+
         <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5">
-          <FloatingInput name="name" label="Вашето име *" />
+          <FloatingInput name="name" label="Вашето име *" autoComplete="name" maxLength={100} />
           <FloatingSelect
             name="contactMethod"
             label="Да отговорим по"
@@ -425,22 +458,23 @@ export function ContactForm() {
             name="contactValue"
             label={preferredContact === "email" ? "Имейл адрес *" : "Телефон *"}
             type={preferredContact === "email" ? "email" : "tel"}
+            autoComplete={preferredContact === "email" ? "email" : "tel"}
+            maxLength={preferredContact === "email" ? 254 : 30}
           />
           <FloatingSelect
             name="service"
             label="Тип услуга"
-            options={[
-              { value: "survey", label: "Геодезическо заснемане" },
-              { value: "layout", label: "Трасиране" },
-              { value: "cadastre", label: "Кадастър" },
-              { value: "regulation", label: "Регулация / ПУП" },
-              { value: "consultation", label: "Консултация" },
-              { value: "other", label: "Друго" },
-            ]}
+            defaultValue={defaultService}
+            options={[...CONTACT_SERVICE_OPTIONS]}
           />
         </div>
 
-        <FloatingInput name="location" label="Населено място / имот" required={false} />
+        <FloatingInput
+          name="location"
+          label="Населено място / имот"
+          required={false}
+          maxLength={200}
+        />
 
         <FloatingTextarea name="message" label="Какво ви е необходимо? *" rows={3} />
 
@@ -459,7 +493,7 @@ export function ContactForm() {
               Запознах се с{" "}
               <Link
                 href="/politika-za-poveritelnost"
-                className="font-medium text-accent-strong underline underline-offset-2"
+                className="font-medium text-accent-text underline underline-offset-2"
               >
                 Политиката за поверителност
               </Link>
@@ -477,11 +511,13 @@ export function ContactForm() {
           {isPending ? "Изпращане..." : "Изпрати запитване"}
         </CtaButton>
 
-        {state.error && (
-          <div className="rounded-xl border border-red-600/20 bg-red-600/10 px-4 py-3">
-            <p className="text-sm text-red-700">{state.error}</p>
-          </div>
-        )}
+        <div aria-live="assertive">
+          {state.error && (
+            <div className="rounded-xl border border-red-600/20 bg-red-600/10 px-4 py-3">
+              <p className="text-sm text-red-700">{state.error}</p>
+            </div>
+          )}
+        </div>
       </form>
     </div>
   );

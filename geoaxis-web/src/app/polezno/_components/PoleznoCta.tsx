@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
+import { CtaButton } from "@/components/parts/CtaButton";
 
 import { Section } from "@/components/layout/Section";
 
@@ -13,19 +13,16 @@ export function PoleznoCta() {
             Не сте сигурни коя услуга е подходяща?
           </h2>
           <p className="mt-4 text-base leading-7 text-tx-secondary">
-            Опишете накратко случая. Ще Ви насочим какво да подготвите и дали е нужно
+            Опишете накратко случая. Ще ви насочим какво да подготвите и дали е нужно
             заснемане, трасиране, кадастрална услуга или консултация.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-3 lg:justify-end">
-          <Link
-            href="/contacts"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-tx-inverse shadow-sm transition hover:bg-accent-hover"
-          >
-            Изпрати запитване
-            <FaArrowRight className="h-4 w-4" />
-          </Link>
+          <CtaButton href="/contacts">
+            Изпратете запитване
+            <FaArrowRight aria-hidden="true" className="h-4 w-4" />
+          </CtaButton>
         </div>
       </div>
     </Section>

@@ -4,9 +4,10 @@ import { SITE_URL } from "@/config/site";
 import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
 import { getWebSiteSchema } from "@/lib/schemas";
+import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
+import { JsonLd } from "@/components/parts/JsonLd";
 // Sections
 import { HeroSection } from "@/components/sections/HeroSection";
-import { TrustSection } from "@/components/sections/TrustSection";
 import { ServiceSection } from "@/components/sections/ServiceSection";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { WorkflowSection } from "@/components/sections/WorkflowSection";
@@ -14,45 +15,28 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Stats } from "@/components/sections/StatsSection";
+import { FaqSection } from "@/components/sections/FaqSection";
+
+// One representative question from each topic
+const HOME_FAQ = HELPFUL_FAQ_GROUPS.map((group) => group.items[0]).filter(Boolean);
 
 export const metadata = createSeo(pageSeo.home);
 
 export default function Home() {
-  const { brand, hero, trust, services, whyUs, workflow, projects, testimonials } =
-    siteContent;
+  const { brand, hero, services, whyUs, workflow, projects, testimonials } = siteContent;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getWebSiteSchema(SITE_URL)),
-        }}
-      />
+      <JsonLd data={getWebSiteSchema(SITE_URL)} />
 
-      {/* Who we are? */}
       <HeroSection {...hero} />
-
-      {/* What we do? */}
-      <TrustSection {...trust} />
-
-      {/* What we offer? */}
       <ServiceSection {...services} items={serviceCategories} />
-      <Stats />
-
-      {/* Why choose us? */}
-      <WhyChooseUs {...whyUs} brandName={brand.name} />
-
-      {/* Our workflow */}
       <WorkflowSection {...workflow} />
-
-      {/* Finished projects */}
+      <WhyChooseUs {...whyUs} brandName={brand.name} />
+      <Stats />
       <ProjectsSection {...projects} />
-
-      {/* Our clients reviews */}
       <TestimonialsSection {...testimonials} />
-
-      {/* Contact us */}
+      <FaqSection title="Най-често ни питат" items={HOME_FAQ} tone="muted" withSchema />
       <FinalCta />
     </>
   );

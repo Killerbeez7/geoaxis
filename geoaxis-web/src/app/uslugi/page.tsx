@@ -1,6 +1,3 @@
-import Link from "next/link";
-import clsx from "clsx";
-import { MdArrowRightAlt } from "react-icons/md";
 // Config
 import { serviceCategories } from "@/config/services/categories";
 import { servicesVisuals } from "@/config/services/visuals";
@@ -12,26 +9,11 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { createSeo } from "@/lib/seo-builder";
 import { CategoryOverviewCard, ServicesHero } from "./_components/ServicesUi";
 import { SectionIntro } from "@/components/layout/SectionIntro";
+import { ServiceGuide } from "@/components/sections/ServiceGuide";
+import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 
-const scenarios = [
-  {
-    title: "Започвате проект",
-    text: "Най-често се започва със заснемане за проектиране и проверка на наличните данни.",
-    href: "/uslugi/zasnemane#za-proektirane",
-  },
-  {
-    title: "Ще строите или ограждате",
-    text: "При строителство, ограда или спор за граници най-подходящо е трасиране на място.",
-    href: "/uslugi/trasirane",
-  },
-  {
-    title: "Имате кадастрален казус",
-    text: "За скици, схеми, промени в кадастъра или нанасяне на сграда започнете от кадастър.",
-    href: "/uslugi/kadastar",
-  },
-];
 
 export default function ServicesPage() {
   return (
@@ -43,9 +25,13 @@ export default function ServicesPage() {
         image={servicesVisuals.heroImage}
         imageAlt={servicesVisuals.heroAlt}
         imagePosition={servicesVisuals.heroPosition}
+        breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
       >
-        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
-          Изпрати запитване
+        <CtaButton href="#koya-usluga" className="min-h-12 w-full sm:w-auto">
+          Коя услуга ми трябва?
+        </CtaButton>
+        <CtaButton href="/contacts" variant="soft" className="min-h-12 w-full sm:w-auto">
+          Изпратете запитване
         </CtaButton>
       </ServicesHero>
 
@@ -65,33 +51,15 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section tone="muted">
+      <Section id="koya-usluga" tone="muted">
         <SectionIntro
           eyebrow="Бърза ориентация"
-          title="Ако не знаете откъде да започнете"
-          description="Тези насоки покриват най-честите случаи. Ако ситуацията е по-специфична, изпратете кратко описание и ще ви насочим."
+          title="Не знаете коя услуга ви трябва?"
+          description="Изберете ситуацията, която най-добре описва вашия случай, и ще видите подходящата услуга и какво да подготвите."
         />
 
-        <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3">
-          {scenarios.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={clsx(
-                "group rounded-card border border-br-light bg-bg-page p-5 shadow-sm",
-                "transition duration-300 hover:border-br-accent-soft hover:shadow-md sm:p-6"
-              )}
-            >
-              <h3 className="text-lg font-semibold leading-tight text-tx-primary">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-tx-muted">{item.text}</p>
-              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent-strong">
-                Виж подходящата услуга
-                <MdArrowRightAlt className="text-lg transition group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          ))}
+        <div className="mt-8 md:mt-10">
+          <ServiceGuide />
         </div>
       </Section>
 

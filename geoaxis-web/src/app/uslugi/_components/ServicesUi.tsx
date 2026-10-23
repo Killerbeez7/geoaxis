@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { getServiceHref } from "@/utils/urlHelpers";
 import { normalizeParagraphs } from "@/utils/normalizeText";
+import { Breadcrumbs, type Crumb } from "@/components/parts/Breadcrumbs";
 
 type ServicesHeroProps = {
   kicker?: string;
@@ -14,6 +15,7 @@ type ServicesHeroProps = {
   image: string;
   imageAlt: string;
   imagePosition?: string;
+  breadcrumbs?: Crumb[];
   children?: ReactNode;
 };
 
@@ -24,6 +26,7 @@ export function ServicesHero({
   image,
   imageAlt,
   imagePosition = "object-[72%_50%]",
+  breadcrumbs,
   children,
 }: ServicesHeroProps) {
   return (
@@ -58,7 +61,8 @@ export function ServicesHero({
 
       <div className="container-page relative flex min-h-[clamp(25rem,54dvh,34rem)] flex-col justify-end pb-10 pt-[calc(var(--header-h)+3rem)] sm:pb-12 lg:pb-14">
         <div className="max-w-3xl">
-          {kicker ? <p className={"typo-kicker"}>{kicker}</p> : null}
+          {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className="mb-6" /> : null}
+          {kicker ? <p className="typo-kicker">{kicker}</p> : null}
 
           <h1 className="mt-3 text-3xl font-semibold leading-[1.1] sm:text-4xl lg:text-5xl text-tx-primary">
             {title}
@@ -137,20 +141,23 @@ export function CategoryServicesList({ category }: { category: ServiceCategory }
   const rightColumn = category.services.slice(midpoint);
 
   return (
-    <nav aria-label="Услуги в категорията" className="py-4 md:py-5 lg:hidden">
+    <nav
+      aria-label="Услуги в категорията"
+      className="rounded-card border border-br-light bg-bg-section p-4 sm:p-6"
+    >
       <p className="text-sm font-bold leading-6 text-tx-primary md:text-base">
         Всички услуги:
       </p>
 
-      <div className="mt-2 grid gap-1 md:grid-cols-2 sm:gap-x-6">
+      <div className="mt-2 grid gap-1 md:grid-cols-2 md:gap-x-8">
         <ol className="space-y-1">
           {leftColumn.map((service, index) => (
             <li key={service.slug}>
               <Link
                 href={getServiceHref(category.slug, service)}
-                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-section sm:px-2"
+                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-page sm:px-2"
               >
-                <span className="text-sm font-semibold tabular-nums text-accent-strong">
+                <span className="text-sm font-semibold tabular-nums text-accent-text">
                   {String(index + 1).padEnd(2, ".")}
                 </span>
                 <span className="min-w-0 flex-1 text-[15px] font-medium leading-6 text-tx-primary transition group-hover:text-accent-strong">
@@ -167,9 +174,9 @@ export function CategoryServicesList({ category }: { category: ServiceCategory }
             <li key={service.slug}>
               <Link
                 href={getServiceHref(category.slug, service)}
-                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-section sm:px-2"
+                className="group flex min-h-11 items-center gap-3 rounded-lg py-2.5 text-left transition hover:bg-bg-page sm:px-2"
               >
-                <span className="text-sm font-semibold tabular-nums text-accent-strong">
+                <span className="text-sm font-semibold tabular-nums text-accent-text">
                   {String(index + 1 + midpoint).padEnd(2, ".")}
                 </span>
                 <span className="min-w-0 flex-1 text-[15px] font-medium leading-6 text-tx-primary transition group-hover:text-accent-strong">
@@ -208,7 +215,7 @@ export function CategoryServiceDetails({
           <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
             <Image
               src={service.thumbnail}
-              alt={service.title}
+              alt={service.imageAlt ?? service.title}
               fill
               sizes="(max-width: 1024px) calc(100vw - 2rem), 420px"
               quality={74}
@@ -235,24 +242,56 @@ export function CategoryServiceDetails({
                 <p key={i}>{paragraph}</p>
               ))}
 
-              <div className="mt-5 sm:mt-6">
+              <ServiceFacts service={service} />
+
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-6">
                 <Link
-                  href={getServiceHref(categorySlug, service)}
-                  className={clsx(
-                    "inline-flex items-center gap-2",
-                    "text-sm font-semibold text-accent-text",
-                    "transition-all duration-200",
-                    "hover:gap-3"
-                  )}
+                  href={`/contacts?service=${categorySlug}`}
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-tx-on-accent transition hover:bg-accent-hover"
                 >
-                  Научете повече
-                  <span className="text-[13px]">→</span>
+                  Запитване за тази услуга
                 </Link>
+                {service.hasDedicatedPage ? (
+                  <Link
+                    href={getServiceHref(categorySlug, service)}
+                    className={clsx(
+                      "inline-flex items-center gap-2",
+                      "text-sm font-semibold text-accent-text",
+                      "transition-all duration-200",
+                      "hover:gap-3"
+                    )}
+                  >
+                    Научете повече
+                    <MdArrowRightAlt aria-hidden="true" className="text-lg" />
+                  </Link>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+// Price and duration appear only once real values are filled in the service config.
+export function ServiceFacts({ service }: { service: Service }) {
+  if (!service.priceFrom && !service.duration) return null;
+
+  return (
+    <dl className="mt-4 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+      {service.priceFrom ? (
+        <div>
+          <dt className="text-tx-muted">Цена</dt>
+          <dd className="font-semibold text-tx-primary">{service.priceFrom}</dd>
+        </div>
+      ) : null}
+      {service.duration ? (
+        <div>
+          <dt className="text-tx-muted">Срок</dt>
+          <dd className="font-semibold text-tx-primary">{service.duration}</dd>
+        </div>
+      ) : null}
+    </dl>
   );
 }

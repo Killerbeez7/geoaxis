@@ -6,7 +6,9 @@ import { MdArrowRightAlt } from "react-icons/md";
 import { SITE_URL } from "@/config/site";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { createSeo, createServiceSeo } from "@/lib/seo-builder";
-import { getServiceFAQSchema, getServiceSchema } from "@/lib/schemas";
+import { getServiceSchema } from "@/lib/schemas";
+import { JsonLd } from "@/components/parts/JsonLd";
+import { ServiceFacts } from "../../_components/ServicesUi";
 import { getDedicatedServiceRouteParams, getServiceBySlugs } from "@/lib/selectors";
 import { getServiceHref } from "@/utils/urlHelpers";
 import { normalizeParagraphs } from "@/utils/normalizeText";
@@ -81,24 +83,10 @@ export default async function ServicePage({ params }: Props) {
 
   const servicePath = `/uslugi/${result.category.slug}/${result.service.slug}`;
   const serviceSchema = getServiceSchema(SITE_URL, servicePath, result.service);
-  const faqSchema = getServiceFAQSchema(result.service);
 
   return (
     <ServicePageLayout category={result.category} service={result.service}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
-        }}
-      />
-      {faqSchema ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
-          }}
-        />
-      ) : null}
+      <JsonLd data={serviceSchema} />
 
       <DedicatedServiceContent category={result.category} service={result.service} />
     </ServicePageLayout>
@@ -132,6 +120,7 @@ function DedicatedServiceContent({
               <p key={`service-intro-${index}`}>{paragraph}</p>
             ))}
           </div>
+          <ServiceFacts service={service} />
         </section>
 
         <EditorialListSection
@@ -167,7 +156,7 @@ function DedicatedServiceContent({
         <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
           <Image
             src={service.thumbnail}
-            alt={service.title}
+            alt={service.imageAlt ?? service.title}
             fill
             sizes="(max-width: 1024px) calc(100vw - 2rem), 380px"
             quality={74}
@@ -180,7 +169,7 @@ function DedicatedServiceContent({
           <p className="typo-kicker">Категория</p>
           <Link
             href={`/uslugi/${category.slug}`}
-            className="mt-3 inline-flex items-center gap-2 text-lg font-semibold text-tx-primary transition hover:text-accent-strong"
+            className="mt-3 inline-flex items-center gap-2 text-lg font-semibold text-tx-primary transition hover:text-accent-text"
           >
             {category.title}
             <MdArrowRightAlt className="text-xl" />
@@ -199,7 +188,7 @@ function DedicatedServiceContent({
                 <Link
                   key={related.slug}
                   href={getServiceHref(category.slug, related)}
-                  className="group flex items-center justify-between gap-4 py-3 text-sm font-semibold text-tx-secondary transition hover:text-accent-strong"
+                  className="group flex items-center justify-between gap-4 py-3 text-sm font-semibold text-tx-secondary transition hover:text-accent-text"
                 >
                   <span>{related.shortTitle ?? related.title}</span>
                   <MdArrowRightAlt className="shrink-0 text-lg transition group-hover:translate-x-0.5" />
@@ -208,6 +197,19 @@ function DedicatedServiceContent({
             </div>
           </div>
         ) : null}
+
+        <div className="rounded-card bg-bg-inverse p-6 text-tx-inverse">
+          <p className="text-lg font-semibold text-tx-inverse">Имате конкретен имот?</p>
+          <p className="mt-2 text-sm leading-6 text-tx-inverse/80">
+            Изпратете адрес или идентификатор и ще ви кажем срока и какво е нужно.
+          </p>
+          <Link
+            href={`/contacts?service=${category.slug}`}
+            className="mt-4 inline-flex rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-tx-on-accent transition hover:bg-accent-hover"
+          >
+            Изпратете запитване
+          </Link>
+        </div>
       </aside>
     </article>
   );
@@ -276,7 +278,7 @@ function ProcessSection({ items, intro }: { items?: string[]; intro: string }) {
       <ol className="mt-7 space-y-6 border-l border-br-accent-soft pl-5">
         {items.map((step, index) => (
           <li key={`process-step-${index}`} className="relative">
-            <span className="absolute -left-[2.05rem] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-bg-page text-xs font-semibold tabular-nums text-accent-strong ring-1 ring-br-accent-soft">
+            <span className="absolute -left-[2.05rem] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-bg-page text-xs font-semibold tabular-nums text-accent-text ring-1 ring-br-accent-soft">
               {index + 1}
             </span>
             <p className="text-base leading-7 text-tx-secondary">{step}</p>

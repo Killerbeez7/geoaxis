@@ -7,6 +7,9 @@ import { getCategoryServicesSchema } from "@/lib/schemas";
 import { getCategoryBySlug } from "@/lib/selectors";
 import { ServicePageLayout } from "../ServicePageLayout";
 import { CategoryServicesList, CategoryServiceDetails } from "../_components/ServicesUi";
+import { JsonLd } from "@/components/parts/JsonLd";
+import { FaqList, faqSchema } from "@/components/sections/FaqSection";
+import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -42,15 +45,12 @@ export default async function CategoryPage({ params }: Props) {
 
   const categoryPath = `/uslugi/${category.slug}`;
   const jsonLd = getCategoryServicesSchema(SITE_URL, categoryPath, category);
+  const faqItems = HELPFUL_FAQ_GROUPS.find((group) => group.slug === category.slug)?.items ?? [];
 
   return (
     <ServicePageLayout category={category}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
-        }}
-      />
+      <JsonLd data={jsonLd} />
+      {faqItems.length ? <JsonLd data={faqSchema(faqItems)} /> : null}
 
       <article>
         <CategoryServicesList category={category} />
@@ -64,6 +64,16 @@ export default async function CategoryPage({ params }: Props) {
             />
           ))}
         </div>
+
+        {faqItems.length ? (
+          <section className="mt-14 border-t border-br-light pt-10 md:mt-16">
+            <p className="typo-kicker">Въпроси</p>
+            <h2 className="typo-h2 mt-2">Често задавани въпроси</h2>
+            <div className="mt-6 max-w-3xl">
+              <FaqList items={faqItems} />
+            </div>
+          </section>
+        ) : null}
       </article>
     </ServicePageLayout>
   );

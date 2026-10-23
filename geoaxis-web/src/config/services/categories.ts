@@ -19,11 +19,15 @@ export type Service = {
   // image
   thumbnail: string;
   heroImage?: string;
+  imageAlt?: string;
   // text
   description: string;
   longDescription?: string[] | string;
   content?: ServiceContent;
   ctaLabel?: string;
+  // TODO(client): e.g. "от 250 лв." and "2–3 работни дни"; hidden while empty
+  priceFrom?: string;
+  duration?: string;
   // utils
   updatedAt?: string;
   hasDedicatedPage?: boolean;

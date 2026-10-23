@@ -20,6 +20,13 @@ export function ServicePageLayout({ category, service, children }: Props) {
     : (category.longDescription ?? category.description);
   const description = Array.isArray(rawDescription) ? rawDescription[0] : rawDescription;
   const eyebrow = service?.meta ?? category.meta ?? "Услуги";
+  const breadcrumbs = [
+    { label: "Услуги", href: "/uslugi" },
+    { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
+    ...(service
+      ? [{ label: service.shortTitle ?? service.title, href: `/uslugi/${category.slug}/${service.slug}` }]
+      : []),
+  ];
   const categoryVisual =
     servicesVisuals.categoryHeroes[
       category.slug as keyof typeof servicesVisuals.categoryHeroes
@@ -34,9 +41,13 @@ export function ServicePageLayout({ category, service, children }: Props) {
         image={categoryVisual?.image ?? servicesVisuals.heroImage}
         imageAlt={categoryVisual?.alt ?? servicesVisuals.heroAlt}
         imagePosition={servicesVisuals.heroPosition}
+        breadcrumbs={breadcrumbs}
       >
-        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
-          Изпрати запитване
+        <CtaButton href={`/contacts?service=${category.slug}`} className="min-h-12 w-full sm:w-auto">
+          Изпратете запитване
+        </CtaButton>
+        <CtaButton href="/uslugi#koya-usluga" variant="soft" className="min-h-12 w-full sm:w-auto">
+          Коя услуга ми трябва?
         </CtaButton>
       </ServicesHero>
 

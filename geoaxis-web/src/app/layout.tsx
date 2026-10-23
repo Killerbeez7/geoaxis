@@ -14,9 +14,11 @@ import { defaultSeo } from "@/config/seo";
 // Schemas
 import { getLocalBusinessSchema } from "@/lib/schemas";
 import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
-import { JsonLd } from "@/components/parts/JsonLd";
+import { JsonLd } from "@/components/ui/JsonLd";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
-import { MotionProvider } from "@/components/layout/MotionProvider";
+import { AnalyticsClicks } from "@/components/layout/AnalyticsClicks";
+import { serviceCategories } from "@/config/services/categories";
+import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
@@ -58,29 +60,38 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#253a31",
+  themeColor: "#14211b",
 };
+
+// Only what the menus need, so the full service texts stay out of the client bundle.
+const navServices = serviceCategories.map((category) => ({
+  slug: category.slug,
+  title: category.title,
+  description: category.description,
+}));
+
+const navHelpful = HELPFUL_NAV_ITEMS.map((item) => ({
+  href: item.href,
+  label: item.label,
+  description: item.description,
+}));
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="bg">
-      <body
-        className={`${montserrat.variable} antialiased flex flex-col relative`}
-      >
+      <body className={`${montserrat.variable} flex min-h-dvh flex-col`}>
         <JsonLd data={getLocalBusinessSchema(SITE_URL)} />
         <a href="#main-content" className="skip-link">
           Към съдържанието
         </a>
-        <MotionProvider>
-          <Navbar />
-          <main id="main-content" tabIndex={-1} className="grow bg-bg-page min-h-dvh">
-            {children}
-          </main>
-          <Footer />
-          <MobileActionBar />
-        </MotionProvider>
+        <Navbar services={navServices} helpful={navHelpful} />
+        <main id="main-content" tabIndex={-1} className="grow bg-bg-page outline-none">
+          {children}
+        </main>
+        <Footer />
+        <MobileActionBar />
 
-        {/* Utils */}
+        <AnalyticsClicks />
         <Analytics />
         <SpeedInsights />
       </body>

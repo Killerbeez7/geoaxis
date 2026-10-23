@@ -20,7 +20,7 @@ export default function RechnikPage() {
   if (!pageContent) notFound();
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
@@ -29,6 +29,6 @@ export default function RechnikPage() {
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <GlossarySectionLayout />
       </Section>
-    </main>
+    </div>
   );
 }

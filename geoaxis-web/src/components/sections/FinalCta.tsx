@@ -25,7 +25,7 @@ function ContactAction({
         <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-tx-inverse/45">
           {label}
         </span>
-        <span className="mt-1 block wrap-break-word text-base font-semibold text-tx-inverse/86 transition group-hover:text-accent md:text-lg">
+        <span className="mt-1 block wrap-break-word text-base font-semibold text-tx-inverse/86 transition group-hover:text-accent-on-dark md:text-lg">
           {value}
         </span>
       </span>
@@ -40,13 +40,13 @@ export function FinalCta() {
     <Section tone="brand" className="border-t border-white/10">
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,0.72fr)] lg:gap-14">
         <div className="max-w-2xl">
-          <p className="typo-kicker inline-block border-b border-accent/40 pb-2 text-accent">
+          <p className="typo-kicker inline-block border-b border-accent/40 pb-2 text-accent-on-dark">
             Контакт
           </p>
           <h2 className="mt-4 text-3xl font-semibold leading-[1.12] text-tx-inverse md:text-4xl">
             Имате нужда от
             <br />
-            <span className="text-accent">геодезическа услуга?</span>
+            <span className="text-accent-on-dark">геодезическа услуга?</span>
           </h2>
           <p className="mt-4 max-w-xl text-base leading-8 text-tx-inverse/72 md:text-lg">
             Свържете се с нас за консултация. Ще разгледаме случая и ще ви насочим към

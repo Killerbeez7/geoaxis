@@ -8,7 +8,7 @@ export function PoleznoCta() {
     <Section tone="section" className="border-t border-br-light/70">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div className="max-w-2xl">
-          <p className="typo-kicker text-accent">Следваща стъпка</p>
+          <p className="typo-kicker">Следваща стъпка</p>
           <h2 className="mt-3 text-2xl font-semibold leading-tight text-tx-primary sm:text-3xl">
             Не сте сигурни коя услуга е подходяща?
           </h2>

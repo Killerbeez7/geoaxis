@@ -41,10 +41,6 @@ export const FOOTER = {
     mapsHref: contacts.mapsUrl,
   },
 
-  ctas: {
-    inquiry: { label: "Запитване", href: "/contacts" },
-    projects: { label: "Проекти", href: "/projects" },
-  },
   legalLinks: [
     {
       label: "Политика за поверителност",

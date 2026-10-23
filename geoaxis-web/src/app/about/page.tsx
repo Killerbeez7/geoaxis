@@ -23,7 +23,7 @@ export default function About() {
   const { id, title, hero, story, values } = siteContent.about;
 
   return (
-    <main id={id} className="relative">
+    <div id={id} className="relative">
       {/* HERO */}
       <Section
         className="relative isolate overflow-hidden min-h-[min(58dvh,26rem)] md:min-h-[min(54dvh,32rem)] lg:min-h-[min(60dvh,34rem)]"
@@ -133,6 +133,6 @@ export default function About() {
 
       {/* CTA */}
       <FinalCta />
-    </main>
+    </div>
   );
 }

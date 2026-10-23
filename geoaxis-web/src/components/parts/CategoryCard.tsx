@@ -67,7 +67,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
 
       <div className="relative text-white p-6">
         {category.meta && (
-          <p className="mb-2 hidden text-[10px] font-bold uppercase tracking-[0.18em] text-accent md:inline-block">
+          <p className="mb-2 hidden text-[10px] font-bold uppercase tracking-[0.18em] text-accent-on-dark md:inline-block">
             {category.meta}
           </p>
         )}
@@ -88,7 +88,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
           </p>
         </div>
 
-        <div className="md:hidden mt-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent md:text-tx-inverse/50 sm:mt-4">
+        <div className="md:hidden mt-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-on-dark md:text-tx-inverse/50 sm:mt-4">
           Детайли
           <FaAngleRight className="transition-transform group-hover:translate-x-0.5" />
         </div>

@@ -58,7 +58,7 @@ export function ServicesHero({
 
       <div className="container-page relative flex min-h-[clamp(25rem,54dvh,34rem)] flex-col justify-end pb-10 pt-[calc(var(--header-h)+3rem)] sm:pb-12 lg:pb-14">
         <div className="max-w-3xl">
-          {kicker ? <p className={clsx("typo-kicker", "text-accent")}>{kicker}</p> : null}
+          {kicker ? <p className={"typo-kicker"}>{kicker}</p> : null}
 
           <h1 className="mt-3 text-3xl font-semibold leading-[1.1] sm:text-4xl lg:text-5xl text-tx-primary">
             {title}
@@ -105,7 +105,7 @@ export function CategoryOverviewCard({ category }: { category: ServiceCategory }
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         {category.meta ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-text">
             {category.meta}
           </p>
         ) : null}
@@ -221,7 +221,7 @@ export function CategoryServiceDetails({
         <div>
           <div className="max-w-2xl">
             {service.meta ? (
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-text">
                 {service.meta}
               </p>
             ) : null}
@@ -230,7 +230,7 @@ export function CategoryServiceDetails({
               {service.shortTitle ?? service.title}
             </h2>
 
-            <div className="space-y-4 mt-4 leading-relaxed text-muted-foreground">
+            <div className="space-y-4 mt-4 leading-relaxed text-tx-secondary">
               {normalizeParagraphs(description).map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
               ))}
@@ -240,7 +240,7 @@ export function CategoryServiceDetails({
                   href={getServiceHref(categorySlug, service)}
                   className={clsx(
                     "inline-flex items-center gap-2",
-                    "text-sm font-semibold text-accent",
+                    "text-sm font-semibold text-accent-text",
                     "transition-all duration-200",
                     "hover:gap-3"
                   )}

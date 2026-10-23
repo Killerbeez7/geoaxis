@@ -3,7 +3,8 @@ import { Section } from "@/components/layout/Section";
 import type { TestimonialsContent } from "@/config/content/testimonials";
 
 export function TestimonialsSection({ id, kicker, title, subtitle, items }: TestimonialsContent) {
-  if (!items.length) return null;
+  const approved = items.filter((item) => item.consentConfirmed);
+  if (!approved.length) return null;
 
   return (
     <Section id={id} tone="muted">
@@ -14,7 +15,7 @@ export function TestimonialsSection({ id, kicker, title, subtitle, items }: Test
       </div>
 
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
+        {approved.map((item) => (
           <figure
             key={`${item.name}-${item.text.slice(0, 20)}`}
             className="rounded-card border border-br-light bg-bg-page p-6 shadow-sm sm:p-7"

@@ -10,6 +10,7 @@ import { CategoryServicesList, CategoryServiceDetails } from "../_components/Ser
 import { JsonLd } from "@/components/parts/JsonLd";
 import { FaqList, faqSchema } from "@/components/sections/FaqSection";
 import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
+import { PriceFactors } from "@/components/parts/PriceFactors";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -64,6 +65,12 @@ export default async function CategoryPage({ params }: Props) {
             />
           ))}
         </div>
+
+        <PriceFactors
+          serviceSlug={category.slug}
+          hasPrices={category.services.some((service) => service.priceFrom)}
+          className="mt-14 border-t border-br-light pt-10 md:mt-16"
+        />
 
         {faqItems.length ? (
           <section className="mt-14 border-t border-br-light pt-10 md:mt-16">

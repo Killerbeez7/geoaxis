@@ -4,6 +4,7 @@ import {
   FIELD_LIMITS,
   HONEYPOT_FIELD,
   MAX_FILES,
+  MESSAGE_MIN_LENGTH,
   MAX_TOTAL_UPLOAD_SIZE,
   MIN_FILL_TIME_MS,
   STARTED_AT_FIELD,
@@ -151,6 +152,10 @@ async function validatePayload(payload: ContactPayload) {
 
   if (!name || !message) {
     return "Моля, попълнете име и съобщение.";
+  }
+
+  if (message.length < MESSAGE_MIN_LENGTH) {
+    return "Моля, опишете накратко какво ви е необходимо.";
   }
 
   if (!email && !phone) {

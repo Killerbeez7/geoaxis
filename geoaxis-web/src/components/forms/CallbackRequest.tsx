@@ -58,7 +58,7 @@ export function CallbackRequest() {
 
   if (status === "sent") {
     return (
-      <p role="status" className="rounded-xl bg-accent/10 px-4 py-3 text-sm text-tx-primary">
+      <p role="status" className="typo-small rounded-xl bg-accent-soft px-4 py-3 font-medium text-tx-primary">
         Благодарим! Ще ви се обадим в рамките на работния ден.
       </p>
     );
@@ -90,24 +90,24 @@ export function CallbackRequest() {
           placeholder="Вашият телефон"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="min-h-11 flex-1 rounded-xl border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted focus:border-br-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+          className="h-11 w-full min-w-0 rounded-xl sm:flex-1 border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted/80 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="min-h-11 rounded-xl bg-bg-inverse px-5 text-sm font-semibold text-tx-inverse transition hover:bg-bg-brand disabled:opacity-60"
+          className="h-11 shrink-0 rounded-xl bg-bg-inverse px-5 text-sm font-semibold text-tx-inverse transition-colors hover:bg-bg-brand disabled:opacity-60"
         >
-          {isPending ? "Изпращане..." : "Обадете ми се"}
+          {isPending ? "Изпращане…" : "Обадете ми се"}
         </button>
       </div>
 
-      <label className="flex items-start gap-2 text-xs leading-5 text-tx-secondary">
+      <label className="typo-caption flex items-start gap-2.5 text-tx-secondary">
         <input
           type="checkbox"
           required
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0"
+          className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
         />
         <span>
           Запознах се с{" "}
@@ -119,7 +119,7 @@ export function CallbackRequest() {
       </label>
 
       <div aria-live="assertive">
-        {error ? <p className="text-xs text-red-700">{error}</p> : null}
+        {error ? <p className="typo-caption font-medium text-danger">{error}</p> : null}
       </div>
     </form>
   );

@@ -1,44 +1,56 @@
 import Link from "next/link";
-import { Section } from "@/components/layout/Section";
-import { CtaButton } from "@/components/parts/CtaButton";
+import { LuArrowRight } from "react-icons/lu";
+
 import { serviceCategories } from "@/config/services/categories";
+import { getCategoryIcon } from "@/config/services/icons";
+import { Button } from "@/components/ui/Button";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 
 export const metadata = {
-  title: { absolute: "Страницата не е намерена - GeoAxis" },
+  title: { absolute: "Страницата не е намерена – GeoAxis" },
   robots: { index: false },
 };
 
 export default function NotFound() {
   return (
-    <Section variant="hero" tone="section" className="min-h-[70dvh]">
-      <div className="max-w-2xl">
-        <p className="typo-kicker">Грешка 404</p>
-        <h1 className="typo-h2 mt-3">Тази страница не съществува</h1>
-        <p className="typo-subtitle mt-4">
-          Възможно е адресът да е сгрешен или страницата да е преместена. Ето откъде можете да
-          продължите:
-        </p>
+    <>
+      <PageHero
+        eyebrow="Грешка 404"
+        title="Тази страница не съществува"
+        description="Възможно е адресът да е сгрешен или страницата да е преместена. Ето откъде можете да продължите."
+        actions={
+          <>
+            <Button href="/" size="lg">
+              Към началото
+            </Button>
+            <Button href="/contacts" size="lg" variant="outline" arrow>
+              Поискайте оферта
+            </Button>
+          </>
+        }
+      />
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <CtaButton href="/">Към началото</CtaButton>
-          <CtaButton href="/contacts" variant="soft">
-            Изпратете запитване
-          </CtaButton>
-        </div>
-
-        <ul className="mt-10 grid gap-2 sm:grid-cols-2">
+      <Section spacing="compact" aria-labelledby="not-found-services">
+        <h2 id="not-found-services" className="typo-h3">
+          Нашите услуги
+        </h2>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {serviceCategories.map((category) => (
             <li key={category.slug}>
               <Link
                 href={`/uslugi/${category.slug}`}
-                className="text-base font-medium text-tx-primary underline-offset-4 hover:text-accent-text hover:underline"
+                className="group flex items-center gap-4 rounded-2xl border border-br-light bg-bg-page p-4 transition-colors hover:border-br-accent"
               >
-                {category.title}
+                <IconBadge icon={getCategoryIcon(category.slug)} />
+                <span className="flex-1 font-semibold text-tx-primary group-hover:text-accent-text">{category.title}</span>
+                <LuArrowRight aria-hidden="true" className="h-4 w-4 text-tx-muted transition-transform group-hover:translate-x-0.5" />
               </Link>
             </li>
           ))}
         </ul>
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 }

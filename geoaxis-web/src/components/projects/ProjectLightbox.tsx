@@ -5,12 +5,12 @@ import Image from "next/image";
 import { LuChevronLeft, LuChevronRight, LuX } from "react-icons/lu";
 import type { ProjectItem, ProjectMedia } from "@/config/content/projects";
 
-interface ProjectsLightboxProps {
+interface ProjectLightboxProps {
   image: ProjectItem | null;
   onClose: () => void;
 }
 
-interface ProjectsLightboxContentProps {
+interface ProjectLightboxContentProps {
   image: ProjectItem;
   onClose: () => void;
 }
@@ -69,15 +69,15 @@ function useLockBodyScroll() {
   }, []);
 }
 
-export function ProjectsLightbox({ image, onClose }: ProjectsLightboxProps) {
+export function ProjectLightbox({ image, onClose }: ProjectLightboxProps) {
   if (!image) return null;
 
   return (
-    <ProjectsLightboxContent key={String(image.id)} image={image} onClose={onClose} />
+    <ProjectLightboxContent key={String(image.id)} image={image} onClose={onClose} />
   );
 }
 
-function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProps) {
+function ProjectLightboxContent({ image, onClose }: ProjectLightboxContentProps) {
   useLockBodyScroll();
 
   const gallery = useMemo(() => {
@@ -183,7 +183,7 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/78 backdrop-blur-[2px] sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-bg-deep/90 backdrop-blur-sm sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -191,7 +191,7 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
     >
       <div
         ref={dialogRef}
-        className="relative flex h-dvh max-h-dvh w-full max-w-6xl flex-col overflow-hidden border-white/10 bg-gray-950 shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-2xl sm:border"
+        className="relative flex h-dvh max-h-dvh w-full max-w-6xl flex-col overflow-hidden border-white/10 bg-bg-deep shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-3xl sm:border"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -236,19 +236,19 @@ function ProjectsLightboxContent({ image, onClose }: ProjectsLightboxContentProp
             </>
           )}
         </div>
-        <div className="min-h-0 overflow-hidden border-t border-white/10 bg-gray-950 px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6  text-tx-inverse sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
+        <div className="min-h-0 overflow-hidden border-t border-white/10 bg-bg-deep px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6  text-tx-inverse sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-            <p className="line-clamp-2 max-w-4xl text-[15px] font-semibold leading-snug text-tx-inverse sm:text-lg">
+            <p className="line-clamp-2 max-w-4xl font-semibold leading-snug text-tx-inverse sm:text-lg">
               {activeImage.title}
             </p>
             {hasGallery && (
-              <p className="order-first shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-accent-on-dark sm:order-0 sm:pt-1">
+              <p className="order-first shrink-0 typo-eyebrow text-accent-on-dark sm:order-0 sm:pt-1">
                 {activeIndex + 1} / {gallery.length}
               </p>
             )}
           </div>
           {activeImage.description && (
-            <p className="mt-2 line-clamp-3 max-w-4xl text-[13px] leading-5 text-tx-inverse/82 sm:text-sm sm:leading-6">
+            <p className="mt-2 line-clamp-3 max-w-4xl typo-small text-tx-inverse-muted">
               {activeImage.description}
             </p>
           )}
@@ -267,7 +267,7 @@ function LightboxImage({ image }: { image: ProjectMedia }) {
     <>
       {isLoading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-600 border-t-accent" />
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/20 border-t-accent" />
         </div>
       )}
 

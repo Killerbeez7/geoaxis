@@ -1,10 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { LuArrowRight } from "react-icons/lu";
 
-import { Section } from "@/components/layout/Section";
-import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
-import { JsonLd } from "@/components/parts/JsonLd";
 import { SITE_URL } from "@/config/site";
 import {
   HELPFUL_ARTICLES,
@@ -12,10 +10,15 @@ import {
   getRelatedArticles,
   type HelpfulArticleSection,
 } from "@/config/polezno/articles";
+import { SECTION_LABELS, formatDate, getArticleHref, readingMinutes } from "@/lib/articles";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
-import { PoleznoCta } from "./PoleznoCta";
-import { SECTION_LABELS, formatDate, getArticleHref } from "../_utils/helpers";
+import { ArticleCard } from "@/components/polezno/ArticleCard";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { InquiryCard } from "@/components/ui/InquiryCard";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 
 function findArticle(section: HelpfulArticleSection, slug: string) {
   const article = getArticleBySlug(slug);
@@ -49,137 +52,118 @@ export function getArticleMetadata(section: HelpfulArticleSection, slug: string)
   });
 }
 
-export function ArticleDetailPage({
-  section,
-  slug,
-}: {
-  section: HelpfulArticleSection;
-  slug: string;
-}) {
+export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSection; slug: string }) {
   const article = findArticle(section, slug);
   if (!article) notFound();
 
   const labels = SECTION_LABELS[section];
-  const relatedArticles = getRelatedArticles(article, 2);
+  const relatedArticles = getRelatedArticles(article, 3);
+  const updated = article.updatedAt && article.updatedAt !== article.publishedAt ? article.updatedAt : null;
 
   return (
-    <div className="bg-bg-page">
+    <>
       <JsonLd data={getArticleSchema(SITE_URL, article)} />
 
-      <Section tone="page" variant="hero">
-        <article className="mx-auto max-w-3xl">
-          <Breadcrumbs
-            items={[
-              { label: "Полезно", href: "/polezno" },
-              { label: labels.plural, href: `/polezno/${section}` },
-              { label: article.title, href: getArticleHref(article) },
-            ]}
-          />
+      <PageHero
+        breadcrumbs={[
+          { label: "Полезно", href: "/polezno" },
+          { label: labels.plural, href: `/polezno/${section}` },
+          { label: article.title, href: getArticleHref(article) },
+        ]}
+        eyebrow={`${labels.single} · ${readingMinutes(article)} мин четене`}
+        title={article.title}
+        description={article.excerpt}
+      >
+        <p className="typo-small mt-6 text-tx-muted">
+          Публикувано на {formatDate(article.publishedAt)}
+          {updated ? ` · Обновено на ${formatDate(updated)}` : ""}
+        </p>
+      </PageHero>
 
-          <header className="mt-6 border-b border-br-light/60 pb-8">
-            <h1 className="typo-h2 font-semibold leading-tight">{article.title}</h1>
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+          <article className="min-w-0 max-w-3xl">
+            {article.coverImage ? (
+              <figure className="relative mb-10 aspect-16/9 overflow-hidden rounded-3xl bg-bg-subtle">
+                <Image
+                  src={article.coverImage.src}
+                  alt={article.coverImage.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 768px, calc(100vw - 2.5rem)"
+                  className="object-cover"
+                />
+              </figure>
+            ) : null}
 
-            <p className="typo-subtitle mt-4 lg:text-lg">{article.excerpt}</p>
+            <div className="prose-geo">
+              {article.body.map((block, index) =>
+                block.type === "paragraph" ? (
+                  <p key={`${article.slug}-p-${index}`}>{block.content}</p>
+                ) : (
+                  <div key={`${article.slug}-l-${index}`}>
+                    {block.title ? <h2>{block.title}</h2> : null}
+                    <ul className="mt-4">
+                      {block.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )
+              )}
+            </div>
 
-            <p className="typo-meta mt-4">
-              Публикувано: {formatDate(article.publishedAt)}
-              {article.updatedAt ? ` · Обновено: ${formatDate(article.updatedAt)}` : ""}
-            </p>
-          </header>
-
-          {article.coverImage ? (
-            <figure className="mt-8 overflow-hidden rounded-2xl border border-br-light/60 bg-bg-section">
-              <Image
-                src={article.coverImage.src}
-                alt={article.coverImage.alt}
-                width={1200}
-                height={720}
-                sizes="(min-width: 1024px) 768px, 100vw"
-                className="h-auto w-full object-cover"
-                priority
-              />
-            </figure>
-          ) : null}
-
-          <div className="mt-10 space-y-7">
-            {article.body.map((block, index) => {
-              if (block.type === "paragraph") {
-                return (
-                  <p key={`${article.slug}-paragraph-${index}`} className="typo-body">
-                    {block.content}
-                  </p>
-                );
-              }
-
-              return (
-                <section key={`${article.slug}-list-${index}`} className="space-y-4">
-                  {block.title ? (
-                    <h2 className="text-xl font-semibold leading-snug text-tx-primary sm:text-2xl">
-                      {block.title}
-                    </h2>
-                  ) : null}
-
-                  <ul className="space-y-3">
-                    {block.items.map((item, itemIndex) => (
-                      <li
-                        key={`${article.slug}-list-${index}-item-${itemIndex}`}
-                        className="flex gap-3 text-base leading-7 text-tx-secondary"
+            {article.relatedServices?.length ? (
+              <section aria-labelledby="related-services-title" className="mt-12 rounded-2xl border border-br-light bg-bg-subtle p-6">
+                <h2 id="related-services-title" className="typo-h4">
+                  Свързани услуги
+                </h2>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {article.relatedServices.map((service) => (
+                    <li key={service.href}>
+                      <Link
+                        href={service.href}
+                        className="typo-small inline-flex h-10 items-center gap-1.5 rounded-xl border border-br-default bg-bg-page px-4 font-semibold text-tx-primary transition-colors hover:border-br-accent hover:text-accent-text"
                       >
-                        <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              );
-            })}
-          </div>
+                        {service.label}
+                        <LuArrowRight aria-hidden="true" className="h-4 w-4" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
-          {article.relatedServices?.length ? (
-            <section className="mt-12 rounded-2xl border border-br-light bg-bg-section p-6">
-              <h2 className="text-lg font-semibold text-tx-primary">Свързани услуги</h2>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {article.relatedServices.map((service) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className="inline-flex items-center rounded-lg border border-br-default bg-bg-page px-3 py-2 text-sm font-medium text-tx-primary transition hover:border-br-accent hover:text-accent-text"
-                  >
-                    {service.label}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ) : null}
+            <p className="typo-caption mt-10 border-t border-br-light pt-6 text-tx-muted">
+              Материалът е с информационна цел и не замества консултация за конкретен имот.
+            </p>
+          </article>
 
-          {relatedArticles.length ? (
-            <section className="mt-12 border-t border-br-light/60 pt-8">
-              <h2 className="text-xl font-semibold leading-snug text-tx-primary sm:text-2xl">
-                Още по темата
-              </h2>
-
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                {relatedArticles.map((related) => (
-                  <Link
-                    key={related.slug}
-                    href={getArticleHref(related)}
-                    className="group block rounded-lg px-4 py-3 transition hover:bg-bg-muted"
-                  >
-                    <h3 className="text-sm font-semibold text-tx-primary transition group-hover:text-accent-text">
-                      {related.title}
-                    </h3>
-                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-tx-secondary">
-                      {related.excerpt}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ) : null}
-        </article>
+          <aside>
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
+              <InquiryCard
+                title="Въпрос за вашия имот?"
+                text="Опишете накратко случая – ще ви кажем какво е нужно, срока и цената."
+              />
+            </div>
+          </aside>
+        </div>
       </Section>
 
-      <PoleznoCta />
-    </div>
+      {relatedArticles.length ? (
+        <Section tone="subtle" aria-labelledby="related-articles-title">
+          <h2 id="related-articles-title" className="typo-h2">
+            Още по темата
+          </h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {relatedArticles.map((related) => (
+              <ArticleCard key={related.slug} article={related} />
+            ))}
+          </div>
+        </Section>
+      ) : null}
+
+      <CtaBand />
+    </>
   );
 }

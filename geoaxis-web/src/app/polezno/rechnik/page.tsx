@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { Section } from "@/components/layout/Section";
+import { HELPFUL_GLOSSARY_TERMS } from "@/config/polezno/glossary";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
-import { GlossarySectionLayout } from "../_components/GlossarySectionLayout";
-import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
-import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 
 const pageContent = getHelpfulNavItem("rechnik");
 
@@ -17,28 +17,78 @@ export const metadata = pageContent
     })
   : {};
 
-export default function RechnikPage() {
+function slugify(term: string) {
+  return `termin-${term.toLowerCase().replace(/[^a-zа-я0-9]+/gi, "-").replace(/^-|-$/g, "")}`;
+}
+
+// Terms grouped by first letter, in Bulgarian alphabetical order.
+const groups = Object.entries(
+  [...HELPFUL_GLOSSARY_TERMS]
+    .sort((a, b) => a.term.localeCompare(b.term, "bg"))
+    .reduce<Record<string, typeof HELPFUL_GLOSSARY_TERMS[number][]>>((acc, term) => {
+      const letter = term.term[0].toUpperCase();
+      (acc[letter] ??= []).push(term);
+      return acc;
+    }, {})
+);
+
+export default function GlossaryPage() {
   if (!pageContent) notFound();
 
   return (
-    <div className="bg-bg-page">
-      <PoleznoPlainHero
+    <>
+      <PageHero
+        breadcrumbs={[
+          { label: "Полезно", href: "/polezno" },
+          { label: pageContent.label, href: pageContent.href },
+        ]}
+        eyebrow={pageContent.label}
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
-        before={
-          <Breadcrumbs
-            className="mb-6"
-            items={[
-              { label: "Полезно", href: "/polezno" },
-              { label: "Речник", href: pageContent.href },
-            ]}
-          />
-        }
-      />
+      >
+        <nav aria-label="Букви" className="mt-8">
+          <ul className="flex flex-wrap gap-1.5">
+            {groups.map(([letter]) => (
+              <li key={letter}>
+                <a
+                  href={`#bukva-${letter}`}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-br-default bg-bg-page font-semibold text-tx-primary transition-colors hover:border-accent hover:text-accent-text"
+                >
+                  {letter}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </PageHero>
 
-      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
-        <GlossarySectionLayout />
+      <Section>
+        <div className="grid gap-12">
+          {groups.map(([letter, terms]) => (
+            <section key={letter} id={`bukva-${letter}`} aria-labelledby={`bukva-${letter}-title`} className="grid gap-6 md:grid-cols-[5rem_minmax(0,1fr)]">
+              <h2 id={`bukva-${letter}-title`} className="typo-h1 text-accent-text">
+                {letter}
+              </h2>
+              <dl className="grid gap-4 md:grid-cols-2">
+                {terms.map((term) => (
+                  <div key={term.term} id={slugify(term.term)} className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
+                    <dt>
+                      <span className="typo-label text-accent-text">{term.category}</span>
+                      <span className="typo-h4 mt-1.5 block text-tx-primary">{term.term}</span>
+                    </dt>
+                    <dd className="typo-small mt-2.5 text-tx-secondary">
+                      {term.definition}
+                      {term.note ? <span className="mt-2 block text-tx-muted">{term.note}</span> : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+        </div>
       </Section>
-    </div>
+
+      <CtaBand />
+    </>
   );
 }

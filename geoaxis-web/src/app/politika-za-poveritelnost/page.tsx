@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { Section } from "@/components/layout/Section";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 import { siteContent } from "@/config/site-content";
 import { company } from "@/config/content/company";
 import { createSeo } from "@/lib/seo-builder";
@@ -53,33 +54,26 @@ function LegalSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-br-light pt-8 first:border-t-0 first:pt-0">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
-        {title}
-      </h2>
-      <div className="mt-4 space-y-4 text-base leading-8 text-tx-secondary">
-        {children}
-      </div>
+    <section className="border-t border-br-light pt-10 first:border-t-0 first:pt-0">
+      <h2 className="typo-h3">{title}</h2>
+      <div className="prose-geo mt-4">{children}</div>
     </section>
   );
 }
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-bg-page">
-      <Section variant="compactHero" tone="section">
-        <div className="max-w-3xl">
-          <p className="typo-kicker">Правна информация</p>
-          <h1 className="typo-h2 mt-3">Политика за поверителност</h1>
-          <p className="typo-subtitle mt-4">
-            Тази страница обяснява как се обработват данните, изпратени чрез
-            сайта и контактната форма на GeoAxis.
-          </p>
-        </div>
-      </Section>
+    <>
+      <PageHero
+        size="compact"
+        breadcrumbs={[{ label: "Политика за поверителност", href: "/politika-za-poveritelnost" }]}
+        eyebrow="Правна информация"
+        title="Политика за поверителност"
+        description="Тази страница обяснява как се обработват данните, изпратени чрез сайта и контактната форма на GeoAxis."
+      />
 
-      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
-        <div className="mx-auto max-w-4xl space-y-10">
+      <Section>
+        <div className="max-w-3xl space-y-12">
           <LegalSection title="1. Кой стои зад сайта">
             {company.legalName ? (
               <p>
@@ -98,7 +92,6 @@ export default function PrivacyPolicyPage() {
               За въпроси относно обработката на лични данни можете да се свържете
               с нас на{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`mailto:${privacyEmail}`}
               >
                 {privacyEmail}
@@ -112,7 +105,7 @@ export default function PrivacyPolicyPage() {
               Когато изпратите запитване през сайта, се обработват само данните,
               които са необходими, за да разберем случая и да Ви отговорим.
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {collectedData.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -164,7 +157,7 @@ export default function PrivacyPolicyPage() {
               технически системи, необходими за изпращане и получаване на
               съобщението:
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {technicalLocations.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -177,7 +170,7 @@ export default function PrivacyPolicyPage() {
               доставчици. Те обработват данни само доколкото е необходимо за
               предоставяне на съответната техническа услуга.
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {processors.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -216,7 +209,7 @@ export default function PrivacyPolicyPage() {
 
           <LegalSection title="11. Вашите права">
             <p>Имате право да поискате:</p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {userRights.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -224,7 +217,6 @@ export default function PrivacyPolicyPage() {
             <p>
               Можете да упражните правата си чрез имейл до{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`mailto:${privacyEmail}`}
               >
                 {privacyEmail}
@@ -234,18 +226,15 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <div className="rounded-2xl border border-br-light bg-bg-section p-5 text-sm leading-7 text-tx-secondary">
+          <div className="typo-small rounded-2xl border border-br-light bg-bg-subtle p-5 text-tx-secondary">
             Последна актуализация: 23 октомври 2026 г. Вижте също{" "}
-            <Link
-              className="font-medium text-accent-strong underline"
-              href="/usloviya-za-polzvane"
-            >
+            <Link href="/usloviya-za-polzvane" className="font-semibold text-accent-text underline underline-offset-2">
               Условия за ползване
             </Link>
             .
           </div>
         </div>
       </Section>
-    </div>
+    </>
   );
 }

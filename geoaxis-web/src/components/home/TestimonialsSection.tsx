@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa";
-import { Section } from "@/components/layout/Section";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import type { TestimonialsContent } from "@/config/content/testimonials";
 
 export function TestimonialsSection({ id, kicker, title, subtitle, items }: TestimonialsContent) {
@@ -7,18 +8,14 @@ export function TestimonialsSection({ id, kicker, title, subtitle, items }: Test
   if (!approved.length) return null;
 
   return (
-    <Section id={id} tone="muted">
-      <div className="mb-10 max-w-3xl sm:mb-12">
-        <p className="typo-kicker inline-block border-b border-accent/40 pb-2">{kicker}</p>
-        <h2 className="typo-h2 mt-2">{title}</h2>
-        <p className="typo-subtitle mt-3">{subtitle}</p>
-      </div>
+    <Section id={id} tone="page">
+      <SectionHeader eyebrow={kicker} title={title} description={subtitle} className="mb-12" />
 
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {approved.map((item) => (
           <figure
             key={`${item.name}-${item.text.slice(0, 20)}`}
-            className="rounded-card border border-br-light bg-bg-page p-6 shadow-sm sm:p-7"
+            className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card sm:p-7"
           >
             <div className="mb-4 flex gap-0.5 text-accent" aria-label={`Оценка ${item.rating} от 5`}>
               {Array.from({ length: item.rating }, (_, i) => (
@@ -26,7 +23,7 @@ export function TestimonialsSection({ id, kicker, title, subtitle, items }: Test
               ))}
             </div>
 
-            <blockquote className="mb-6 text-[15px] leading-7 text-tx-secondary">
+            <blockquote className="mb-6 text-tx-secondary">
               &ldquo;{item.text}&rdquo;
             </blockquote>
 

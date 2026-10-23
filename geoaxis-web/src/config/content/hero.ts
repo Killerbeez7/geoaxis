@@ -1,26 +1,18 @@
-export interface HeroContent {
-  id: "hero";
-  title: string[];
-  subtitle?: string[];
-  kicker?: string;
-  image: string;
-  imageAlt: string;
-  cta?: {
-    primary: { label: string; href: string };
-    secondary: { label: string; href: string };
-  };
-}
+export type QuickStartOption = { label: string; service?: string; href?: string };
 
-export const hero: HeroContent = {
-  id: "hero",
-  title: ["Геодезически услуги", "София и област"],
-  subtitle: ["От заснемане до кадастър.", "Прецизна работа с ясна комуникация."],
-  kicker: "Геодезия • Кадастър • Градоустройство",
+export const hero = {
+  eyebrow: "Геодезия · Кадастър · Градоустройство",
+  title: "Геодезически услуги",
+  titleAccent: "в София и областта",
+  lead: "Заснемане, трасиране, кадастър и ПУП – с точна оферта, ясен срок и отговор в рамките на работния ден.",
   image: "/images/sections/hero-home.webp",
-  imageAlt:
-    "Геодезически услуги в София и Софийска област — заснемане и трасиране, кадастър, проектиране, градоустройство",
-  cta: {
-    primary: { label: "Изпратете запитване", href: "/contacts" },
-    secondary: { label: "Вижте услугите", href: "/uslugi" },
-  },
+  imageAlt: "Геодезист с тотална станция на терен над София",
+  quickStartLabel: "С какво можем да помогнем?",
+  quickStart: [
+    { label: "Заснемане", service: "zasnemane" },
+    { label: "Трасиране", service: "trasirane" },
+    { label: "Кадастър", service: "kadastar" },
+    { label: "ПУП и регулация", service: "gradoustroistvo" },
+    { label: "Не съм сигурен", href: "/uslugi#koya-usluga" },
+  ] satisfies QuickStartOption[],
 } as const;

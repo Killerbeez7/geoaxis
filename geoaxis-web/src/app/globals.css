@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
-:root {
-  /* ==================== RAW PALETTE ==================== */
-  --canvas: #ececec;
+/*
+ * GeoAxis design system — see DESIGN-SYSTEM.md for the rules.
+ * Raw palette lives in :root; components only use the semantic tokens in @theme.
+ */
 
-  /* Brand Olive */
+:root {
+  /* Brand olive */
   --brand-olive-50: #f4f7f4;
   --brand-olive-100: #e5ece6;
   --brand-olive-200: #cbd8cf;
@@ -16,7 +18,7 @@
   --brand-olive-800: #253a31;
   --brand-olive-900: #14211b;
 
-  /* Brand Ochre */
+  /* Brand ochre (gold) */
   --brand-ochre-50: #fbf7ec;
   --brand-ochre-100: #f4e7bf;
   --brand-ochre-200: #ecd486;
@@ -27,220 +29,308 @@
   --brand-ochre-700: #805f1c;
   --brand-ochre-800: #604815;
 
-  /* Grayscale */
-  --gray-0: #ffffff;
-  --gray-25: #fcfcfc;
-  --gray-50: #f8f9f9;
-  --gray-100: #f3f4f4;
-  --gray-200: #e8e9e9;
-  --gray-300: #d8dcdc;
-  --gray-400: #b8b8b8;
-  --gray-500: #7a8282;
-  --gray-600: #5c6363;
-  --gray-700: #3e4444;
-  --gray-800: #222626;
-  --gray-900: #0f0f0f;
-
-  /* Neutral UI text / border support */
-  --neutral-100: #dfe5df;
-  --neutral-200: #cbd4cc;
+  /* Neutrals with a hint of olive */
+  --neutral-50: #f6f7f4;
+  --neutral-100: #e4e9e3;
+  --neutral-200: #cfd7d0;
   --neutral-300: #aebbb2;
-  --neutral-700: #65716b;
+  --neutral-700: #5e6a64;
   --neutral-800: #3f4a45;
   --neutral-900: #17211d;
 
   /* Layout */
-  --nav-h: 72px;
-  --shrunk-nav-h: 60px;
-  --top-bar-h: 32px;
-  --top-bar-offset: 0px;
-  --header-h: var(--nav-h);
-
-  /* Overlays */
-  --surface-overlay-sm: color-mix(in srgb, var(--gray-0) 8%, transparent);
-  --surface-overlay-md: color-mix(in srgb, var(--gray-0) 12%, transparent);
-  --surface-overlay-lg: color-mix(in srgb, var(--gray-0) 18%, transparent);
+  --header-h: 64px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   :root {
-    --top-bar-offset: var(--top-bar-h);
-    --header-h: calc(var(--nav-h) + var(--top-bar-h));
+    --header-h: 76px;
   }
 }
 
 @theme inline {
-  /* accent */
+  /* Accent (gold). Fill = accent; text on light = accent-text; text on dark = accent-on-dark */
   --color-accent: var(--brand-ochre-500);
   --color-accent-hover: var(--brand-ochre-400);
-  --color-accent-strong: var(--brand-ochre-700);
-  /* Gold that stays readable as text: 5.9:1 on white, 4.7:1 on brand green */
   --color-accent-text: var(--brand-ochre-700);
   --color-accent-on-dark: var(--brand-ochre-300);
-  /* Ink for text placed on a gold fill (6:1) */
+  --color-accent-soft: var(--brand-ochre-50);
   --color-tx-on-accent: var(--brand-olive-900);
 
-  /* backgrounds */
-  --color-bg-page: #fff;
-  --color-bg-section: #f4f5f2;
-  --color-bg-muted: #f5f5f5;
-  --color-bg-surface: var(--gray-0);
+  /* Surfaces */
+  --color-bg-page: #ffffff;
+  --color-bg-subtle: var(--neutral-50);
   --color-bg-brand: var(--brand-olive-700);
   --color-bg-inverse: var(--brand-olive-800);
-  --color-bg-canvas: var(--canvas);
+  --color-bg-deep: var(--brand-olive-900);
 
-  /* nav */
-  --color-bg-nav: var(--brand-olive-800);
-
-  --color-bg-top-nav: var(--brand-olive-900);
-  /* --color-bg-top-nav: #132018; */
-
-  --color-bg-footer: var(--brand-olive-800);
-
-  /* text */
+  /* Text */
   --color-tx-primary: var(--neutral-900);
   --color-tx-secondary: var(--neutral-800);
   --color-tx-muted: var(--neutral-700);
-  --color-tx-tertiary: var(--neutral-700);
-  --color-tx-inverse: var(--gray-0);
+  --color-tx-inverse: #ffffff;
+  --color-tx-inverse-muted: rgb(255 255 255 / 0.76);
 
-  --color-tx-brand: var(--brand-olive-700);
-  --color-tx-brand-soft: var(--brand-olive-500);
-
-  /* borders */
+  /* Borders */
   --color-br-light: var(--neutral-100);
   --color-br-default: var(--neutral-200);
-  --color-br-strong: var(--neutral-700);
-  --color-br-subtle: var(--neutral-100);
+  --color-br-strong: var(--neutral-300);
+  --color-br-on-dark: rgb(255 255 255 / 0.14);
+  --color-br-accent: color-mix(in srgb, var(--brand-ochre-500) 50%, transparent);
 
-  --color-br-accent: color-mix(in srgb, var(--color-accent) 40%, transparent);
-  --color-br-accent-soft: color-mix(in srgb, var(--color-accent) 26%, transparent);
-
-  /* radius */
-  --radius-card: 1.5rem;
+  /* Status */
+  --color-danger: #b42318;
 }
 
-/* Fonts */
 @theme {
   --font-mont: var(--font-mont);
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(20 33 27 / 0.04), 0 4px 12px -4px rgb(20 33 27 / 0.08);
+  --shadow-lift: 0 22px 44px -20px rgb(20 33 27 / 0.32);
+  --shadow-cta: 0 10px 22px -12px rgb(128 95 28 / 0.65);
 }
 
-/* ==================== RESET ==================== */
+/* ==================== BASE ==================== */
 
 html {
-  box-sizing: border-box;
-  overflow-y: scroll;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  padding: 0;
+  background: var(--brand-olive-900);
+  color: var(--color-tx-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==================== BASE TYPOGRAPHY ==================== */
-
 @layer base {
   body {
-    @apply font-mont bg-bg-page text-tx-primary text-base;
-    line-height: 1.55;
+    @apply font-mont text-base;
+    line-height: 1.7;
   }
 
   h1,
   h2,
-  h3 {
-    @apply text-tx-primary;
+  h3,
+  h4 {
+    color: var(--heading-color, var(--color-tx-primary));
+    text-wrap: balance;
   }
 
   p {
-    @apply text-tx-secondary;
+    text-wrap: pretty;
   }
 
-  small {
-    @apply text-tx-muted;
+  ::selection {
+    background: var(--brand-ochre-200);
+    color: var(--brand-olive-900);
   }
 }
 
+/* ==================== TYPOGRAPHY SCALE ==================== */
+/* Fluid sizes: one class per role, no ad-hoc font sizes in components. */
+
 @layer components {
-  /* ==================== TYPOGRAPHY ==================== */
-  .typo-kicker {
-    @apply uppercase font-semibold text-accent-text text-[0.78rem] tracking-[0.16em] leading-[1.2];
+  .typo-display {
+    font-size: clamp(2.25rem, 1.35rem + 3.6vw, 3.75rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
 
-  .typo-hero {
-    /* base */
-    @apply text-tx-inverse font-semibold tracking-normal text-3xl leading-[1.08];
-    /* @apply text-tx-inverse font-medium tracking-normal text-3xl leading-[1.08]; */
-    /* mobile -md */
-    @apply min-[420px]:text-4xl md:text-5xl;
-    /* desktop -lg */
-    @apply lg:text-[3.5rem];
-  }
-
-  .typo-lead {
-    /* base */
-    @apply text-base text-tx-inverse/70;
-    /* mobile -md */
-    @apply md:leading-[1.55] md:text-[1.15rem];
+  .typo-h1 {
+    font-size: clamp(2rem, 1.5rem + 2.1vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 600;
   }
 
   .typo-h2 {
-    /* base */
-    @apply text-tx-primary font-medium text-2xl tracking-normal leading-[1.18];
-    /* @apply text-tx-primary font-medium text-2xl tracking-normal leading-[1.18]; */
-    /* mobile -md */
-    @apply md:text-3xl;
-    /* desktop -lg */
-    @apply lg:text-4xl;
+    font-size: clamp(1.625rem, 1.3rem + 1.35vw, 2.375rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 600;
   }
 
   .typo-h3 {
-    /* base */
-    @apply text-tx-primary font-medium text-[1.2rem] tracking-[0.01em] leading-tight;
-    /* mobile -md */
-    @apply md:text-2xl;
-    /* desktop -lg */
-    @apply lg:text-3xl;
+    font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    font-weight: 600;
   }
 
-  .typo-subtitle {
-    @apply text-tx-secondary/90 text-base leading-[1.65];
+  .typo-h4 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .typo-lead {
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.65;
   }
 
   .typo-body {
-    @apply text-tx-secondary text-base leading-[1.72];
-    @apply lg:text-[17px];
+    font-size: 1rem;
+    line-height: 1.75;
   }
 
-  .typo-meta {
-    @apply text-tx-muted text-[0.85rem] leading-[1.6];
+  .typo-small {
+    font-size: 0.875rem;
+    line-height: 1.6;
   }
 
-  .nav-link {
-    @apply flex items-center font-medium text-sm lg:text-base;
+  /* Navigation and other interface labels */
+  .typo-ui {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .typo-caption {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* Small uppercase label (card meta, tags) */
+  .typo-label {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .typo-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .typo-eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--brand-ochre-500);
   }
 
   .container-page {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-6 2xl:px-2;
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
   }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Dark surfaces: headings turn white, body text becomes soft white */
+  .on-dark {
+    --heading-color: var(--color-tx-inverse);
+    color: var(--color-tx-inverse-muted);
+  }
+
+  /* Long-form text (articles, legal pages) */
+  .prose-geo {
+    color: var(--color-tx-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .prose-geo > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .prose-geo h2 {
+    margin-top: 2.75rem;
+    font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  .prose-geo h3 {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  .prose-geo ul {
+    display: grid;
+    gap: 0.625rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .prose-geo ul > li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .prose-geo ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--brand-ochre-500);
+  }
+
+  .prose-geo a {
+    color: var(--color-accent-text);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+/* ==================== PATTERNS ==================== */
+/* Topographic contour lines, recoloured through a CSS mask. */
+
+.pattern-contours {
+  position: relative;
+  isolation: isolate;
+}
+
+.pattern-contours::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--pattern-color, var(--brand-olive-900));
+  opacity: var(--pattern-opacity, 0.09);
+  -webkit-mask: url("/patterns/contours.svg") center / cover no-repeat;
+  mask: url("/patterns/contours.svg") center / cover no-repeat;
+}
+
+.pattern-contours.on-dark,
+.on-dark .pattern-contours {
+  --pattern-color: #ffffff;
+  --pattern-opacity: 0.08;
 }
 
 /* ==================== INTERACTION ==================== */
 
-.no-drag {
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-}
-
-/* Visible keyboard focus everywhere; mouse clicks stay clean */
 :focus-visible {
   outline: 2px solid var(--brand-ochre-500);
   outline-offset: 3px;
@@ -275,47 +365,9 @@ body {
   }
 }
 
-@keyframes scrollHintPulse {
-  0% {
-    transform: translateY(0);
-    opacity: 0.55;
-  }
-  50% {
-    transform: translateY(6px);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0.55;
-  }
-}
-
-.scroll-hint {
-  animation: scrollHintPulse 1.8s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@media (max-width: 767px) {
-  :root {
-    --top-bar-h: 0px;
-    --header-h: var(--nav-h);
-  }
-}
-
-/* NOTCH COLOR */
-html,
-body {
-  /* background: var(--brand-olive-900); */
-  background: #131a17;
-}
-
-.safe-top {
-  padding-top: env(safe-area-inset-top);
-}
-
 /* Room for the mobile contact bar */
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
   }
 }

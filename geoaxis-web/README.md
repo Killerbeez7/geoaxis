@@ -20,7 +20,9 @@ npm run build
 | Services, prices, timeframes | `src/config/services/categories.ts` |
 | Company / licence details (footer, privacy, schema) | `src/config/content/company.ts` |
 | Articles, FAQ, glossary | `src/config/polezno/*` |
+| Design system rules | `DESIGN-SYSTEM.md` |
 | Design tokens and typography | `src/app/globals.css` |
+| Shared UI components | `src/components/ui/*` |
 | Contact form rules (limits, services) | `src/lib/contact.ts` |
 
 Fields marked `TODO(client)` stay hidden on the site until they are filled in.

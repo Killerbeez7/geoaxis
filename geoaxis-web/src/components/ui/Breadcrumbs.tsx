@@ -1,4 +1,6 @@
 import Link from "next/link";
+import clsx from "clsx";
+import { LuChevronRight } from "react-icons/lu";
 import { SITE_URL } from "@/config/site";
 import { JsonLd } from "./JsonLd";
 
@@ -22,21 +24,21 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
   return (
     <nav aria-label="Навигационна пътека" className={className}>
       <JsonLd data={schema} />
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-tx-muted">
+      <ol className="typo-small flex flex-wrap items-center gap-x-1.5 gap-y-1 text-tx-muted">
         {trail.map((crumb, index) => {
           const isLast = index === trail.length - 1;
           return (
-            <li key={crumb.href} className="flex items-center gap-2">
+            <li key={crumb.href} className="flex items-center gap-1.5">
               {isLast ? (
-                <span aria-current="page" className="font-medium text-tx-secondary">
+                <span aria-current="page" className="line-clamp-1 font-medium text-tx-primary">
                   {crumb.label}
                 </span>
               ) : (
                 <>
-                  <Link href={crumb.href} className="transition hover:text-accent-text">
+                  <Link href={crumb.href} className={clsx("transition-colors hover:text-accent-text")}>
                     {crumb.label}
                   </Link>
-                  <span aria-hidden="true">/</span>
+                  <LuChevronRight aria-hidden="true" className="h-3.5 w-3.5 opacity-60" />
                 </>
               )}
             </li>

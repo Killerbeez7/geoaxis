@@ -1,5 +1,5 @@
 {
-  "name": "geotrans-web",
+  "name": "geoaxis-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,17 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
-    "next": "16.0.10",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "next": "^16.4.2",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
     "react-icons": "^5.4.0",
-    "resend": "^6.11.0",
-    "swiper": "^12.1.0"
+    "resend": "^6.34.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,9 +25,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
-    "baseline-browser-mapping": "^2.10.18",
+    "baseline-browser-mapping": "^2.11.31",
     "eslint": "^9",
-    "eslint-config-next": "16.0.4",
+    "eslint-config-next": "^16.4.2",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4",

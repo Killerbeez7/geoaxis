@@ -72,7 +72,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Геодезическото заснемане дава точна картина на терена, сградите и средата. Използва се като основа за проектиране, строителство и документация.",
     featured: true,
     order: 1,
-    updatedAt: "2026-05-04",
+    updatedAt: "2026-10-23",
     seo: {
       title: "Геодезическо заснемане в София",
       description:
@@ -81,6 +81,8 @@ export const serviceCategories: ServiceCategory[] = [
       keywords: [
         "заснемане за проектиране",
         "геодезическо заснемане на сграда",
+        "екзекутивно заснемане",
+        "заснемане за виза за проектиране",
         "заснемане на фасади",
         "топографско заснемане",
         "заснемане на терен",
@@ -110,6 +112,7 @@ export const serviceCategories: ServiceCategory[] = [
             "Проектантът изисква актуална геодезическа основа",
             "Има стари материали, но реалното положение на терена трябва да се провери",
             "Необходими са точни данни за сгради, огради, настилки, шахти или теренни нива",
+            "Подготвя се искане за виза за проектиране",
           ],
           docsIntro:
             "За начало са нужни основните данни за имота и яснота за какъв проект ще се използва заснемането. Налични стари материали помагат, но не заменят актуалната проверка на място.",
@@ -138,7 +141,64 @@ export const serviceCategories: ServiceCategory[] = [
         updatedAt: "2026-05-04",
         hasDedicatedPage: true,
       },
-      // 2. kontrolno zasnemane
+      // 2. ekzekutivno zasnemane
+      {
+        slug: "ekzekutivno-zasnemane",
+        title: "Екзекутивно заснемане",
+        shortTitle: "Екзекутивно заснемане",
+        meta: "Завършен обект • Документация",
+        thumbnail: "/images/services/zasnemane/na-sgrada.webp",
+        heroImage: "/images/services/zasnemane/na-sgrada.webp",
+        imageAlt: "Новопостроена къща, подготвена за екзекутивно заснемане",
+        description:
+          "Заснемане на изпълнената сграда или обект за екзекутивна документация и отразяване в кадастъра.",
+        longDescription: [
+          "Екзекутивното геодезическо заснемане показва как реално е изпълнен обектът – положението на сградата спрямо имотните граници, основните размери и коти. То е част от екзекутивната документация, която се подготвя след завършване на строителството.",
+          "Резултатите се използват при въвеждане на сградата в експлоатация и като основа за нанасянето ѝ в кадастралната карта.",
+        ],
+        content: {
+          whenIntro:
+            "Екзекутивно заснемане се прави, когато строителството е завършено и трябва да се покаже как е изпълнен обектът спрямо одобрения проект.",
+          neededWhen: [
+            "Сградата е завършена и предстои въвеждане в експлоатация",
+            "Нужна е екзекутивна документация за изпълнения обект",
+            "Сградата трябва да бъде нанесена в кадастралната карта",
+            "Има съмнение за отклонения между проекта и изпълнението",
+          ],
+          importantToKnow: [
+            "Изискванията към екзекутивната документация зависят от вида и категорията на обекта. Затова в началото уточняваме какво точно ще бъде поискано от общината или от строителния надзор.",
+            "Ако по време на строителството са правени трасиране и контролни заснемания, техните данни улесняват и ускоряват екзекутивното заснемане.",
+          ],
+          docsIntro:
+            "Най-полезни са документите от проектирането и строителството, защото заснемането се сравнява с тях.",
+          requiredDocs: [
+            "Одобрен инвестиционен проект и разрешение за строеж",
+            "Документ за собственост или право на строеж",
+            "Протоколи от трасиране и предишни заснемания, ако има",
+            "Контакт със строителния надзор или проектанта, ако се изисква съгласуване",
+          ],
+          deliverablesIntro:
+            "Предаваме материалите във вида, в който се изискват за следващата процедура.",
+          deliverables: [
+            "Геодезическо заснемане на изпълнения обект",
+            "Чертежи и цифрови файлове за екзекутивната документация",
+            "Материали за нанасяне на сградата в кадастъра, когато е необходимо",
+            "Насоки за следващите стъпки по въвеждане в експлоатация",
+          ],
+          processIntro:
+            "Работата започва с преглед на проекта и документите, след което измерваме изпълнения обект и подготвяме материалите.",
+          processSteps: [
+            "Преглеждаме проекта, разрешението за строеж и наличните протоколи",
+            "Измерваме изпълнената сграда и връзката ѝ с имотните граници",
+            "Сравняваме резултатите с проекта и отбелязваме отклонения, ако има",
+            "Подготвяме чертежите и файловете за екзекутивната документация",
+            "Предаваме материалите и при нужда продължаваме с нанасянето в кадастъра",
+          ],
+        },
+        updatedAt: "2026-10-23",
+        hasDedicatedPage: true,
+      },
+      // 3. kontrolno zasnemane
       {
         slug: "kontrolno-zasnemane",
         title: "Геодезическо контролно заснемане",
@@ -155,7 +215,7 @@ export const serviceCategories: ServiceCategory[] = [
 
         hasDedicatedPage: false,
       },
-      // 3. na sgradi
+      // 4. na sgradi
       {
         slug: "na-sgrada",
         title: "Геодезическо заснемане на сгради",
@@ -171,7 +231,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
         hasDedicatedPage: false,
       },
-      // 4. na fasadi
+      // 5. na fasadi
       {
         slug: "na-fasadi",
         title: "Геодезическо заснемане на фасади",
@@ -187,7 +247,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
         hasDedicatedPage: false,
       },
-      // 5. na infrastruktura
+      // 6. na infrastruktura
       {
         slug: "na-tehnicheska-infrastruktura",
         title: "Геодезическо заснемане на техническа инфраструктура",
@@ -203,7 +263,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
         hasDedicatedPage: false,
       },
-      // 6. na durveta
+      // 7. na durveta
       {
         slug: "na-darvesna-rastitelnost",
         title: "Геодезическо заснемане на дървесна растителност",
@@ -236,7 +296,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Трасирането пренася проектни оси, линии, точки и граници върху реалния терен. Използва се преди строителство, огради, регулация и контрол на място.",
     featured: true,
     order: 2,
-    updatedAt: "2026-05-03",
+    updatedAt: "2026-10-23",
     seo: {
       title: "Трасиране в София",
       description:
@@ -266,6 +326,42 @@ export const serviceCategories: ServiceCategory[] = [
           "Трасирането на имотни граници обозначава на място характерните гранични точки според кадастралните и правните данни за имота. То дава ясна представа къде преминава границата и как се позиционира спрямо терена.",
           "Услугата се използва преди изграждане на ограда, покупко-продажба, строителство или при съмнение относно точното положение на границата.",
         ],
+        content: {
+          whenIntro:
+            "Трасирането на имотни граници е подходящо, когато трябва да знаете точно къде минава границата на място – преди да изградите нещо или когато има несъгласие със съседите.",
+          neededWhen: [
+            "Предстои изграждане на ограда",
+            "Има спор или съмнение със съсед за положението на границата",
+            "Купувате имот и искате да видите реалните му граници",
+            "Предстои строителство близо до границата",
+          ],
+          importantToKnow: [
+            "Границите се отлагат по данните от кадастралната карта. Ако те не съответстват на документа за собственост или на реалното положение, това се вижда още на място и обсъждаме възможните следващи стъпки.",
+            "Отложените точки е добре да се запазят до изграждането на оградата – те са ориентир за строителите.",
+          ],
+          docsIntro: "За трасирането са нужни данните, по които се определя границата.",
+          requiredDocs: [
+            "Идентификатор на имота или скица от кадастъра",
+            "Документ за собственост",
+            "Информация за достъпа до имота и до граничните точки",
+          ],
+          deliverablesIntro: "След трасирането знаете точно къде минава границата.",
+          deliverables: [
+            "Обозначени на място гранични точки",
+            "Документ с отложените точки и техните координати",
+            "Насоки, ако се установи разлика между документите и реалното положение",
+          ],
+          processIntro:
+            "Проверяваме данните за имота, отлагаме точките на място и ги обозначаваме.",
+          processSteps: [
+            "Проверяваме кадастралните данни за имота и съседните имоти",
+            "Уговаряме оглед и осигуряваме достъп до граничните точки",
+            "Отлагаме точките на място с GNSS приемник или тотална станция",
+            "Обозначаваме точките и предаваме документ с координатите им",
+          ],
+        },
+        updatedAt: "2026-10-23",
+        hasDedicatedPage: true,
       },
       // 2. na sgradi
       {
@@ -362,8 +458,9 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Скица на поземлен имот",
         shortTitle: "Скица на поземлен имот",
         meta: "Имот • Скица",
-        thumbnail: "/images/services/kadastar/kadastar.webp",
-        heroImage: "/images/services/kadastar/kadastar.webp",
+        thumbnail: "/images/services/kadastar/kadastar2.webp",
+        heroImage: "/images/services/kadastar/kadastar2.webp",
+        imageAlt: "Кадастрална карта на квартал",
         description: "Съдействие за издаване на скица на поземлен имот от кадастъра.",
         longDescription: [
           "Скицата на поземлен имот е основен кадастрален документ, който показва идентификатора, границите и основните данни за имота. Тя е необходима при сделки, справки и различни административни процедури.",
@@ -460,8 +557,8 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Схема на самостоятелен обект",
         shortTitle: "Схема на самостоятелен обект",
         meta: "Апартамент • Обект",
-        thumbnail: "/images/services/kadastar/kadastar.webp",
-        heroImage: "/images/services/kadastar/kadastar.webp",
+        thumbnail: "/images/services/kadastar/sgrada-kadastar.webp",
+        heroImage: "/images/services/kadastar/sgrada-kadastar.webp",
         description:
           "Издаване на схема на самостоятелен обект за сделки, ипотека и административни процедури.",
         longDescription: [
@@ -475,8 +572,8 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Удостоверение за идентичност на имот",
         shortTitle: "Удостоверение за идентичност",
         meta: "Документи • Данни",
-        thumbnail: "/images/services/kadastar/kadastar.webp",
-        heroImage: "/images/services/kadastar/kadastar.webp",
+        thumbnail: "/images/services/cadaster-thumb.webp",
+        heroImage: "/images/services/cadaster-thumb.webp",
         description:
           "Установяване дали различни документи се отнасят за един и същ имот или обект.",
         longDescription: [
@@ -520,8 +617,9 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Вертикална планировка",
         shortTitle: "Вертикална планировка",
         meta: "Коти • Наклони",
-        thumbnail: "/images/services/proektirane/proektirane.webp",
-        heroImage: "/images/services/proektirane/proektirane.webp",
+        thumbnail: "/images/services/kadastar/kadastar.webp",
+        heroImage: "/images/services/kadastar/kadastar.webp",
+        imageAlt: "План за вертикално планиране с коти и наклони",
         description:
           "Решения за коти, наклони и отводняване, съобразени с терена и застрояването.",
         longDescription: [
@@ -536,8 +634,9 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Геодезически данни за проектиране",
         shortTitle: "Данни за проектиране",
         meta: "Данни • Основа",
-        thumbnail: "/images/services/proektirane/danni-proektirane.webp",
-        heroImage: "/images/services/proektirane/danni-proektirane.webp",
+        thumbnail: "/images/services/zasnemane/na-sgrada1.webp",
+        heroImage: "/images/services/zasnemane/na-sgrada1.webp",
+        imageAlt: "Геодезист с GNSS приемник събира данни в двора на къща",
         description:
           "Подготовка и структуриране на геодезически данни за работа от проектанти.",
         longDescription: [
@@ -766,8 +865,8 @@ export const serviceCategories: ServiceCategory[] = [
         title: "Анализ и насоки по казус",
         shortTitle: "Анализ и насоки",
         meta: "Проверка • Процедури",
-        thumbnail: "/images/services/konsultaciq/consulting.webp",
-        heroImage: "/images/services/konsultaciq/consulting.webp",
+        thumbnail: "/images/services/konsult-thumb.webp",
+        heroImage: "/images/services/konsult-thumb.webp",
         description: "Проверка на данни, анализ на случая и насоки за следващи действия.",
         longDescription: [
           "Услугата включва преглед на документи, проверка на данни и анализ на конкретния казус, за да се изясни реалното състояние и възможните действия. Тя помага да се избегне объркване при по-сложни или неясни ситуации.",

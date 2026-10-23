@@ -125,7 +125,7 @@ export function CategoryOverviewCard({ category }: { category: ServiceCategory }
             {category.services.length} услуги
           </span>
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent-strong">
-            Виж повече
+            Вижте повече
             <MdArrowRightAlt className="text-lg transition group-hover:translate-x-0.5" />
           </span>
         </div>

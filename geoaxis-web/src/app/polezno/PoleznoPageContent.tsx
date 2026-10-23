@@ -8,6 +8,7 @@ import { CompactArticleLink } from "./_components/CompactArticleLink";
 import { PoleznoPlainHero } from "./_components/PoleznoPlainHero";
 import { PoleznoCta } from "./_components/PoleznoCta";
 import { getArticleHref } from "./_utils/helpers";
+import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 
 const FEATURED_ARTICLE_SLUG = "kakvo-e-geodezichesko-zasnemane";
 
@@ -34,7 +35,7 @@ function HelpfulTopicRow({ item }: { item: HelpfulNavItem }) {
       className="group -mx-4 grid gap-3 rounded-2xl px-4 py-5 transition hover:bg-bg-muted sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6"
     >
       <div>
-        <h3 className="text-xl font-semibold leading-tight text-tx-primary transition group-hover:text-accent-strong">
+        <h3 className="text-xl font-semibold leading-tight text-tx-primary transition group-hover:text-accent-text">
           {item.label}
         </h3>
 
@@ -59,6 +60,7 @@ export function PoleznoPageContent() {
         id="polezno"
         title="Полезни материали"
         description="Статии, ръководства и справки за имоти, кадастър, ПУП и геодезически услуги."
+        before={<Breadcrumbs className="mb-6" items={[{ label: "Полезно", href: "/polezno" }]} />}
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
@@ -86,12 +88,12 @@ export function PoleznoPageContent() {
                 href={getArticleHref(featuredArticle)}
                 className="group mt-4 block rounded-2xl border border-br-light/70 bg-bg-section/80 p-5 transition hover:border-br-accent-soft hover:bg-bg-muted"
               >
-                <h3 className="text-xl font-semibold leading-snug text-tx-primary transition group-hover:text-accent-strong">
+                <h3 className="text-xl font-semibold leading-snug text-tx-primary transition group-hover:text-accent-text">
                   {featuredArticle.title}
                 </h3>
 
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent-strong">
-                  Прочети
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent-text">
+                  Прочетете
                   <FaArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </span>
               </Link>

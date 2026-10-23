@@ -5,6 +5,7 @@ import { Section } from "@/components/layout/Section";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
+import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 
 const pageContent = getHelpfulNavItem("resursi");
 
@@ -93,6 +94,15 @@ export default function ResursiPage() {
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
+        before={
+          <Breadcrumbs
+            className="mb-6"
+            items={[
+              { label: "Полезно", href: "/polezno" },
+              { label: "Полезни ресурси", href: pageContent.href },
+            ]}
+          />
+        }
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
@@ -154,8 +164,9 @@ export default function ResursiPage() {
                   rel="noopener noreferrer"
                   className="group grid gap-2 py-5 transition md:grid-cols-[18rem_1fr_auto] md:gap-8"
                 >
-                  <h3 className="text-base font-semibold text-accent-strong">
+                  <h3 className="text-base font-semibold text-accent-text">
                     {resource.title}
+                    <span className="sr-only"> (отваря се в нов прозорец)</span>
                   </h3>
 
                   <p className="text-sm leading-6 text-tx-secondary">

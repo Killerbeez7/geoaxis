@@ -12,7 +12,7 @@ export function CompactArticleLink({ article }: { article: HelpfulArticle }) {
         {articleTypeLabel(article)}
       </p>
 
-      <h3 className="mt-1 text-base font-semibold leading-snug text-tx-primary transition group-hover:text-accent-strong">
+      <h3 className="mt-1 text-base font-semibold leading-snug text-tx-primary transition group-hover:text-accent-text">
         {article.title}
       </h3>
 

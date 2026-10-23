@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { serviceCategories } from "@/config/services/categories";
 import { HELPFUL_ARTICLES } from "@/config/polezno/articles";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
+import { SITE_URL } from "@/config/site";
 
-const BASE_URL = "https://geoaxis.bg";
+const BASE_URL = SITE_URL;
 
 // ──────────────────────────────────────────────
 // Update dates here when you change a page.
@@ -12,43 +13,43 @@ const BASE_URL = "https://geoaxis.bg";
 const staticPages = [
   {
     url: "/",
-    lastModified: "2026-04-20",
+    lastModified: "2026-10-23",
     priority: 1.0,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/uslugi",
-    lastModified: "2026-04-29",
+    lastModified: "2026-10-23",
     priority: 0.9,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/polezno",
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.8,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/projects",
-    lastModified: "2026-04-29",
+    lastModified: "2026-10-23",
     priority: 0.6,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/about",
-    lastModified: "2026-04-17",
+    lastModified: "2026-10-23",
     priority: 0.5,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/contacts",
-    lastModified: "2026-04-27",
+    lastModified: "2026-10-23",
     priority: 0.7,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/politika-za-poveritelnost",
-    lastModified: "2026-06-19",
+    lastModified: "2026-10-23",
     priority: 0.2,
     changeFrequency: "yearly" as const,
   },
@@ -69,27 +70,27 @@ const helpfulSectionMeta: Record<
   }
 > = {
   statii: {
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.7,
     changeFrequency: "weekly",
   },
   rakovodstva: {
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.7,
     changeFrequency: "weekly",
   },
   faq: {
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.55,
     changeFrequency: "monthly",
   },
   rechnik: {
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.55,
     changeFrequency: "monthly",
   },
   resursi: {
-    lastModified: "2026-05-06",
+    lastModified: "2026-10-23",
     priority: 0.55,
     changeFrequency: "monthly",
   },

@@ -1,28 +1,26 @@
-import {
-  HELPFUL_ARTICLES,
-  HelpfulArticle,
-  type HelpfulArticleSection,
-} from "@/config/polezno/articles";
+import type { HelpfulArticle, HelpfulArticleSection } from "@/config/polezno/articles";
 
-export function getArticleBySlug(slug: string) {
-  return HELPFUL_ARTICLES.find((article) => article.slug === slug);
-}
-
-export function getArticlesBySection(section: HelpfulArticleSection) {
-  return HELPFUL_ARTICLES.filter((article) => article.section === section);
-}
-
-export function getRelatedArticles(currentSlug: string, limit = 2) {
-  return HELPFUL_ARTICLES.filter((article) => article.slug !== currentSlug).slice(
-    0,
-    limit
-  );
-}
+export const SECTION_LABELS: Record<HelpfulArticleSection, { single: string; plural: string; cta: string }> = {
+  statii: { single: "Статия", plural: "Статии", cta: "Прочетете" },
+  rakovodstva: { single: "Ръководство", plural: "Ръководства", cta: "Вижте стъпките" },
+};
 
 export function getArticleHref(article: HelpfulArticle) {
   return `/polezno/${article.section}/${article.slug}`;
 }
 
 export function articleTypeLabel(article: HelpfulArticle) {
-  return article.section === "rakovodstva" ? "Ръководство" : "Статия";
+  return SECTION_LABELS[article.section].single;
+}
+
+const dateFormatter = new Intl.DateTimeFormat("bg-BG", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "Europe/Sofia",
+});
+
+// "2026-04-16" -> "16 април 2026 г."
+export function formatDate(isoDate: string) {
+  return dateFormatter.format(new Date(`${isoDate}T12:00:00Z`));
 }

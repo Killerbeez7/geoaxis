@@ -10,7 +10,7 @@ export function GlossarySectionLayout() {
             id={`term-${index + 1}`}
             className="grid gap-4 border-b border-br-light/50 py-7 transition md:grid-cols-[18rem_1fr] md:gap-10 last:border-0"
           >
-            <dt className="text-base font-semibold leading-snug text-accent-strong md:text-lg">
+            <dt className="text-base font-semibold leading-snug text-accent-text md:text-lg">
               {term.term}
             </dt>
 

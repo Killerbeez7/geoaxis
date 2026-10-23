@@ -72,7 +72,7 @@ export function FinalCta() {
 
           <div className="mt-6 border-t border-white/14 pt-5">
             <CtaButton href="/contacts" size="lg" className="w-full sm:w-auto">
-              Изпрати запитване
+              Изпратете запитване
             </CtaButton>
           </div>
         </div>

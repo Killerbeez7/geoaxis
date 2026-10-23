@@ -138,10 +138,10 @@ export default function Contacts() {
 
             <div className="mt-5 border-t border-br-light pt-5">
               <h2 className="text-base font-semibold text-tx-primary">
-                Предпочитате ние да Ви се обадим?
+                Предпочитате ние да ви се обадим?
               </h2>
               <p className="typo-meta mb-3 mt-1">
-                Оставете само телефон. Ще Ви позвъним в работно време.
+                Оставете само телефон. Ще ви позвъним в работно време.
               </p>
               <CallbackRequest />
             </div>

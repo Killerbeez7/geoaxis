@@ -59,7 +59,7 @@ export function CallbackRequest() {
   if (status === "sent") {
     return (
       <p role="status" className="rounded-xl bg-accent/10 px-4 py-3 text-sm text-tx-primary">
-        Благодарим! Ще Ви се обадим в рамките на работния ден.
+        Благодарим! Ще ви се обадим в рамките на работния ден.
       </p>
     );
   }

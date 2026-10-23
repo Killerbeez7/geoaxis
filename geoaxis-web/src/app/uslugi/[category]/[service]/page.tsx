@@ -1,34 +1,32 @@
-import { notFound, permanentRedirect } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { MdArrowRightAlt } from "react-icons/md";
+import type { ReactNode } from "react";
+import { notFound, permanentRedirect } from "next/navigation";
+import { LuArrowRight, LuInfo, LuPhone } from "react-icons/lu";
 
 import { SITE_URL } from "@/config/site";
+import { contactLinks } from "@/config/content/contacts";
+import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { createSeo, createServiceSeo } from "@/lib/seo-builder";
 import { getServiceSchema } from "@/lib/schemas";
-import { JsonLd } from "@/components/parts/JsonLd";
-import { ServiceFacts } from "../../_components/ServicesUi";
-import { PriceFactors } from "@/components/parts/PriceFactors";
 import { getDedicatedServiceRouteParams, getServiceBySlugs } from "@/lib/selectors";
-import { getServiceHref } from "@/utils/urlHelpers";
 import { normalizeParagraphs } from "@/utils/normalizeText";
-import { ServicePageLayout } from "../../ServicePageLayout";
-
-const FALLBACK_WHEN_INTRO =
-  "Услугата е подходяща, когато трябва да се подготви следваща стъпка на база точни данни за имота или обекта.";
-const FALLBACK_DOCS_INTRO =
-  "В началото са най-полезни основните данни за имота, наличните документи и кратко описание на целта.";
-const FALLBACK_PROCESS_INTRO =
-  "Работата започва с уточняване на конкретния случай, след което се определят необходимите измервания, документи и материали.";
-const FALLBACK_DELIVERABLES_INTRO =
-  "Резултатът трябва да даде ясна и използваема основа за следващата стъпка.";
+import { getServiceHref } from "@/utils/urlHelpers";
+import { PriceFactors } from "@/components/services/PriceFactors";
+import { ServiceFacts } from "@/components/services/ServiceFacts";
+import { Button } from "@/components/ui/Button";
+import { CheckList } from "@/components/ui/CheckList";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
+import { HeroMedia } from "@/components/ui/HeroMedia";
+import { InquiryCard } from "@/components/ui/InquiryCard";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 type Props = {
-  params: Promise<{
-    category: string;
-    service: string;
-  }>;
+  params: Promise<{ category: string; service: string }>;
 };
 
 function toSeoDescription(description: string | string[] | undefined, fallback: string) {
@@ -56,11 +54,6 @@ export async function generateMetadata({ params }: Props) {
       title: service.title,
       description: toSeoDescription(service.longDescription, service.description),
       canonical: `/uslugi/${category.slug}`,
-      image:
-        service.heroImage ||
-        service.thumbnail ||
-        category.heroImage ||
-        category.thumbnail,
       noIndex: true,
     });
   }
@@ -78,220 +71,198 @@ export default async function ServicePage({ params }: Props) {
 
   if (!result) notFound();
 
+  // Services without their own page live as a section on the category page.
   if (!result.service.hasDedicatedPage) {
     permanentRedirect(`/uslugi/${result.category.slug}#${result.service.slug}`);
   }
 
-  const servicePath = `/uslugi/${result.category.slug}/${result.service.slug}`;
-  const serviceSchema = getServiceSchema(SITE_URL, servicePath, result.service);
+  const { category, service } = result;
+  const servicePath = `/uslugi/${category.slug}/${service.slug}`;
+  const faqItems = HELPFUL_FAQ_GROUPS.find((group) => group.slug === category.slug)?.items ?? [];
 
   return (
-    <ServicePageLayout category={result.category} service={result.service}>
-      <JsonLd data={serviceSchema} />
+    <>
+      <JsonLd data={getServiceSchema(SITE_URL, servicePath, service)} />
 
-      <DedicatedServiceContent category={result.category} service={result.service} />
-    </ServicePageLayout>
+      <PageHero
+        breadcrumbs={[
+          { label: "Услуги", href: "/uslugi" },
+          { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
+          { label: service.shortTitle ?? service.title, href: servicePath },
+        ]}
+        eyebrow={category.shortTitle ?? category.title}
+        title={service.title}
+        description={service.description}
+        actions={
+          <>
+            <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
+              Поискайте оферта
+            </Button>
+            <Button
+              href={contactLinks.tel}
+              size="lg"
+              variant="outline"
+              icon={<LuPhone className="h-4 w-4" />}
+              track="call_click"
+            >
+              Обадете се
+            </Button>
+          </>
+        }
+        aside={<HeroMedia src={service.heroImage ?? service.thumbnail} alt={service.imageAlt ?? service.title} />}
+      >
+        <ServiceFacts service={service} className="mt-8 flex flex-wrap gap-x-8 gap-y-3" />
+      </PageHero>
+
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+          <ServiceArticle category={category} service={service} />
+
+          <aside className="lg:block">
+            <div className="grid gap-6 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
+              <InquiryCard service={category.slug} />
+              <RelatedServices category={category} current={service.slug} />
+            </div>
+          </aside>
+        </div>
+      </Section>
+
+      {faqItems.length ? (
+        <Section tone="subtle" aria-labelledby="service-faq-title">
+          <JsonLd data={faqSchema(faqItems)} />
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+            <SectionHeader
+              id="service-faq-title"
+              eyebrow="Въпроси"
+              title="Често задавани въпроси"
+              description={`Отговори на въпросите, които чуваме най-често за „${category.shortTitle ?? category.title}“.`}
+            />
+            <FaqAccordion items={faqItems} />
+          </div>
+        </Section>
+      ) : null}
+
+      <CtaBand service={category.slug} />
+    </>
   );
 }
 
-function DedicatedServiceContent({
-  category,
-  service,
-}: {
-  category: ServiceCategory;
-  service: Service;
-}) {
+function ServiceArticle({ category, service }: { category: ServiceCategory; service: Service }) {
   const paragraphs = normalizeParagraphs(service.longDescription ?? service.description);
-  const introParagraphs = paragraphs.slice(0, 2);
   const content = service.content;
-  const relatedServices = category.services
-    .filter((item) => item.slug !== service.slug)
-    .slice(0, 4);
 
   return (
-    <article className="grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]">
-      <div className="min-w-0">
-        <section>
-          <p className="typo-kicker">{category.shortTitle ?? category.title}</p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight text-tx-primary">
-            За услугата
-          </h2>
-          <div className="mt-6 space-y-5 text-[1.03rem] leading-8 text-tx-secondary">
-            {introParagraphs.map((paragraph, index) => (
-              <p key={`service-intro-${index}`}>{paragraph}</p>
-            ))}
-          </div>
-          <ServiceFacts service={service} />
-        </section>
-
-        <EditorialListSection
-          title="Кога е подходяща"
-          intro={content?.whenIntro ?? FALLBACK_WHEN_INTRO}
-          items={content?.neededWhen}
-        />
-
-        <EditorialTextSection
-          title="Какво е важно да знаете"
-          paragraphs={content?.importantToKnow}
-        />
-
-        <EditorialListSection
-          title="Какво е добре да подготвите"
-          intro={content?.docsIntro ?? FALLBACK_DOCS_INTRO}
-          items={content?.requiredDocs}
-        />
-
-        <ProcessSection
-          items={content?.processSteps}
-          intro={content?.processIntro ?? FALLBACK_PROCESS_INTRO}
-        />
-
-        <EditorialListSection
-          title="Какво получавате"
-          intro={content?.deliverablesIntro ?? FALLBACK_DELIVERABLES_INTRO}
-          items={content?.deliverables}
-        />
-
-        <PriceFactors
-          serviceSlug={category.slug}
-          hasPrices={Boolean(service.priceFrom)}
-          className="mt-14 border-t border-br-light pt-9"
-        />
+    <article className="min-w-0">
+      <div className="prose-geo">
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+        ))}
       </div>
 
-      <aside className="space-y-8 lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:self-start">
-        <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
-          <Image
-            src={service.thumbnail}
-            alt={service.imageAlt ?? service.title}
-            fill
-            sizes="(max-width: 1024px) calc(100vw - 2rem), 380px"
-            quality={74}
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-bg-inverse/20 via-transparent to-transparent" />
-        </div>
+      {content?.neededWhen?.length ? (
+        <ArticleSection title="Кога е подходяща" intro={content.whenIntro}>
+          <CheckList items={content.neededWhen} className="mt-6" />
+        </ArticleSection>
+      ) : null}
 
-        <div className="border-l border-br-accent-soft pl-5">
-          <p className="typo-kicker">Категория</p>
-          <Link
-            href={`/uslugi/${category.slug}`}
-            className="mt-3 inline-flex items-center gap-2 text-lg font-semibold text-tx-primary transition hover:text-accent-text"
-          >
-            {category.title}
-            <MdArrowRightAlt className="text-xl" />
-          </Link>
-          <p className="mt-3 text-sm leading-6 text-tx-muted">
-            Вижте и останалите услуги в тази категория, ако случаят ви включва
-            допълнителни измервания или документи.
-          </p>
-        </div>
-
-        {relatedServices.length ? (
-          <div className="border-t border-br-light pt-6">
-            <p className="typo-kicker">Свързани услуги</p>
-            <div className="mt-3 divide-y divide-br-light">
-              {relatedServices.map((related) => (
-                <Link
-                  key={related.slug}
-                  href={getServiceHref(category.slug, related)}
-                  className="group flex items-center justify-between gap-4 py-3 text-sm font-semibold text-tx-secondary transition hover:text-accent-text"
-                >
-                  <span>{related.shortTitle ?? related.title}</span>
-                  <MdArrowRightAlt className="shrink-0 text-lg transition group-hover:translate-x-0.5" />
-                </Link>
-              ))}
-            </div>
+      {content?.importantToKnow?.length ? (
+        <ArticleSection title="Какво е важно да знаете">
+          <div className="mt-6 grid gap-4 rounded-2xl border border-br-accent/50 bg-accent-soft p-6">
+            {content.importantToKnow.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)} className="flex gap-3">
+                <LuInfo aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-accent-text" />
+                <span>{paragraph}</span>
+              </p>
+            ))}
           </div>
-        ) : null}
+        </ArticleSection>
+      ) : null}
 
-        <div className="rounded-card bg-bg-inverse p-6 text-tx-inverse">
-          <p className="text-lg font-semibold text-tx-inverse">Имате конкретен имот?</p>
-          <p className="mt-2 text-sm leading-6 text-tx-inverse/80">
-            Изпратете адрес или идентификатор и ще ви кажем срока и какво е нужно.
-          </p>
-          <Link
-            href={`/contacts?service=${category.slug}`}
-            className="mt-4 inline-flex rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-tx-on-accent transition hover:bg-accent-hover"
-          >
-            Изпратете запитване
-          </Link>
-        </div>
-      </aside>
+      {content?.requiredDocs?.length ? (
+        <ArticleSection title="Какво е добре да подготвите" intro={content.docsIntro}>
+          <CheckList items={content.requiredDocs} className="mt-6" />
+        </ArticleSection>
+      ) : null}
+
+      {content?.processSteps?.length ? (
+        <ArticleSection title="Как протича работата" intro={content.processIntro}>
+          <ol className="mt-8 grid gap-0">
+            {content.processSteps.map((step, index) => (
+              <li key={step} className="relative flex gap-5 pb-7 last:pb-0">
+                {index < content.processSteps!.length - 1 ? (
+                  <span aria-hidden="true" className="absolute left-5 top-11 bottom-1 w-px bg-br-default" />
+                ) : null}
+                <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page text-sm font-semibold text-accent-text tabular-nums">
+                  {index + 1}
+                </span>
+                <p className="pt-2">{step}</p>
+              </li>
+            ))}
+          </ol>
+        </ArticleSection>
+      ) : null}
+
+      {content?.deliverables?.length ? (
+        <ArticleSection title="Какво получавате" intro={content.deliverablesIntro}>
+          <div className="mt-6 rounded-2xl bg-bg-inverse p-6 on-dark sm:p-8">
+            <CheckList items={content.deliverables} dark className="text-tx-inverse" />
+          </div>
+        </ArticleSection>
+      ) : null}
+
+      <PriceFactors
+        serviceSlug={category.slug}
+        hasPrices={Boolean(service.priceFrom)}
+        className="mt-14 border-t border-br-light pt-12"
+      />
     </article>
   );
 }
 
-function EditorialListSection({
+function ArticleSection({
   title,
   intro,
-  items,
+  children,
 }: {
   title: string;
-  intro: string;
-  items?: string[];
+  intro?: string;
+  children: ReactNode;
 }) {
-  if (!items?.length) return null;
+  return (
+    <section className="mt-14 border-t border-br-light pt-12">
+      <h2 className="typo-h3">{title}</h2>
+      {intro ? <p className="mt-3 max-w-3xl">{intro}</p> : null}
+      {children}
+    </section>
+  );
+}
+
+function RelatedServices({ category, current }: { category: ServiceCategory; current: string }) {
+  const related = category.services.filter((service) => service.slug !== current).slice(0, 5);
+  if (!related.length) return null;
 
   return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">{title}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-tx-secondary">{intro}</p>
-      <ul className="mt-6 space-y-3">
-        {items.map((item, index) => (
-          <li
-            key={`${title}-item-${index}`}
-            className="flex gap-3 text-base leading-7 text-tx-secondary"
-          >
-            <span className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <p>{item}</p>
+    <nav aria-label="Свързани услуги" className="rounded-2xl border border-br-light bg-bg-page p-5">
+      <p className="typo-label text-tx-muted">Свързани услуги</p>
+      <ul className="mt-3 grid gap-0.5">
+        {related.map((service) => (
+          <li key={service.slug}>
+            <Link
+              href={getServiceHref(category.slug, service)}
+              className="typo-small group flex items-center justify-between gap-3 rounded-lg px-2 py-2 text-tx-secondary transition-colors hover:bg-bg-subtle hover:text-accent-text"
+            >
+              {service.shortTitle ?? service.title}
+              <LuArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
+            </Link>
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-function EditorialTextSection({
-  title,
-  paragraphs,
-}: {
-  title: string;
-  paragraphs?: string[];
-}) {
-  if (!paragraphs?.length) return null;
-
-  return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">{title}</h2>
-      <div className="mt-5 max-w-3xl space-y-5 text-base leading-7 text-tx-secondary">
-        {paragraphs.map((paragraph, index) => (
-          <p key={`${title}-paragraph-${index}`}>{paragraph}</p>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ProcessSection({ items, intro }: { items?: string[]; intro: string }) {
-  if (!items?.length) return null;
-
-  return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
-        Как протича работата
-      </h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-tx-secondary">{intro}</p>
-      <ol className="mt-7 space-y-6 border-l border-br-accent-soft pl-5">
-        {items.map((step, index) => (
-          <li key={`process-step-${index}`} className="relative">
-            <span className="absolute -left-[2.05rem] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-bg-page text-xs font-semibold tabular-nums text-accent-text ring-1 ring-br-accent-soft">
-              {index + 1}
-            </span>
-            <p className="text-base leading-7 text-tx-secondary">{step}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
+      <Link
+        href={`/uslugi/${category.slug}`}
+        className="typo-small mt-2 flex items-center gap-1.5 border-t border-br-light px-2 pt-3 font-semibold text-accent-text"
+      >
+        Всички в „{category.shortTitle ?? category.title}“
+      </Link>
+    </nav>
   );
 }

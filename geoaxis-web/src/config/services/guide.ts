@@ -1,13 +1,6 @@
-"use client";
-
-import { useState } from "react";
-import Link from "next/link";
-import clsx from "clsx";
-import { track } from "@vercel/analytics";
-import { MdArrowRightAlt } from "react-icons/md";
-import { CtaButton } from "@/components/parts/CtaButton";
-
-type GuideOption = {
+// Situations a visitor can pick from when they don't know which service they need.
+// Also used by the quote form to show what to prepare for the chosen service.
+export type GuideOption = {
   id: string;
   label: string;
   service: string;
@@ -17,7 +10,7 @@ type GuideOption = {
   learnMore: { label: string; href: string };
 };
 
-const OPTIONS: GuideOption[] = [
+export const GUIDE_OPTIONS: readonly GuideOption[] = [
   {
     id: "build",
     label: "Ще строя или проектирам",
@@ -80,87 +73,8 @@ const OPTIONS: GuideOption[] = [
   },
 ];
 
-export function ServiceGuide() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = OPTIONS.find((option) => option.id === selectedId);
+const DEFAULT_PREPARE = ["Адрес или идентификатор на имота", "Каквито документи имате под ръка"];
 
-  return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
-      <fieldset>
-        <legend className="mb-4 text-base font-semibold text-tx-primary">Какво е вашето положение?</legend>
-        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
-          {OPTIONS.map((option) => {
-            const isSelected = option.id === selectedId;
-            return (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={isSelected}
-                onClick={() => {
-                  setSelectedId(option.id);
-                  track("guide_choice", { choice: option.id });
-                }}
-                className={clsx(
-                  "flex min-h-12 items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-[15px] font-medium transition",
-                  isSelected
-                    ? "border-accent bg-accent/10 text-tx-primary"
-                    : "border-br-light bg-bg-page text-tx-secondary hover:border-br-accent-soft"
-                )}
-              >
-                {option.label}
-                <span
-                  aria-hidden="true"
-                  className={clsx(
-                    "h-4 w-4 shrink-0 rounded-full border-2",
-                    isSelected ? "border-accent bg-accent" : "border-br-default"
-                  )}
-                />
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-
-      <div aria-live="polite" className="rounded-card border border-br-light bg-bg-page p-6 shadow-sm sm:p-8">
-        {selected ? (
-          <>
-            <p className="typo-kicker">Препоръка</p>
-            <h3 className="mt-2 text-2xl font-semibold leading-tight text-tx-primary">
-              {selected.recommendation}
-            </h3>
-            <p className="mt-3 text-[15px] leading-7 text-tx-secondary">{selected.explanation}</p>
-
-            <p className="mt-6 text-sm font-semibold text-tx-primary">Подгответе, ако имате:</p>
-            <ul className="mt-2 space-y-2">
-              {selected.prepare.map((item) => (
-                <li key={item} className="flex gap-3 text-[15px] leading-6 text-tx-secondary">
-                  <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <CtaButton href={`/contacts?service=${selected.service}`}>Изпратете запитване</CtaButton>
-              <Link
-                href={selected.learnMore.href}
-                className="inline-flex items-center gap-1 text-sm font-semibold text-accent-text"
-              >
-                {selected.learnMore.label}
-                <MdArrowRightAlt aria-hidden="true" className="text-lg" />
-              </Link>
-            </div>
-          </>
-        ) : (
-          <div className="flex h-full min-h-48 flex-col justify-center">
-            <p className="text-lg font-semibold text-tx-primary">Изберете вариант вляво</p>
-            <p className="mt-2 text-[15px] leading-7 text-tx-secondary">
-              Ще ви покажем подходящата услуга и какво е добре да подготвите, преди да се свържете
-              с нас.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+export function getPrepareList(service: string) {
+  return GUIDE_OPTIONS.find((option) => option.service === service)?.prepare ?? DEFAULT_PREPARE;
 }

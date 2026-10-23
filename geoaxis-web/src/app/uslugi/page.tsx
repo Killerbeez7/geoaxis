@@ -1,68 +1,63 @@
-// Config
 import { serviceCategories } from "@/config/services/categories";
-import { servicesVisuals } from "@/config/services/visuals";
 import { pageSeo } from "@/config/seo";
-// Components
-import { CtaButton } from "@/components/parts/CtaButton";
-import { Section } from "@/components/layout/Section";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { createSeo } from "@/lib/seo-builder";
-import { CategoryOverviewCard, ServicesHero } from "./_components/ServicesUi";
-import { SectionIntro } from "@/components/layout/SectionIntro";
-import { ServiceGuide } from "@/components/sections/ServiceGuide";
+import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
+import { ServiceGuide } from "@/components/services/ServiceGuide";
+import { Button } from "@/components/ui/Button";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 
+const serviceCount = serviceCategories.reduce((sum, category) => sum + category.services.length, 0);
 
 export default function ServicesPage() {
   return (
     <>
-      <ServicesHero
-        kicker="Геодезически услуги"
-        title="Изберете услуга според вашия случай"
-        description={`Структурирахме услугите по категории, за да откриете бързо правилното решение за вашия проект или имот.`}
-        image={servicesVisuals.heroImage}
-        imageAlt={servicesVisuals.heroAlt}
-        imagePosition={servicesVisuals.heroPosition}
+      <PageHero
         breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
-      >
-        <CtaButton href="#koya-usluga" className="min-h-12 w-full sm:w-auto">
-          Коя услуга ми трябва?
-        </CtaButton>
-        <CtaButton href="/contacts" variant="soft" className="min-h-12 w-full sm:w-auto">
-          Изпратете запитване
-        </CtaButton>
-      </ServicesHero>
+        eyebrow="Услуги"
+        title="Геодезически услуги за всеки етап на имота"
+        description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}
+        actions={
+          <>
+            <Button href="/contacts" size="lg" arrow track="quote_click">
+              Поискайте оферта
+            </Button>
+            <Button href="#koya-usluga" size="lg" variant="outline">
+              Помощ при избора
+            </Button>
+          </>
+        }
+      />
 
-      <Section id="categories" tone="page">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <SectionIntro
-            eyebrow="Категории"
-            title="Всички услуги на едно място"
-            description="Изберете категорията, която най-добре описва вашия казус. Вътре ще намерите конкретните услуги, необходими документи и последователност на работа."
-          />
-        </div>
-
-        <div className="mt-8 grid gap-5 md:mt-12 md:grid-cols-2 xl:grid-cols-3">
+      <Section aria-labelledby="categories-title">
+        <h2 id="categories-title" className="sr-only">
+          Категории услуги
+        </h2>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {serviceCategories.map((category) => (
-            <CategoryOverviewCard key={category.slug} category={category} />
+            <ServiceCategoryCard key={category.slug} category={category} />
           ))}
         </div>
+        <TrustBar className="mt-14" />
       </Section>
 
-      <Section id="koya-usluga" tone="muted">
-        <SectionIntro
-          eyebrow="Бърза ориентация"
+      <Section id="koya-usluga" tone="subtle" aria-labelledby="guide-title">
+        <SectionHeader
+          id="guide-title"
+          eyebrow="Помощ при избора"
           title="Не знаете коя услуга ви трябва?"
-          description="Изберете ситуацията, която най-добре описва вашия случай, и ще видите подходящата услуга и какво да подготвите."
+          description="Изберете ситуацията, която най-добре описва случая ви, и ще видите подходящата услуга и какво да подготвите."
+          className="mb-10"
         />
-
-        <div className="mt-8 md:mt-10">
-          <ServiceGuide />
-        </div>
+        <ServiceGuide />
       </Section>
 
-      <FinalCta />
+      <CtaBand />
     </>
   );
 }

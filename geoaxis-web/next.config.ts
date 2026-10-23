@@ -30,6 +30,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Category pages read photos only while prerendering (src/lib/photos.ts); keep them out of the function.
+  outputFileTracingExcludes: {
+    "/uslugi/*": ["./public/**/*"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

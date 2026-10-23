@@ -35,9 +35,9 @@ function HelpfulTopicRow({ item }: { item: HelpfulNavItem }) {
       className="group -mx-4 grid gap-3 rounded-2xl px-4 py-5 transition hover:bg-bg-muted sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6"
     >
       <div>
-        <h3 className="text-xl font-semibold leading-tight text-tx-primary transition group-hover:text-accent-text">
+        <h2 className="text-xl font-semibold leading-tight text-tx-primary transition group-hover:text-accent-text">
           {item.label}
-        </h3>
+        </h2>
 
         <p className="mt-2 max-w-2xl text-sm leading-6 text-tx-secondary">
           {item.description}

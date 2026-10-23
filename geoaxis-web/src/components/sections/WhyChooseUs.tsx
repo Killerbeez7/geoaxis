@@ -39,13 +39,13 @@ export function WhyChooseUs({
           className="text-left"
         >
           {kicker && (
-            <p className="typo-kicker inline-block border-b border-accent/40 pb-2 md:px-2">
+            <p className="typo-kicker inline-block border-b border-accent/40 pb-2 text-accent-on-dark md:px-2">
               {kicker}{" "}
             </p>
           )}
 
           <h2 className="typo-h2 mt-1 text-tx-inverse md:mt-2">
-            {title} <span className="relative inline-block text-accent">{brandName}</span>
+            {title} <span className="relative inline-block text-accent-on-dark">{brandName}</span>
           </h2>
 
           {/* {subtitle && (

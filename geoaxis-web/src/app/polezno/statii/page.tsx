@@ -24,7 +24,7 @@ export default function StatiiPage() {
   const articles = getArticlesBySection("statii");
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
@@ -62,6 +62,6 @@ export default function StatiiPage() {
           ))}
         </div>
       </Section>
-    </main>
+    </div>
   );
 }

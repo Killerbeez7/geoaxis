@@ -26,7 +26,7 @@ export function ServicePageLayout({ category, service, children }: Props) {
     ];
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <ServicesHero
         kicker={eyebrow}
         title={title}
@@ -45,6 +45,6 @@ export function ServicePageLayout({ category, service, children }: Props) {
       </Section>
 
       <FinalCta />
-    </main>
+    </div>
   );
 }

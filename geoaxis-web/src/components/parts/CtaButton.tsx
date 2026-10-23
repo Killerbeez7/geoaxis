@@ -20,12 +20,13 @@ export function CtaButton({
   variant = "primary",
   size = "md",
   className,
+  onClick,
   ...props
 }: ButtonProps) {
   const baseStyles = clsx(
     "inline-flex items-center justify-center gap-2",
     "font-semibold",
-    "rounded-2xl",
+    "rounded-xl",
     "transition-all duration-200",
     "shadow-lg hover:shadow-xl",
     "active:scale-100",
@@ -39,7 +40,7 @@ export function CtaButton({
   };
 
   const variants: Record<Variant, string> = {
-    primary: clsx("bg-accent/90", "text-tx-inverse", "hover:bg-accent-hover/90"),
+    primary: clsx("bg-accent", "text-tx-on-accent", "hover:bg-accent-hover"),
 
     outline: clsx(
       "border border-br-light/50",
@@ -69,7 +70,7 @@ export function CtaButton({
       "inline-flex items-center justify-center rounded-full",
       "px-5 py-2.5 text-sm font-semibold",
       "border border-accent/25",
-      "bg-accent/10 text-accent-strong",
+      "bg-accent/10 text-accent-text",
       "shadow-none",
       "transition-all duration-200",
       "hover:bg-accent/15 hover:border-accent/40"
@@ -80,14 +81,18 @@ export function CtaButton({
 
   if (href) {
     return (
-      <Link href={href} className={finalClass}>
+      <Link
+        href={href}
+        className={finalClass}
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement> | undefined}
+      >
         {children}
       </Link>
     );
   }
 
   return (
-    <button {...props} className={finalClass}>
+    <button {...props} onClick={onClick} className={finalClass}>
       {children}
     </button>
   );

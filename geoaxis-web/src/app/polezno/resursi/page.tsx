@@ -89,7 +89,7 @@ export default function ResursiPage() {
   if (!pageContent) notFound();
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
@@ -169,6 +169,6 @@ export default function ResursiPage() {
           </section>
         </div>
       </Section>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import clsx from "clsx";
-import { FaPhone } from "react-icons/fa6";
 import { CtaButton } from "../parts/CtaButton";
 import type { HeroContent } from "@/config/content/hero";
 import { ScrollHint } from "../parts/ScrollHint";
@@ -54,7 +53,7 @@ export function HeroSection({
 
             {/* Title */}
             <h1 className="typo-hero">
-              <span className="block text-tx-inverse/87">{title_1}</span>
+              <span className="block text-tx-inverse/87">{title_1}</span>{" "}
               {title_2 && (
                 <span
                   className={clsx(
@@ -95,7 +94,6 @@ export function HeroSection({
               >
                 <CtaButton href={cta.primary.href} size="lg">
                   {/* <CtaButton href={cta.primary.href} size="lg" className="min-h-[52px]"> */}
-                  <FaPhone className="mr-2" />
                   {cta.primary.label}
                 </CtaButton>
 
@@ -106,7 +104,7 @@ export function HeroSection({
                   size="lg"
                   className="min-h-[52px]"
                 > */}
-                  {cta.secondary.label} <MdArrowRightAlt />
+                  {cta.secondary.label} <MdArrowRightAlt aria-hidden="true" />
                 </CtaButton>
               </div>
             )}

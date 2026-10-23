@@ -22,7 +22,7 @@ export default function FaqPage() {
   if (!pageContent) notFound();
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
@@ -42,7 +42,7 @@ export default function FaqPage() {
                 >
                   <div className="border-b border-br-light/60 pt-10 first:border-b first:pt-0">
                     <header className="max-w-3xl">
-                      <span className="inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                      <span className="inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-accent-text">
                         Раздел {groupNumber}
                       </span>
 
@@ -104,6 +104,6 @@ export default function FaqPage() {
         </div>
       </Section>
       <PoleznoCta />
-    </main>
+    </div>
   );
 }

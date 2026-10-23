@@ -57,7 +57,7 @@ export default async function HelpfulArticlePage({ params }: Props) {
   const relatedArticles = getRelatedArticles(article.slug, 2);
 
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -178,6 +178,6 @@ export default async function HelpfulArticlePage({ params }: Props) {
           ) : null}
         </article>
       </Section>
-    </main>
+    </div>
   );
 }

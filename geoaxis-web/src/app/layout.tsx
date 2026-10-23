@@ -4,7 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // Fonts
-import { Montserrat, Sofia_Sans } from "next/font/google";
+import { Montserrat } from "next/font/google";
 // Components
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,18 +13,12 @@ import { SITE_URL } from "@/config/site";
 import { defaultSeo } from "@/config/seo";
 // Schemas
 import { getLocalBusinessSchema } from "@/lib/schemas";
-// Utils
-import SquintTest from "@/utils/squintTest";
+import { MobileActionBar } from "@/components/layout/MobileActionBar";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 
 const montserrat = Montserrat({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
   variable: "--font-mont",
-  display: "swap",
-});
-
-const sofia = Sofia_Sans({
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  variable: "--font-sofia",
   display: "swap",
 });
 
@@ -61,14 +55,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#495650",
+  themeColor: "#253a31",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="bg">
       <body
-        className={`${montserrat.variable} ${sofia.variable} antialiased flex flex-col relative`}
+        className={`${montserrat.variable} antialiased flex flex-col relative`}
       >
         <script
           type="application/ld+json"
@@ -76,15 +70,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify(getLocalBusinessSchema(SITE_URL)),
           }}
         />
-        {/* Content  */}
-        <Navbar />
-        <main className="grow bg-bg-page min-h-dvh">{children}</main>
-        <Footer />
+        <a href="#main-content" className="skip-link">
+          Към съдържанието
+        </a>
+        <MotionProvider>
+          <Navbar />
+          <main id="main-content" tabIndex={-1} className="grow bg-bg-page min-h-dvh">
+            {children}
+          </main>
+          <Footer />
+          <MobileActionBar />
+        </MotionProvider>
 
         {/* Utils */}
         <Analytics />
         <SpeedInsights />
-        <SquintTest isEnabled={false} />
       </body>
     </html>
   );

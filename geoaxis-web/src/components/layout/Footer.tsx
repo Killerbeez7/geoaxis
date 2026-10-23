@@ -2,13 +2,14 @@ import Link from "next/link";
 import clsx from "clsx";
 import { FaPhone, FaEnvelope, FaLocationDot } from "react-icons/fa6";
 import { SiViber, SiWhatsapp } from "react-icons/si";
-// import { CtaButton } from "../parts/CtaButton";
 
 import { FOOTER } from "@/config/footer";
+import { contactLinks } from "@/config/content/contacts";
+import { getCompanyLines } from "@/config/content/company";
 
 export const Footer = () => {
-  // const { brand, sections, contact, ctas } = FOOTER;
   const { brand, sections, contact, legalLinks } = FOOTER;
+  const companyLines = getCompanyLines();
 
   const [quickLinksSection, serviceLinksSection] = sections;
 
@@ -17,8 +18,8 @@ export const Footer = () => {
   const addressLines = contact.addressLines;
   const mapsHref = contact.mapsHref;
 
-  const telHref = `tel:${phone.replace(/\s+/g, "")}`;
-  const mailHref = `mailto:${email}`;
+  const telHref = contactLinks.tel;
+  const mailHref = contactLinks.mail;
 
   // Styles
   const sectionTitle =
@@ -26,7 +27,7 @@ export const Footer = () => {
   const linkCls = clsx(
     "inline-flex items-center gap-2 py-1",
     "font-semibold text-tx-inverse/85",
-    "transition-colors duration-200 hover:text-accent"
+    "transition-colors duration-200 hover:text-accent-on-dark"
   );
   const metaCls = "text-sm leading-relaxed text-tx-inverse";
   const dot =
@@ -41,22 +42,28 @@ export const Footer = () => {
 
   return (
     <footer className="relative bg-bg-footer">
-      {/* <footer className="relative bg-bg-nav"> */}
       <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/45 to-black/25" />
 
-      <div className="relative mx-auto max-w-7xl py-12 pl-4 lg:py-20">
+      <div className="container-page relative py-12 lg:py-20">
         <div className="grid grid-cols-1 gap-10 text-center lg:grid-cols-4 lg:text-left">
           {/* Brand */}
           <div>
-            <h3 className="text-lg font-semibold tracking-wide text-tx-inverse">
+            <p className="text-lg font-semibold tracking-wide text-tx-inverse">
               {brand.name}
-            </h3>
+            </p>
             <p className="mt-4 text-sm md:text-base leading-relaxed text-tx-inverse/75 text-balance">
               {brand.tagline}
             </p>
             <p className="font-mont mt-4 text-xs uppercase tracking-[0.16em] text-balance text-tx-inverse/60">
               {brand.metaLine}
             </p>
+            {companyLines.length > 0 ? (
+              <ul className="mt-4 space-y-1 text-xs leading-5 text-tx-inverse/70">
+                {companyLines.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           {/* Quick Links */}
@@ -119,42 +126,35 @@ export const Footer = () => {
 
             {/* Icons */}
             <div className="mt-5 flex flex-wrap justify-center gap-3 lg:justify-start">
-              <a className={iconBtn} href={telHref} aria-label="Call">
-                <FaPhone />
+              <a className={iconBtn} href={telHref} aria-label="Обадете се">
+                <FaPhone aria-hidden="true" />
               </a>
-              <a className={iconBtn} href={mailHref} aria-label="Email">
-                <FaEnvelope />
+              <a className={iconBtn} href={mailHref} aria-label="Пишете ни на имейл">
+                <FaEnvelope aria-hidden="true" />
               </a>
               <a
                 className={iconBtn}
                 href={mapsHref}
                 target="_blank"
-                rel="noreferrer"
-                aria-label="Maps"
+                rel="noopener noreferrer"
+                aria-label="Адрес в Google Maps"
               >
-                <FaLocationDot />
+                <FaLocationDot aria-hidden="true" />
               </a>
-
-              <a className={iconBtn} href={telHref} aria-label="WhatsApp">
-                <SiWhatsapp />
+              <a
+                className={iconBtn}
+                href={contactLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Пишете ни в WhatsApp"
+              >
+                <SiWhatsapp aria-hidden="true" />
               </a>
-              <a className={iconBtn} href={telHref} aria-label="Viber">
-                <SiViber />
+              <a className={iconBtn} href={contactLinks.viber} aria-label="Пишете ни във Viber">
+                <SiViber aria-hidden="true" />
               </a>
             </div>
 
-            {/* CTAs */}
-            {/* <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
-              <Link href={ctas.inquiry.href}>
-                <CtaButton size="sm">{ctas.inquiry.label}</CtaButton>
-              </Link>
-
-              <Link href={ctas.projects.href}>
-                <CtaButton size="sm" variant="glass">
-                  {ctas.projects.label}
-                </CtaButton>
-              </Link>
-            </div> */}
           </div>
         </div>
       </div>
@@ -163,7 +163,7 @@ export const Footer = () => {
       <div className="relative border-t border-br-strong/40 bg-black/20">
         <div className="mx-auto flex min-h-16 max-w-7xl flex-col items-center justify-center gap-3 px-6 py-4 text-center sm:px-8 lg:flex-row lg:justify-between lg:px-12">
           <p className="text-sm tracking-wide text-tx-inverse/80">
-            © {new Date().getFullYear()} {brand.name} - Bulgaria. Всички права запазени.
+            © {new Date().getFullYear()} {brand.name}. Всички права запазени.
           </p>
 
           <nav
@@ -174,7 +174,7 @@ export const Footer = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs font-medium text-tx-inverse/65 transition hover:text-accent"
+                className="text-xs font-medium text-tx-inverse/65 transition hover:text-accent-on-dark"
               >
                 {link.label}
               </Link>

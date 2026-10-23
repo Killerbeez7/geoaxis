@@ -56,7 +56,7 @@ function CountUpNumber({
   return (
     <span ref={ref} className={className}>
       {displayValue.toLocaleString("bg-BG")}
-      {suffix && <span className="ml-1 text-accent">{suffix}</span>}
+      {suffix && <span className="ml-1 text-accent-text">{suffix}</span>}
     </span>
   );
 }

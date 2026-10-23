@@ -20,7 +20,7 @@ export const hero: HeroContent = {
   imageAlt:
     "Геодезически услуги в София и Софийска област — заснемане и трасиране, кадастър, проектиране, градоустройство",
   cta: {
-    primary: { label: "Свържи се", href: "/contacts" },
-    secondary: { label: "Виж услуги", href: "/uslugi" },
+    primary: { label: "Изпратете запитване", href: "/contacts" },
+    secondary: { label: "Вижте услугите", href: "/uslugi" },
   },
 } as const;

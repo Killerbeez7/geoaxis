@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 import { FaPhone } from "react-icons/fa6";
 import { siteContent } from "@/config/site-content";
+import { contactLinks } from "@/config/content/contacts";
 
 type TopBarProps = {
   isShrunk: boolean;
@@ -11,7 +12,8 @@ export const TopBar = ({ isShrunk }: TopBarProps) => {
   const phoneNumber = siteContent.contacts.phone;
 
   return (
-    <div
+    <aside
+      aria-label="Работно време и телефон"
       className={clsx(
         "fixed inset-x-0 top-0 z-60 hidden overflow-hidden border-b border-white/6 text-xs backdrop-blur-xl md:block",
         "transition-[height] duration-300 ease-in-out",
@@ -21,19 +23,19 @@ export const TopBar = ({ isShrunk }: TopBarProps) => {
     >
       <div className="container-page flex h-(--top-bar-h) items-center justify-between">
         <span className="pl-2 font-medium text-tx-inverse/70 tracking-wide">
-          Пон - Пет: 08:30 - 17:30
+          {siteContent.contacts.workingHours}
         </span>
 
         <a
-          href={`tel:${phoneNumber}`}
+          href={contactLinks.tel}
           className="flex items-center gap-2 transition-colors"
         >
-          <FaPhone className="text-accent" />
-          <span className="pr-2 font-medium tracking-wider text-tx-inverse/70 hover:text-accent-hover">
+          <FaPhone className="text-accent-on-dark" aria-hidden="true" />
+          <span className="pr-2 font-medium tracking-wider text-tx-inverse/70 hover:text-accent-on-dark">
             {phoneNumber}
           </span>
         </a>
       </div>
-    </div>
+    </aside>
   );
 };

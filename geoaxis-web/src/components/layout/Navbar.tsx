@@ -50,6 +50,7 @@ export const Navbar = () => {
   const helpfulTriggerRef = useRef<HTMLLIElement | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const navHeight = isShrunk ? NAV_H.SHRUNK_PX : NAV_H.DEFAULT_PX;
 
@@ -130,6 +131,21 @@ export const Navbar = () => {
       document.documentElement.style.overflow = prevHtml;
     };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen && !desktopDropdown) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMobileOpen(false);
+      setMobileDropdown(null);
+      setDesktopDropdown(null);
+      setDesktopDropdownPos(null);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen, desktopDropdown]);
 
   useEffect(() => {
     if (!desktopDropdown) return;
@@ -219,13 +235,27 @@ export const Navbar = () => {
             scheduleDesktopClose();
           }
         }}
+        onFocus={() => {
+          if (item.dropdownType && !isTransitioning) openDesktopDropdown(item.dropdownType);
+        }}
+        onBlur={(event) => {
+          if (!item.dropdownType) return;
+          if (dropdownRef.current?.contains(event.relatedTarget as Node)) return;
+          scheduleDesktopClose();
+        }}
       >
         <Link
           href={item.href}
           draggable={false}
           className={navLinkCls(isActive)}
-          aria-haspopup={item.hasDropdown ? "menu" : undefined}
           aria-expanded={item.hasDropdown ? isOpen : undefined}
+          aria-controls={item.hasDropdown ? "nav-dropdown" : undefined}
+          onKeyDown={(event) => {
+            if (event.key !== "ArrowDown" || !item.dropdownType) return;
+            event.preventDefault();
+            openDesktopDropdown(item.dropdownType);
+            requestAnimationFrame(() => dropdownRef.current?.querySelector("a")?.focus());
+          }}
         >
           {item.label}
 
@@ -279,7 +309,7 @@ export const Navbar = () => {
               setMobileDropdown(isOpen ? null : item.label);
             }}
             aria-expanded={isOpen}
-            aria-label={`Toggle ${item.label}`}
+            aria-label={`${isOpen ? "Скрий" : "Покажи"} подменю ${item.label}`}
           >
             <span className="leading-none">{item.label}</span>
 
@@ -359,14 +389,23 @@ export const Navbar = () => {
               </div>
             </Link>
 
-            <ul
-              className={clsx(
-                "hidden items-center md:flex md:gap-3 lg:gap-6",
-                isTransitioning && "pointer-events-none"
-              )}
-            >
-              {NAV_LINKS.map(renderDesktopItem)}
-            </ul>
+            <div className="hidden items-center gap-4 md:flex lg:gap-8">
+              <ul
+                className={clsx(
+                  "flex items-center md:gap-3 lg:gap-6",
+                  isTransitioning && "pointer-events-none"
+                )}
+              >
+                {NAV_LINKS.map(renderDesktopItem)}
+              </ul>
+
+              <Link
+                href="/contacts"
+                className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-tx-on-accent transition hover:bg-accent-hover lg:px-5"
+              >
+                Запитване
+              </Link>
+            </div>
 
             <MobileMenuToggle
               isOpen={mobileOpen}
@@ -389,7 +428,7 @@ export const Navbar = () => {
         <div className="fixed inset-0 z-70 md:hidden">
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label="Затвори менюто"
             onClick={closeAll}
             className="fixed inset-x-0 bottom-0 z-40 bg-black/40"
             style={{ top: mobilePanelTop }}
@@ -415,7 +454,7 @@ export const Navbar = () => {
                 <Link
                   href="/contacts"
                   onClick={closeAll}
-                  className="mt-3 rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-tx-inverse"
+                  className="mt-3 rounded-xl bg-accent px-4 py-3 text-center text-sm font-semibold text-tx-on-accent"
                 >
                   Запитване
                 </Link>
@@ -429,6 +468,8 @@ export const Navbar = () => {
       <div className="pointer-events-none fixed inset-0 z-70 hidden md:block">
         {desktopDropdown && desktopDropdownPos && !isTransitioning && (
           <div
+            ref={dropdownRef}
+            id="nav-dropdown"
             className="pointer-events-auto absolute"
             style={{
               top: desktopDropdownPos.top,
@@ -436,6 +477,11 @@ export const Navbar = () => {
             }}
             onMouseEnter={cancelDesktopClose}
             onMouseLeave={scheduleDesktopClose}
+            onFocus={cancelDesktopClose}
+            onBlur={(event) => {
+              if (event.currentTarget.contains(event.relatedTarget as Node)) return;
+              scheduleDesktopClose();
+            }}
           >
             <div
               className={clsx(

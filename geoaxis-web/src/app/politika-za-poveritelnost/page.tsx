@@ -63,10 +63,10 @@ function LegalSection({
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <Section variant="compactHero" tone="section">
         <div className="max-w-3xl">
-          <p className="typo-kicker text-accent">Правна информация</p>
+          <p className="typo-kicker">Правна информация</p>
           <h1 className="typo-h2 mt-3">Политика за поверителност</h1>
           <p className="typo-subtitle mt-4">
             Тази страница обяснява как се обработват данните, изпратени чрез
@@ -221,6 +221,6 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </Section>
-    </main>
+    </div>
   );
 }

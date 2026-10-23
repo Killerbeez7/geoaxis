@@ -35,10 +35,10 @@ function TermsSection({
 
 export default function TermsPage() {
   return (
-    <main className="bg-bg-page">
+    <div className="bg-bg-page">
       <Section variant="compactHero" tone="section">
         <div className="max-w-3xl">
-          <p className="typo-kicker text-accent">Правна информация</p>
+          <p className="typo-kicker">Правна информация</p>
           <h1 className="typo-h2 mt-3">Условия за ползване</h1>
           <p className="typo-subtitle mt-4">
             Основни условия за използване на сайта, публикуваното съдържание и
@@ -152,6 +152,6 @@ export default function TermsPage() {
           </div>
         </div>
       </Section>
-    </main>
+    </div>
   );
 }

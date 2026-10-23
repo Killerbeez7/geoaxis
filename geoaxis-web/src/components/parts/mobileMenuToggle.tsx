@@ -13,7 +13,8 @@ export function MobileMenuToggle({ isOpen, onToggle }: MobileMenuToggleProps) {
       className="relative group md:hidden p-2 h-10 w-10 flex items-center justify-center rounded-lg transition-colors hover:bg-white/5 active:bg-white/10"
       onClick={onToggle}
       aria-expanded={isOpen}
-      aria-label="Toggle menu"
+      aria-label={isOpen ? "Затвори менюто" : "Отвори менюто"}
+      type="button"
     >
       <div className="relative flex flex-col items-center justify-center w-6 h-5">
         {/* Top Line */}

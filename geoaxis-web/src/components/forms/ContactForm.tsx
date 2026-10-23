@@ -326,13 +326,13 @@ export function ContactForm() {
 
   const [files, setFiles] = useState<File[]>([]);
   const [preferredContact, setPreferredContact] = useState("phone");
-  const [startedAt, setStartedAt] = useState(0);
+  const startedAtRef = useRef(0);
 
   const [state, setState] = useState<FormState>({ error: null, success: false });
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    setStartedAt(Date.now());
+    startedAtRef.current = Date.now();
   }, []);
 
   useEffect(() => {
@@ -356,7 +356,7 @@ export function ContactForm() {
     }
 
     formData.set("preferredContact", preferredContact);
-    formData.set(STARTED_AT_FIELD, String(startedAt));
+    formData.set(STARTED_AT_FIELD, String(startedAtRef.current));
     formData.delete("contactValue");
     formData.delete("contactMethod");
     files.forEach((f) => formData.append("files", f));
@@ -382,7 +382,7 @@ export function ContactForm() {
 
         track("inquiry_sent", { service: String(formData.get("service") || "none") });
         setState({ error: null, success: true });
-        setStartedAt(Date.now());
+        startedAtRef.current = Date.now();
         form.reset();
         setFiles([]);
         setPreferredContact("phone");

@@ -10,7 +10,6 @@ import { createSeo } from "@/lib/seo-builder";
 import { CategoryOverviewCard, ServicesHero } from "./_components/ServicesUi";
 import { SectionIntro } from "@/components/layout/SectionIntro";
 import { ServiceGuide } from "@/components/sections/ServiceGuide";
-import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 

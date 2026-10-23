@@ -1,6 +1,9 @@
+import { Suspense } from "react";
 import clsx from "clsx";
-import { FaEnvelope, FaHome, FaPhone } from "react-icons/fa";
+import { FaClock, FaEnvelope, FaHome, FaPhone, FaViber } from "react-icons/fa";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { CallbackRequest } from "@/components/forms/CallbackRequest";
+import { contactLinks } from "@/config/content/contacts";
 import { Section } from "@/components/layout/Section";
 import { pageSeo } from "@/config/seo";
 import { siteContent } from "@/config/site-content";
@@ -13,15 +16,16 @@ type Item = {
   title: string;
   text: React.ReactNode;
   href?: string;
+  external?: boolean;
 };
 
-function ContactItem({ icon, title, text, href }: Item) {
+function ContactItem({ icon, title, text, href, external }: Item) {
   const content = (
     <>
       <div
         className={clsx(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-11 sm:w-11",
-          "border border-br-light bg-bg-page text-base text-accent",
+          "border border-br-light bg-bg-page text-base text-accent-text",
           "transition group-hover:border-br-accent group-hover:bg-accent/10"
         )}
       >
@@ -44,7 +48,11 @@ function ContactItem({ icon, title, text, href }: Item) {
 
   if (href) {
     return (
-      <a href={href} className={className}>
+      <a
+        href={href}
+        className={className}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         {content}
       </a>
     );
@@ -54,7 +62,8 @@ function ContactItem({ icon, title, text, href }: Item) {
 }
 
 export default function Contacts() {
-  const { title, subtitle, phone, email, address, mapsUrl } = siteContent.contacts;
+  const { title, subtitle, phone, email, address, mapsUrl, workingHours, responseTime } =
+    siteContent.contacts;
 
   const formattedAddress = address.split("||").map((line, index) => (
     <span key={index}>
@@ -79,8 +88,8 @@ export default function Contacts() {
 
           <div className="mt-4 max-w-xl border-l-2 border-accent pl-4 sm:mt-6">
             <p className="typo-meta">
-              Обикновено отговаряме в рамките на работния ден. Ако случаят е спешен,
-              най-бързо е по телефона.
+              {responseTime}. Ако случаят е спешен, най-бързо е по телефона или във
+              Viber.
             </p>
           </div>
 
@@ -96,29 +105,53 @@ export default function Contacts() {
 
             <div className="mt-3 space-y-1 sm:mt-5 sm:space-y-2">
               <ContactItem
-                icon={<FaPhone />}
+                icon={<FaPhone aria-hidden="true" />}
                 title="Телефон"
                 text={phone}
-                href={`tel:${phone}`}
+                href={contactLinks.tel}
               />
               <ContactItem
-                icon={<FaEnvelope />}
+                icon={<FaViber aria-hidden="true" />}
+                title="Viber"
+                text={phone}
+                href={contactLinks.viber}
+              />
+              <ContactItem
+                icon={<FaEnvelope aria-hidden="true" />}
                 title="Имейл"
                 text={email}
-                href={`mailto:${email}`}
+                href={contactLinks.mail}
               />
               <ContactItem
-                icon={<FaHome />}
+                icon={<FaHome aria-hidden="true" />}
                 title="Адрес"
                 text={formattedAddress}
                 href={mapsUrl}
+                external
               />
+              <ContactItem
+                icon={<FaClock aria-hidden="true" />}
+                title="Работно време"
+                text={workingHours}
+              />
+            </div>
+
+            <div className="mt-5 border-t border-br-light pt-5">
+              <h2 className="text-base font-semibold text-tx-primary">
+                Предпочитате ние да Ви се обадим?
+              </h2>
+              <p className="typo-meta mb-3 mt-1">
+                Оставете само телефон. Ще Ви позвъним в работно време.
+              </p>
+              <CallbackRequest />
             </div>
           </div>
         </div>
 
         <div className="lg:justify-self-end lg:w-full lg:max-w-[720px]">
-          <ContactForm />
+          <Suspense fallback={null}>
+            <ContactForm />
+          </Suspense>
         </div>
       </div>
     </Section>

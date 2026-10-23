@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Section } from "@/components/layout/Section";
 import { CtaButton } from "@/components/parts/CtaButton";
 import { siteContent } from "@/config/site-content";
+import { contactLinks } from "@/config/content/contacts";
 
 function ContactAction({
   href,
@@ -22,7 +23,7 @@ function ContactAction({
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-tx-inverse/45">
+        <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-tx-inverse/75">
           {label}
         </span>
         <span className="mt-1 block wrap-break-word text-base font-semibold text-tx-inverse/86 transition group-hover:text-accent-on-dark md:text-lg">
@@ -57,14 +58,14 @@ export function FinalCta() {
         <div className="lg:w-full lg:max-w-md lg:justify-self-end lg:pt-8">
           <div className="grid gap-1">
             <ContactAction
-              href={`tel:${phone}`}
-              icon={<FaPhone className="h-4 w-4" />}
+              href={contactLinks.tel}
+              icon={<FaPhone aria-hidden="true" className="h-4 w-4" />}
               label="Телефон"
               value={phone}
             />
             <ContactAction
-              href={`mailto:${email}`}
-              icon={<FaEnvelope className="h-4 w-4" />}
+              href={contactLinks.mail}
+              icon={<FaEnvelope aria-hidden="true" className="h-4 w-4" />}
               label="Имейл"
               value={email}
             />

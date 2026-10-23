@@ -14,7 +14,7 @@ export function MobileActionBar() {
   return (
     <nav
       aria-label="Бърз контакт"
-      className="fixed inset-x-0 bottom-0 z-60 flex border-t border-white/10 bg-bg-nav/95 pb-[env(safe-area-inset-bottom)] text-tx-inverse backdrop-blur-xl md:hidden"
+      className="fixed inset-x-0 bottom-0 z-60 flex border-t border-white/10 bg-bg-nav pb-[env(safe-area-inset-bottom)] text-tx-inverse shadow-[0_-8px_24px_rgba(0,0,0,0.18)] md:hidden"
     >
       <a href={contactLinks.tel} className={itemCls} onClick={() => track("call_click", { from: "mobile_bar" })}>
         <FaPhone className="h-4 w-4 text-accent-on-dark" aria-hidden="true" />

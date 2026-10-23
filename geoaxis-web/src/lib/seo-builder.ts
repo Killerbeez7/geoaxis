@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/config/site";
 import { defaultSeo } from "@/config/seo";
 import type { ServiceCategory, Service } from "@/config/services/categories";
+import { OG_IMAGE_SIZE, toOgImage } from "@/lib/og-image";
 
 type SeoInput = {
   title?: string;
@@ -35,8 +36,7 @@ function buildAbsoluteUrl(path: string = "") {
 }
 
 function buildImageUrl(image?: string) {
-  const selected = image || defaultSeo.defaultOgImage;
-  return selected.startsWith("http") ? selected : `${SITE_URL}${selected}`;
+  return `${SITE_URL}${toOgImage(image)}`;
 }
 
 function addAreaContext(description: string) {
@@ -91,8 +91,7 @@ export function createSeo({
       images: [
         {
           url: fullImage,
-          width: 1200,
-          height: 630,
+          ...OG_IMAGE_SIZE,
           alt: fullTitle,
         },
       ],
@@ -130,7 +129,6 @@ export function createServiceSeo(category: ServiceCategory, service: Service): M
       normalizeDescription(service.longDescription ?? service.description)
     ),
     canonical: `/uslugi/${category.slug}/${service.slug}`,
-    image:
-      service.heroImage || service.thumbnail || category.heroImage || category.thumbnail,
+    image: category.heroImage,
   });
 }

@@ -5,7 +5,10 @@ import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
+import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 import { PoleznoCta } from "../_components/PoleznoCta";
+import { JsonLd } from "@/components/parts/JsonLd";
+import { faqSchema } from "@/components/sections/FaqSection";
 
 const pageContent = getHelpfulNavItem("faq");
 
@@ -22,9 +25,19 @@ export default function FaqPage() {
 
   return (
     <div className="bg-bg-page">
+      <JsonLd data={faqSchema(HELPFUL_FAQ_GROUPS.flatMap((group) => group.items))} />
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
+        before={
+          <Breadcrumbs
+            className="mb-6"
+            items={[
+              { label: "Полезно", href: "/polezno" },
+              { label: "Въпроси и отговори", href: pageContent.href },
+            ]}
+          />
+        }
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
@@ -87,7 +100,7 @@ export default function FaqPage() {
                   Не намирате точния отговор?
                 </h2>
                 <p className="mt-2 text-[15px] leading-7 text-tx-secondary">
-                  Изпратете кратко описание на случая и ще Ви насочим към подходящата
+                  Изпратете кратко описание на случая и ще ви насочим към подходящата
                   услуга, документ или следваща стъпка.
                 </p>
               </div>

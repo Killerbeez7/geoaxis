@@ -415,7 +415,7 @@ export function ContactForm() {
           onClick={() => setState({ error: null, success: false })}
           className="mt-6 text-sm font-medium text-accent-text underline-offset-2 hover:underline"
         >
-          Изпрати ново запитване
+          Изпратете ново запитване
         </button>
       </div>
     );
@@ -503,12 +503,12 @@ export function ContactForm() {
 
           <p className="text-xs leading-5 text-tx-muted">
             С изпращането на запитването предоставените данни ще бъдат използвани
-            единствено за връзка с Вас и подготовка на отговор или оферта.
+            единствено за връзка с вас и подготовка на отговор или оферта.
           </p>
         </div>
 
         <CtaButton type="submit" size="lg" className="w-full" disabled={isPending}>
-          {isPending ? "Изпращане..." : "Изпрати запитване"}
+          {isPending ? "Изпращане..." : "Изпратете запитване"}
         </CtaButton>
 
         <div aria-live="assertive">

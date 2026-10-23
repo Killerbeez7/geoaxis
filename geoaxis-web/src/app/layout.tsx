@@ -13,6 +13,8 @@ import { SITE_URL } from "@/config/site";
 import { defaultSeo } from "@/config/seo";
 // Schemas
 import { getLocalBusinessSchema } from "@/lib/schemas";
+import { DEFAULT_OG_IMAGE } from "@/lib/og-image";
+import { JsonLd } from "@/components/parts/JsonLd";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
 import { MotionProvider } from "@/components/layout/MotionProvider";
 
@@ -36,13 +38,13 @@ export const metadata: Metadata = {
     url: SITE_URL,
     locale: defaultSeo.locale,
     type: "website",
-    images: [defaultSeo.defaultOgImage],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: defaultSeo.twitterCard,
     title: defaultSeo.defaultTitle,
     description: defaultSeo.defaultDescription,
-    images: [defaultSeo.defaultOgImage],
+    images: [DEFAULT_OG_IMAGE],
   },
   robots: defaultSeo.robots,
   icons: {
@@ -52,6 +54,7 @@ export const metadata: Metadata = {
     ],
     apple: "/icons/apple-touch-icon.png",
   },
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -64,12 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${montserrat.variable} antialiased flex flex-col relative`}
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getLocalBusinessSchema(SITE_URL)),
-          }}
-        />
+        <JsonLd data={getLocalBusinessSchema(SITE_URL)} />
         <a href="#main-content" className="skip-link">
           Към съдържанието
         </a>

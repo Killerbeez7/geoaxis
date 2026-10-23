@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Section } from "@/components/layout/Section";
 import { siteContent } from "@/config/site-content";
+import { company } from "@/config/content/company";
 import { createSeo } from "@/lib/seo-builder";
 
 export const metadata = createSeo({
@@ -22,9 +23,9 @@ const collectedData = [
 ];
 
 const processors = [
-  "Vercel - хостинг, CDN, инфраструктура, Vercel Analytics и Speed Insights",
-  "Resend - изпращане на имейл съобщения от контактната форма",
-  "доставчикът на получаващата имейл поща",
+  "Vercel Inc. – хостинг, CDN, инфраструктура, Vercel Analytics и Speed Insights",
+  "Resend – изпращане на имейл съобщения от контактната форма",
+  "Google (Gmail) – получаване и съхранение на имейл кореспонденцията",
 ];
 
 const technicalLocations = [
@@ -38,7 +39,9 @@ const userRights = [
   "достъп до личните данни",
   "корекция на неточни или непълни данни",
   "изтриване на данни, когато няма законово основание да бъдат пазени",
-  "ограничаване или възражение срещу обработването в приложимите случаи",
+  "ограничаване на обработването в приложимите случаи",
+  "възражение срещу обработване, основано на легитимен интерес",
+  "преносимост – да получите данните си в структуриран, машинно четим формат",
   "жалба до Комисията за защита на личните данни",
 ];
 
@@ -78,10 +81,19 @@ export default function PrivacyPolicyPage() {
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
         <div className="mx-auto max-w-4xl space-y-10">
           <LegalSection title="1. Кой стои зад сайта">
-            <p>
-              GeoAxis е търговско наименование/брандинг, използвано за
-              представяне на геодезически услуги чрез сайта geoaxis.bg.
-            </p>
+            {company.legalName ? (
+              <p>
+                Администратор на личните данни е {company.legalName}
+                {company.eik ? `, ЕИК ${company.eik}` : ""}
+                {company.registeredAddress ? `, със седалище и адрес на управление ${company.registeredAddress}` : ""}
+                , което използва търговското наименование GeoAxis и сайта geoaxis.bg.
+              </p>
+            ) : (
+              <p>
+                GeoAxis е търговско наименование/брандинг, използвано за
+                представяне на геодезически услуги чрез сайта geoaxis.bg.
+              </p>
+            )}
             <p>
               За въпроси относно обработката на лични данни можете да се свържете
               с нас на{" "}
@@ -172,7 +184,20 @@ export default function PrivacyPolicyPage() {
             </ul>
           </LegalSection>
 
-          <LegalSection title="8. Аналитика и бисквитки">
+          <LegalSection title="8. Предаване на данни извън ЕС">
+            <p>
+              Някои от посочените доставчици са установени в САЩ. Предаването на
+              данни към тях се основава на Рамката за защита на данните между ЕС и
+              САЩ (EU–US Data Privacy Framework) или на стандартни договорни клаузи,
+              одобрени от Европейската комисия.
+            </p>
+            <p>
+              Сървърната обработка на запитванията се извършва в региона на
+              Франкфурт (ЕС).
+            </p>
+          </LegalSection>
+
+          <LegalSection title="9. Аналитика и бисквитки">
             <p>
               Сайтът не използва рекламни или маркетингови бисквитки и не съдържа
               рекламни пиксели. Използваме Vercel Analytics и Vercel Speed
@@ -180,7 +205,7 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="9. Срок на съхранение">
+          <LegalSection title="10. Срок на съхранение">
             <p>
               Запитванията и свързаната с тях кореспонденция се съхраняват в
               пощенската кореспонденция до 12 месеца след последната комуникация,
@@ -189,7 +214,7 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="10. Вашите права">
+          <LegalSection title="11. Вашите права">
             <p>Имате право да поискате:</p>
             <ul className="list-disc space-y-2 pl-6">
               {userRights.map((item) => (
@@ -210,7 +235,7 @@ export default function PrivacyPolicyPage() {
           </LegalSection>
 
           <div className="rounded-2xl border border-br-light bg-bg-section p-5 text-sm leading-7 text-tx-secondary">
-            Последна актуализация: 19 юни 2026 г. Вижте също{" "}
+            Последна актуализация: 23 октомври 2026 г. Вижте също{" "}
             <Link
               className="font-medium text-accent-strong underline"
               href="/usloviya-za-polzvane"

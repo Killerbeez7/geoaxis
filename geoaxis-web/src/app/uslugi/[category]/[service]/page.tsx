@@ -175,7 +175,7 @@ function DedicatedServiceContent({
             <MdArrowRightAlt className="text-xl" />
           </Link>
           <p className="mt-3 text-sm leading-6 text-tx-muted">
-            Вижте и останалите услуги в тази категория, ако случаят Ви включва
+            Вижте и останалите услуги в тази категория, ако случаят ви включва
             допълнителни измервания или документи.
           </p>
         </div>

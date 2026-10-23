@@ -5,6 +5,7 @@ import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { GlossarySectionLayout } from "../_components/GlossarySectionLayout";
 import { PoleznoPlainHero } from "../_components/PoleznoPlainHero";
+import { Breadcrumbs } from "@/components/parts/Breadcrumbs";
 
 const pageContent = getHelpfulNavItem("rechnik");
 
@@ -24,6 +25,15 @@ export default function RechnikPage() {
       <PoleznoPlainHero
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
+        before={
+          <Breadcrumbs
+            className="mb-6"
+            items={[
+              { label: "Полезно", href: "/polezno" },
+              { label: "Речник", href: pageContent.href },
+            ]}
+          />
+        }
       />
 
       <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">

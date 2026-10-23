@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { HONEYPOT_FIELD, STARTED_AT_FIELD, isValidPhone } from "@/lib/contact";
@@ -9,13 +9,13 @@ export function CallbackRequest() {
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
-  const [startedAt, setStartedAt] = useState(0);
+  const startedAtRef = useRef(0);
   const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    setStartedAt(Date.now());
+    startedAtRef.current = Date.now();
   }, []);
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,7 +36,7 @@ export function CallbackRequest() {
             phone,
             privacyConsent: consent,
             [HONEYPOT_FIELD]: honeypot,
-            [STARTED_AT_FIELD]: startedAt,
+            [STARTED_AT_FIELD]: startedAtRef.current,
           }),
         });
         const data = (await res.json().catch(() => null)) as { error?: string } | null;

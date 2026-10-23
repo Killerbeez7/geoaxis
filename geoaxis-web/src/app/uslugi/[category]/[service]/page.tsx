@@ -9,6 +9,7 @@ import { createSeo, createServiceSeo } from "@/lib/seo-builder";
 import { getServiceSchema } from "@/lib/schemas";
 import { JsonLd } from "@/components/parts/JsonLd";
 import { ServiceFacts } from "../../_components/ServicesUi";
+import { PriceFactors } from "@/components/parts/PriceFactors";
 import { getDedicatedServiceRouteParams, getServiceBySlugs } from "@/lib/selectors";
 import { getServiceHref } from "@/utils/urlHelpers";
 import { normalizeParagraphs } from "@/utils/normalizeText";
@@ -149,6 +150,12 @@ function DedicatedServiceContent({
           title="Какво получавате"
           intro={content?.deliverablesIntro ?? FALLBACK_DELIVERABLES_INTRO}
           items={content?.deliverables}
+        />
+
+        <PriceFactors
+          serviceSlug={category.slug}
+          hasPrices={Boolean(service.priceFrom)}
+          className="mt-14 border-t border-br-light pt-9"
         />
       </div>
 

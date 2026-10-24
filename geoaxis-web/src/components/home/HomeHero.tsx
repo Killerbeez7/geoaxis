@@ -32,7 +32,7 @@ export function HomeHero() {
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
+      <div className="container-page flex min-h-[calc(100svh+2rem)] flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
         <div className="max-w-2xl flex-1">
           {/* The last topic is dropped on phones so the kicker stays on one line */}
           <Eyebrow>

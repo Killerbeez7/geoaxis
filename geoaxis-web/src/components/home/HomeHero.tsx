@@ -32,7 +32,7 @@ export function HomeHero() {
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex min-h-svh flex-col pb-12 pt-[calc(var(--header-h)+2.5rem)] md:min-h-[min(100svh,60rem)] md:pb-10 lg:pt-[calc(var(--header-h)+6rem)]">
+      <div className="container-page flex flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
         <div className="max-w-2xl flex-1">
           {/* The last topic is dropped on phones so the kicker stays on one line */}
           <Eyebrow>
@@ -92,8 +92,7 @@ export function HomeHero() {
           </div>
         </div>
 
-        {/* On phones the photo runs on behind the proof points and the contact bar, so there is no hard cut to white */}
-        <div className="mt-10 md:mt-14">
+        <div className="mt-14 hidden md:block">
           <TrustBar variant="overlay" />
         </div>
       </div>

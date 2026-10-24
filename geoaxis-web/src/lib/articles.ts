@@ -25,12 +25,4 @@ export function formatDate(isoDate: string) {
   return dateFormatter.format(new Date(`${isoDate}T12:00:00Z`));
 }
 
-const WORDS_PER_MINUTE = 200;
 
-export function readingMinutes(article: HelpfulArticle) {
-  const text = article.body
-    .map((block) => (block.type === "paragraph" ? block.content : [block.title ?? "", ...block.items].join(" ")))
-    .join(" ");
-  const words = text.split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
-}

@@ -19,6 +19,7 @@ export function ArticleListPage({
   return (
     <>
       <PageHero
+        size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: labels.plural, href: pageContent.href },
@@ -32,7 +33,7 @@ export function ArticleListPage({
         <h2 id="article-list-title" className="sr-only">
           Всички {labels.plural.toLowerCase()}
         </h2>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
           {articles.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 import { track } from "@vercel/analytics";
 import { HONEYPOT_FIELD, STARTED_AT_FIELD, isValidPhone } from "@/lib/contact";
 
@@ -65,7 +66,7 @@ export function CallbackRequest() {
   }
 
   return (
-    <form onSubmit={submit} className="space-y-3" aria-label="Заявка за обратно обаждане">
+    <form onSubmit={submit} className="@container space-y-3" aria-label="Заявка за обратно обаждане">
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor="callback-website">Не попълвайте това поле</label>
         <input
@@ -77,7 +78,7 @@ export function CallbackRequest() {
         />
       </div>
 
-      <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex flex-col gap-2 @sm:flex-row">
         <label htmlFor="callback-phone" className="sr-only">
           Телефон за обратно обаждане
         </label>
@@ -90,28 +91,24 @@ export function CallbackRequest() {
           placeholder="Вашият телефон"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="h-11 w-full min-w-0 rounded-xl sm:flex-1 border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted/80 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20"
+          className="h-11 w-full min-w-0 rounded-xl border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted/80 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20 @sm:flex-1"
         />
-        <button
-          type="submit"
-          disabled={isPending}
-          className="h-11 shrink-0 rounded-xl bg-bg-inverse px-5 text-sm font-semibold text-tx-inverse transition-colors hover:bg-bg-brand disabled:opacity-60"
-        >
+        <Button type="submit" variant="dark" disabled={isPending} className="shrink-0">
           {isPending ? "Изпращане…" : "Обадете ми се"}
-        </button>
+        </Button>
       </div>
 
-      <label className="typo-caption flex items-start gap-2.5 text-tx-secondary">
+      <label className="typo-small flex items-start gap-2.5">
         <input
           type="checkbox"
           required
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
+          className="mt-[0.2rem] h-4 w-4 shrink-0 accent-accent"
         />
         <span>
           Запознах се с{" "}
-          <Link href="/politika-za-poveritelnost" className="font-medium text-accent-text underline">
+          <Link href="/politika-za-poveritelnost" className="font-medium text-accent-text underline underline-offset-2">
             Политиката за поверителност
           </Link>
           .
@@ -119,7 +116,7 @@ export function CallbackRequest() {
       </label>
 
       <div aria-live="assertive">
-        {error ? <p className="typo-caption font-medium text-danger">{error}</p> : null}
+        {error ? <p className="typo-small font-medium text-danger">{error}</p> : null}
       </div>
     </form>
   );

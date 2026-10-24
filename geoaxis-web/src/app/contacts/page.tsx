@@ -9,6 +9,7 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ContactChannels } from "@/components/ui/ContactChannels";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { Heading, Text } from "@/components/ui/Text";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata = createSeo(pageSeo.contacts);
@@ -36,15 +37,19 @@ export default function ContactsPage() {
 
           <aside className="grid content-start gap-6">
             <div className="rounded-3xl border border-br-light bg-bg-page p-3 shadow-card">
-              <p className="typo-h4 px-3 pt-3 text-tx-primary">Предпочитате директен контакт?</p>
+              <Heading as="p" size="h4" className="px-3 pt-3">
+                Предпочитате директен контакт?
+              </Heading>
               <ContactChannels showWhatsapp className="mt-2" />
             </div>
 
             <div className="rounded-3xl border border-br-light bg-bg-subtle p-6">
-              <p className="typo-h4 text-tx-primary">Ние да ви се обадим?</p>
-              <p className="typo-small mb-4 mt-1.5 text-tx-muted">
+              <Heading as="p" size="h4">
+                Ние да ви се обадим?
+              </Heading>
+              <Text size="small" className="mb-4 mt-1.5">
                 Оставете само телефон – ще ви позвъним в работно време.
-              </p>
+              </Text>
               <CallbackRequest />
             </div>
 
@@ -56,8 +61,8 @@ export default function ContactsPage() {
             >
               <LuMapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-text" />
               <span>
-                <span className="block font-semibold text-tx-primary">{street}</span>
-                <span className="typo-small block text-tx-muted">{city}</span>
+                <span className="typo-h5 block">{street}</span>
+                <span className="typo-small tone-muted block">{city}</span>
                 <span className="typo-small mt-2 block font-semibold text-accent-text group-hover:underline">
                   Отворете в Google Maps
                 </span>

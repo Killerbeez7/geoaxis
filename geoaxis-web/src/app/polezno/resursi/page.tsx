@@ -26,6 +26,7 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
+        size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: pageContent.label, href: pageContent.href },
@@ -46,7 +47,7 @@ export default function ResourcesPage() {
           {RESOURCE_CHECKLISTS.map((group) => (
             <section key={group.title} className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
               <h3 className="typo-h4">{group.title}</h3>
-              <p className="typo-small mt-2 text-tx-muted">{group.description}</p>
+              <p className="typo-small mt-2">{group.description}</p>
               <CheckList items={group.items} className="typo-small mt-5" />
             </section>
           ))}
@@ -70,11 +71,11 @@ export default function ResourcesPage() {
                 className="group flex h-full items-start justify-between gap-6 rounded-2xl border border-br-light bg-bg-page p-6 transition-colors hover:border-br-accent"
               >
                 <span>
-                  <span className="typo-h4 block text-tx-primary group-hover:text-accent-text">
+                  <span className="typo-h4 block transition-colors group-hover:text-accent-text">
                     {resource.title}
                     <span className="sr-only"> (отваря се в нов прозорец)</span>
                   </span>
-                  <span className="typo-small mt-2 block text-tx-muted">{resource.description}</span>
+                  <span className="typo-small mt-2 block">{resource.description}</span>
                 </span>
                 <LuExternalLink aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-accent-text" />
               </a>

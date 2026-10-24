@@ -1,4 +1,5 @@
 import Link from "next/link";
+import clsx from "clsx";
 import type { IconType } from "react-icons";
 import { LuArrowRight, LuBookMarked, LuBookOpen, LuCircleHelp, LuLibrary, LuListChecks } from "react-icons/lu";
 
@@ -14,6 +15,7 @@ import { IconBadge } from "@/components/ui/IconBadge";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Badge, Heading, Text } from "@/components/ui/Text";
 
 export const metadata = createSeo(pageSeo.polezno);
 
@@ -50,27 +52,35 @@ export default function HelpfulPage() {
         eyebrow="Полезно"
         title="Полезни материали за имоти и геодезия"
         description="Статии, ръководства и справки за кадастър, ПУП, строителство и документи – за да знаете какво предстои, преди да започнете."
+        aside={<ArticleCard article={featured} kicker="Започнете оттук" aligned={false} titleAs="p" />}
       />
 
       <Section aria-labelledby="topics-title">
         <h2 id="topics-title" className="sr-only">
           Теми
         </h2>
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {HELPFUL_NAV_ITEMS.map((item) => (
-            <li key={item.slug}>
+        {/* Five topics: three across, then two wider cards, so no row is left half-empty */}
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+          {HELPFUL_NAV_ITEMS.map((item, index) => (
+            <li
+              key={item.slug}
+              className={clsx(
+                index < 3 ? "lg:col-span-2" : "lg:col-span-3",
+                index === HELPFUL_NAV_ITEMS.length - 1 && index % 2 === 0 && "sm:col-span-2 lg:col-span-3"
+              )}
+            >
               <Link
                 href={item.href}
-                className="group flex h-full flex-col rounded-2xl border border-br-light bg-bg-page p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+                className="group flex h-full flex-col rounded-2xl border border-br-light bg-bg-page p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-7"
               >
                 <div className="flex items-center justify-between gap-4">
                   <IconBadge icon={TOPIC_ICONS[item.slug]} size="lg" />
-                  <span className="typo-caption rounded-full bg-bg-subtle px-2.5 py-1 font-semibold text-tx-muted">
-                    {TOPIC_COUNTS[item.slug]}
-                  </span>
+                  <Badge tone="neutral">{TOPIC_COUNTS[item.slug]}</Badge>
                 </div>
-                <h3 className="typo-h3 mt-5">{item.label}</h3>
-                <p className="typo-small mt-2 text-tx-muted">{item.description}</p>
+                <Heading as="h3" size="h4" className="mt-5">
+                  {item.label}
+                </Heading>
+                <Text className="mt-2 max-w-md">{item.description}</Text>
                 <span className="typo-small mt-auto inline-flex items-center gap-1.5 pt-6 font-semibold text-accent-text">
                   Отворете
                   <LuArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -81,13 +91,13 @@ export default function HelpfulPage() {
         </ul>
       </Section>
 
-      <Section tone="subtle" aria-labelledby="featured-title">
-        <SectionHeader id="featured-title" eyebrow="Препоръчано за начало" title="Започнете оттук" />
-        <div className="mt-10">
-          <ArticleCard article={featured} featured />
-        </div>
-        <h3 className="typo-h4 mt-14">Последно обновени</h3>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+      <Section tone="subtle" aria-labelledby="latest-title">
+        <SectionHeader
+          id="latest-title"
+          eyebrow="Статии и ръководства"
+          title="Последно обновени"
+        />
+        <div className="mt-12 grid gap-x-6 gap-y-8 md:grid-cols-3">
           {latest.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}

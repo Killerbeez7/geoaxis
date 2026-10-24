@@ -4,7 +4,7 @@ import { LuPhone, LuSend } from "react-icons/lu";
 import { contactLinks } from "@/config/content/contacts";
 
 const itemCls =
-  "flex flex-1 flex-col items-center justify-center gap-1 rounded-xl py-2 text-center text-xs font-semibold transition-colors";
+  "flex flex-1 flex-col items-center justify-center gap-1 typo-badge rounded-xl py-2 text-center transition-colors";
 
 // Always-visible contact shortcuts on phones, where most visitors arrive.
 export function MobileActionBar() {

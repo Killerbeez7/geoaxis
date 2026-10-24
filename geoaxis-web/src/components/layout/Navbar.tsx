@@ -105,7 +105,7 @@ export function Navbar({ services, helpful }: Props) {
   return (
     <header
       ref={headerRef}
-      className="fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep/92 text-tx-inverse backdrop-blur-xl"
+      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep/92 text-tx-inverse backdrop-blur-xl"
       onMouseLeave={scheduleClose}
     >
       <div className="container-page flex h-full items-center justify-between gap-6">
@@ -128,7 +128,7 @@ export function Navbar({ services, helpful }: Props) {
                       onMouseEnter={scheduleClose}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "relative inline-flex h-10 items-center rounded-lg px-3.5 typo-ui font-medium transition-colors",
+                        "typo-ui relative inline-flex h-10 items-center rounded-lg px-3.5 font-medium transition-colors",
                         active ? "text-tx-inverse" : "text-tx-inverse-muted hover:text-tx-inverse"
                       )}
                     >
@@ -157,7 +157,7 @@ export function Navbar({ services, helpful }: Props) {
                     aria-controls={`menu-${menuId}`}
                     onClick={() => (expanded ? setOpenMenu(null) : openDesktopMenu(menuId))}
                     className={clsx(
-                      "relative inline-flex h-10 items-center gap-1.5 rounded-lg px-3.5 typo-ui font-medium transition-colors",
+                      "typo-ui relative inline-flex h-10 items-center gap-1.5 rounded-lg px-3.5 font-medium transition-colors",
                       active || expanded ? "text-tx-inverse" : "text-tx-inverse-muted hover:text-tx-inverse"
                     )}
                   >
@@ -189,8 +189,8 @@ export function Navbar({ services, helpful }: Props) {
                               >
                                 <IconBadge icon={getCategoryIcon(service.slug)} dark />
                                 <span className="min-w-0">
-                                  <span className="block font-semibold text-tx-inverse">{service.title}</span>
-                                  <span className="typo-caption mt-0.5 line-clamp-2 block text-tx-inverse-muted">
+                                  <span className="typo-h5 block">{service.title}</span>
+                                  <span className="typo-small tone-muted mt-0.5 line-clamp-2 block">
                                     {service.description}
                                   </span>
                                 </span>
@@ -202,7 +202,7 @@ export function Navbar({ services, helpful }: Props) {
                         <div className="flex flex-col justify-between rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
                           <div>
                             <LuCircleHelp aria-hidden="true" className="h-6 w-6 text-accent-on-dark" />
-                            <p className="mt-3 font-semibold text-tx-inverse">Не знаете коя услуга ви трябва?</p>
+                            <p className="typo-h5 mt-3">Не знаете коя услуга ви трябва?</p>
                             <p className="typo-small mt-1.5 text-tx-inverse-muted">
                               Изберете ситуацията си и ще ви покажем подходящата услуга.
                             </p>
@@ -237,8 +237,8 @@ export function Navbar({ services, helpful }: Props) {
                               onClick={closeAll}
                               className="block rounded-xl px-4 py-3 transition-colors hover:bg-white/6"
                             >
-                              <span className="block font-semibold text-tx-inverse">{link.label}</span>
-                              <span className="typo-caption mt-0.5 line-clamp-1 block text-tx-inverse-muted">
+                              <span className="typo-h5 block">{link.label}</span>
+                              <span className="typo-small tone-muted mt-0.5 line-clamp-1 block">
                                 {link.description}
                               </span>
                             </Link>
@@ -265,7 +265,7 @@ export function Navbar({ services, helpful }: Props) {
           <a
             href={contactLinks.tel}
             data-track="call_click"
-            className="hidden items-center gap-2 rounded-lg px-3 py-2 typo-ui font-semibold text-tx-inverse transition-colors hover:text-accent-on-dark xl:inline-flex"
+            className="typo-ui hidden items-center gap-2 rounded-lg px-3 py-2 font-semibold text-tx-inverse tabular-nums transition-colors hover:text-accent-on-dark xl:inline-flex"
           >
             <LuPhone aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
             {contacts.phone}
@@ -314,7 +314,7 @@ export function Navbar({ services, helpful }: Props) {
                       onClick={closeAll}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "flex min-h-14 items-center text-lg font-medium",
+                        "typo-h4 flex min-h-14 items-center font-medium",
                         isActive(item.href) ? "text-accent-on-dark" : "text-tx-inverse"
                       )}
                     >
@@ -338,7 +338,7 @@ export function Navbar({ services, helpful }: Props) {
                     aria-expanded={expanded}
                     aria-controls={`mobile-${menuId}`}
                     onClick={() => setMobileSection(expanded ? null : menuId)}
-                    className="flex min-h-14 w-full items-center justify-between text-lg font-medium text-tx-inverse"
+                    className="typo-h4 flex min-h-14 w-full items-center justify-between font-medium"
                   >
                     {item.label}
                     <LuChevronDown

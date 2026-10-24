@@ -1,7 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LuArrowRight } from "react-icons/lu";
+import { Fragment } from "react";
 
 import { SITE_URL } from "@/config/site";
 import {
@@ -10,15 +8,19 @@ import {
   getRelatedArticles,
   type HelpfulArticleSection,
 } from "@/config/polezno/articles";
-import { SECTION_LABELS, formatDate, getArticleHref, readingMinutes } from "@/lib/articles";
+import { SECTION_LABELS, formatDate, getArticleHref } from "@/lib/articles";
 import { createSeo } from "@/lib/seo-builder";
 import { getArticleSchema } from "@/lib/schemas";
 import { ArticleCard } from "@/components/polezno/ArticleCard";
+import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { HeroMedia } from "@/components/ui/HeroMedia";
 import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Heading, Text } from "@/components/ui/Text";
 
 function findArticle(section: HelpfulArticleSection, slug: string) {
   const article = getArticleBySlug(slug);
@@ -70,73 +72,57 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
           { label: labels.plural, href: `/polezno/${section}` },
           { label: article.title, href: getArticleHref(article) },
         ]}
-        eyebrow={`${labels.single} · ${readingMinutes(article)} мин четене`}
+        eyebrow={labels.single}
         title={article.title}
-        description={article.excerpt}
+        description={article.excerpt ?? article.description}
+        aside={article.coverImage ? <HeroMedia src={article.coverImage.src} alt={article.coverImage.alt} /> : undefined}
       >
-        <p className="typo-small mt-6 text-tx-muted">
+        <Text size="small" tone="muted" className="mt-6">
           Публикувано на {formatDate(article.publishedAt)}
           {updated ? ` · Обновено на ${formatDate(updated)}` : ""}
-        </p>
+        </Text>
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
-          <article className="min-w-0 max-w-3xl">
-            {article.coverImage ? (
-              <figure className="relative mb-10 aspect-16/9 overflow-hidden rounded-3xl bg-bg-subtle">
-                <Image
-                  src={article.coverImage.src}
-                  alt={article.coverImage.alt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 768px, calc(100vw - 2.5rem)"
-                  className="object-cover"
-                />
-              </figure>
-            ) : null}
-
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,42rem)_21rem] lg:justify-between lg:gap-12">
+          <article className="min-w-0">
             <div className="prose-geo">
               {article.body.map((block, index) =>
                 block.type === "paragraph" ? (
                   <p key={`${article.slug}-p-${index}`}>{block.content}</p>
                 ) : (
-                  <div key={`${article.slug}-l-${index}`}>
+                  <Fragment key={`${article.slug}-l-${index}`}>
                     {block.title ? <h2>{block.title}</h2> : null}
-                    <ul className="mt-4">
+                    <ul>
                       {block.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-                  </div>
+                  </Fragment>
                 )
               )}
             </div>
 
             {article.relatedServices?.length ? (
               <section aria-labelledby="related-services-title" className="mt-12 rounded-2xl border border-br-light bg-bg-subtle p-6">
-                <h2 id="related-services-title" className="typo-h4">
+                <Heading id="related-services-title" size="h5">
                   Свързани услуги
-                </h2>
+                </Heading>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {article.relatedServices.map((service) => (
                     <li key={service.href}>
-                      <Link
-                        href={service.href}
-                        className="typo-small inline-flex h-10 items-center gap-1.5 rounded-xl border border-br-default bg-bg-page px-4 font-semibold text-tx-primary transition-colors hover:border-br-accent hover:text-accent-text"
-                      >
+                      <Chip href={service.href} arrow>
                         {service.label}
-                        <LuArrowRight aria-hidden="true" className="h-4 w-4" />
-                      </Link>
+                      </Chip>
                     </li>
                   ))}
                 </ul>
               </section>
             ) : null}
 
-            <p className="typo-caption mt-10 border-t border-br-light pt-6 text-tx-muted">
+            <Text size="small" tone="muted" className="mt-10 border-t border-br-light pt-6">
               Материалът е с информационна цел и не замества консултация за конкретен имот.
-            </p>
+            </Text>
           </article>
 
           <aside>
@@ -152,10 +138,8 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
 
       {relatedArticles.length ? (
         <Section tone="subtle" aria-labelledby="related-articles-title">
-          <h2 id="related-articles-title" className="typo-h2">
-            Още по темата
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <SectionHeader id="related-articles-title" eyebrow="Полезно" title="Още по темата" />
+          <div className="mt-12 grid gap-x-6 gap-y-8 md:grid-cols-3">
             {relatedArticles.map((related) => (
               <ArticleCard key={related.slug} article={related} />
             ))}

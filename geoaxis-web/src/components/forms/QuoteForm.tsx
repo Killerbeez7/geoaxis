@@ -235,7 +235,7 @@ export function QuoteForm() {
             "Уточняваме детайлите и получавате оферта и срок преди започване на работа.",
           ].map((item, index) => (
             <li key={item} className="flex gap-4">
-              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-accent text-sm font-semibold text-accent-text">
+              <span className="typo-small inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-accent font-semibold text-accent-text tabular-nums">
                 {index + 1}
               </span>
               <span className="pt-1">{item}</span>
@@ -272,7 +272,7 @@ export function QuoteForm() {
 
       {/* Progress */}
       <div>
-        <p className="typo-small font-medium text-tx-muted">
+        <p className="typo-label tone-muted">
           Стъпка {step} от {STEPS.length}
         </p>
         <ol className="mt-3 grid grid-cols-3 gap-2" aria-hidden="true">
@@ -286,7 +286,7 @@ export function QuoteForm() {
               />
               <span
                 className={clsx(
-                  "typo-caption mt-2 block font-semibold",
+                  "typo-small mt-2 block font-semibold",
                   item.id === step ? "text-tx-primary" : "text-tx-muted"
                 )}
               >
@@ -306,7 +306,7 @@ export function QuoteForm() {
         <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-bg-subtle px-4 py-3">
           <p className="typo-small">
             <span className="text-tx-muted">Услуга: </span>
-            <span className="font-semibold text-tx-primary">{selectedOption.label}</span>
+            <span className="tone-strong font-semibold">{selectedOption.label}</span>
           </p>
           <button
             type="button"
@@ -343,7 +343,7 @@ export function QuoteForm() {
                     <Icon aria-hidden="true" className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block font-semibold text-tx-primary">{option.label}</span>
+                    <span className="typo-h5 block">{option.label}</span>
                     <span className="typo-small block text-tx-muted">{option.hint}</span>
                   </span>
                 </button>
@@ -357,7 +357,7 @@ export function QuoteForm() {
       {step === 2 ? (
         <div className="mt-6 grid gap-6">
           <div>
-            <label htmlFor="quote-message" className="font-semibold text-tx-primary">
+            <label htmlFor="quote-message" className="typo-h5">
               Какво ви е необходимо? <span className="text-danger">*</span>
             </label>
             <textarea
@@ -378,7 +378,7 @@ export function QuoteForm() {
           </div>
 
           <div>
-            <label htmlFor="quote-location" className="font-semibold text-tx-primary">
+            <label htmlFor="quote-location" className="typo-h5">
               Къде се намира имотът?
             </label>
             <p id="quote-location-hint" className="typo-small text-tx-muted">
@@ -397,7 +397,7 @@ export function QuoteForm() {
           </div>
 
           <div>
-            <p className="font-semibold text-tx-primary">Документи или снимки</p>
+            <p className="typo-h5">Документи или снимки</p>
             <p className="typo-small text-tx-muted">
               По желание · JPG, PNG, WebP или PDF · до {MAX_FILES} файла, общо до {formatMb(MAX_TOTAL_UPLOAD_SIZE)}
             </p>
@@ -413,7 +413,7 @@ export function QuoteForm() {
             >
               <LuUpload aria-hidden="true" className="h-5 w-5 shrink-0 text-accent-text" />
               <span className="typo-small text-tx-secondary">
-                <span className="font-semibold text-tx-primary">Прикачете файл</span> или го плъзнете тук
+                <span className="tone-strong font-semibold">Прикачете файл</span> или го плъзнете тук
               </span>
             </button>
             <input
@@ -438,7 +438,7 @@ export function QuoteForm() {
                       <LuFile aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-text" />
                     )}
                     <span className="typo-small min-w-0 flex-1 truncate text-tx-primary">{file.name}</span>
-                    <span className="typo-caption text-tx-muted">{Math.max(1, Math.round(file.size / 1024))} KB</span>
+                    <span className="typo-small tone-muted tabular-nums">{Math.max(1, Math.round(file.size / 1024))} KB</span>
                     <button
                       type="button"
                       onClick={() => setFiles(files.filter((f) => fileKey(f) !== fileKey(file)))}
@@ -455,7 +455,7 @@ export function QuoteForm() {
           </div>
 
           <div className="rounded-2xl bg-accent-soft p-5">
-            <p className="typo-small font-semibold text-tx-primary">Полезно е да подготвите:</p>
+            <p className="typo-small tone-strong font-semibold">Полезно е да подготвите:</p>
             <CheckList items={getPrepareList(service)} className="typo-small mt-3" />
           </div>
         </div>
@@ -464,7 +464,7 @@ export function QuoteForm() {
       {step === 3 ? (
         <div className="mt-6 grid gap-6">
           <div>
-            <label htmlFor="quote-name" className="font-semibold text-tx-primary">
+            <label htmlFor="quote-name" className="typo-h5">
               Вашето име <span className="text-danger">*</span>
             </label>
             <input
@@ -485,7 +485,7 @@ export function QuoteForm() {
           </div>
 
           <fieldset>
-            <legend className="font-semibold text-tx-primary">Как предпочитате да ви отговорим?</legend>
+            <legend className="typo-h5">Как предпочитате да ви отговорим?</legend>
             <div className="mt-2 grid grid-cols-2 gap-2 rounded-xl bg-bg-subtle p-1">
               {(["phone", "email"] as const).map((value) => (
                 <label
@@ -514,7 +514,7 @@ export function QuoteForm() {
           </fieldset>
 
           <div>
-            <label htmlFor="quote-contact" className="font-semibold text-tx-primary">
+            <label htmlFor="quote-contact" className="typo-h5">
               {method === "phone" ? "Телефон" : "Имейл адрес"} <span className="text-danger">*</span>
             </label>
             <input

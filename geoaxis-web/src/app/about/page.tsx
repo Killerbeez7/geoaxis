@@ -12,6 +12,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatGrid } from "@/components/ui/StatGrid";
+import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata = createSeo(pageSeo.about);
@@ -43,7 +44,7 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-20">
           <div>
             <SectionHeader id="story-title" eyebrow={story.eyebrow} title={story.title} />
-            <div className="prose-geo mt-6">
+            <div className="prose-geo mt-5">
               {story.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
@@ -69,10 +70,12 @@ export default function AboutPage() {
         <SectionHeader id="values-title" eyebrow={values.eyebrow} title={values.title} align="center" />
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
           {values.items.map((item) => (
-            <li key={item.title} className="rounded-2xl border border-br-light bg-bg-page p-7 shadow-card">
+            <li key={item.title} className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card sm:p-7">
               <IconBadge icon={item.icon} size="lg" />
-              <h3 className="typo-h3 mt-5">{item.title}</h3>
-              <p className="mt-3">{item.description}</p>
+              <Heading as="h3" size="h4" className="mt-5">
+                {item.title}
+              </Heading>
+              <Text className="mt-2">{item.description}</Text>
             </li>
           ))}
         </ul>
@@ -82,19 +85,23 @@ export default function AboutPage() {
       <Section aria-labelledby="area-title">
         <div className="grid gap-10 rounded-3xl bg-bg-inverse p-8 on-dark pattern-contours sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
           <div>
-            <p className="typo-eyebrow text-accent-on-dark">{area.eyebrow}</p>
-            <h2 id="area-title" className="typo-h2 mt-4">
+            <Eyebrow>{area.eyebrow}</Eyebrow>
+            <Heading id="area-title" className="mt-3">
               {area.title}
-            </h2>
-            <p className="typo-lead mt-4">{area.text}</p>
+            </Heading>
+            <Text size="lead" className="mt-4">
+              {area.text}
+            </Text>
           </div>
           <div>
-            <p className="typo-small font-semibold text-tx-inverse">Например:</p>
+            <Text size="small" weight="semibold" tone="strong">
+              Например:
+            </Text>
             <ul className="mt-3 flex flex-wrap gap-2">
               {area.places.map((place) => (
                 <li
                   key={place}
-                  className="typo-small inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3.5 py-1.5 text-tx-inverse ring-1 ring-white/12"
+                  className="typo-small inline-flex h-9 items-center gap-1.5 rounded-full bg-white/8 px-3.5 font-medium text-tx-inverse ring-1 ring-white/12"
                 >
                   <LuMapPin aria-hidden="true" className="h-3.5 w-3.5 text-accent-on-dark" />
                   {place}

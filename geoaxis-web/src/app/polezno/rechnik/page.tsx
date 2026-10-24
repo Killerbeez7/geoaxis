@@ -38,6 +38,7 @@ export default function GlossaryPage() {
   return (
     <>
       <PageHero
+        size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: pageContent.label, href: pageContent.href },
@@ -66,19 +67,19 @@ export default function GlossaryPage() {
         <div className="grid gap-12">
           {groups.map(([letter, terms]) => (
             <section key={letter} id={`bukva-${letter}`} aria-labelledby={`bukva-${letter}-title`} className="grid gap-6 md:grid-cols-[5rem_minmax(0,1fr)]">
-              <h2 id={`bukva-${letter}-title`} className="typo-h1 text-accent-text">
+              <h2 id={`bukva-${letter}-title`} className="typo-h1 text-accent-text md:pt-1">
                 {letter}
               </h2>
               <dl className="grid gap-4 md:grid-cols-2">
                 {terms.map((term) => (
                   <div key={term.term} id={slugify(term.term)} className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
                     <dt>
-                      <span className="typo-label text-accent-text">{term.category}</span>
-                      <span className="typo-h4 mt-1.5 block text-tx-primary">{term.term}</span>
+                      <span className="typo-label tone-accent">{term.category}</span>
+                      <span className="typo-h4 mt-2 block">{term.term}</span>
                     </dt>
-                    <dd className="typo-small mt-2.5 text-tx-secondary">
+                    <dd className="mt-2.5">
                       {term.definition}
-                      {term.note ? <span className="mt-2 block text-tx-muted">{term.note}</span> : null}
+                      {term.note ? <span className="typo-small tone-muted mt-2 block">{term.note}</span> : null}
                     </dd>
                   </div>
                 ))}

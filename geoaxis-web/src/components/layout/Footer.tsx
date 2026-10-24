@@ -8,6 +8,7 @@ import { LEGAL_LINKS } from "@/config/nav";
 import { HELPFUL_NAV_ITEMS } from "@/config/polezno/helpful-nav";
 import { serviceCategories } from "@/config/services/categories";
 import { Logo } from "@/components/ui/Logo";
+import { Eyebrow } from "@/components/ui/Text";
 
 const COMPANY_LINKS = [
   { label: "Проекти", href: "/projects" },
@@ -19,8 +20,8 @@ const COMPANY_LINKS = [
 function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <p className="typo-eyebrow text-accent-on-dark">{title}</p>
-      <ul className="mt-5 grid gap-2.5">
+      <Eyebrow>{title}</Eyebrow>
+      <ul className="typo-ui mt-5 grid gap-3">
         {links.map((link) => (
           <li key={`${link.href}-${link.label}`}>
             <Link href={link.href} className="text-tx-inverse-muted transition-colors hover:text-tx-inverse">
@@ -45,9 +46,9 @@ export function Footer() {
             <Logo markClassName="h-9 w-9" />
           </Link>
           <p className="mt-5 max-w-sm">{brand.description}</p>
-          <ul className="typo-small mt-6 grid gap-3">
+          <ul className="typo-ui mt-6 grid gap-3">
             <li>
-              <a href={contactLinks.tel} data-track="call_click" className="inline-flex items-center gap-2.5 font-semibold text-tx-inverse hover:text-accent-on-dark">
+              <a href={contactLinks.tel} data-track="call_click" className="inline-flex items-center gap-2.5 font-semibold text-tx-inverse tabular-nums hover:text-accent-on-dark">
                 <LuPhone aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
                 {contacts.phone}
               </a>

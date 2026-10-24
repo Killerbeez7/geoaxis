@@ -39,7 +39,7 @@ export function SectionHeader({
           {title}
         </Heading>
         {description ? (
-          <Text size="lead" className={clsx("mt-4 max-w-2xl", centered && "mx-auto")}>
+          <Text size="lead" className={clsx("mt-3 max-w-2xl", centered && "mx-auto")}>
             {description}
           </Text>
         ) : null}

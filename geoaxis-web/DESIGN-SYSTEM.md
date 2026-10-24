@@ -56,7 +56,7 @@ No raw `text-sm`/`text-lg` or one-off sizes in components (buttons and the logo 
 | `typo-h3` | 24 / 21 | Sub-section title, title of a large card (photo cards, service rows) |
 | `typo-h4` | 20 / 18 | Title of a regular card, sidebar card, menu panel |
 | `typo-h5` | 16 | Small title: list item, FAQ question, form label, contact value |
-| `typo-lead` | 20 / 17 | Intro paragraph under a page or section title |
+| `typo-lead` | 18 / 17 | Intro paragraph under a page or section title |
 | `typo-body` | 16 | Body text – the default; card descriptions in 2–3 column grids |
 | `typo-small` | 14 | Descriptions in dense UI (4-column cards, sidebars, menus), meta, help text |
 | `typo-ui` | 15 | Navigation and footer links |

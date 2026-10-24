@@ -134,7 +134,7 @@ body {
 /* ==================== TYPOGRAPHY ==================== */
 /*
  * One scale for the whole site (desktop px). Headings: 60 · 48 · 36 · 24 · 20 · 16.
- * Text: 20 lead · 16 body · 15 interface · 14 small · 12 labels.
+ * Text: 18 lead · 16 body · 15 interface · 14 small · 12 labels.
  * Each class sets size, line height, weight and tracking. Heading classes also take the
  * heading colour; text colour comes from the surface or a tone-* utility.
  */
@@ -189,7 +189,7 @@ body {
   }
 
   .typo-lead {
-    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    font-size: clamp(1.0625rem, 1.02rem + 0.15vw, 1.125rem);
     line-height: 1.6;
   }
 

@@ -46,10 +46,14 @@ export function HomeHero() {
             </span>
           </Eyebrow>
           <h1 className="typo-display mt-5">
-            {hero.title} <span className="text-accent-on-dark">{hero.titleAccent}</span>
+            {hero.title} <span className="block text-accent-on-dark">{hero.titleAccent}</span>
           </h1>
           <Text size="lead" className="mt-6 max-w-xl">
-            {hero.lead}
+            {hero.lead.split(/(?<=\.)\s+/).map((sentence) => (
+              <span key={sentence} className="sm:block">
+                {sentence}{" "}
+              </span>
+            ))}
           </Text>
 
           <div className="mt-8 md:mt-10">

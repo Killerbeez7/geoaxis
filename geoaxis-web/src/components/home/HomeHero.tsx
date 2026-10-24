@@ -32,7 +32,7 @@ export function HomeHero() {
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex min-h-[min(100svh,60rem)] flex-col pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
+      <div className="container-page flex flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
         <div className="max-w-2xl flex-1">
           {/* The last topic is dropped on phones so the kicker stays on one line */}
           <Eyebrow>
@@ -74,7 +74,8 @@ export function HomeHero() {
             </ul>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          {/* On phones the bottom bar carries these actions */}
+          <div className="mt-8 hidden gap-3 md:flex">
             <Button href="/contacts" size="lg" arrow track="quote_click">
               Поискайте оферта
             </Button>

@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { FaViber } from "react-icons/fa6";
 import { LuArrowRight, LuChevronDown, LuCircleHelp, LuMenu, LuPhone, LuX } from "react-icons/lu";
 
 import { NAV_ITEMS, type NavItem } from "@/config/nav";
 import { contactLinks, contacts } from "@/config/content/contacts";
 import { getCategoryIcon } from "@/config/services/icons";
 import { Button } from "@/components/ui/Button";
+import { QuickActions } from "./MobileActionBar";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { Logo } from "@/components/ui/Logo";
 
@@ -375,17 +375,7 @@ export function Navbar({ services, helpful }: Props) {
           </ul>
 
           <div className="mt-auto grid gap-3 pt-8 pb-4">
-            <Button href="/contacts" size="lg" track="quote_click" onClick={closeAll}>
-              Поискайте оферта
-            </Button>
-            <div className="grid grid-cols-2 gap-3">
-              <Button href={contactLinks.tel} variant="outline-light" icon={<LuPhone className="h-4 w-4" />} track="call_click">
-                Обадете се
-              </Button>
-              <Button href={contactLinks.viber} variant="outline-light" icon={<FaViber className="h-4 w-4" />} track="viber_click">
-                Viber
-              </Button>
-            </div>
+            <QuickActions onNavigate={closeAll} className="rounded-2xl border border-white/10 bg-white/4 p-2" />
             <p className="typo-small text-center text-tx-inverse-muted">{contacts.workingHours}</p>
           </div>
         </nav>

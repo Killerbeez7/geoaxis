@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
+import { Eyebrow, Heading, Text } from "./Text";
 
 type Props = {
   eyebrow?: ReactNode;
@@ -9,7 +10,7 @@ type Props = {
   breadcrumbs?: Crumb[];
   /** Buttons under the description */
   actions?: ReactNode;
-  /** Right column on wide screens (image, contact card…) */
+  /** Right column on wide screens (image, navigation card…) */
   aside?: ReactNode;
   /** Extra content under the actions */
   children?: ReactNode;
@@ -28,24 +29,30 @@ export function PageHero({
   size = "default",
 }: Props) {
   return (
-    <section className="pattern-contours border-b border-br-light bg-bg-subtle">
+    <section className="pattern-contours on-light border-b border-br-light bg-bg-subtle">
       <div
         className={clsx(
-          "container-page pt-[calc(var(--header-h)+2rem)]",
-          size === "compact" ? "pb-10 md:pb-12" : "pb-12 md:pt-[calc(var(--header-h)+3rem)] md:pb-16"
+          "container-page pt-[calc(var(--header-h)+1.5rem)] md:pt-[calc(var(--header-h)+2.5rem)]",
+          size === "compact" ? "pb-10 md:pb-14" : "pb-12 md:pb-16"
         )}
       >
-        {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className="mb-8" /> : null}
+        {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className="mb-8 md:mb-10" /> : null}
 
         <div
           className={clsx(
-            aside && "grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-14"
+            aside && "grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16"
           )}
         >
           <div className="max-w-3xl">
-            {eyebrow ? <p className="typo-eyebrow text-accent-text">{eyebrow}</p> : null}
-            <h1 className={clsx("typo-h1", eyebrow && "mt-4")}>{title}</h1>
-            {description ? <div className="typo-lead mt-5 max-w-2xl">{description}</div> : null}
+            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+            <Heading as="h1" className={clsx(eyebrow && "mt-4")}>
+              {title}
+            </Heading>
+            {description ? (
+              <Text as="div" size="lead" className="mt-5 max-w-2xl">
+                {description}
+              </Text>
+            ) : null}
             {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{actions}</div> : null}
             {children}
           </div>

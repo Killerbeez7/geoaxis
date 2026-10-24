@@ -18,7 +18,7 @@ export function FaqAccordion({ items }: { items: readonly HelpfulFaqItem[] }) {
     <div className="divide-y divide-br-light rounded-2xl border border-br-light bg-bg-page">
       {items.map((item) => (
         <details key={item.question} className="group px-5 sm:px-6">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-semibold text-tx-primary [&::-webkit-details-marker]:hidden">
+          <summary className="typo-h5 flex cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
             {item.question}
             <span
               aria-hidden="true"
@@ -27,7 +27,7 @@ export function FaqAccordion({ items }: { items: readonly HelpfulFaqItem[] }) {
               <LuPlus className="h-4 w-4" />
             </span>
           </summary>
-          <p className="-mt-1 pb-6 pr-10">{item.answer}</p>
+          <p className="-mt-1 max-w-2xl pb-6 pr-10">{item.answer}</p>
         </details>
       ))}
     </div>

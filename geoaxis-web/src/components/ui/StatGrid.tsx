@@ -20,12 +20,12 @@ export function StatGrid({ dark = false, className }: { dark?: boolean; classNam
         return (
           <div
             key={stat.label}
-            className={clsx("flex flex-col-reverse justify-end px-5 py-5", dark ? "bg-bg-inverse" : "bg-bg-page")}
+            className={clsx("flex flex-col-reverse justify-end gap-2.5 px-5 py-6", dark ? "bg-bg-inverse" : "bg-bg-page")}
           >
-            <dt className={clsx("typo-caption mt-1", dark ? "text-tx-inverse-muted" : "text-tx-muted")}>{stat.label}</dt>
-            <dd className={clsx("typo-h2 tabular-nums", dark ? "text-tx-inverse" : "text-tx-primary")}>
+            <dt className="typo-small tone-muted">{stat.label}</dt>
+            <dd className="typo-stat tone-strong">
               {number}
-              <span className={dark ? "text-accent-on-dark" : "text-accent-text"}>{suffix}</span>
+              <span className="tone-accent">{suffix}</span>
             </dd>
           </div>
         );

@@ -63,7 +63,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "zasnemane",
     title: "Геодезическо заснемане",
     shortTitle: "Заснемане",
-    meta: "Терен • Сгради • Инфраструктура",
+    meta: "Терен · Сгради · Инфраструктура",
     thumbnail: "/images/category/zasnemane-thumb.webp",
     heroImage: "/images/category/zasnemane-og.webp",
     description:
@@ -95,7 +95,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "za-proektirane",
         title: "Геодезическо заснемане за проектиране",
         shortTitle: "Заснемане за проектиране",
-        meta: "Терен • Основа за проект",
+        meta: "Терен · Основа за проект",
         thumbnail: "/images/services/zasnemane/za-proekt.webp", // CHANGE IMAGE LATER
         heroImage: "/images/services/zasnemane/za-proekt.webp", // CHANGE IMAGE LATER
         description:
@@ -146,7 +146,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "ekzekutivno-zasnemane",
         title: "Екзекутивно заснемане",
         shortTitle: "Екзекутивно заснемане",
-        meta: "Завършен обект • Документация",
+        meta: "Завършен обект · Документация",
         thumbnail: "/images/services/zasnemane/na-sgrada.webp",
         heroImage: "/images/services/zasnemane/na-sgrada.webp",
         imageAlt: "Новопостроена къща, подготвена за екзекутивно заснемане",
@@ -203,7 +203,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "kontrolno-zasnemane",
         title: "Геодезическо контролно заснемане",
         shortTitle: "Контролно заснемане",
-        meta: "Проверка • Контрол",
+        meta: "Проверка · Контрол",
         thumbnail: "/images/services/zasnemane/kontrolno.webp", // CHANGE IMAGE LATER
         heroImage: "/images/services/zasnemane/kontrolno.webp", // CHANGE IMAGE LATER
         description:
@@ -220,7 +220,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-sgrada",
         title: "Геодезическо заснемане на сгради",
         shortTitle: "Заснемане на сгради",
-        meta: "Сграда • Документация",
+        meta: "Сграда · Документация",
         thumbnail: "/images/services/zasnemane/na-sgrada2.webp",
         heroImage: "/images/services/zasnemane/na-sgrada2.webp",
         description:
@@ -236,7 +236,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-fasadi",
         title: "Геодезическо заснемане на фасади",
         shortTitle: "Заснемане на фасади",
-        meta: "Фасади • Архитектура",
+        meta: "Фасади · Архитектура",
         thumbnail: "/images/services/zasnemane/na-fasadi.webp",
         heroImage: "/images/services/zasnemane/na-fasadi.webp",
         description: "Заснемане на фасади за архитектурни и реставрационни проекти.",
@@ -252,7 +252,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-tehnicheska-infrastruktura",
         title: "Геодезическо заснемане на техническа инфраструктура",
         shortTitle: "Заснемане на инфраструктура",
-        meta: "Мрежи • Съоръжения",
+        meta: "Мрежи · Съоръжения",
         thumbnail: "/images/services/zasnemane/na-infrastruktura.webp", // CHANGE IMAGE LATER
         heroImage: "/images/services/zasnemane/na-infrastruktura.webp", // CHANGE IMAGE LATER
         description: "Заснемане на мрежи и съоръжения за проектиране и координация.",
@@ -268,7 +268,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-darvesna-rastitelnost",
         title: "Геодезическо заснемане на дървесна растителност",
         shortTitle: "Заснемане на растителност",
-        meta: "Дървета • Терен",
+        meta: "Дървета · Терен",
         thumbnail: "/images/services/zasnemane/darvesna.webp",
         heroImage: "/images/services/zasnemane/darvesna.webp",
         description:
@@ -287,7 +287,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "trasirane",
     title: "Трасиране",
     shortTitle: "Трасиране",
-    meta: "Оси • Линии • Контури",
+    meta: "Оси · Линии · Контури",
     thumbnail: "/images/category/trasirane-thumb.webp",
     heroImage: "/images/category/trasirane-og.webp",
     description:
@@ -316,7 +316,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-imotni-granici",
         title: "Трасиране на имотни граници",
         shortTitle: "Трасиране на имотни граници",
-        meta: "Граници • Точки",
+        meta: "Граници · Точки",
         thumbnail: "/images/services/trasirane/imotni-granici.webp",
         heroImage: "/images/services/trasirane/imotni-granici.webp",
         description:
@@ -368,7 +368,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-sgrada",
         title: "Трасиране на сгради",
         shortTitle: "Трасиране на сгради",
-        meta: "Оси • Контури",
+        meta: "Оси · Контури",
         thumbnail: "/images/services/trasirane/na-sgrada.webp",
         heroImage: "/images/services/trasirane/na-sgrada.webp",
         description: "Пренасяне на проектните контури и оси на сградата върху терена.",
@@ -382,7 +382,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-osi-i-konstruktivni-elementi",
         title: "Трасиране на оси и конструктивни елементи",
         shortTitle: "Оси и конструктивни елементи",
-        meta: "Конструкция • Точност",
+        meta: "Конструкция · Точност",
         thumbnail: "/images/services/trasirane/na-elementi.webp",
         heroImage: "/images/services/trasirane/na-elementi.webp",
         description: "Прецизно пренасяне на оси, колони и конструктивни точки по проект.",
@@ -396,7 +396,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "na-lineyni-saorazheniya",
         title: "Трасиране на линейни съоръжения",
         shortTitle: "Трасиране на линейни съоръжения",
-        meta: "Трасета • Канали",
+        meta: "Трасета · Канали",
         thumbnail: "/images/services/trasirane/saorajeniq.webp",
         heroImage: "/images/services/trasirane/saorajeniq.webp",
         description: "Трасиране на трасета и линейни обекти върху терена.",
@@ -409,7 +409,7 @@ export const serviceCategories: ServiceCategory[] = [
       {
         slug: "na-ulichna-regulacia",
         title: "Трасиране на улична регулация",
-        meta: "Регулация • Линии",
+        meta: "Регулация · Линии",
         thumbnail: "/images/services/trasirane/pup.webp",
         heroImage: "/images/services/trasirane/pup.webp",
         description: "Трасиране на регулационни линии по действащ устройствен план.",
@@ -426,7 +426,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "kadastar",
     title: "Кадастър",
     shortTitle: "Кадастър",
-    meta: "Скици • Промени • Процедури",
+    meta: "Скици · Промени · Процедури",
     thumbnail: "/images/category/cadaster-thumb.webp",
     heroImage: "/images/category/cadaster-og.webp",
     description:
@@ -457,7 +457,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "skica-na-pozemlen-imot",
         title: "Скица на поземлен имот",
         shortTitle: "Скица на поземлен имот",
-        meta: "Имот • Скица",
+        meta: "Имот · Скица",
         thumbnail: "/images/services/kadastar/kadastar2.webp",
         heroImage: "/images/services/kadastar/kadastar2.webp",
         imageAlt: "Кадастрална карта на квартал",
@@ -472,7 +472,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "proekt-za-izmenenie",
         title: "Проект за изменение на кадастрална карта",
         shortTitle: "Изменение на кадастрална карта",
-        meta: "Промяна • Карта",
+        meta: "Промяна · Карта",
         thumbnail: "/images/services/kadastar/kadastar2.webp",
         heroImage: "/images/services/kadastar/kadastar2.webp",
         description: "Изготвяне на проект за промени в кадастралната карта.",
@@ -486,7 +486,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "nanasyane-na-novi-sgradi",
         title: "Нанасяне на сграда в кадастъра",
         shortTitle: "Нанасяне на сграда в кадастъра",
-        meta: "Сгради • Отразяване",
+        meta: "Сгради · Отразяване",
         thumbnail: "/images/services/kadastar/sgrada-kadastar.webp",
         heroImage: "/images/services/kadastar/sgrada-kadastar.webp",
         description: "Отразяване на новопостроени сгради и обекти в кадастралната карта.",
@@ -541,7 +541,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "promyana-na-granici",
         title: "Промяна на имотни граници",
         shortTitle: "Промяна на имотни граници",
-        meta: "Делба • Обединяване",
+        meta: "Делба · Обединяване",
         thumbnail: "/images/services/kadastar/promqna-granici.webp",
         heroImage: "/images/services/kadastar/promqna-granici.webp",
         description:
@@ -556,7 +556,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "schema-na-samostoyatelen-obekt",
         title: "Схема на самостоятелен обект",
         shortTitle: "Схема на самостоятелен обект",
-        meta: "Апартамент • Обект",
+        meta: "Апартамент · Обект",
         thumbnail: "/images/services/kadastar/sgrada-kadastar.webp",
         heroImage: "/images/services/kadastar/sgrada-kadastar.webp",
         description:
@@ -571,7 +571,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "udostoverenie-za-identichnost",
         title: "Удостоверение за идентичност на имот",
         shortTitle: "Удостоверение за идентичност",
-        meta: "Документи • Данни",
+        meta: "Документи · Данни",
         thumbnail: "/images/services/cadaster-thumb.webp",
         heroImage: "/images/services/cadaster-thumb.webp",
         description:
@@ -589,7 +589,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "proektirane",
     title: "Проектиране",
     shortTitle: "Проектиране",
-    meta: "Коти • Данни • Координация",
+    meta: "Коти · Данни · Координация",
     thumbnail: "/images/category/design-thumb.webp",
     heroImage: "/images/category/design-og.webp",
     description: "Подготовка на данни и решения за проектиране и строителство.",
@@ -616,7 +616,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "vertikalna-planirovka",
         title: "Вертикална планировка",
         shortTitle: "Вертикална планировка",
-        meta: "Коти • Наклони",
+        meta: "Коти · Наклони",
         thumbnail: "/images/services/kadastar/kadastar.webp",
         heroImage: "/images/services/kadastar/kadastar.webp",
         imageAlt: "План за вертикално планиране с коти и наклони",
@@ -633,7 +633,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "geodezicheski-danni-za-proektirane",
         title: "Геодезически данни за проектиране",
         shortTitle: "Данни за проектиране",
-        meta: "Данни • Основа",
+        meta: "Данни · Основа",
         thumbnail: "/images/services/zasnemane/na-sgrada1.webp",
         heroImage: "/images/services/zasnemane/na-sgrada1.webp",
         imageAlt: "Геодезист с GNSS приемник събира данни в двора на къща",
@@ -649,7 +649,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "koordinacia-na-proekti",
         title: "Координация на проекти",
         shortTitle: "Координация на проекти",
-        meta: "Екип • Съгласуване",
+        meta: "Екип · Съгласуване",
         thumbnail: "/images/services/proektirane/koordinaciq.webp",
         heroImage: "/images/services/proektirane/koordinaciq.webp",
         description:
@@ -664,7 +664,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "predproektno-prouchvane",
         title: "Предпроектно проучване",
         shortTitle: "Предпроектно проучване",
-        meta: "Анализ • Възможности",
+        meta: "Анализ · Възможности",
         thumbnail: "/images/services/proektirane/prouchvane.webp",
         heroImage: "/images/services/proektirane/prouchvane.webp",
         description:
@@ -682,7 +682,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "gradoustroistvo",
     title: "Градоустройство",
     shortTitle: "Градоустройство",
-    meta: "ПУП • Регулация • УПИ",
+    meta: "ПУП · Регулация · УПИ",
     thumbnail: "/images/category/urban-thumb.webp",
     heroImage: "/images/category/urban-og.webp",
     description:
@@ -713,7 +713,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "izrabotvane-na-pup",
         title: "Изработване на ПУП (подробен устройствен план)",
         shortTitle: "Изработване на ПУП",
-        meta: "ПУП • Устройство",
+        meta: "ПУП · Устройство",
         thumbnail: "/images/services/gradoustroistvo/pup.webp",
         heroImage: "/images/services/gradoustroistvo/pup.webp",
         description:
@@ -728,7 +728,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "izmenenie-na-pup",
         title: "Изменение на ПУП",
         shortTitle: "Изменение на ПУП",
-        meta: "Промяна • План",
+        meta: "Промяна · План",
         thumbnail: "/images/services/gradoustroistvo/pup.webp",
         heroImage: "/images/services/gradoustroistvo/pup.webp",
         description: "Промяна на действащ ПУП при нови изисквания или развитие на имота.",
@@ -742,7 +742,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "raboten-ustroistven-plan",
         title: "Работен устройствен план",
         shortTitle: "Работен устройствен план",
-        meta: "РУП • Параметри",
+        meta: "РУП · Параметри",
         thumbnail: "/images/services/pup-thumb.webp",
         heroImage: "/images/services/pup-og.webp",
         description:
@@ -757,7 +757,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "plan-za-regulacia",
         title: "План за регулация",
         shortTitle: "План за регулация",
-        meta: "Регулация • УПИ",
+        meta: "Регулация · УПИ",
         thumbnail: "/images/services/gradoustroistvo/pup.webp",
         heroImage: "/images/services/gradoustroistvo/pup.webp",
         description:
@@ -772,7 +772,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "razdelyane-i-obedinyavane-na-upi",
         title: "Разделяне и обединяване на УПИ",
         shortTitle: "Разделяне и обединяване на УПИ",
-        meta: "УПИ • Промени",
+        meta: "УПИ · Промени",
         thumbnail: "/images/services/gradoustroistvo/urban.webp",
         heroImage: "/images/services/gradoustroistvo/urban.webp",
         description:
@@ -787,7 +787,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "smyana-na-prednaznachenie",
         title: "Смяна на предназначение на имот",
         shortTitle: "Смяна на предназначение",
-        meta: "Земя • Урбанизиране",
+        meta: "Земя · Урбанизиране",
         thumbnail: "/images/services/gradoustroistvo/urban2.webp",
         heroImage: "/images/services/gradoustroistvo/urban2.webp",
         description:
@@ -805,7 +805,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "konsultacia",
     title: "Консултации и документи",
     shortTitle: "Консултации",
-    meta: "Не сте сигурни? • Насоки • Документи",
+    meta: "Не сте сигурни? · Насоки · Документи",
     thumbnail: "/images/category/consulting-thumb.webp",
     heroImage: "/images/category/consulting-og.webp",
     description:
@@ -834,7 +834,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "parvonalna-konsultacia",
         title: "Първоначална консултация",
         shortTitle: "Първоначална консултация",
-        meta: "Казус • Насоки",
+        meta: "Казус · Насоки",
         thumbnail: "/images/services/konsultaciq/consulting.webp",
         heroImage: "/images/services/konsultaciq/consulting.webp",
         description:
@@ -849,7 +849,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "podgotovka-na-dokumenti",
         title: "Подготовка на документи",
         shortTitle: "Подготовка на документи",
-        meta: "Документи • Подреждане",
+        meta: "Документи · Подреждане",
         thumbnail: "/images/services/konsultaciq/konsult.webp",
         heroImage: "/images/services/konsultaciq/konsult.webp",
         description:
@@ -864,7 +864,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "analiz-i-nasoki",
         title: "Анализ и насоки по казус",
         shortTitle: "Анализ и насоки",
-        meta: "Проверка • Процедури",
+        meta: "Проверка · Процедури",
         thumbnail: "/images/services/konsult-thumb.webp",
         heroImage: "/images/services/konsult-thumb.webp",
         description: "Проверка на данни, анализ на случая и насоки за следващи действия.",

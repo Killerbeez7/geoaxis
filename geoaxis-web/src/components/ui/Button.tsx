@@ -22,6 +22,12 @@ const SIZES: Record<ButtonSize, string> = {
   lg: "h-13 px-6 text-base",
 };
 
+// Text links share the type size of their button size, without the box
+const LINK_SIZES: Record<ButtonSize, string> = {
+  md: "text-sm",
+  lg: "text-base",
+};
+
 type Props = {
   children: ReactNode;
   href?: string;
@@ -56,7 +62,7 @@ export function Button({
     "group inline-flex items-center justify-center gap-2 font-semibold whitespace-nowrap transition duration-200",
     "disabled:pointer-events-none disabled:opacity-60",
     VARIANTS[variant],
-    !isLink && SIZES[size],
+    isLink ? LINK_SIZES[size] : SIZES[size],
     className
   );
 

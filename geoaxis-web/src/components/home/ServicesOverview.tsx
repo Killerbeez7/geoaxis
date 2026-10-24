@@ -1,6 +1,6 @@
 import { services } from "@/config/content/services";
 import { serviceCategories } from "@/config/services/categories";
-import { ServiceTile } from "@/components/home/ServiceTile";
+import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -21,9 +21,9 @@ export function ServicesOverview() {
           </div>
         }
       />
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 md:gap-6 xl:grid-cols-3">
+      <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-2 md:mt-12 xl:grid-cols-3">
         {serviceCategories.map((category) => (
-          <ServiceTile key={category.slug} category={category} />
+          <ServiceCategoryCard key={category.slug} category={category} showServices={false} />
         ))}
       </div>
       {/* On phones the link to all services comes after the cards */}

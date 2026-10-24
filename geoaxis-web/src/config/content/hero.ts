@@ -3,8 +3,8 @@ export type QuickStartOption = { label: string; service?: string; href?: string 
 export const hero = {
   eyebrow: "Геодезия · Кадастър · Градоустройство",
   title: "Геодезически услуги",
-  titleAccent: "София и област",
-  lead: "От заснемане до кадастър. Прецизна работа с ясна комуникация.",
+  titleAccent: "в София и областта",
+  lead: "Заснемане, трасиране, кадастър и ПУП – с точна оферта, ясен срок и отговор в рамките на работния ден.",
   image: "/images/sections/hero-home.webp",
   imageAlt: "Геодезист с тотална станция на терен над София",
   quickStartLabel: "С какво можем да помогнем?",

@@ -13,6 +13,7 @@ import { normalizeParagraphs } from "@/utils/normalizeText";
 import { CategoryServiceItem } from "@/components/services/CategoryServiceItem";
 import { PriceFactors } from "@/components/services/PriceFactors";
 import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
 import { HeroMedia } from "@/components/ui/HeroMedia";
@@ -20,6 +21,7 @@ import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -91,13 +93,13 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <Section aria-labelledby="category-services-title">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-14">
           <div className="min-w-0">
             <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 id="category-services-title" className="typo-h2">
-                Услугите в тази категория
-              </h2>
-              <p className="typo-small text-tx-muted">{category.services.length} услуги</p>
+              <Heading id="category-services-title">Услугите в тази категория</Heading>
+              <Text size="small" tone="muted">
+                {category.services.length} услуги
+              </Text>
             </div>
 
             {/* Jump links on phones and tablets; the sidebar has them on desktop */}
@@ -105,12 +107,9 @@ export default async function CategoryPage({ params }: Props) {
               <ul className="flex flex-wrap gap-2">
                 {category.services.map((service) => (
                   <li key={service.slug}>
-                    <a
-                      href={`#${service.slug}`}
-                      className="typo-small inline-flex h-9 items-center rounded-full border border-br-default px-3.5 font-medium text-tx-secondary hover:border-br-accent hover:text-accent-text"
-                    >
+                    <Chip href={`#${service.slug}`} size="sm">
                       {service.shortTitle ?? service.title}
-                    </a>
+                    </Chip>
                   </li>
                 ))}
               </ul>
@@ -135,9 +134,9 @@ export default async function CategoryPage({ params }: Props) {
 
             {faqItems.length ? (
               <section aria-labelledby="category-faq-title" className="mt-16 border-t border-br-light pt-12">
-                <h2 id="category-faq-title" className="typo-h3">
+                <Heading id="category-faq-title" size="h3">
                   Често задавани въпроси
-                </h2>
+                </Heading>
                 <div className="mt-6">
                   <FaqAccordion items={faqItems} />
                 </div>
@@ -148,7 +147,9 @@ export default async function CategoryPage({ params }: Props) {
           <aside className="hidden lg:block">
             <div className="sticky top-[calc(var(--header-h)+1.5rem)] grid gap-6">
               <nav aria-label="Услуги в категорията" className="rounded-2xl border border-br-light bg-bg-page p-5">
-                <p className="typo-label text-tx-muted">В тази категория</p>
+                <Eyebrow rule={false} tone="muted">
+                  В тази категория
+                </Eyebrow>
                 <ol className="mt-3 grid gap-0.5">
                   {category.services.map((service, index) => (
                     <li key={service.slug}>

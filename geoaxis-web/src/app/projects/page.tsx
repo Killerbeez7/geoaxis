@@ -14,6 +14,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHero
+        size="compact"
         breadcrumbs={[{ label: "Проекти", href: "/projects" }]}
         eyebrow="Проекти"
         title={projects.title}

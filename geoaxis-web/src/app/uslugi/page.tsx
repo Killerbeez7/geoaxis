@@ -1,6 +1,7 @@
 import { serviceCategories } from "@/config/services/categories";
 import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
+import { CategoryIndex } from "@/components/services/CategoryIndex";
 import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
 import { ServiceGuide } from "@/components/services/ServiceGuide";
 import { Button } from "@/components/ui/Button";
@@ -32,13 +33,14 @@ export default function ServicesPage() {
             </Button>
           </>
         }
+        aside={<CategoryIndex className="hidden lg:block" />}
       />
 
       <Section aria-labelledby="categories-title">
         <h2 id="categories-title" className="sr-only">
           Категории услуги
         </h2>
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
           {serviceCategories.map((category) => (
             <ServiceCategoryCard key={category.slug} category={category} />
           ))}

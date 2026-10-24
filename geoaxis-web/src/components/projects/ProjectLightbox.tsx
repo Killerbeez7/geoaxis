@@ -236,19 +236,19 @@ function ProjectLightboxContent({ image, onClose }: ProjectLightboxContentProps)
             </>
           )}
         </div>
-        <div className="min-h-0 overflow-hidden border-t border-white/10 bg-bg-deep px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6  text-tx-inverse sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
+        <div className="on-dark min-h-0 overflow-hidden border-t border-white/10 bg-bg-deep px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6 sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-            <p className="line-clamp-2 max-w-4xl font-semibold leading-snug text-tx-inverse sm:text-lg">
+            <p className="typo-h4 line-clamp-2 max-w-4xl">
               {activeImage.title}
             </p>
             {hasGallery && (
-              <p className="order-first shrink-0 typo-eyebrow text-accent-on-dark sm:order-0 sm:pt-1">
+              <p className="typo-label tone-accent order-first shrink-0 tabular-nums sm:order-0 sm:pt-1">
                 {activeIndex + 1} / {gallery.length}
               </p>
             )}
           </div>
           {activeImage.description && (
-            <p className="mt-2 line-clamp-3 max-w-4xl typo-small text-tx-inverse-muted">
+            <p className="typo-small mt-2 line-clamp-3 max-w-4xl">
               {activeImage.description}
             </p>
           )}

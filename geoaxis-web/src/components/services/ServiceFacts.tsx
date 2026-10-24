@@ -6,13 +6,13 @@ export function ServiceFacts({ service, className }: { service: Service; classNa
   if (!service.priceFrom && !service.duration) return null;
 
   return (
-    <dl className={className ?? "mt-4 flex flex-wrap gap-x-8 gap-y-3"}>
+    <dl className={className ?? "mt-5 flex flex-wrap gap-x-8 gap-y-3"}>
       {service.priceFrom ? (
         <div className="flex items-center gap-2.5">
           <LuBanknote aria-hidden="true" className="h-5 w-5 text-accent-text" />
           <div>
-            <dt className="typo-caption text-tx-muted">Цена</dt>
-            <dd className="font-semibold text-tx-primary">{service.priceFrom}</dd>
+            <dt className="typo-small tone-muted">Цена</dt>
+            <dd className="typo-h5">{service.priceFrom}</dd>
           </div>
         </div>
       ) : null}
@@ -20,8 +20,8 @@ export function ServiceFacts({ service, className }: { service: Service; classNa
         <div className="flex items-center gap-2.5">
           <LuCalendarDays aria-hidden="true" className="h-5 w-5 text-accent-text" />
           <div>
-            <dt className="typo-caption text-tx-muted">Срок</dt>
-            <dd className="font-semibold text-tx-primary">{service.duration}</dd>
+            <dt className="typo-small tone-muted">Срок</dt>
+            <dd className="typo-h5">{service.duration}</dd>
           </div>
         </div>
       ) : null}

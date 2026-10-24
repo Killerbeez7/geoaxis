@@ -24,6 +24,7 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 
 type Props = {
   params: Promise<{ category: string; service: string }>;
@@ -115,7 +116,7 @@ export default async function ServicePage({ params }: Props) {
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,42rem)_21rem] lg:justify-between lg:gap-12">
           <ServiceArticle category={category} service={service} />
 
           <aside className="lg:block">
@@ -167,7 +168,7 @@ function ServiceArticle({ category, service }: { category: ServiceCategory; serv
 
       {content?.importantToKnow?.length ? (
         <ArticleSection title="Какво е важно да знаете">
-          <div className="mt-6 grid gap-4 rounded-2xl border border-br-accent/50 bg-accent-soft p-6">
+          <div className="mt-6 grid gap-4 rounded-2xl border border-br-accent/50 bg-accent-soft p-6 sm:p-7">
             {content.importantToKnow.map((paragraph) => (
               <p key={paragraph.slice(0, 40)} className="flex gap-3">
                 <LuInfo aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-accent-text" />
@@ -192,7 +193,7 @@ function ServiceArticle({ category, service }: { category: ServiceCategory; serv
                 {index < content.processSteps!.length - 1 ? (
                   <span aria-hidden="true" className="absolute left-5 top-11 bottom-1 w-px bg-br-default" />
                 ) : null}
-                <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page text-sm font-semibold text-accent-text tabular-nums">
+                <span className="typo-small relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page font-semibold text-accent-text tabular-nums">
                   {index + 1}
                 </span>
                 <p className="pt-2">{step}</p>
@@ -205,7 +206,7 @@ function ServiceArticle({ category, service }: { category: ServiceCategory; serv
       {content?.deliverables?.length ? (
         <ArticleSection title="Какво получавате" intro={content.deliverablesIntro}>
           <div className="mt-6 rounded-2xl bg-bg-inverse p-6 on-dark sm:p-8">
-            <CheckList items={content.deliverables} dark className="text-tx-inverse" />
+            <CheckList items={content.deliverables} dark className="tone-strong" />
           </div>
         </ArticleSection>
       ) : null}
@@ -230,8 +231,8 @@ function ArticleSection({
 }) {
   return (
     <section className="mt-14 border-t border-br-light pt-12">
-      <h2 className="typo-h3">{title}</h2>
-      {intro ? <p className="mt-3 max-w-3xl">{intro}</p> : null}
+      <Heading size="h3">{title}</Heading>
+      {intro ? <Text className="mt-3">{intro}</Text> : null}
       {children}
     </section>
   );
@@ -243,7 +244,9 @@ function RelatedServices({ category, current }: { category: ServiceCategory; cur
 
   return (
     <nav aria-label="Свързани услуги" className="rounded-2xl border border-br-light bg-bg-page p-5">
-      <p className="typo-label text-tx-muted">Свързани услуги</p>
+      <Eyebrow rule={false} tone="muted">
+        Свързани услуги
+      </Eyebrow>
       <ul className="mt-3 grid gap-0.5">
         {related.map((service) => (
           <li key={service.slug}>

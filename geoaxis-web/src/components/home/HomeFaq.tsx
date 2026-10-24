@@ -5,6 +5,7 @@ import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Heading, Text } from "@/components/ui/Text";
 
 // One representative question from each topic
 const HOME_FAQ = HELPFUL_FAQ_GROUPS.map((group) => group.items[0]).filter(Boolean);
@@ -23,8 +24,12 @@ export function HomeFaq() {
           />
           <div className="mt-8 rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
             <LuMessageCircleQuestion aria-hidden="true" className="h-6 w-6 text-accent-text" />
-            <p className="typo-h4 mt-3">Не намирате отговор?</p>
-            <p className="typo-small mt-1.5 text-tx-muted">Попитайте ни директно – отговаряме в рамките на работния ден.</p>
+            <Heading as="p" size="h4" className="mt-3">
+              Не намирате отговор?
+            </Heading>
+            <Text size="small" className="mt-1.5">
+              Попитайте ни директно – отговаряме в рамките на работния ден.
+            </Text>
             <div className="mt-5 flex flex-wrap gap-3">
               <Button href="/contacts" track="quote_click">
                 Задайте въпрос

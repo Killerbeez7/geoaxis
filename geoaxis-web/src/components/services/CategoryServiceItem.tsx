@@ -5,6 +5,7 @@ import { normalizeParagraphs } from "@/utils/normalizeText";
 import { getServiceHref } from "@/utils/urlHelpers";
 import { Button } from "@/components/ui/Button";
 import { IconBadge } from "@/components/ui/IconBadge";
+import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 import { ServiceFacts } from "./ServiceFacts";
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
 
 export function CategoryServiceItem({ service, categorySlug, image }: Props) {
   const paragraphs = normalizeParagraphs(service.longDescription ?? service.description);
+  // Services with their own page show a short intro here; the rest show their full description.
+  const shown = service.hasDedicatedPage ? paragraphs.slice(0, 1) : paragraphs;
 
   return (
     <article
@@ -39,22 +42,24 @@ export function CategoryServiceItem({ service, categorySlug, image }: Props) {
         </div>
       )}
 
-      <div className="p-6 sm:p-7">
-        {service.meta ? <p className="typo-label text-accent-text">{service.meta}</p> : null}
-        <h3 className="typo-h3 mt-2">{service.title}</h3>
-        <div className="typo-small mt-3 grid gap-2.5 text-tx-secondary">
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+      <div className="p-6 sm:p-8">
+        {service.meta ? <Eyebrow rule={false}>{service.meta}</Eyebrow> : null}
+        <Heading as="h3" className={service.meta ? "mt-2.5" : undefined}>
+          {service.title}
+        </Heading>
+        <div className="mt-3 grid max-w-2xl gap-3">
+          {shown.map((paragraph) => (
+            <Text key={paragraph.slice(0, 40)}>{paragraph}</Text>
           ))}
         </div>
         <ServiceFacts service={service} />
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button href={`/contacts?service=${categorySlug}`} track="quote_click">
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button href={`/contacts?service=${categorySlug}`} variant="dark" track="quote_click">
             Поискайте оферта
           </Button>
           {service.hasDedicatedPage ? (
-            <Button href={getServiceHref(categorySlug, service)} variant="outline" arrow>
+            <Button href={getServiceHref(categorySlug, service)} variant="link" arrow>
               Научете повече
             </Button>
           ) : null}

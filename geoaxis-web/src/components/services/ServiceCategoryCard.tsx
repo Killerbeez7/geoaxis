@@ -5,9 +5,11 @@ import { LuArrowRight } from "react-icons/lu";
 import type { ServiceCategory } from "@/config/services/categories";
 import { getCategoryIcon } from "@/config/services/icons";
 import { IconBadge } from "@/components/ui/IconBadge";
+import { Heading, Text } from "@/components/ui/Text";
 
 const PREVIEW_COUNT = 3;
 
+// Four rows (photo, title + description, services, link) that line up across a grid row via subgrid.
 export function ServiceCategoryCard({ category }: { category: ServiceCategory }) {
   const preview = category.services.slice(0, PREVIEW_COUNT);
   const remaining = category.services.length - preview.length;
@@ -15,7 +17,7 @@ export function ServiceCategoryCard({ category }: { category: ServiceCategory })
   return (
     <Link
       href={`/uslugi/${category.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-br-light bg-bg-page shadow-card transition duration-300 hover:-translate-y-1 hover:border-br-default hover:shadow-lift"
+      className="group row-span-4 grid grid-rows-subgrid gap-0 overflow-hidden rounded-2xl border border-br-light bg-bg-page shadow-card transition duration-300 hover:-translate-y-1 hover:border-br-default hover:shadow-lift"
     >
       <div className="relative aspect-16/10 overflow-hidden bg-bg-subtle">
         <Image
@@ -28,26 +30,28 @@ export function ServiceCategoryCard({ category }: { category: ServiceCategory })
         />
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <IconBadge icon={getCategoryIcon(category.slug)} size="lg" className="relative z-10 -mt-12 mb-4 ring-4! ring-bg-page!" />
-        <h3 className="typo-h3">{category.title}</h3>
-        <p className="typo-small mt-2 text-tx-muted">{category.description}</p>
-
-        <ul className="typo-small mt-5 grid gap-2 text-tx-secondary">
-          {preview.map((service) => (
-            <li key={service.slug} className="flex items-start gap-2.5">
-              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              {service.shortTitle ?? service.title}
-            </li>
-          ))}
-          {remaining > 0 ? <li className="pl-4 text-tx-muted">+ още {remaining}</li> : null}
-        </ul>
-
-        <span className="typo-small mt-auto inline-flex items-center gap-1.5 pt-6 font-semibold text-accent-text">
-          Вижте услугите
-          <LuArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-        </span>
+      <div className="relative z-10 px-6">
+        <IconBadge icon={getCategoryIcon(category.slug)} size="lg" className="-mt-6 ring-4! ring-bg-page!" />
+        <Heading as="h3" className="mt-4">
+          {category.title}
+        </Heading>
+        <Text className="mt-2">{category.description}</Text>
       </div>
+
+      <ul className="typo-small mt-5 grid content-start gap-2 px-6">
+        {preview.map((service) => (
+          <li key={service.slug} className="flex items-start gap-2.5">
+            <span aria-hidden="true" className="mt-[0.5lh] h-1.5 w-1.5 shrink-0 -translate-y-1/2 rounded-full bg-accent" />
+            {service.shortTitle ?? service.title}
+          </li>
+        ))}
+        {remaining > 0 ? <li className="tone-muted pl-4">+ още {remaining}</li> : null}
+      </ul>
+
+      <span className="typo-small inline-flex items-center gap-1.5 px-6 pb-6 pt-6 font-semibold text-accent-text">
+        Вижте услугите
+        <LuArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+      </span>
     </Link>
   );
 }

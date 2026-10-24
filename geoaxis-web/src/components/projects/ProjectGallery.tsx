@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import clsx from "clsx";
 import type { ProjectItem } from "@/config/content/projects";
+import { Chip } from "@/components/ui/Chip";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectLightbox } from "./ProjectLightbox";
 
@@ -29,20 +29,9 @@ export function ProjectGallery({ items, filterable = false }: Props) {
       {filterable && categories.length > 2 ? (
         <div role="group" aria-label="Филтър по вид услуга" className="mb-8 flex flex-wrap gap-2">
           {categories.map((name) => (
-            <button
-              key={name}
-              type="button"
-              aria-pressed={category === name}
-              onClick={() => setCategory(name)}
-              className={clsx(
-                "typo-small h-10 rounded-full border px-4 font-medium transition-colors",
-                category === name
-                  ? "border-bg-inverse bg-bg-inverse text-tx-inverse"
-                  : "border-br-default bg-bg-page text-tx-secondary hover:border-br-accent hover:text-accent-text"
-              )}
-            >
+            <Chip key={name} selected={category === name} onClick={() => setCategory(name)}>
               {name}
-            </button>
+            </Chip>
           ))}
         </div>
       ) : null}

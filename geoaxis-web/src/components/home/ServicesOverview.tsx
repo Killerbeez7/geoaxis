@@ -19,7 +19,7 @@ export function ServicesOverview() {
           </Button>
         }
       />
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-12 grid gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
         {serviceCategories.map((category) => (
           <ServiceCategoryCard key={category.slug} category={category} />
         ))}

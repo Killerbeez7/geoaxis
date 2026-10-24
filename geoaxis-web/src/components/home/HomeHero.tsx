@@ -1,10 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import { LuPhone } from "react-icons/lu";
 
 import { hero } from "@/config/content/hero";
 import { contactLinks, contacts } from "@/config/content/contacts";
 import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
+import { Eyebrow, Text } from "@/components/ui/Text";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export function HomeHero() {
@@ -26,31 +27,48 @@ export function HomeHero() {
 
       <p
         aria-hidden="true"
-        className="typo-caption absolute right-8 top-[calc(var(--header-h)+2rem)] hidden font-medium tracking-[0.2em] text-white/55 tabular-nums lg:block"
+        className="typo-label absolute right-8 top-[calc(var(--header-h)+2rem)] hidden tracking-[0.2em] text-white/50 tabular-nums lg:block"
       >
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex min-h-[min(100svh,60rem)] flex-col pb-10 pt-[calc(var(--header-h)+3.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
+      <div className="container-page flex min-h-[min(100svh,60rem)] flex-col pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
         <div className="max-w-2xl flex-1">
-          <p className="typo-eyebrow text-accent-on-dark">{hero.eyebrow}</p>
+          {/* The last topic is dropped on phones so the kicker stays on one line */}
+          <Eyebrow>
+            <span>
+              {hero.eyebrow.split(" · ").map((part, index) => (
+                <span key={part} className={index > 1 ? "hidden sm:inline" : undefined}>
+                  {index > 0 ? " · " : ""}
+                  {part}
+                </span>
+              ))}
+            </span>
+          </Eyebrow>
           <h1 className="typo-display mt-5">
             {hero.title} <span className="text-accent-on-dark">{hero.titleAccent}</span>
           </h1>
-          <p className="typo-lead mt-6 max-w-xl text-tx-inverse-muted">{hero.lead}</p>
+          <Text size="lead" className="mt-6 max-w-xl">
+            {hero.lead}
+          </Text>
 
-          <div className="mt-9">
-            <p className="typo-small font-semibold text-tx-inverse">{hero.quickStartLabel}</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-8 md:mt-10">
+            <Text size="small" weight="semibold" tone="strong">
+              {hero.quickStartLabel}
+            </Text>
+            {/* One scrollable row on phones keeps the main button above the fold */}
+            <ul className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
               {hero.quickStart.map((option) => (
-                <li key={option.label}>
-                  <Link
+                <li key={option.label} className="shrink-0">
+                  <Chip
                     href={"service" in option ? `/contacts?service=${option.service}` : option.href}
-                    data-track="hero_quickstart"
-                    className="typo-small inline-flex h-10 items-center rounded-full border border-white/20 bg-white/8 px-4 font-medium text-tx-inverse backdrop-blur-sm transition-colors hover:border-accent hover:bg-accent hover:text-tx-on-accent"
+                    tone="dark"
+                    size="sm"
+                    track="hero_quickstart"
+                    className="backdrop-blur-sm"
                   >
                     {option.label}
-                  </Link>
+                  </Chip>
                 </li>
               ))}
             </ul>
@@ -66,6 +84,7 @@ export function HomeHero() {
               variant="outline-light"
               icon={<LuPhone className="h-4 w-4" />}
               track="call_click"
+              className="tabular-nums"
             >
               {contacts.phone}
             </Button>

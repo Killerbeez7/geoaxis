@@ -297,11 +297,11 @@ export function Navbar({ services, helpful }: Props) {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu. The header's backdrop blur makes it the containing block, so the height is explicit. */}
       <div
         id="mobile-menu"
         hidden={!mobileOpen}
-        className="fixed inset-x-0 bottom-0 top-(--header-h) overflow-y-auto border-t border-white/10 bg-bg-deep lg:hidden"
+        className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-deep lg:hidden"
       >
         <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col py-4">
           <ul className="divide-y divide-white/10">

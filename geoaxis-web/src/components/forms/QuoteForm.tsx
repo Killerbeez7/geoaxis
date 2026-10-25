@@ -565,16 +565,16 @@ export function QuoteForm() {
       </div>
 
       {/* Navigation */}
-      <div className="mt-8 flex items-center gap-2 border-t sm:gap-3 border-br-light pt-6 sm:justify-between">
+      <div className="mt-8 flex flex-col-reverse gap-3 border-t border-br-light pt-6 sm:flex-row sm:items-center sm:justify-between">
         {step > 1 ? (
           <Button
             variant="outline"
             size="lg"
             onClick={() => goTo((step - 1) as Step)}
             icon={<LuArrowLeft className="h-4 w-4" />}
-            className="w-13 shrink-0 px-0 sm:w-auto sm:px-6"
+            className="w-full sm:w-auto"
           >
-            <span className="sr-only sm:not-sr-only">Назад</span>
+            Назад
           </Button>
         ) : (
           <p className="typo-small inline-flex items-center gap-2 text-tx-muted">
@@ -590,12 +590,12 @@ export function QuoteForm() {
             disabled={isPending}
             icon={isPending ? <LuLoaderCircle className="h-5 w-5 animate-spin" /> : undefined}
             arrow={!isPending}
-            className="min-w-0 flex-1 leading-tight max-sm:whitespace-normal max-sm:px-4 sm:min-w-60 sm:flex-none"
+            className="w-full sm:w-auto sm:min-w-60"
           >
             {isPending ? "Изпращане…" : "Изпрати запитване"}
           </Button>
         ) : step === 2 ? (
-          <Button type="submit" size="lg" arrow className="flex-1 sm:min-w-44 sm:flex-none">
+          <Button type="submit" size="lg" arrow className="w-full sm:w-auto sm:min-w-44">
             Напред
           </Button>
         ) : null}

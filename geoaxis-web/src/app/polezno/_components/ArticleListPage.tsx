@@ -24,7 +24,6 @@ export function ArticleListPage({
           { label: "Полезно", href: "/polezno" },
           { label: labels.plural, href: pageContent.href },
         ]}
-        eyebrow={labels.plural}
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
       />

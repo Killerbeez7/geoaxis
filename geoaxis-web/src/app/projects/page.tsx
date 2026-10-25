@@ -16,7 +16,6 @@ export default function ProjectsPage() {
       <PageHero
         size="compact"
         breadcrumbs={[{ label: "Проекти", href: "/projects" }]}
-        eyebrow="Проекти"
         title={projects.title}
         description={`${projects.subtitle} ${projects.items.length} обекта и ${photoCount} снимки от терена – отворете проект, за да видите галерията.`}
       />

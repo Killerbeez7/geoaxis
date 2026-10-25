@@ -6,7 +6,6 @@ export type AboutValue = { icon: IconType; title: string; description: string };
 
 export const about = {
   hero: {
-    eyebrow: "За нас",
     title: "Геодезия с ясни срокове и подредени документи",
     intro: `${brand.name} предлага геодезически, кадастрални и проектантски услуги за частни клиенти, инвеститори и строителни екипи. Комбинираме работа на терен, съвременна техника и ясна комуникация.`,
     image: "/images/sections/hero-about.webp",

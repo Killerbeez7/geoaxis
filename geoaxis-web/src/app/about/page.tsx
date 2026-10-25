@@ -24,7 +24,6 @@ export default function AboutPage() {
     <>
       <PageHero
         breadcrumbs={[{ label: "За нас", href: "/about" }]}
-        eyebrow={hero.eyebrow}
         title={hero.title}
         description={hero.intro}
         actions={

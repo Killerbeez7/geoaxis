@@ -49,7 +49,6 @@ export default function HelpfulPage() {
     <>
       <PageHero
         breadcrumbs={[{ label: "Полезно", href: "/polezno" }]}
-        eyebrow="Полезно"
         title="Полезни материали за имоти и геодезия"
         description="Статии, ръководства и справки за кадастър, ПУП, строителство и документи – за да знаете какво предстои, преди да започнете."
         aside={<ArticleCard article={featured} kicker="Започнете оттук" aligned={false} titleAs="p" />}

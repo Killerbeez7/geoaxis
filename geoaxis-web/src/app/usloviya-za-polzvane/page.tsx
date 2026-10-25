@@ -36,7 +36,6 @@ export default function TermsPage() {
       <PageHero
         size="compact"
         breadcrumbs={[{ label: "Условия за ползване", href: "/usloviya-za-polzvane" }]}
-        eyebrow="Правна информация"
         title="Условия за ползване"
         description="Основни условия за използване на сайта, публикуваното съдържание и формите за контакт."
       />

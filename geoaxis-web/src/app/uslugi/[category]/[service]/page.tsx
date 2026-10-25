@@ -91,7 +91,6 @@ export default async function ServicePage({ params }: Props) {
           { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
           { label: service.shortTitle ?? service.title, href: servicePath },
         ]}
-        eyebrow={category.shortTitle ?? category.title}
         title={service.title}
         description={service.description}
         actions={

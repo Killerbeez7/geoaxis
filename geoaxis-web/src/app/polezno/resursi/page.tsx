@@ -31,7 +31,6 @@ export default function ResourcesPage() {
           { label: "Полезно", href: "/polezno" },
           { label: pageContent.label, href: pageContent.href },
         ]}
-        eyebrow={pageContent.label}
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
       />

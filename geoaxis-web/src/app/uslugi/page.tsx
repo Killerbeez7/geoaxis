@@ -20,7 +20,6 @@ export default function ServicesPage() {
     <>
       <PageHero
         breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
-        eyebrow="Услуги"
         title="Геодезически услуги за всеки етап на имота"
         description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}
         actions={

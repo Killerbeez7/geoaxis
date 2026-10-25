@@ -72,7 +72,6 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
           { label: labels.plural, href: `/polezno/${section}` },
           { label: article.title, href: getArticleHref(article) },
         ]}
-        eyebrow={labels.single}
         title={article.title}
         description={article.excerpt ?? article.description}
         aside={article.coverImage ? <HeroMedia src={article.coverImage.src} alt={article.coverImage.alt} /> : undefined}

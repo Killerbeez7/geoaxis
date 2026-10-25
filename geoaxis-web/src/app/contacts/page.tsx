@@ -22,7 +22,6 @@ export default function ContactsPage() {
       <PageHero
         size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
-        eyebrow="Контакти"
         title="Поискайте оферта"
         description="Опишете накратко имота и задачата. Отговаряме в рамките на работния ден с насоки, срок и цена."
       />

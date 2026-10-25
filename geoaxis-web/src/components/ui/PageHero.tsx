@@ -1,3 +1,4 @@
+import Image from "next/image";
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
@@ -15,6 +16,8 @@ type Props = {
   /** Extra content under the actions */
   children?: ReactNode;
   size?: "default" | "compact";
+  /** Decorative background image instead of the contour pattern */
+  backdrop?: string;
 };
 
 // The single header pattern for every inner page: subtle surface, contour lines, breadcrumb, H1.
@@ -27,9 +30,29 @@ export function PageHero({
   aside,
   children,
   size = "default",
+  backdrop,
 }: Props) {
   return (
-    <section className="pattern-contours on-light border-b border-br-light bg-bg-subtle">
+    <section
+      className={clsx(
+        "on-light border-b border-br-light bg-bg-subtle",
+        backdrop ? "relative isolate overflow-hidden" : "pattern-contours"
+      )}
+    >
+      {backdrop ? (
+        <>
+          <Image
+            src={backdrop}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="-z-20 object-cover object-[58%_50%] brightness-90 contrast-125 saturate-125 sm:object-center"
+          />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-r from-bg-page/98 via-bg-page/65 to-bg-subtle/10" />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-linear-to-t from-bg-subtle/80 to-transparent" />
+        </>
+      ) : null}
       <div
         className={clsx(
           "container-page pt-[calc(var(--header-h)+1.5rem)] md:pt-[calc(var(--header-h)+2.5rem)]",

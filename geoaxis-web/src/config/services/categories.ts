@@ -15,6 +15,8 @@ export type Service = {
   slug: string;
   title: string;
   shortTitle?: string;
+  /** Short label for the last breadcrumb, when the category name would repeat */
+  crumbTitle?: string;
   meta?: string;
   // image
   thumbnail: string;
@@ -93,6 +95,7 @@ export const serviceCategories: ServiceCategory[] = [
       // 1. za proektirane
       {
         slug: "za-proektirane",
+        crumbTitle: "За проектиране",
         title: "Геодезическо заснемане за проектиране",
         shortTitle: "Заснемане за проектиране",
         meta: "Терен · Основа за проект",
@@ -314,6 +317,7 @@ export const serviceCategories: ServiceCategory[] = [
       // 1. imotni granici
       {
         slug: "na-imotni-granici",
+        crumbTitle: "Имотни граници",
         title: "Трасиране на имотни граници",
         shortTitle: "Трасиране на имотни граници",
         meta: "Граници · Точки",
@@ -484,6 +488,7 @@ export const serviceCategories: ServiceCategory[] = [
       // 3. нанасяне в кадастър
       {
         slug: "nanasyane-na-novi-sgradi",
+        crumbTitle: "Нанасяне на сграда",
         title: "Нанасяне на сграда в кадастъра",
         shortTitle: "Нанасяне на сграда в кадастъра",
         meta: "Сгради · Отразяване",

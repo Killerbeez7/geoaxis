@@ -29,19 +29,20 @@ Components only use the semantic tokens; the raw `--brand-*` and `--neutral-*` v
 | `tx-secondary` | Body text |
 | `tx-muted` | Meta text, captions, placeholders |
 | `tx-inverse` / `tx-inverse-muted` / `tx-inverse-subtle` | Headings / body text / meta text on dark surfaces |
-| `accent` / `accent-hover` | Gold fills (primary button, step numbers, list bullets) |
+| `accent` / `accent-hover` | Gold details: list bullets, progress, lines, borders |
+| `accent-fill` / `accent-fill-hover` | Gold **button** fill; deep enough for white text (4.55:1) |
 | `accent-text` | Gold **text** on light backgrounds (AA contrast: #805f1c) |
 | `accent-on-dark` | Gold **text** on dark backgrounds (AA contrast: #dfbd55) |
 | `accent-soft` | Pale gold panels and icon badges |
-| `tx-on-accent` | Text on gold fills (dark olive, never white) |
+| `tx-on-accent` | Text on gold buttons: white, only on `accent-fill` |
 | `br-light` / `br-default` / `br-strong` | Dividers / inputs and outlines / emphasis |
 | `br-on-dark` / `br-accent` | Borders on dark surfaces / gold-tinted borders |
 | `danger` | Form errors and required-field markers only |
 
 On dark surfaces, overlays and hovers use white alpha (`bg-white/5` … `bg-white/12`).
 
-**Never** put `accent` (fill gold) behind white text or use it as text colour on white –
-it fails contrast. Use `accent-text` or `accent-on-dark`.
+**Never** put white text on the light `accent` gold or use it as text colour on white –
+it fails contrast. Buttons use `accent-fill`; gold text uses `accent-text` or `accent-on-dark`.
 
 ## Typography
 
@@ -141,7 +142,7 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
 | `Section` | Page section with tone, spacing and optional contour pattern |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
-| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (an eyebrow only when it adds something the breadcrumb doesn't, e.g. a category's scope), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
+| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (an eyebrow only when it adds something the breadcrumb doesn't, e.g. a category's scope; `backdrop` puts a light generated background behind category and service pages), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |

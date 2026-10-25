@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
-import { LuPhone } from "react-icons/lu";
 
 import { SITE_URL } from "@/config/site";
-import { contactLinks } from "@/config/content/contacts";
+import { getCategoryBackdrop } from "@/config/services/backdrops";
 import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 import { serviceCategories } from "@/config/services/categories";
 import { createCategorySeo, createSeo } from "@/lib/seo-builder";
@@ -16,7 +15,6 @@ import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
-import { HeroMedia } from "@/components/ui/HeroMedia";
 import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
@@ -55,10 +53,7 @@ export default async function CategoryPage({ params }: Props) {
 
   const faqItems = HELPFUL_FAQ_GROUPS.find((group) => group.slug === category.slug)?.items ?? [];
   const [lead] = normalizeParagraphs(category.longDescription ?? category.description);
-  const serviceImages = withoutRepeatedPhotos(
-    category.services.map((service) => service.thumbnail),
-    category.heroImage ? [category.heroImage] : []
-  );
+  const serviceImages = withoutRepeatedPhotos(category.services.map((service) => service.thumbnail));
 
   return (
     <>
@@ -73,23 +68,12 @@ export default async function CategoryPage({ params }: Props) {
         eyebrow={category.meta}
         title={category.title}
         description={lead}
+        backdrop={getCategoryBackdrop(category.slug)}
         actions={
-          <>
-            <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
-              Поискайте оферта
-            </Button>
-            <Button
-              href={contactLinks.tel}
-              size="lg"
-              variant="outline"
-              icon={<LuPhone className="h-4 w-4" />}
-              track="call_click"
-            >
-              Обадете се
-            </Button>
-          </>
+          <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
+            Поискайте оферта
+          </Button>
         }
-        aside={category.heroImage ? <HeroMedia src={category.heroImage} alt={category.title} /> : null}
       />
 
       <Section aria-labelledby="category-services-title">

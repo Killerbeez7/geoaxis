@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { notFound, permanentRedirect } from "next/navigation";
-import { LuArrowRight, LuInfo, LuPhone } from "react-icons/lu";
+import { LuArrowRight, LuInfo } from "react-icons/lu";
 
 import { SITE_URL } from "@/config/site";
-import { contactLinks } from "@/config/content/contacts";
+import { getCategoryBackdrop } from "@/config/services/backdrops";
 import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { createSeo, createServiceSeo } from "@/lib/seo-builder";
@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/Button";
 import { CheckList } from "@/components/ui/CheckList";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
-import { HeroMedia } from "@/components/ui/HeroMedia";
 import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
@@ -89,27 +88,16 @@ export default async function ServicePage({ params }: Props) {
         breadcrumbs={[
           { label: "Услуги", href: "/uslugi" },
           { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
-          { label: service.shortTitle ?? service.title, href: servicePath },
+          { label: service.crumbTitle ?? service.shortTitle ?? service.title, href: servicePath },
         ]}
         title={service.title}
         description={service.description}
+        backdrop={getCategoryBackdrop(category.slug)}
         actions={
-          <>
-            <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
-              Поискайте оферта
-            </Button>
-            <Button
-              href={contactLinks.tel}
-              size="lg"
-              variant="outline"
-              icon={<LuPhone className="h-4 w-4" />}
-              track="call_click"
-            >
-              Обадете се
-            </Button>
-          </>
+          <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
+            Поискайте оферта
+          </Button>
         }
-        aside={<HeroMedia src={service.heroImage ?? service.thumbnail} alt={service.imageAlt ?? service.title} />}
       >
         <ServiceFacts service={service} className="mt-8 flex flex-wrap gap-x-8 gap-y-3" />
       </PageHero>

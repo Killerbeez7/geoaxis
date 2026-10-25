@@ -48,7 +48,7 @@ export default function ContactsPage() {
                 Ние да ви се обадим?
               </Heading>
               <Text size="small" className="mb-4 mt-1.5">
-                Оставете само телефон – ще ви позвъним в работно време.
+                Оставете само телефон – ще ви позвъним в рамките на деня.
               </Text>
               <CallbackRequest />
             </div>

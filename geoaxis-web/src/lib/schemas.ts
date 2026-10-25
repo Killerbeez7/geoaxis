@@ -50,14 +50,6 @@ export function getLocalBusinessSchema(siteUrl: string) {
     email: contacts.email,
     address: POSTAL_ADDRESS,
     areaServed: AREA_SERVED,
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:30",
-        closes: "17:30",
-      },
-    ],
     ...(company.googleBusinessUrl ? { sameAs: [company.googleBusinessUrl] } : {}),
   };
 }

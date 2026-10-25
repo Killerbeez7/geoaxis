@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LuClock, LuMail, LuMapPin, LuPhone } from "react-icons/lu";
+import { LuMail, LuMapPin, LuPhone } from "react-icons/lu";
 
 import { brand } from "@/config/content/brand";
 import { contactLinks, contacts } from "@/config/content/contacts";
@@ -58,10 +58,6 @@ export function Footer() {
                 <LuMail aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-on-dark" />
                 {contacts.email}
               </a>
-            </li>
-            <li className="inline-flex items-center gap-2.5 text-tx-inverse-muted">
-              <LuClock aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
-              {contacts.workingHours}
             </li>
             <li>
               <a

@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { FaViber, FaWhatsapp } from "react-icons/fa6";
-import { LuClock, LuMail, LuPhone } from "react-icons/lu";
+import { LuMail, LuPhone } from "react-icons/lu";
 import { contactLinks, contacts } from "@/config/content/contacts";
 
 type Props = { dark?: boolean; showEmail?: boolean; showWhatsapp?: boolean; className?: string };
 
-// Phone first (fastest), then chat apps and email; shared by the CTA band, footer and contact page.
+// Phone first (fastest), then chat apps and email; shared by the CTA band and the contact page.
 export function ContactChannels({ dark = false, showEmail = true, showWhatsapp = false, className }: Props) {
   const row = clsx(
     "group flex items-center gap-3.5 rounded-xl px-3 py-2.5 transition-colors",
@@ -33,7 +33,7 @@ export function ContactChannels({ dark = false, showEmail = true, showWhatsapp =
         {item(<LuPhone aria-hidden="true" className="h-5 w-5" />, "Телефон", contacts.phone, "tabular-nums")}
       </a>
       <a href={contactLinks.viber} className={row} data-track="viber_click">
-        {item(<FaViber aria-hidden="true" className="h-5 w-5" />, "Viber", "Пишете ни във Viber")}
+        {item(<FaViber aria-hidden="true" className="h-5 w-5" />, "Viber", contacts.phone, "tabular-nums")}
       </a>
       {showWhatsapp ? (
         <a
@@ -43,7 +43,7 @@ export function ContactChannels({ dark = false, showEmail = true, showWhatsapp =
           className={row}
           data-track="whatsapp_click"
         >
-          {item(<FaWhatsapp aria-hidden="true" className="h-5 w-5" />, "WhatsApp", "Пишете ни в WhatsApp")}
+          {item(<FaWhatsapp aria-hidden="true" className="h-5 w-5" />, "WhatsApp", contacts.phone, "tabular-nums")}
         </a>
       ) : null}
       {showEmail ? (
@@ -51,9 +51,6 @@ export function ContactChannels({ dark = false, showEmail = true, showWhatsapp =
           {item(<LuMail aria-hidden="true" className="h-5 w-5" />, "Имейл", contacts.email, "break-all")}
         </a>
       ) : null}
-      <div className="flex items-center gap-3.5 px-3 py-2.5">
-        {item(<LuClock aria-hidden="true" className="h-5 w-5" />, "Работно време", contacts.workingHours, "tabular-nums")}
-      </div>
     </div>
   );
 }

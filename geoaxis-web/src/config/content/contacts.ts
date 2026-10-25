@@ -6,7 +6,6 @@ export interface ContactsContent {
   email: string;
   address: string;
   mapsUrl: string;
-  workingHours: string;
   responseTime: string;
 }
 
@@ -22,7 +21,6 @@ export const contacts: ContactsContent = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent("бул. България, 1618 София"),
-  workingHours: "Пон – Пет: 08:30 – 17:30",
   responseTime: "Отговаряме в рамките на работния ден",
 } as const;
 

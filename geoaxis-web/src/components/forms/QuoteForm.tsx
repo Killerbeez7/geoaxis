@@ -7,7 +7,6 @@ import clsx from "clsx";
 import { track } from "@vercel/analytics";
 import {
   LuArrowLeft,
-  LuCircleCheck,
   LuCircleHelp,
   LuFile,
   LuImage,
@@ -31,7 +30,6 @@ import {
   isValidEmail,
   isValidPhone,
 } from "@/lib/contact";
-import { contactLinks, contacts } from "@/config/content/contacts";
 import { getPrepareList } from "@/config/services/guide";
 import { getCategoryIcon } from "@/config/services/icons";
 import { Button } from "@/components/ui/Button";
@@ -220,11 +218,8 @@ export function QuoteForm() {
   if (done) {
     return (
       <div role="status" className="rounded-3xl border border-br-light bg-bg-page p-6 shadow-card sm:p-10">
-        <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent-text">
-          <LuCircleCheck aria-hidden="true" className="h-8 w-8" />
-        </span>
-        <h2 ref={headingRef} tabIndex={-1} className="typo-h2 mt-6 outline-none">
-          Получихме запитването ви
+        <h2 ref={headingRef} tabIndex={-1} className="typo-h2 outline-none">
+          Запитването е изпратено
         </h2>
         <p className="typo-lead mt-3">Благодарим, {name.trim().split(" ")[0]}! Ето какво следва:</p>
 
@@ -248,12 +243,6 @@ export function QuoteForm() {
           <CheckList items={getPrepareList(service)} className="typo-small mt-3" />
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-br-light pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="typo-small text-tx-muted">Спешно е? Обадете се на {contacts.phone}.</p>
-          <Button href={contactLinks.tel} variant="outline" track="call_click">
-            Обадете се
-          </Button>
-        </div>
       </div>
     );
   }

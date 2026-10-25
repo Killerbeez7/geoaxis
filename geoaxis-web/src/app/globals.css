@@ -101,8 +101,7 @@ html {
 
 body {
   margin: 0;
-  /* White behind the page: Safari shows it under its bottom toolbar. The top stays green via theme-color. */
-  background: #ffffff;
+  background: var(--brand-olive-900);
   color: var(--color-tx-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

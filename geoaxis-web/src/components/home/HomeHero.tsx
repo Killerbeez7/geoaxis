@@ -4,9 +4,7 @@ import { LuPhone } from "react-icons/lu";
 import { hero } from "@/config/content/hero";
 import { contactLinks, contacts } from "@/config/content/contacts";
 import { Button } from "@/components/ui/Button";
-import { Chip } from "@/components/ui/Chip";
 import { Eyebrow, Text } from "@/components/ui/Text";
-import { TrustBar } from "@/components/ui/TrustBar";
 
 export function HomeHero() {
   return (
@@ -33,8 +31,8 @@ export function HomeHero() {
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex min-h-[calc(100svh+2rem)] flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
-        <div className="max-w-2xl flex-1">
+      <div className="container-page flex min-h-[calc(100svh+2rem)] flex-col pb-14 pt-[calc(var(--header-h)+2.5rem)] md:min-h-[min(100svh,60rem)] md:justify-center md:pb-20 md:pt-[calc(var(--header-h)+3rem)]">
+        <div className="max-w-2xl">
           {/* The last topic is dropped on phones so the kicker stays on one line */}
           <Eyebrow>
             <span>
@@ -53,28 +51,6 @@ export function HomeHero() {
             {hero.lead}
           </Text>
 
-          <div className="mt-8 md:mt-10">
-            <Text size="small" weight="semibold" tone="strong">
-              {hero.quickStartLabel}
-            </Text>
-            {/* One scrollable row on phones keeps the main button above the fold */}
-            <ul className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
-              {hero.quickStart.map((option) => (
-                <li key={option.label} className="shrink-0">
-                  <Chip
-                    href={"service" in option ? `/contacts?service=${option.service}` : option.href}
-                    tone="dark"
-                    size="sm"
-                    track="hero_quickstart"
-                    className="backdrop-blur-sm"
-                  >
-                    {option.label}
-                  </Chip>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* On phones the bottom bar carries these actions */}
           <div className="mt-8 hidden gap-3 md:flex">
             <Button href="/contacts" size="lg" arrow track="quote_click">
@@ -91,10 +67,6 @@ export function HomeHero() {
               {contacts.phone}
             </Button>
           </div>
-        </div>
-
-        <div className="mt-14 hidden md:block">
-          <TrustBar variant="overlay" />
         </div>
       </div>
     </section>

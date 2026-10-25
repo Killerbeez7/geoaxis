@@ -36,6 +36,16 @@ export function Navbar({ services, helpful }: Props) {
 
   const activeMenu = openMenu?.path === pathname ? openMenu.id : null;
   const mobileOpen = mobileFor === pathname;
+  const [scrolled, setScrolled] = useState(false);
+  // Over the homepage photo the header starts transparent and turns solid once you scroll or open a menu.
+  const overHero = pathname === "/" && !scrolled && !mobileOpen && !activeMenu;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const headerRef = useRef<HTMLElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -106,7 +116,10 @@ export function Navbar({ services, helpful }: Props) {
   return (
     <header
       ref={headerRef}
-      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep/92 text-tx-inverse backdrop-blur-xl"
+      className={clsx(
+        "on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b text-tx-inverse transition-colors duration-300",
+        overHero ? "border-transparent bg-linear-to-b from-black/45 to-transparent" : "border-white/10 bg-bg-deep/92 backdrop-blur-xl"
+      )}
       onMouseLeave={scheduleClose}
     >
       <div className="container-page flex h-full items-center justify-between gap-6">

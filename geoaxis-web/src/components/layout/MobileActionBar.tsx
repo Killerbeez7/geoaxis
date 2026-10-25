@@ -61,7 +61,7 @@ export function MobileActionBar() {
     <nav
       aria-label="Бърз контакт"
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-bg-deep pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-12px_rgb(0_0_0_/_0.35)] transition-transform duration-300 md:hidden",
+        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-black/35 backdrop-blur-xl backdrop-saturate-150 pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden",
         !atEdge && !menuOpen && "translate-y-full"
       )}
     >

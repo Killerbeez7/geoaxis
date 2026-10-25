@@ -35,7 +35,8 @@ export default function ContactsPage() {
           </div>
 
           <aside className="grid content-start gap-6">
-            <div className="rounded-3xl border border-br-light bg-bg-page p-3 shadow-card">
+            {/* Phones already have call / Viber in the bottom bar */}
+            <div className="hidden rounded-3xl border border-br-light bg-bg-page p-3 shadow-card md:block">
               <Heading as="p" size="h4" className="px-3 pt-3">
                 Предпочитате директен контакт?
               </Heading>

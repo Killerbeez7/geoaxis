@@ -243,6 +243,11 @@ export function QuoteForm() {
           ))}
         </ol>
 
+        <div className="mt-8 rounded-2xl bg-accent-soft p-5">
+          <p className="typo-small tone-strong font-semibold">Докато чакате, подгответе, ако имате:</p>
+          <CheckList items={getPrepareList(service)} className="typo-small mt-3" />
+        </div>
+
         <div className="mt-10 flex flex-col gap-3 border-t border-br-light pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="typo-small text-tx-muted">Спешно е? Обадете се на {contacts.phone}.</p>
           <Button href={contactLinks.tel} variant="outline" track="call_click">
@@ -254,7 +259,7 @@ export function QuoteForm() {
   }
 
   const stepTitle =
-    step === 1 ? "Каква услуга ви трябва?" : step === 2 ? "Разкажете ни накратко" : "Как да се свържем с вас?";
+    step === 1 ? "Изберете услуга" : step === 2 ? "Разкажете ни накратко" : "Как да се свържем с вас?";
 
   return (
     <form
@@ -449,10 +454,6 @@ export function QuoteForm() {
             <FieldError id="quote-files-error" message={errors.files} />
           </div>
 
-          <div className="rounded-2xl bg-accent-soft p-5">
-            <p className="typo-small tone-strong font-semibold">Полезно е да подготвите:</p>
-            <CheckList items={getPrepareList(service)} className="typo-small mt-3" />
-          </div>
         </div>
       ) : null}
 
@@ -565,16 +566,16 @@ export function QuoteForm() {
       </div>
 
       {/* Navigation */}
-      <div className="mt-8 flex flex-col-reverse gap-3 border-t border-br-light pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-8 flex items-center gap-2 border-t border-br-light pt-6 sm:justify-between sm:gap-3">
         {step > 1 ? (
           <Button
             variant="outline"
             size="lg"
             onClick={() => goTo((step - 1) as Step)}
             icon={<LuArrowLeft className="h-4 w-4" />}
-            className="w-full sm:w-auto"
+            className="shrink-0 max-[359px]:px-4"
           >
-            Назад
+            <span className="max-[359px]:sr-only">Назад</span>
           </Button>
         ) : (
           <p className="typo-small inline-flex items-center gap-2 text-tx-muted">
@@ -590,12 +591,12 @@ export function QuoteForm() {
             disabled={isPending}
             icon={isPending ? <LuLoaderCircle className="h-5 w-5 animate-spin" /> : undefined}
             arrow={!isPending}
-            className="w-full sm:w-auto sm:min-w-60"
+            className="flex-1 sm:min-w-52 sm:flex-none"
           >
-            {isPending ? "Изпращане…" : "Изпрати запитване"}
+            {isPending ? "Изпращане…" : "Изпрати"}
           </Button>
         ) : step === 2 ? (
-          <Button type="submit" size="lg" arrow className="w-full sm:w-auto sm:min-w-44">
+          <Button type="submit" size="lg" arrow className="flex-1 sm:min-w-44 sm:flex-none">
             Напред
           </Button>
         ) : null}

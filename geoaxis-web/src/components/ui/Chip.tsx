@@ -24,8 +24,8 @@ const TONES = {
     selected: "border-bg-inverse bg-bg-inverse text-tx-inverse",
   },
   dark: {
-    idle: "border-white/20 bg-white/8 text-tx-inverse hover:border-accent hover:bg-accent hover:text-tx-on-accent",
-    selected: "border-accent bg-accent text-tx-on-accent",
+    idle: "border-white/20 bg-white/8 text-tx-inverse hover:border-accent-fill hover:bg-accent-fill hover:text-tx-on-accent",
+    selected: "border-accent-fill bg-accent-fill text-tx-on-accent",
   },
 } as const;
 

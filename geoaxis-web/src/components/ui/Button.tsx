@@ -7,7 +7,7 @@ export type ButtonVariant = "primary" | "dark" | "outline" | "outline-light" | "
 export type ButtonSize = "md" | "lg";
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "rounded-xl bg-accent text-tx-on-accent shadow-cta hover:bg-accent-hover",
+  primary: "rounded-xl bg-accent-fill text-tx-on-accent shadow-cta hover:bg-accent-fill-hover",
   dark: "rounded-xl bg-bg-inverse text-tx-inverse hover:bg-bg-brand",
   outline:
     "rounded-xl border border-br-default bg-bg-page text-tx-primary hover:border-br-accent hover:text-accent-text",

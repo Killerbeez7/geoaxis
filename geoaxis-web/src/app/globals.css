@@ -55,7 +55,10 @@
   --color-accent-text: var(--brand-ochre-700);
   --color-accent-on-dark: var(--brand-ochre-300);
   --color-accent-soft: var(--brand-ochre-50);
-  --color-tx-on-accent: var(--brand-olive-900);
+  /* Gold fill for buttons: deep enough for white text (4.55:1) */
+  --color-accent-fill: #957021;
+  --color-accent-fill-hover: var(--brand-ochre-700);
+  --color-tx-on-accent: #ffffff;
 
   /* Surfaces */
   --color-bg-page: #ffffff;

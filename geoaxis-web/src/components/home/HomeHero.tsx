@@ -6,6 +6,7 @@ import { contactLinks, contacts } from "@/config/content/contacts";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Eyebrow, Text } from "@/components/ui/Text";
+import { TrustBar } from "@/components/ui/TrustBar";
 
 export function HomeHero() {
   return (
@@ -32,8 +33,8 @@ export function HomeHero() {
         42.6977° N · 23.3219° E
       </p>
 
-      <div className="container-page flex min-h-[calc(100svh+2rem)] flex-col pb-14 pt-[calc(var(--header-h)+2.5rem)] md:min-h-[min(100svh,60rem)] md:justify-center md:pb-20 md:pt-[calc(var(--header-h)+3rem)]">
-        <div className="max-w-2xl">
+      <div className="container-page flex min-h-[calc(100svh+2rem)] flex-col pb-14 md:min-h-[min(100svh,60rem)] md:pb-10 pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
+        <div className="max-w-2xl flex-1">
           {/* The last topic is dropped on phones so the kicker stays on one line */}
           <Eyebrow>
             <span>
@@ -90,6 +91,10 @@ export function HomeHero() {
               {contacts.phone}
             </Button>
           </div>
+        </div>
+
+        <div className="mt-14 hidden md:block">
+          <TrustBar variant="overlay" />
         </div>
       </div>
     </section>

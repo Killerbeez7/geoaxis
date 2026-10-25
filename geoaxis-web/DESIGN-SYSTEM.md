@@ -172,7 +172,7 @@ Feature components live next to their area: `components/home`, `components/servi
 - The phone number is the secondary action everywhere; on mobile the bottom bar keeps
   call, Viber and quote one tap away.
 - Track every contact action with `track` / `data-track`: `quote_click`, `call_click`,
-  `viber_click`, `email_click`, `hero_quickstart`.
+  `viber_click`, `whatsapp_click`, `email_click`, `hero_quickstart`.
 - Claims must be true and checkable. Prices, reviews and company details stay hidden until
   the client confirms them (`TODO(client)` fields, see `CLIENT-TODO.md`).
 

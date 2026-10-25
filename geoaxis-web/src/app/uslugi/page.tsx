@@ -1,7 +1,6 @@
 import { serviceCategories } from "@/config/services/categories";
 import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
-import { CategoryIndex } from "@/components/services/CategoryIndex";
 import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
 import { ServiceGuide } from "@/components/services/ServiceGuide";
 import { Button } from "@/components/ui/Button";
@@ -32,7 +31,6 @@ export default function ServicesPage() {
             </Button>
           </>
         }
-        aside={<CategoryIndex className="hidden lg:block" />}
       />
 
       <Section aria-labelledby="categories-title">

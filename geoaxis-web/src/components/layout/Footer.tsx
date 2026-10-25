@@ -59,19 +59,21 @@ export function Footer() {
                 {contacts.email}
               </a>
             </li>
-            <li>
-              <a
-                href={contacts.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-start gap-2.5 text-tx-inverse-muted hover:text-tx-inverse"
-              >
-                <LuMapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-accent-on-dark" />
-                <span>
-                  {street}, {city}
-                </span>
-              </a>
-            </li>
+            {contacts.showAddress ? (
+              <li>
+                <a
+                  href={contacts.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-start gap-2.5 text-tx-inverse-muted hover:text-tx-inverse"
+                >
+                  <LuMapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-accent-on-dark" />
+                  <span>
+                    {street}, {city}
+                  </span>
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
 

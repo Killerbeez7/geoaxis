@@ -48,7 +48,7 @@ export function getLocalBusinessSchema(siteUrl: string) {
     image: absoluteUrl(siteUrl, toOgImage()),
     telephone: stripSpaces(contacts.phone),
     email: contacts.email,
-    address: POSTAL_ADDRESS,
+    ...(contacts.showAddress ? { address: POSTAL_ADDRESS } : {}),
     areaServed: AREA_SERVED,
     ...(company.googleBusinessUrl ? { sameAs: [company.googleBusinessUrl] } : {}),
   };
@@ -72,7 +72,7 @@ export function getServiceSchema(siteUrl: string, path: string, service: Service
       url: siteUrl,
       telephone: stripSpaces(contacts.phone),
       email: contacts.email,
-      address: POSTAL_ADDRESS,
+      ...(contacts.showAddress ? { address: POSTAL_ADDRESS } : {}),
     },
   };
 }

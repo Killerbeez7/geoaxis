@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
-import { FaViber, FaWhatsapp } from "react-icons/fa6";
+import { FaViber } from "react-icons/fa6";
 import { LuMail, LuPhone } from "react-icons/lu";
 import { contactLinks, contacts } from "@/config/content/contacts";
 
-type Props = { dark?: boolean; showEmail?: boolean; showWhatsapp?: boolean; className?: string };
+type Props = { dark?: boolean; showEmail?: boolean; className?: string };
 
 // Phone first (fastest), then chat apps and email; shared by the CTA band and the contact page.
-export function ContactChannels({ dark = false, showEmail = true, showWhatsapp = false, className }: Props) {
+export function ContactChannels({ dark = false, showEmail = true, className }: Props) {
   const row = clsx(
     "group flex items-center gap-3.5 rounded-xl px-3 py-2.5 transition-colors",
     dark ? "hover:bg-white/6" : "hover:bg-bg-subtle"
@@ -35,17 +35,6 @@ export function ContactChannels({ dark = false, showEmail = true, showWhatsapp =
       <a href={contactLinks.viber} className={row} data-track="viber_click">
         {item(<FaViber aria-hidden="true" className="h-5 w-5" />, "Viber", contacts.phone, "tabular-nums")}
       </a>
-      {showWhatsapp ? (
-        <a
-          href={contactLinks.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={row}
-          data-track="whatsapp_click"
-        >
-          {item(<FaWhatsapp aria-hidden="true" className="h-5 w-5" />, "WhatsApp", contacts.phone, "tabular-nums")}
-        </a>
-      ) : null}
       {showEmail ? (
         <a href={contactLinks.mail} className={row} data-track="email_click">
           {item(<LuMail aria-hidden="true" className="h-5 w-5" />, "Имейл", contacts.email, "break-all")}

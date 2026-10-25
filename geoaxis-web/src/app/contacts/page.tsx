@@ -39,7 +39,7 @@ export default function ContactsPage() {
               <Heading as="p" size="h4" className="px-3 pt-3">
                 Предпочитате директен контакт?
               </Heading>
-              <ContactChannels showWhatsapp className="mt-2" />
+              <ContactChannels className="mt-2" />
             </div>
 
             <div className="rounded-3xl border border-br-light bg-bg-subtle p-6">
@@ -52,21 +52,23 @@ export default function ContactsPage() {
               <CallbackRequest />
             </div>
 
-            <a
-              href={contacts.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-start gap-3 rounded-3xl border border-br-light bg-bg-page p-6 transition-colors hover:border-br-accent"
-            >
-              <LuMapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-text" />
-              <span>
-                <span className="typo-h5 block">{street}</span>
-                <span className="typo-small tone-muted block">{city}</span>
-                <span className="typo-small mt-2 block font-semibold text-accent-text group-hover:underline">
-                  Отворете в Google Maps
+            {contacts.showAddress ? (
+              <a
+                href={contacts.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-3 rounded-3xl border border-br-light bg-bg-page p-6 transition-colors hover:border-br-accent"
+              >
+                <LuMapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-text" />
+                <span>
+                  <span className="typo-h5 block">{street}</span>
+                  <span className="typo-small tone-muted block">{city}</span>
+                  <span className="typo-small mt-2 block font-semibold text-accent-text group-hover:underline">
+                    Отворете в Google Maps
+                  </span>
                 </span>
-              </span>
-            </a>
+              </a>
+            ) : null}
           </aside>
         </div>
 

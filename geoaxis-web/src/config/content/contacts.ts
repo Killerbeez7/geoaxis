@@ -6,6 +6,8 @@ export interface ContactsContent {
   email: string;
   address: string;
   mapsUrl: string;
+  /** TODO(client): set to true once the office address is confirmed */
+  showAddress: boolean;
   responseTime: string;
 }
 
@@ -21,12 +23,12 @@ export const contacts: ContactsContent = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent("бул. България, 1618 София"),
+  showAddress: false,
   responseTime: "Отговаряме в рамките на работния ден",
 } as const;
 
 export const contactLinks = {
   tel: `tel:+${PHONE_DIGITS}`,
   viber: `viber://chat?number=%2B${PHONE_DIGITS}`,
-  whatsapp: `https://wa.me/${PHONE_DIGITS}`,
   mail: `mailto:${contacts.email}`,
 } as const;

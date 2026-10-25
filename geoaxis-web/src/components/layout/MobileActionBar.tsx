@@ -25,9 +25,9 @@ function QuickActions({ className }: { className?: string }) {
       <Link
         href="/contacts"
         data-track="quote_click"
-        className={`${itemCls} bg-accent text-tx-on-accent hover:bg-accent-hover`}
+        className={`${itemCls} hover:bg-white/6`}
       >
-        <LuSend aria-hidden="true" className="h-5 w-5" />
+        <LuSend aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
         Оферта
       </Link>
     </div>
@@ -61,7 +61,7 @@ export function MobileActionBar() {
     <nav
       aria-label="Бърз контакт"
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-bg-deep pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-12px_rgb(0_0_0_/_0.35)] transition-transform duration-300 md:hidden",
+        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-bg-deep/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-transform duration-300 md:hidden",
         !atEdge && !menuOpen && "translate-y-full"
       )}
     >

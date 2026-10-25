@@ -15,26 +15,33 @@ export function ProcessSection() {
         align="center"
       />
 
-      <ol className="mt-14 grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
-        {workflow.steps.map((step, index) => (
-          <li key={step.title} className="relative flex flex-col">
-            {index < workflow.steps.length - 1 ? (
-              <span aria-hidden="true" className="absolute left-17 -right-4 top-7 hidden h-px bg-br-default lg:block" />
-            ) : null}
-            <span className="relative inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page font-semibold text-accent-text shadow-card tabular-nums">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div className="mt-5 flex-1 rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
-              {step.meta ? <Badge>{step.meta}</Badge> : null}
-              <Heading as="h3" size="h4" className="mt-4">
-                {step.title}
-              </Heading>
-              <Text size="small" className="mt-2">
-                {step.description}
-              </Text>
-            </div>
-          </li>
-        ))}
+      {/* A timeline: down the page on phones and tablets, across it on desktop. No cards. */}
+      <ol className="mx-auto mt-12 grid max-w-xl lg:mt-14 lg:max-w-none lg:grid-cols-4 lg:gap-8">
+        {workflow.steps.map((step, index) => {
+          const last = index === workflow.steps.length - 1;
+          return (
+            <li key={step.title} className="relative flex gap-5 pb-10 last:pb-0 lg:flex-col lg:gap-0 lg:pb-0">
+              {!last ? (
+                <>
+                  <span aria-hidden="true" className="absolute bottom-0 left-6 top-14 w-px bg-br-default lg:hidden" />
+                  <span aria-hidden="true" className="absolute -right-6 left-16 top-6 hidden h-px bg-br-default lg:block" />
+                </>
+              ) : null}
+              <span className="relative inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page font-semibold text-accent-text tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0 pt-2.5 lg:pt-6">
+                <Heading as="h3" size="h4">
+                  {step.title}
+                </Heading>
+                {step.meta ? <Badge className="mt-2.5">{step.meta}</Badge> : null}
+                <Text size="small" className="mt-2.5 max-w-sm">
+                  {step.description}
+                </Text>
+              </div>
+            </li>
+          );
+        })}
       </ol>
 
       <div className="mt-12 flex flex-col items-center gap-3 text-center">

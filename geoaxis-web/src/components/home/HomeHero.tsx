@@ -4,6 +4,7 @@ import { LuPhone } from "react-icons/lu";
 import { hero } from "@/config/content/hero";
 import { contactLinks, contacts } from "@/config/content/contacts";
 import { Button } from "@/components/ui/Button";
+import { Chip } from "@/components/ui/Chip";
 import { Eyebrow, Text } from "@/components/ui/Text";
 
 export function HomeHero() {
@@ -50,6 +51,28 @@ export function HomeHero() {
           <Text size="lead" className="mt-6 max-w-xl">
             {hero.lead}
           </Text>
+
+          <div className="mt-8 md:mt-10">
+            <Text size="small" weight="semibold" tone="strong">
+              {hero.quickStartLabel}
+            </Text>
+            {/* One scrollable row on phones keeps the main button above the fold */}
+            <ul className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+              {hero.quickStart.map((option) => (
+                <li key={option.label} className="shrink-0">
+                  <Chip
+                    href={"service" in option ? `/contacts?service=${option.service}` : option.href}
+                    tone="dark"
+                    size="sm"
+                    track="hero_quickstart"
+                    className="backdrop-blur-sm"
+                  >
+                    {option.label}
+                  </Chip>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* On phones the bottom bar carries these actions */}
           <div className="mt-8 hidden gap-3 md:flex">

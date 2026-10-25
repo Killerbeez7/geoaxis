@@ -333,14 +333,14 @@ export function QuoteForm() {
                   aria-pressed={isSelected}
                   onClick={() => chooseService(option.value)}
                   className={clsx(
-                    "flex min-h-14 items-center gap-2 rounded-xl border px-2.5 py-2.5 text-left transition-colors sm:gap-2.5 sm:px-3",
+                    "flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 text-center transition-colors",
                     isSelected
                       ? "border-accent bg-accent-soft"
                       : "border-br-default bg-bg-page hover:border-br-accent hover:bg-bg-subtle"
                   )}
                 >
-                  <Icon aria-hidden="true" className="h-4.5 w-4.5 shrink-0 text-accent-text sm:h-5 sm:w-5" />
-                  <span className="typo-small tone-strong font-semibold leading-tight">{option.short}</span>
+                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-accent-text" />
+                  <span className="typo-small tone-strong font-semibold leading-tight hyphens-auto">{option.short}</span>
                 </button>
               );
             })}

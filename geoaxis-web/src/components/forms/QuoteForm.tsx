@@ -262,7 +262,7 @@ export function QuoteForm() {
       onSubmit={submit}
       noValidate
       aria-labelledby="quote-step-title"
-      className="rounded-3xl border border-br-light bg-bg-page p-5 shadow-card sm:p-8"
+      className="rounded-3xl border border-br-light bg-bg-page p-4 shadow-card sm:p-8"
     >
       {/* Honeypot: hidden from people, filled in by bots */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -322,7 +322,7 @@ export function QuoteForm() {
       {step === 1 ? (
         <fieldset className="mt-6">
           <legend className="sr-only">Вид услуга</legend>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
             {CONTACT_SERVICE_OPTIONS.map((option) => {
               const Icon = option.value === "other" || option.value === "nesigurno" ? LuCircleHelp : getCategoryIcon(option.value);
               const isSelected = service === option.value;
@@ -333,19 +333,14 @@ export function QuoteForm() {
                   aria-pressed={isSelected}
                   onClick={() => chooseService(option.value)}
                   className={clsx(
-                    "flex items-center gap-3.5 rounded-2xl border p-4 text-left transition-colors",
+                    "flex min-h-14 items-center gap-2 rounded-xl border px-2.5 py-2.5 text-left transition-colors sm:gap-2.5 sm:px-3",
                     isSelected
                       ? "border-accent bg-accent-soft"
                       : "border-br-default bg-bg-page hover:border-br-accent hover:bg-bg-subtle"
                   )}
                 >
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
-                    <Icon aria-hidden="true" className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="typo-h5 block">{option.label}</span>
-                    <span className="typo-small block text-tx-muted">{option.hint}</span>
-                  </span>
+                  <Icon aria-hidden="true" className="h-4.5 w-4.5 shrink-0 text-accent-text sm:h-5 sm:w-5" />
+                  <span className="typo-small tone-strong font-semibold leading-tight">{option.short}</span>
                 </button>
               );
             })}

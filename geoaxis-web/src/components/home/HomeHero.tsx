@@ -19,11 +19,12 @@ export function HomeHero() {
         sizes="100vw"
         className="-z-20 object-cover object-[72%_center]"
       />
+      {/* Neutral shade only behind the text, so the warm light of the photo stays true */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-linear-to-r from-bg-deep via-bg-deep/80 to-bg-deep/25"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-black/70 via-black/45 to-black/25 md:bg-linear-to-r md:from-black/75 md:via-black/40 md:to-transparent"
       />
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-linear-to-t from-bg-deep to-transparent" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-t from-black/60 to-transparent" />
 
       <p
         aria-hidden="true"

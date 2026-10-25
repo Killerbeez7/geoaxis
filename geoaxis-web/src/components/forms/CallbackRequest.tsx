@@ -93,8 +93,8 @@ export function CallbackRequest() {
           onChange={(e) => setPhone(e.target.value)}
           className="h-11 w-full min-w-0 rounded-xl border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted/80 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20 @sm:flex-1"
         />
-        <Button type="submit" variant="dark" disabled={isPending} aria-label="Изпрати телефона за обратно обаждане" className="shrink-0">
-          {isPending ? "Изпращане…" : "Изпрати"}
+        <Button type="submit" variant="dark" disabled={isPending} className="shrink-0">
+          {isPending ? "Изпращане…" : "Обадете ми се"}
         </Button>
       </div>
 

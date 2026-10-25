@@ -13,19 +13,19 @@ const itemCls =
 // The one contact row on phones: call, Viber, quote.
 function QuickActions({ className }: { className?: string }) {
   return (
-    <div className={clsx("flex gap-2 text-tx-inverse", className)}>
-      <a href={contactLinks.tel} data-track="call_click" className={`${itemCls} hover:bg-white/6`}>
-        <LuPhone aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
+    <div className={clsx("flex gap-2 text-tx-primary", className)}>
+      <a href={contactLinks.tel} data-track="call_click" className={`${itemCls} hover:bg-bg-subtle`}>
+        <LuPhone aria-hidden="true" className="h-5 w-5 text-accent-text" />
         Обадете се
       </a>
-      <a href={contactLinks.viber} data-track="viber_click" className={`${itemCls} hover:bg-white/6`}>
-        <FaViber aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
+      <a href={contactLinks.viber} data-track="viber_click" className={`${itemCls} hover:bg-bg-subtle`}>
+        <FaViber aria-hidden="true" className="h-5 w-5 text-accent-text" />
         Viber
       </a>
       <Link
         href="/contacts"
         data-track="quote_click"
-        className={`${itemCls} bg-accent text-tx-on-accent hover:bg-accent-hover`}
+        className={`${itemCls} text-accent-text ring-1 ring-inset ring-br-accent hover:bg-accent-soft`}
       >
         <LuSend aria-hidden="true" className="h-5 w-5" />
         Оферта
@@ -45,7 +45,8 @@ export function MobileActionBar() {
     const onScroll = () => {
       const y = window.scrollY;
       const nearEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 80;
-      setAtEdge(y < 80 || nearEnd);
+      // Hides on the first bit of scrolling
+      setAtEdge(y < 4 || nearEnd);
     };
     const onMenu = (event: Event) => setMenuOpen((event as CustomEvent<boolean>).detail);
     onScroll();
@@ -61,7 +62,7 @@ export function MobileActionBar() {
     <nav
       aria-label="Бърз контакт"
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-bg-deep pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-12px_rgb(0_0_0_/_0.35)] transition-transform duration-300 md:hidden",
+        "fixed inset-x-0 bottom-0 z-60 border-t border-br-light bg-bg-page/92 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-16px_rgb(20_33_27_/_0.25)] backdrop-blur-xl transition-transform duration-300 md:hidden",
         !atEdge && !menuOpen && "translate-y-full"
       )}
     >

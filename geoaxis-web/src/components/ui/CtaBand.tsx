@@ -1,5 +1,4 @@
-import { LuPhone } from "react-icons/lu";
-import { contactLinks, contacts } from "@/config/content/contacts";
+import { contacts } from "@/config/content/contacts";
 import { Button } from "./Button";
 import { ContactChannels } from "./ContactChannels";
 import { Section } from "./Section";
@@ -31,19 +30,10 @@ export function CtaBand({
           <Text size="lead" className="mt-4 max-w-2xl">
             {text}
           </Text>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href={quoteHref} size="lg" arrow track="quote_click">
+          {/* The phone number lives in the contact list beside this, so only the quote button here */}
+          <div className="mt-8">
+            <Button href={quoteHref} size="lg" arrow track="quote_click" className="w-full sm:w-auto">
               Поискайте оферта
-            </Button>
-            <Button
-              href={contactLinks.tel}
-              size="lg"
-              variant="outline-light"
-              icon={<LuPhone className="h-4 w-4" />}
-              track="call_click"
-              className="tabular-nums"
-            >
-              {contacts.phone}
             </Button>
           </div>
           <Text size="small" tone="muted" className="mt-5">

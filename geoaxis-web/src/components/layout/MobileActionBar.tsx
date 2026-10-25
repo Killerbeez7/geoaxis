@@ -45,8 +45,8 @@ export function MobileActionBar() {
     const onScroll = () => {
       const y = window.scrollY;
       const nearEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 80;
-      // Stays while the first screen (the hero) is in view, so a small scroll does not hide it
-      setAtEdge(y < window.innerHeight * 0.6 || nearEnd);
+      // Hides on the first bit of scrolling
+      setAtEdge(y < 4 || nearEnd);
     };
     const onMenu = (event: Event) => setMenuOpen((event as CustomEvent<boolean>).detail);
     onScroll();

@@ -13,21 +13,21 @@ const itemCls =
 // The one contact row on phones: call, Viber, quote.
 function QuickActions({ className }: { className?: string }) {
   return (
-    <div className={clsx("flex gap-2 text-tx-inverse", className)}>
-      <a href={contactLinks.tel} data-track="call_click" className={`${itemCls} hover:bg-white/6`}>
-        <LuPhone aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
+    <div className={clsx("flex gap-2 text-tx-primary", className)}>
+      <a href={contactLinks.tel} data-track="call_click" className={`${itemCls} hover:bg-bg-subtle`}>
+        <LuPhone aria-hidden="true" className="h-5 w-5 text-accent-text" />
         Обадете се
       </a>
-      <a href={contactLinks.viber} data-track="viber_click" className={`${itemCls} hover:bg-white/6`}>
-        <FaViber aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
+      <a href={contactLinks.viber} data-track="viber_click" className={`${itemCls} hover:bg-bg-subtle`}>
+        <FaViber aria-hidden="true" className="h-5 w-5 text-accent-text" />
         Viber
       </a>
       <Link
         href="/contacts"
         data-track="quote_click"
-        className={`${itemCls} hover:bg-white/6`}
+        className={`${itemCls} text-accent-text ring-1 ring-inset ring-br-accent hover:bg-accent-soft`}
       >
-        <LuSend aria-hidden="true" className="h-5 w-5 text-accent-on-dark" />
+        <LuSend aria-hidden="true" className="h-5 w-5" />
         Оферта
       </Link>
     </div>
@@ -78,7 +78,7 @@ export function MobileActionBar() {
         if (!visible) setGone(true);
       }}
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-60 border-t border-white/10 bg-bg-deep/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-transform duration-300 starting:translate-y-full md:hidden",
+        "fixed inset-x-0 bottom-0 z-60 border-t border-br-light bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-16px_rgb(20_33_27_/_0.25)] transition-transform duration-300 starting:translate-y-full md:hidden",
         !visible && "translate-y-full"
       )}
     >

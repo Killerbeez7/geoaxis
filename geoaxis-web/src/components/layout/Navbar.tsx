@@ -106,7 +106,7 @@ export function Navbar({ services, helpful }: Props) {
   return (
     <header
       ref={headerRef}
-      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep/92 text-tx-inverse backdrop-blur-xl"
+      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep text-tx-inverse"
       onMouseLeave={scheduleClose}
     >
       <div className="container-page flex h-full items-center justify-between gap-6">

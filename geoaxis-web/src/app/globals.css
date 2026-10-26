@@ -42,6 +42,7 @@
   --surface-notch: #0f1a15;
   --surface-chrome: #1b2b24;
   --surface-cta: #253a31;
+  --surface-paper: #f3ede0;
 
   /* Layout */
   --header-h: 64px;
@@ -73,6 +74,7 @@
   --color-bg-deep: var(--brand-olive-900);
   --color-bg-chrome: var(--surface-chrome);
   --color-bg-cta: var(--surface-cta);
+  --color-bg-paper: var(--surface-paper);
 
   /* Text */
   --color-tx-primary: var(--neutral-900);

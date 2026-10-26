@@ -39,7 +39,7 @@ export function Footer() {
   const [street, city] = contacts.address.split("||").map((part) => part.trim());
 
   return (
-    <footer className="on-dark pattern-contours border-t border-white/10 bg-bg-chrome">
+    <footer className="on-dark pattern-contours overflow-hidden border-t border-white/10 bg-bg-chrome">
       <div className="container-page grid gap-12 py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-16 lg:py-20">
         <div>
           <Link href="/" className="inline-flex rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
@@ -120,6 +120,13 @@ export function Footer() {
           </nav>
         </div>
       </div>
+      {/* Oversized wordmark fading out at the very bottom */}
+      <p
+        aria-hidden="true"
+        className="pointer-events-none select-none overflow-hidden text-center text-[21vw] font-semibold leading-[0.8] tracking-[-0.04em] text-white/5"
+      >
+        GeoAxis
+      </p>
     </footer>
   );
 }

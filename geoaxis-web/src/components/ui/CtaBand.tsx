@@ -20,7 +20,12 @@ export function CtaBand({
   const quoteHref = service ? `/contacts?service=${service}` : "/contacts";
 
   return (
-    <Section tone="cta" aria-labelledby="cta-band-title">
+    <Section
+      tone="paper"
+      pattern
+      className="[--pattern-color:var(--brand-ochre-600)] [--pattern-opacity:0.16]"
+      aria-labelledby="cta-band-title"
+    >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-center lg:gap-20">
         <div>
           <Eyebrow>Следваща стъпка</Eyebrow>
@@ -41,8 +46,8 @@ export function CtaBand({
           </Text>
         </div>
 
-        <div className="rounded-2xl border border-br-on-dark bg-white/4 p-3">
-          <ContactChannels dark />
+        <div className="rounded-2xl border border-br-light bg-bg-page p-3 shadow-card">
+          <ContactChannels />
         </div>
       </div>
     </Section>

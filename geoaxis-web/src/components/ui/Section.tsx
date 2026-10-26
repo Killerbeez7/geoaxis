@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
 
-export type SectionTone = "page" | "subtle" | "inverse" | "deep" | "cta";
+export type SectionTone = "page" | "subtle" | "inverse" | "deep" | "cta" | "paper";
 
 const TONES: Record<SectionTone, string> = {
   page: "bg-bg-page",
@@ -9,6 +9,7 @@ const TONES: Record<SectionTone, string> = {
   inverse: "bg-bg-inverse on-dark",
   deep: "bg-bg-deep on-dark",
   cta: "bg-bg-cta on-dark",
+  paper: "bg-bg-paper on-light",
 };
 
 const SPACING = {

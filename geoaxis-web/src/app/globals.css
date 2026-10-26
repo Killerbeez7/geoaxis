@@ -38,6 +38,11 @@
   --neutral-800: #3f4a45;
   --neutral-900: #17211d;
 
+  /* Dark layers, darkest to lightest: behind the browser bars, navbar and footer, closing call to action */
+  --surface-notch: #0f1a15;
+  --surface-chrome: #1b2b24;
+  --surface-cta: #253a31;
+
   /* Layout */
   --header-h: 64px;
 }
@@ -66,6 +71,8 @@
   --color-bg-brand: var(--brand-olive-700);
   --color-bg-inverse: var(--brand-olive-800);
   --color-bg-deep: var(--brand-olive-900);
+  --color-bg-chrome: var(--surface-chrome);
+  --color-bg-cta: var(--surface-cta);
 
   /* Text */
   --color-tx-primary: var(--neutral-900);
@@ -104,7 +111,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--brand-olive-900);
+  /* iOS Safari shows this behind the notch and the address bar */
+  background: var(--surface-notch);
   color: var(--color-tx-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -439,9 +447,3 @@ body {
   }
 }
 
-/* Room for the mobile contact bar */
-@media (max-width: 767px) {
-  body {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom));
-  }
-}

@@ -39,7 +39,7 @@ export function Footer() {
   const [street, city] = contacts.address.split("||").map((part) => part.trim());
 
   return (
-    <footer className="on-dark border-t border-white/10 bg-bg-deep">
+    <footer className="on-dark pattern-contours border-t border-white/10 bg-bg-chrome">
       <div className="container-page grid gap-12 py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-16 lg:py-20">
         <div>
           <Link href="/" className="inline-flex rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">

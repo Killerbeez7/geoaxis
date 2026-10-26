@@ -20,7 +20,7 @@ export function CtaBand({
   const quoteHref = service ? `/contacts?service=${service}` : "/contacts";
 
   return (
-    <Section tone="deep" pattern aria-labelledby="cta-band-title">
+    <Section tone="cta" aria-labelledby="cta-band-title">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-center lg:gap-20">
         <div>
           <Eyebrow>Следваща стъпка</Eyebrow>

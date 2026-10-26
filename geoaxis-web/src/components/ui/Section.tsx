@@ -1,13 +1,14 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
 
-export type SectionTone = "page" | "subtle" | "inverse" | "deep";
+export type SectionTone = "page" | "subtle" | "inverse" | "deep" | "cta";
 
 const TONES: Record<SectionTone, string> = {
   page: "bg-bg-page",
   subtle: "bg-bg-subtle",
   inverse: "bg-bg-inverse on-dark",
   deep: "bg-bg-deep on-dark",
+  cta: "bg-bg-cta on-dark",
 };
 
 const SPACING = {

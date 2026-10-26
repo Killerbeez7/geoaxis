@@ -106,7 +106,7 @@ export function Navbar({ services, helpful }: Props) {
   return (
     <header
       ref={headerRef}
-      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep text-tx-inverse"
+      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-chrome text-tx-inverse"
       onMouseLeave={scheduleClose}
     >
       <div className="container-page flex h-full items-center justify-between gap-6">
@@ -177,7 +177,7 @@ export function Navbar({ services, helpful }: Props) {
                       id="menu-services"
                       hidden={!expanded}
                       onMouseEnter={cancelClose}
-                      className="absolute inset-x-0 top-full border-t border-white/10 bg-bg-deep shadow-lift"
+                      className="absolute inset-x-0 top-full border-t border-white/10 bg-bg-chrome shadow-lift"
                     >
                       <div className="container-page grid gap-8 py-8 xl:grid-cols-[minmax(0,1fr)_19rem]">
                         <ul className="grid gap-1 sm:grid-cols-2 xl:grid-cols-3">
@@ -228,7 +228,7 @@ export function Navbar({ services, helpful }: Props) {
                       id="menu-helpful"
                       hidden={!expanded}
                       onMouseEnter={cancelClose}
-                      className="absolute left-0 top-full w-[22rem] rounded-b-2xl border border-t-0 border-white/10 bg-bg-deep p-2 shadow-lift"
+                      className="absolute left-0 top-full w-[22rem] rounded-b-2xl border border-t-0 border-white/10 bg-bg-chrome p-2 shadow-lift"
                     >
                       <ul>
                         {helpful.map((link) => (
@@ -296,7 +296,7 @@ export function Navbar({ services, helpful }: Props) {
       <div
         id="mobile-menu"
         hidden={!mobileOpen}
-        className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-deep lg:hidden"
+        className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-chrome lg:hidden"
       >
         <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))]">
           <ul className="divide-y divide-white/10">

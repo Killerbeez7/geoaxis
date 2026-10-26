@@ -266,17 +266,11 @@ export function Navbar({ services, helpful }: Props) {
           <a
             href={contactLinks.tel}
             data-track="call_click"
-            className="typo-ui hidden items-center gap-2 rounded-lg px-3 py-2 font-semibold text-tx-inverse tabular-nums transition-colors hover:text-accent-on-dark xl:inline-flex"
+            className="typo-ui hidden items-center gap-2 rounded-lg px-3 py-2 font-semibold text-tx-inverse tabular-nums transition-colors hover:text-accent-on-dark lg:inline-flex"
           >
             <LuPhone aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
             {contacts.phone}
           </a>
-          <div className="hidden lg:block">
-            <Button href="/contacts" track="quote_click">
-              Поискайте оферта
-            </Button>
-          </div>
-
           <a
             href={contactLinks.tel}
             data-track="call_click"

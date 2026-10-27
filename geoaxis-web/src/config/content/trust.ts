@@ -8,5 +8,5 @@ export const TRUST_ITEMS: readonly TrustItem[] = [
   { icon: LuBadgeCheck, title: "Опит от 2008 г.", text: "в геодезията и кадастъра" },
   { icon: LuSatellite, title: "GNSS и тотални станции", text: "всяко измерване се проверява" },
   { icon: LuMapPin, title: "София и област", text: "други райони по договаряне" },
-  { icon: LuClock, title: "Отговор до 1 работен ден", text: "оферта преди започване" },
+  { icon: LuClock, title: "Отговор до един работен ден", text: "оферта преди започване" },
 ];

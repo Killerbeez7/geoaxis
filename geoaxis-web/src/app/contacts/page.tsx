@@ -23,7 +23,7 @@ export default function ContactsPage() {
         size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
         title="Поискайте оферта"
-        description="Опишете накратко имота и задачата. Отговаряме в рамките на работния ден с насоки, срок и цена."
+        description="Опишете накратко имота и задачата. Отговаряме до един работен ден с насоки, срок и цена."
       />
 
       <Section spacing="compact" className="md:pt-12">

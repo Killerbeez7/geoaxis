@@ -24,7 +24,7 @@ export const contacts: ContactsContent = {
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent("бул. България, 1618 София"),
   showAddress: false,
-  responseTime: "Отговаряме в рамките на работния ден",
+  responseTime: "Отговаряме до един работен ден",
 } as const;
 
 export const contactLinks = {

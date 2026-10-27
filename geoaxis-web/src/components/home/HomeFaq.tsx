@@ -28,7 +28,7 @@ export function HomeFaq() {
               Не намирате отговор?
             </Heading>
             <Text size="small" className="mt-1.5">
-              Попитайте ни директно – отговаряме в рамките на работния ден.
+              Попитайте ни директно – отговаряме до един работен ден.
             </Text>
             <div className="mt-5 flex flex-wrap gap-3">
               <Button href="/contacts" track="quote_click">

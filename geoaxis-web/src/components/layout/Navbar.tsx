@@ -36,6 +36,16 @@ export function Navbar({ services, helpful }: Props) {
 
   const activeMenu = openMenu?.path === pathname ? openMenu.id : null;
   const mobileOpen = mobileFor === pathname;
+  const [atTop, setAtTop] = useState(true);
+  // The phone bottom bar (with its own call button) shows at the very top and with the menu open
+  const actionBarShown = atTop || mobileOpen;
+
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const headerRef = useRef<HTMLElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -275,7 +285,10 @@ export function Navbar({ services, helpful }: Props) {
             href={contactLinks.tel}
             data-track="call_click"
             aria-label={`Обадете се: ${contacts.phone}`}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-accent-on-dark transition-colors hover:bg-white/8 lg:hidden"
+            className={clsx(
+              "inline-flex h-11 w-11 items-center justify-center rounded-xl text-accent-on-dark transition duration-300 hover:bg-white/8 lg:hidden",
+              actionBarShown && "max-md:pointer-events-none max-md:opacity-0"
+            )}
           >
             <LuPhone aria-hidden="true" className="h-5 w-5" />
           </a>

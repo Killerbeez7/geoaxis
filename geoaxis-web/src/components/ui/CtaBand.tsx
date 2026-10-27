@@ -1,6 +1,5 @@
 import { contacts } from "@/config/content/contacts";
 import { Button } from "./Button";
-import { ContactChannels } from "./ContactChannels";
 import { Section } from "./Section";
 import { Eyebrow, Heading, Text } from "./Text";
 
@@ -21,29 +20,20 @@ export function CtaBand({
 
   return (
     <Section tone="deep" pattern aria-labelledby="cta-band-title">
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-center lg:gap-20">
-        <div>
-          <Eyebrow>Следваща стъпка</Eyebrow>
-          <Heading id="cta-band-title" className="mt-3 max-w-2xl">
-            {title}
-          </Heading>
-          <Text size="lead" className="mt-4 max-w-2xl">
-            {text}
-          </Text>
-          {/* The phone number lives in the contact list beside this, so only the quote button here */}
-          <div className="mt-8">
-            <Button href={quoteHref} size="lg" arrow track="quote_click" className="w-full sm:w-auto">
-              Поискайте оферта
-            </Button>
-          </div>
-          <Text size="small" tone="muted" className="mt-5">
-            {contacts.responseTime}.
-          </Text>
-        </div>
-
-        <div className="rounded-2xl border border-br-on-dark bg-white/4 p-3">
-          <ContactChannels dark />
-        </div>
+      <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+        <Eyebrow>Следваща стъпка</Eyebrow>
+        <Heading id="cta-band-title" className="mt-3">
+          {title}
+        </Heading>
+        <Text size="lead" className="mt-4">
+          {text}
+        </Text>
+        <Button href={quoteHref} size="lg" arrow track="quote_click" className="mt-8 w-full sm:w-auto">
+          Поискайте оферта
+        </Button>
+        <Text size="small" tone="muted" className="mt-5">
+          {contacts.responseTime}.
+        </Text>
       </div>
     </Section>
   );

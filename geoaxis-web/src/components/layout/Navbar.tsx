@@ -37,8 +37,8 @@ export function Navbar({ services, helpful }: Props) {
   const activeMenu = openMenu?.path === pathname ? openMenu.id : null;
   const mobileOpen = mobileFor === pathname;
   const [atTop, setAtTop] = useState(true);
-  // The phone bottom bar (with its own call button) shows at the very top and with the menu open
-  const actionBarShown = atTop || mobileOpen;
+  // On the homepage the phone bottom bar (with its own call button) shows at the very top and with the menu open
+  const actionBarShown = pathname === "/" && (atTop || mobileOpen);
 
   useEffect(() => {
     const onScroll = () => setAtTop(window.scrollY < 4);

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { FaViber } from "react-icons/fa6";
 import { LuPhone, LuSend } from "react-icons/lu";
@@ -36,10 +37,11 @@ function QuickActions({ className }: { className?: string }) {
 
 export const MOBILE_MENU_EVENT = "geoaxis:mobile-menu";
 
-// Shown only at the top of the page, before any scrolling, and above the open mobile menu.
+// Homepage only: shown at the very top, before any scrolling, and above the open mobile menu.
 // When hidden it leaves the page entirely (not just slides away), so iOS Safari floats its
 // transparent address bar over the content instead of docking a solid strip under the bar.
 export function MobileActionBar() {
+  const pathname = usePathname();
   const [atEdge, setAtEdge] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   // True once the slide-out has finished; the bar is then removed until it is needed again
@@ -67,7 +69,7 @@ export function MobileActionBar() {
     };
   }, []);
 
-  if (gone && !visible) return null;
+  if (pathname !== "/" || (gone && !visible)) return null;
 
   return (
     <nav

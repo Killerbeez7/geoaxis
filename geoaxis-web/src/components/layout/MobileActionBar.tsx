@@ -36,7 +36,7 @@ function QuickActions({ className }: { className?: string }) {
 
 export const MOBILE_MENU_EVENT = "geoaxis:mobile-menu";
 
-// Shown only at the top of the page, at the end of it, and above the open mobile menu.
+// Shown only at the top of the page, before any scrolling, and above the open mobile menu.
 // When hidden it leaves the page entirely (not just slides away), so iOS Safari floats its
 // transparent address bar over the content instead of docking a solid strip under the bar.
 export function MobileActionBar() {
@@ -48,10 +48,8 @@ export function MobileActionBar() {
 
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-      const nearEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 80;
       // Hides on the first bit of scrolling
-      const edge = y < 4 || nearEnd;
+      const edge = window.scrollY < 4;
       setAtEdge(edge);
       if (edge) setGone(false);
     };

@@ -23,7 +23,7 @@ Components only use the semantic tokens; the raw `--brand-*` and `--neutral-*` v
 | Token | Use |
 |---|---|
 | `bg-page` / `bg-subtle` | Default and alternating light sections, cards |
-| `bg-inverse` / `bg-deep` | Dark sections (`inverse`), header, footer and final CTA (`deep`) |
+| `bg-inverse` / `bg-deep` | Dark sections and the final CTA (`inverse`), header and footer (`deep`) |
 | `bg-brand` | Hover state of dark buttons |
 | `tx-primary` | Headings, important text |
 | `tx-secondary` | Body text |
@@ -101,7 +101,7 @@ leads stop at `max-w-2xl`.
   Alternate `page` and `subtle` tones; dark tones (`inverse`, `deep`) at most twice per page.
 - Grids: `gap-6` for cards, `gap-10`–`gap-16` between columns of text and media.
 - The fixed header height is `--header-h` (64 px mobile, 76 px desktop); heroes offset by it.
-- The footer steps down in shade: `bg-deep`, then its last row (`bg-black/20` on top, with a
+- The end of the page steps down in shade: final CTA `bg-inverse`, footer `bg-deep`, then its last row (`bg-black/20` on top, with a
   `border-br-strong/20` line), then the darkest `--surface-notch` behind the iPhone address bar.
 
 ## Cards

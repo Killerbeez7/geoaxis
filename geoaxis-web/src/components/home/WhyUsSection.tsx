@@ -7,7 +7,7 @@ import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 
 export function WhyUsSection() {
   return (
-    <Section tone="inverse" pattern aria-labelledby="why-us-title">
+    <Section tone="inverse" pattern="contours" aria-labelledby="why-us-title">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
         {/* The photo runs the full height of the text column so both sides end together */}
         <div className="relative h-72 overflow-hidden rounded-3xl ring-1 ring-white/10 sm:h-96 lg:h-auto">

@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 
 export type SectionTone = "page" | "subtle" | "inverse" | "deep";
 
+/** Geo-line backgrounds from globals.css; see DESIGN-SYSTEM.md for where each one belongs */
+export type Pattern = "contours" | "cta" | "footer" | "hero" | "summit" | "globe" | "topo" | "grid" | "network";
+
 const TONES: Record<SectionTone, string> = {
   page: "bg-bg-page",
   subtle: "bg-bg-subtle",
@@ -20,8 +23,8 @@ type Props = {
   id?: string;
   tone?: SectionTone;
   spacing?: keyof typeof SPACING;
-  /** Topographic contour lines in the background */
-  pattern?: boolean;
+  /** Geo lines in the background */
+  pattern?: Pattern;
   className?: string;
   containerClassName?: string;
   "aria-labelledby"?: string;
@@ -32,7 +35,7 @@ export function Section({
   id,
   tone = "page",
   spacing = "default",
-  pattern = false,
+  pattern,
   className,
   containerClassName,
   children,
@@ -42,7 +45,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={rest["aria-labelledby"]}
-      className={clsx("relative", TONES[tone], SPACING[spacing], pattern && "pattern-contours", className)}
+      className={clsx("relative", TONES[tone], SPACING[spacing], pattern && `pattern-${pattern}`, className)}
     >
       <div className={clsx("container-page", containerClassName)}>{children}</div>
     </section>

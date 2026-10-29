@@ -388,29 +388,107 @@ body {
 }
 
 /* ==================== PATTERNS ==================== */
-/* Topographic contour lines, recoloured through a CSS mask. */
+/*
+ * Geo lines, recoloured through a CSS mask (files from scripts/generate-patterns.py).
+ * Made for one place: cta, footer, hero, summit, globe.
+ * Universal: contours (one large sheet) and the seamless tiles topo, grid and network.
+ */
 
-.pattern-contours {
-  position: relative;
-  isolation: isolate;
-}
+@layer components {
+  :where(
+    .pattern-contours, .pattern-cta, .pattern-footer, .pattern-hero, .pattern-summit, .pattern-globe,
+    .pattern-topo, .pattern-grid, .pattern-network
+  ) {
+    position: relative;
+    isolation: isolate;
+  }
 
-.pattern-contours::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: var(--pattern-color, var(--brand-olive-900));
-  opacity: var(--pattern-opacity, 0.09);
-  -webkit-mask: url("/patterns/contours.svg") center / cover no-repeat;
-  mask: url("/patterns/contours.svg") center / cover no-repeat;
-}
+  :where(
+    .pattern-contours, .pattern-cta, .pattern-footer, .pattern-hero, .pattern-summit, .pattern-globe,
+    .pattern-topo, .pattern-grid, .pattern-network
+  )::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--pattern-color, var(--brand-olive-900));
+    opacity: calc(var(--pattern-opacity, 0.09) * var(--pattern-strength, 1));
+    -webkit-mask-image: var(--pattern);
+    mask-image: var(--pattern);
+    -webkit-mask-position: var(--pattern-position, center);
+    mask-position: var(--pattern-position, center);
+    -webkit-mask-size: var(--pattern-size, cover);
+    mask-size: var(--pattern-size, cover);
+    -webkit-mask-repeat: var(--pattern-repeat, no-repeat);
+    mask-repeat: var(--pattern-repeat, no-repeat);
+  }
 
-.pattern-contours.on-dark,
-.on-dark .pattern-contours {
-  --pattern-color: #ffffff;
-  --pattern-opacity: 0.08;
+  .on-dark:where(
+    .pattern-contours, .pattern-cta, .pattern-footer, .pattern-hero, .pattern-summit, .pattern-globe,
+    .pattern-topo, .pattern-grid, .pattern-network
+  ),
+  .on-dark :where(
+    .pattern-contours, .pattern-cta, .pattern-footer, .pattern-hero, .pattern-summit, .pattern-globe,
+    .pattern-topo, .pattern-grid, .pattern-network
+  ) {
+    --pattern-color: #ffffff;
+    --pattern-opacity: 0.08;
+  }
+
+  .pattern-contours {
+    --pattern: url("/patterns/contours.svg");
+  }
+
+  /* Final CTA: contour lines around a calm valley where the centred text sits */
+  .pattern-cta {
+    --pattern: url("/patterns/cta.svg");
+  }
+
+  /* Footer: ridge lines rising from the bottom edge, drawn at their own size */
+  .pattern-footer {
+    --pattern: url("/patterns/footer.svg");
+    --pattern-position: center bottom;
+    --pattern-size: max(100%, 1600px) auto;
+    --pattern-strength: 0.8;
+  }
+
+  /* Inner-page hero: a hill on the right, calm on the left where the title is */
+  .pattern-hero {
+    --pattern: url("/patterns/hero.svg");
+    --pattern-position: right center;
+  }
+
+  /* Service placeholder tile: loops around a summit where the icon sits */
+  .pattern-summit {
+    --pattern: url("/patterns/summit.svg");
+  }
+
+  /* Feature card: the graticule of a large globe from the bottom-right corner */
+  .pattern-globe {
+    --pattern: url("/patterns/globe.svg");
+    --pattern-position: right bottom;
+  }
+
+  .pattern-topo {
+    --pattern: url("/patterns/topo.svg");
+    --pattern-size: 640px;
+    --pattern-repeat: repeat;
+  }
+
+  .pattern-grid {
+    --pattern: url("/patterns/grid.svg");
+    --pattern-position: center top;
+    --pattern-size: 120px;
+    --pattern-repeat: repeat;
+  }
+
+  .pattern-network {
+    --pattern: url("/patterns/network.svg");
+    --pattern-size: 480px;
+    --pattern-repeat: repeat;
+    --pattern-strength: 0.8;
+  }
 }
 
 /* ==================== INTERACTION ==================== */

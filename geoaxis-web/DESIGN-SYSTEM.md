@@ -12,8 +12,22 @@ Source of truth: `src/app/globals.css` (tokens, type scale, patterns) and
 - **Ochre / gold** (`--brand-ochre-*`) – the accent: primary buttons, highlights, small details.
   Use it sparingly; one gold call to action per view.
 - **Montserrat** (`font-mont`) for everything. Weights: 400 text, 500 navigation and chips, 600 headings, labels and buttons.
-- **Contour lines** (`/patterns/contours.svg`) – the topographic pattern. Add `pattern-contours`
-  to a dark section or a hero; never on top of photos or body text.
+- **Geo lines** (`/patterns/*.svg`, made by `scripts/generate-patterns.py`) – the brand's background
+  patterns, recoloured through a CSS mask so they follow the surface (olive on light, white on dark).
+  Never on top of photos, and keep them faint behind text.
+
+  | Class | Made for |
+  |---|---|
+  | `pattern-cta` | The final CTA: lines around a calm valley where the centred text sits |
+  | `pattern-footer` | The footer: ridge lines rising from the bottom edge |
+  | `pattern-hero` | Inner-page heroes: a hill on the right, calm on the left behind the title |
+  | `pattern-summit` | Placeholder tiles with an icon: loops around a summit where the icon sits |
+  | `pattern-globe` | Feature cards: a large globe's graticule from the bottom-right corner |
+  | `pattern-contours` | Universal: one large sheet of contour lines (dark sections) |
+  | `pattern-topo` / `pattern-grid` / `pattern-network` | Universal, seamless tiles: contours, a survey grid with crosses, a triangulation network |
+
+  `Section` takes the name (`<Section pattern="cta">`); elsewhere add the class. Tune a single use with
+  `--pattern-strength` (1 by default).
 - **Logo** – always the `Logo` / `LogoMark` component (`components/ui/Logo.tsx`), never an `<img>`.
 
 ## Colour tokens
@@ -143,7 +157,7 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | Component | Use |
 |---|---|
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
-| `Section` | Page section with tone, spacing and optional contour pattern |
+| `Section` | Page section with tone, spacing and an optional geo-line `pattern` |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
 | `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (an eyebrow only when it adds something the breadcrumb doesn't, e.g. a category's scope; `backdrop` puts a light generated background behind category and service pages), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
 | `HeroMedia` | Photo next to a `PageHero` |

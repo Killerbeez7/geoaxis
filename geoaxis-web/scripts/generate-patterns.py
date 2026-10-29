@@ -148,17 +148,16 @@ def cta():
 
     def field(X, Y):
         z = np.zeros_like(X)
-        # Hills all around the edge, a calm valley in the middle for the text
+        # Uneven on purpose: two islands of different size on the right, soft flowing lines on the
+        # left, and a calm, off-centre valley where the centred text sits
         for cx, cy, sx, sy, a, r in [
-            (-60, 360, 340, 300, 1.0, 0.35), (260, -40, 260, 160, 0.7, -0.3), (380, 700, 300, 170, 0.6, 0.15),
-            (1000, -170, 380, 160, 0.8, 0.12), (640, 820, 420, 170, 0.75, -0.1),
-            (1680, 220, 300, 300, 1.05, -0.25), (1380, 700, 260, 160, 0.6, 0.35),
+            (1460, 80, 200, 150, 1.1, -0.4), (1250, 560, 170, 110, 0.7, 0.3), (120, 560, 260, 160, 0.9, 0.5),
+            (-100, 60, 300, 220, 0.6, 0.0), (700, 760, 380, 140, 0.45, 0.1),
         ]:
             z += a * gauss(X, Y, cx, cy, sx, sy, r)
-        # Long, slow ripples keep the lines organic instead of running parallel to the edges
-        return z + 0.05 * np.sin(X / 170 + Y / 230) + 0.03 * np.cos(X / 90 - Y / 140)
+        return z + 0.045 * np.sin(X / 190 - Y / 150) + 0.03 * np.cos(X / 95 + Y / 120)
 
-    return svg(W, H, contours(W, H, field, np.linspace(0.24, 1.1, 19)))
+    return svg(W, H, contours(W, H, field, np.linspace(0.18, 1.12, 18)))
 
 
 def footer():

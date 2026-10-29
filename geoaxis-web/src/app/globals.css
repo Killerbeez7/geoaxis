@@ -473,20 +473,20 @@ body {
 
   .pattern-topo {
     --pattern: url("/patterns/topo.svg");
-    --pattern-size: 640px;
+    --pattern-size: 640px 640px;
     --pattern-repeat: repeat;
   }
 
   .pattern-grid {
     --pattern: url("/patterns/grid.svg");
     --pattern-position: center top;
-    --pattern-size: 120px;
+    --pattern-size: 120px 120px;
     --pattern-repeat: repeat;
   }
 
   .pattern-network {
     --pattern: url("/patterns/network.svg");
-    --pattern-size: 480px;
+    --pattern-size: 480px 480px;
     --pattern-repeat: repeat;
     --pattern-strength: 0.8;
   }

@@ -235,7 +235,7 @@ def topo():
         return z
 
     levels = np.linspace(-1.45, 1.45, 20)
-    return svg(T, T, contours(T, T, field, levels, step=4, index_every=5, tolerance=0.9, min_points=2), "none")
+    return svg(T, T, contours(T, T, field, levels, step=4, index_every=5, tolerance=0.9, min_points=2), "xMidYMid meet")
 
 
 def grid():
@@ -244,7 +244,7 @@ def grid():
         f'<path d="M{c} 0V{T}M0 {c}H{T}" stroke-width="1" stroke-dasharray="1.5 4.5"/>',
         f'<path d="M{c - arm} {c}H{c + arm}M{c} {c - arm}V{c + arm}" stroke-width="1.6"/>',
     ]
-    return svg(T, T, body, "none")
+    return svg(T, T, body, "xMidYMid meet")
 
 
 def network():
@@ -270,7 +270,7 @@ def network():
     for x, y in tiled:
         if -6 < x < T + 6 and -6 < y < T + 6:
             body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" fill="#000" stroke="none"/>')
-    return svg(T, T, body, "none")
+    return svg(T, T, body, "xMidYMid meet")
 
 
 def delaunay(points):

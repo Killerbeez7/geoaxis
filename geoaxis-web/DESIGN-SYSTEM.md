@@ -28,7 +28,10 @@ Source of truth: `src/app/globals.css` (tokens, type scale, patterns) and
 
   `Section` takes the name (`<Section pattern="cta">`); elsewhere add the class. Tune a single use with
   `--pattern-strength` (1 by default).
-- **Logo** – always the `Logo` / `LogoMark` component (`components/ui/Logo.tsx`), never an `<img>`.
+- **Logo** – the D · Network mark (four survey points tied to a gold centre point, lines stopping short
+  of every point) with the GeoAxis wordmark. Always the `Logo` / `LogoMark` component
+  (`components/ui/Logo.tsx`), never an `<img>`. Favicons, app icons and `/logo.svg` use the same mark on
+  the dark tile, with a simpler, heavier cut at 32 px and below.
 
 ## Colour tokens
 

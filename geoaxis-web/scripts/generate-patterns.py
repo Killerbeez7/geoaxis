@@ -94,7 +94,11 @@ def simplify(points, tolerance):
         return points
     (x1, y1), (x2, y2) = points[0], points[-1]
     dx, dy = x2 - x1, y2 - y1
-    norm = math.hypot(dx, dy) or 1e-9
+    if math.hypot(dx, dy) < 1e-6:
+        # A closed loop has no chord to measure against: split it at its farthest point first
+        far = max(range(len(points)), key=lambda i: (points[i][0] - x1) ** 2 + (points[i][1] - y1) ** 2)
+        return simplify(points[: far + 1], tolerance)[:-1] + simplify(points[far:], tolerance)
+    norm = math.hypot(dx, dy)
     worst, idx = 0.0, 0
     for i in range(1, len(points) - 1):
         d = abs(dy * points[i][0] - dx * points[i][1] + x2 * y1 - y2 * x1) / norm
@@ -123,6 +127,9 @@ def contours(W, H, field, levels, step=8, index_every=5, widths=(0.9, 1.6), tole
     for n, level in enumerate(levels):
         width = widths[1] if index_every and n % index_every == 0 else widths[0]
         for line in join(marching_squares(xs, ys, Z, level), min_points):
+            lx, ly = [p[0] for p in line], [p[1] for p in line]
+            if math.hypot(max(lx) - min(lx), max(ly) - min(ly)) < 14:
+                continue
             pts = simplify(line, tolerance)
             if len(pts) >= 2:
                 paths.append(f'<path d="{smooth_path(pts)}" stroke-width="{width}"/>')
@@ -151,7 +158,7 @@ def cta():
         # Long, slow ripples keep the lines organic instead of running parallel to the edges
         return z + 0.05 * np.sin(X / 170 + Y / 230) + 0.03 * np.cos(X / 90 - Y / 140)
 
-    return svg(W, H, contours(W, H, field, np.linspace(0.15, 1.1, 22)))
+    return svg(W, H, contours(W, H, field, np.linspace(0.24, 1.1, 19)))
 
 
 def footer():
@@ -172,14 +179,15 @@ def footer():
 
 
 def hero():
-    W, H = 1600, 720
+    # Drawn for a wide, short band: whole loops on the right, calm on the left where the title is
+    W, H = 1600, 440
 
     def field(X, Y):
-        return (1.0 * gauss(X, Y, 1480, 300, 360, 290, 0.35) + 0.55 * gauss(X, Y, 1160, 650, 240, 190, -0.3)
-                + 0.45 * gauss(X, Y, 1640, 700, 260, 200) + 0.3 * gauss(X, Y, 1080, 60, 220, 140, 0.4)
-                + 0.022 * np.sin(X / 85) * np.cos(Y / 105))
+        return (1.0 * gauss(X, Y, 1250, 225, 140, 100, 0.3) + 0.8 * gauss(X, Y, 1505, 85, 110, 85, -0.2)
+                + 0.6 * gauss(X, Y, 1490, 385, 120, 80, -0.4) + 0.45 * gauss(X, Y, 1040, 410, 120, 80)
+                + 0.02 * np.sin(X / 110 + Y / 140))
 
-    return svg(W, H, contours(W, H, field, np.linspace(0.12, 1.08, 22)), "xMaxYMid slice")
+    return svg(W, H, contours(W, H, field, np.linspace(0.1, 0.97, 22), step=4), "xMaxYMid slice")
 
 
 def summit():
@@ -190,22 +198,23 @@ def summit():
                 + 0.3 * gauss(X, Y, 80, 420, 120, 90) + 0.02 * np.sin(X / 45) * np.cos(Y / 55))
 
     # The top levels stay out, so the summit is an empty patch where the icon sits
-    return svg(W, H, contours(W, H, field, np.linspace(0.04, 0.84, 21), step=4, tolerance=0.9))
+    return svg(W, H, contours(W, H, field, np.linspace(0.04, 0.9, 24), step=4, tolerance=0.9))
 
 
 def globe():
-    W, H = 1200, 800
-    cx, cy, r = 1180.0, 980.0, 1020.0
+    # Wide frame: the outline and the pole stay in view on wide cards; tall cards show the pole
+    W, H = 1600, 600
+    cx, cy, r = 1430.0, 780.0, 700.0
     paths = [f'<circle cx="{cx}" cy="{cy}" r="{r}" stroke-width="2"/>']
-    for lon in range(10, 90, 10):
+    for lon in range(15, 90, 15):
         rx = r * math.sin(math.radians(lon))
-        w = 1.4 if lon % 30 == 0 else 0.9
-        paths.append(f'<path d="M{cx} {cy - r}A{rx:.1f} {r} 0 0 0 {cx} {cy + r}" stroke-width="{w}"/>')
+        w = 1.4 if lon % 45 == 0 else 0.9
+        paths.append(f'<path d="M{cx} {cy - r}A{rx:.1f} {r} 0 0 0 {cx} {cy + r}A{rx:.1f} {r} 0 0 0 {cx} {cy - r}" stroke-width="{w}"/>')
     paths.append(f'<path d="M{cx} {cy - r}V{cy + r}" stroke-width="1.4"/>')
-    for lat in range(10, 90, 10):
+    for lat in range(15, 90, 15):
         y = cy - r * math.sin(math.radians(lat))
         h = math.sqrt(r * r - (y - cy) ** 2)
-        w = 1.4 if lat % 30 == 0 else 0.9
+        w = 1.4 if lat % 45 == 0 else 0.9
         paths.append(f'<path d="M{cx - h:.1f} {y:.1f}H{cx + h:.1f}" stroke-width="{w}"/>')
     return svg(W, H, paths, "xMaxYMax slice")
 

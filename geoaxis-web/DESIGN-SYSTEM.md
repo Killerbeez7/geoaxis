@@ -102,7 +102,7 @@ leads stop at `max-w-2xl`.
 - Grids: `gap-6` for cards, `gap-10`–`gap-16` between columns of text and media.
 - The fixed header height is `--header-h` (64 px mobile, 76 px desktop); heroes offset by it.
 - The footer steps down in shade: `bg-deep`, then its last row (`bg-black/20` on top, with a
-  `border-br-strong/40` line), then the darkest `--surface-notch` behind the iPhone address bar.
+  `border-br-strong/20` line), then the darkest `--surface-notch` behind the iPhone address bar.
 
 ## Cards
 

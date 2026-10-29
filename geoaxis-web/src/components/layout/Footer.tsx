@@ -99,7 +99,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-br-strong/40 bg-black/20">
+      <div className="border-t border-br-strong/20 bg-black/20">
         <div className="container-page flex min-h-16 flex-col items-center justify-center gap-3 py-4 text-center lg:flex-row lg:justify-between lg:text-left">
           <div className="typo-small tracking-wide text-tx-inverse-muted">
             <p>

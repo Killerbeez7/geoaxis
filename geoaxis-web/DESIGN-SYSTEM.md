@@ -64,6 +64,7 @@ No raw `text-sm`/`text-lg` or one-off sizes in components (buttons and the logo 
 | `typo-label` | 12, uppercase | Card meta, sidebar titles, step counters |
 | `typo-eyebrow` | 12, uppercase | Section kicker: the label with the short gold line |
 | `typo-badge` | 12 | Text inside badges and the mobile bar |
+| `typo-caption` | 12 | Fine print: legal links and company details in the footer's last row |
 | `typo-stat` | 40 / 32 | Big numbers |
 | `prose-geo` | 16, line height 1.8 | Long-form text; caps the line length at 42rem |
 
@@ -100,6 +101,8 @@ leads stop at `max-w-2xl`.
   Alternate `page` and `subtle` tones; dark tones (`inverse`, `deep`) at most twice per page.
 - Grids: `gap-6` for cards, `gap-10`–`gap-16` between columns of text and media.
 - The fixed header height is `--header-h` (64 px mobile, 76 px desktop); heroes offset by it.
+- The footer steps down in shade: `bg-deep`, then its last row (`bg-black/20` on top, with a
+  `border-br-strong/40` line), then the darkest `--surface-notch` behind the iPhone address bar.
 
 ## Cards
 

@@ -99,19 +99,22 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 bg-bg-notch">
-        <div className="container-page flex flex-col gap-4 py-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
-          <div className="typo-small text-tx-inverse-muted">
+      <div className="border-t border-br-strong/40 bg-black/20">
+        <div className="container-page flex min-h-16 flex-col items-center justify-center gap-3 py-4 text-center lg:flex-row lg:justify-between lg:text-left">
+          <div className="typo-small tracking-wide text-tx-inverse-muted">
             <p>
-              © {new Date().getFullYear()} {brand.name}. Всички права запазени.
+              © {new Date().getFullYear()} {brand.name} – Bulgaria.{" "}
+              <span className="max-lg:block">Всички права запазени.</span>
             </p>
-            {companyLines.length > 0 ? <p className="mt-1">{companyLines.join(" · ")}</p> : null}
+            {companyLines.length > 0 ? (
+              <p className="typo-caption mt-1 tracking-normal">{companyLines.join(" · ")}</p>
+            ) : null}
           </div>
           <nav aria-label="Правна информация">
-            <ul className="typo-small flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <ul className="typo-caption flex flex-wrap justify-center gap-x-5 gap-y-2 font-medium">
               {LEGAL_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-tx-inverse-muted transition-colors hover:text-tx-inverse">
+                  <Link href={link.href} className="text-tx-inverse-subtle transition-colors hover:text-accent-on-dark">
                     {link.label}
                   </Link>
                 </li>

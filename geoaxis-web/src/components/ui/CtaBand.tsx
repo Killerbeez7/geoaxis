@@ -19,7 +19,7 @@ export function CtaBand({
   const quoteHref = service ? `/contacts?service=${service}` : "/contacts";
 
   return (
-    <Section tone="inverse" pattern="contours" aria-labelledby="cta-band-title">
+    <Section tone="inverse" pattern="cta" aria-labelledby="cta-band-title">
       <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
         <Eyebrow>Следваща стъпка</Eyebrow>
         <Heading id="cta-band-title" className="mt-3">

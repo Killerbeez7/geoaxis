@@ -82,7 +82,7 @@ export default function AboutPage() {
       </Section>
 
       <Section aria-labelledby="area-title">
-        <div className="grid gap-10 rounded-3xl bg-bg-inverse p-8 on-dark pattern-contours sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
+        <div className="grid gap-10 rounded-3xl bg-bg-inverse p-8 on-dark pattern-globe sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
           <div>
             <Eyebrow>{area.eyebrow}</Eyebrow>
             <Heading id="area-title" className="mt-3">

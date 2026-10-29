@@ -37,7 +37,7 @@ export function CategoryServiceItem({ service, categorySlug, image }: Props) {
           />
         </div>
       ) : (
-        <div className="pattern-contours on-dark flex h-20 items-center justify-center bg-bg-inverse md:h-auto">
+        <div className="pattern-summit on-dark flex h-20 items-center justify-center bg-bg-inverse md:h-auto">
           <IconBadge icon={getCategoryIcon(categorySlug)} dark size="lg" />
         </div>
       )}

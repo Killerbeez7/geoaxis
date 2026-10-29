@@ -36,7 +36,7 @@ export function PageHero({
     <section
       className={clsx(
         "on-light border-b border-br-light bg-bg-subtle",
-        backdrop ? "relative isolate overflow-hidden" : "pattern-contours"
+        backdrop ? "relative isolate overflow-hidden" : "pattern-hero"
       )}
     >
       {backdrop ? (

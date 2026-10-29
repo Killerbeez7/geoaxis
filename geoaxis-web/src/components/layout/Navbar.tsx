@@ -120,7 +120,7 @@ export function Navbar({ services, helpful }: Props) {
       onMouseLeave={scheduleClose}
     >
       <div className="container-page flex h-full items-center justify-between gap-6">
-        <Link href="/" onClick={closeAll} className="rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
+        <Link href="/" onClick={closeAll} className="flex items-center rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
           <Logo />
         </Link>
 

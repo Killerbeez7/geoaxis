@@ -19,7 +19,7 @@ Source of truth: `src/app/globals.css` (tokens, type scale, patterns) and
   | Class | Made for |
   |---|---|
   | `pattern-cta` | The final CTA: lines around a calm valley where the centred text sits |
-  | `pattern-footer` | The footer: ridge lines rising from the bottom edge |
+  | `pattern-footer` | Ridge lines rising from the bottom edge. Not in use: the footer stays plain, so the final CTA is the only pattern at the end of the page |
   | `pattern-hero` | Inner-page heroes: a hill on the right, calm on the left behind the title |
   | `pattern-summit` | Placeholder tiles with an icon: loops around a summit where the icon sits |
   | `pattern-globe` | Feature cards: a large globe's graticule from the bottom-right corner |

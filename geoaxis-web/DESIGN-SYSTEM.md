@@ -131,8 +131,9 @@ leads stop at `max-w-2xl`.
 - In grid lists, cards line up row by row with subgrid (`row-span-N grid grid-rows-subgrid`):
   photos, text blocks, lists and footers start at the same height across a row. A card shown on its
   own (e.g. in a hero) turns this off (`ArticleCard aligned={false}`).
-- In a list of services and in the price box, "Поискайте оферта" and "Научете повече" are text links;
-  the strong quote buttons are the hero and the closing CTA, so one page never stacks the same button.
+- Service cards carry no quote button: only "Научете повече" (a text link) when the service has its own page.
+  The price box uses a text link. The strong quote buttons are the hero and the closing CTA, so a page never
+  stacks the same button.
 - A page never shows the same photo twice: category pages compare photos by content
   (`src/lib/photos.ts`) and show a contour panel with the category icon instead of a repeat.
 

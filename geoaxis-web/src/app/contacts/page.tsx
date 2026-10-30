@@ -8,6 +8,7 @@ import { CallbackRequest } from "@/components/forms/CallbackRequest";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ContactChannels } from "@/components/ui/ContactChannels";
 import { PageHero } from "@/components/ui/PageHero";
+import { TrustBar } from "@/components/ui/TrustBar";
 import { Section } from "@/components/ui/Section";
 import { Heading, Text } from "@/components/ui/Text";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
@@ -27,16 +28,16 @@ export default function ContactsPage() {
         description="Опишете накратко имота и задачата. Отговаряме до един работен ден с насоки, срок и цена."
       />
 
-      {/* Open layout: no cards, sections separated by space and one thin line */}
+      {/* The form keeps its card; the side column is plain sections behind one thin line */}
       <Section spacing="compact" className="md:pt-14">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-20">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-14">
           <div className="min-w-0">
-            <Suspense fallback={<div className="min-h-[36rem]" />}>
+            <Suspense fallback={<div className="min-h-[36rem] rounded-3xl border border-br-light bg-bg-subtle" />}>
               <QuoteForm />
             </Suspense>
           </div>
 
-          <aside className="grid content-start gap-10 border-t border-br-light pt-10 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
+          <aside className="grid content-start gap-10 border-t border-br-light pt-10 lg:border-t-0 lg:border-l lg:pt-2 lg:pl-10">
             {/* Phones already have call / Viber in the bottom bar */}
             <div className="hidden md:block">
               <Heading as="p" size="h5">
@@ -69,6 +70,8 @@ export default function ContactsPage() {
             ) : null}
           </aside>
         </div>
+
+        <TrustBar className="mt-14" />
       </Section>
     </>
   );

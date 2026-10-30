@@ -6,7 +6,6 @@ import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
 import { Button } from "@/components/ui/Button";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { HeroMedia } from "@/components/ui/HeroMedia";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -36,7 +35,6 @@ export default function AboutPage() {
             </Button>
           </>
         }
-        aside={<HeroMedia src={hero.image} alt={hero.imageAlt} />}
       />
 
       <Section aria-labelledby="story-title">

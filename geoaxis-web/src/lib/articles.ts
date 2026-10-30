@@ -1,4 +1,4 @@
-import type { HelpfulArticle, HelpfulArticleSection } from "@/config/polezno/articles";
+import { HELPFUL_ARTICLES, type HelpfulArticle, type HelpfulArticleSection } from "@/config/polezno/articles";
 
 export const SECTION_LABELS: Record<HelpfulArticleSection, { single: string; plural: string; cta: string }> = {
   statii: { single: "Статия", plural: "Статии", cta: "Прочетете" },
@@ -26,3 +26,18 @@ export function formatDate(isoDate: string) {
 }
 
 
+
+/**
+ * Articles that point to a service category in their related services, the ones that name it first
+ * leading. Used for the "Полезно по темата" links on category pages.
+ */
+export function getArticlesForServiceCategory(categorySlug: string, limit = 3) {
+  const base = `/uslugi/${categorySlug}`;
+  const rank = (article: HelpfulArticle) =>
+    (article.relatedServices ?? []).findIndex(
+      (link) => link.href === base || link.href.startsWith(`${base}#`) || link.href.startsWith(`${base}/`)
+    );
+  return HELPFUL_ARTICLES.filter((article) => rank(article) >= 0)
+    .toSorted((a, b) => rank(a) - rank(b))
+    .slice(0, limit);
+}

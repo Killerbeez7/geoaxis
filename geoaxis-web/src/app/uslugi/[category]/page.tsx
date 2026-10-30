@@ -9,13 +9,14 @@ import { withoutRepeatedPhotos } from "@/lib/photos";
 import { getCategoryServicesSchema } from "@/lib/schemas";
 import { getCategoryBySlug } from "@/lib/selectors";
 import { normalizeParagraphs } from "@/utils/normalizeText";
+import { getArticlesForServiceCategory } from "@/lib/articles";
+import { TopicArticles } from "@/components/polezno/TopicArticles";
 import { CategoryServiceItem } from "@/components/services/CategoryServiceItem";
 import { PriceFactors } from "@/components/services/PriceFactors";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
-import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -127,9 +128,12 @@ export default async function CategoryPage({ params }: Props) {
             ) : null}
           </div>
 
-          <aside className="hidden lg:block">
-            <div className="sticky top-[calc(var(--header-h)+1.5rem)] grid gap-6">
-              <nav aria-label="Услуги в категорията" className="rounded-2xl border border-br-light bg-bg-page p-5">
+          {/* Desktop: the service index and related articles beside the list, sticky only on screens tall
+              enough to show both. Phones get the chips at the top instead of the index, and the articles
+              after the FAQ */}
+          <aside>
+            <div className="grid gap-6 lg:[@media(min-height:54rem)]:sticky lg:[@media(min-height:54rem)]:top-[calc(var(--header-h)+1.5rem)]">
+              <nav aria-label="Услуги в категорията" className="hidden rounded-2xl border border-br-light bg-bg-page p-5 lg:block">
                 <Eyebrow rule={false} tone="muted">
                   В тази категория
                 </Eyebrow>
@@ -147,7 +151,7 @@ export default async function CategoryPage({ params }: Props) {
                   ))}
                 </ol>
               </nav>
-              <InquiryCard service={category.slug} />
+              <TopicArticles articles={getArticlesForServiceCategory(category.slug)} />
             </div>
           </aside>
         </div>

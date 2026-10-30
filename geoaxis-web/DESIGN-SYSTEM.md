@@ -163,7 +163,7 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
 | `Section` | Page section with tone, spacing and an optional geo-line `pattern` |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
-| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts a light generated background behind category and service pages), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
+| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts one of the light generated backgrounds behind it – every page has one, chosen by topic in `config/services/backdrops.ts`), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |

@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow, Heading, Text } from "@/components/ui/Text";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 const pageContent = getHelpfulNavItem("faq");
 
@@ -28,6 +29,7 @@ export default function FaqPage() {
       <JsonLd data={faqSchema(HELPFUL_FAQ_GROUPS.flatMap((group) => group.items))} />
 
       <PageHero
+        backdrop={PAGE_BACKDROPS.polezno}
         size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = {
   title: { absolute: "Страницата не е намерена – GeoAxis" },
@@ -17,6 +18,7 @@ export default function NotFound() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.notFound}
         eyebrow="Грешка 404"
         title="Тази страница не съществува"
         description="Възможно е адресът да е сгрешен или страницата да е преместена. Ето откъде можете да продължите."

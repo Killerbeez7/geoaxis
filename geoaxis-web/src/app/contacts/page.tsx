@@ -11,6 +11,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Heading, Text } from "@/components/ui/Text";
 import { TrustBar } from "@/components/ui/TrustBar";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.contacts);
 
@@ -20,6 +21,7 @@ export default function ContactsPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.contacts}
         size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
         title="Поискайте оферта"

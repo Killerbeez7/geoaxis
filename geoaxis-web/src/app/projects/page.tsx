@@ -5,6 +5,7 @@ import { ProjectGallery } from "@/components/projects/ProjectGallery";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.proekti);
 
@@ -14,6 +15,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.projects}
         size="compact"
         breadcrumbs={[{ label: "Проекти", href: "/projects" }]}
         title={projects.title}

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { siteContent } from "@/config/site-content";
 import { createSeo } from "@/lib/seo-builder";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo({
   title: "Условия за ползване",
@@ -34,6 +35,7 @@ export default function TermsPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.legal}
         size="compact"
         breadcrumbs={[{ label: "Условия за ползване", href: "/usloviya-za-polzvane" }]}
         title="Условия за ползване"

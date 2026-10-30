@@ -9,6 +9,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 const pageContent = getHelpfulNavItem("resursi");
 
@@ -26,6 +27,7 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.polezno}
         size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },

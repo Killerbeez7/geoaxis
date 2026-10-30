@@ -21,6 +21,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Heading, Text } from "@/components/ui/Text";
+import { getArticleBackdrop } from "@/config/services/backdrops";
 
 function findArticle(section: HelpfulArticleSection, slug: string) {
   const article = getArticleBySlug(slug);
@@ -67,6 +68,7 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
       <JsonLd data={getArticleSchema(SITE_URL, article)} />
 
       <PageHero
+        backdrop={getArticleBackdrop(article.category)}
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: labels.plural, href: `/polezno/${section}` },

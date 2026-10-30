@@ -9,6 +9,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { TrustBar } from "@/components/ui/TrustBar";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 
@@ -18,6 +19,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.services}
         breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
         title="Геодезически услуги за всеки етап на имота"
         description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}

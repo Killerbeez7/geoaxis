@@ -13,6 +13,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatGrid } from "@/components/ui/StatGrid";
 import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 import { TrustBar } from "@/components/ui/TrustBar";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.about);
 
@@ -22,6 +23,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.about}
         breadcrumbs={[{ label: "За нас", href: "/about" }]}
         title={hero.title}
         description={hero.intro}

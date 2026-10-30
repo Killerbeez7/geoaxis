@@ -5,6 +5,7 @@ import { ArticleCard } from "@/components/polezno/ArticleCard";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export function ArticleListPage({
   section,
@@ -19,6 +20,7 @@ export function ArticleListPage({
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.polezno}
         size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },

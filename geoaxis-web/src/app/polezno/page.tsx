@@ -12,6 +12,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow, Heading, Text } from "@/components/ui/Text";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.polezno);
 
@@ -36,6 +37,7 @@ export default function HelpfulPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.polezno}
         size="compact"
         breadcrumbs={[{ label: "Полезно", href: "/polezno" }]}
         title="Полезни материали за имоти и геодезия"

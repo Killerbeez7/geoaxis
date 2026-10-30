@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { siteContent } from "@/config/site-content";
 import { company } from "@/config/content/company";
 import { createSeo } from "@/lib/seo-builder";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo({
   title: "Политика за поверителност",
@@ -65,6 +66,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <PageHero
+        backdrop={PAGE_BACKDROPS.legal}
         size="compact"
         breadcrumbs={[{ label: "Политика за поверителност", href: "/politika-za-poveritelnost" }]}
         title="Политика за поверителност"

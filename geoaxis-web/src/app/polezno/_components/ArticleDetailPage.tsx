@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
 
@@ -14,7 +15,6 @@ import { getArticleSchema } from "@/lib/schemas";
 import { ArticleCard } from "@/components/polezno/ArticleCard";
 import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { HeroMedia } from "@/components/ui/HeroMedia";
 import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
@@ -74,7 +74,7 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
         ]}
         title={article.title}
         description={article.excerpt ?? article.description}
-        aside={article.coverImage ? <HeroMedia src={article.coverImage.src} alt={article.coverImage.alt} /> : undefined}
+        size="compact"
       >
         <Text size="small" tone="muted" className="mt-6">
           Публикувано на {formatDate(article.publishedAt)}
@@ -85,6 +85,20 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
       <Section>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,42rem)_21rem] lg:justify-between lg:gap-12">
           <article className="min-w-0">
+            {/* Cover photo opens the article, at the width of the text */}
+            {article.coverImage ? (
+              <figure className="relative mb-10 aspect-16/9 max-w-2xl overflow-hidden rounded-2xl bg-bg-subtle shadow-card">
+                <Image
+                  src={article.coverImage.src}
+                  alt={article.coverImage.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 42rem, calc(100vw - 2.5rem)"
+                  quality={72}
+                  className="object-cover"
+                />
+              </figure>
+            ) : null}
             <div className="prose-geo">
               {article.body.map((block, index) =>
                 block.type === "paragraph" ? (

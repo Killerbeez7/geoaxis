@@ -14,6 +14,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHero
+        backdrop="/images/sections/services-hero-kadastar.webp"
         size="compact"
         breadcrumbs={[{ label: "Проекти", href: "/projects" }]}
         title={projects.title}

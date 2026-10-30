@@ -23,6 +23,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        backdrop="/images/sections/services-hero-zasnemane.webp"
         breadcrumbs={[{ label: "За нас", href: "/about" }]}
         title={hero.title}
         description={hero.intro}

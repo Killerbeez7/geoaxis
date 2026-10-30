@@ -20,6 +20,7 @@ export default function ContactsPage() {
   return (
     <>
       <PageHero
+        backdrop="/images/sections/services-hero-abstract-01.webp"
         size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
         title="Поискайте оферта"

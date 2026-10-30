@@ -48,6 +48,7 @@ export default function HelpfulPage() {
   return (
     <>
       <PageHero
+        backdrop="/images/sections/services-hero-konsultacia.webp"
         breadcrumbs={[{ label: "Полезно", href: "/polezno" }]}
         title="Полезни материали за имоти и геодезия"
         description="Статии, ръководства и справки за кадастър, ПУП, строителство и документи – за да знаете какво предстои, преди да започнете."

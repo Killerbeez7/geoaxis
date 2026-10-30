@@ -183,7 +183,7 @@ function ProjectLightboxContent({ image, onClose }: ProjectLightboxContentProps)
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-bg-deep/90 backdrop-blur-sm sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -191,7 +191,7 @@ function ProjectLightboxContent({ image, onClose }: ProjectLightboxContentProps)
     >
       <div
         ref={dialogRef}
-        className="relative flex h-dvh max-h-dvh w-full max-w-6xl flex-col overflow-hidden border-white/10 bg-bg-deep shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-3xl sm:border"
+        className="relative flex h-dvh max-h-dvh w-full max-w-6xl flex-col overflow-hidden border-white/10 bg-black shadow-2xl sm:h-auto sm:max-h-[92vh] sm:rounded-3xl sm:border"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -236,7 +236,7 @@ function ProjectLightboxContent({ image, onClose }: ProjectLightboxContentProps)
             </>
           )}
         </div>
-        <div className="on-dark min-h-0 overflow-hidden border-t border-white/10 bg-bg-deep px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6 sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
+        <div className="on-dark min-h-0 overflow-hidden border-t border-white/10 bg-white/8 px-4 pb-[calc(env(safe-area-inset-bottom)+0.85rem)] pt-6 sm:max-h-none sm:px-6 sm:pb-4 sm:pt-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <p className="typo-h4 line-clamp-2 max-w-4xl">
               {activeImage.title}

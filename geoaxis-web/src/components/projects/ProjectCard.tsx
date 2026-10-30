@@ -20,7 +20,11 @@ export function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen:
         quality={70}
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <span aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-bg-deep/95 via-bg-deep/35 to-transparent" />
+      {/* Neutral shade behind the text only, so the photo keeps its own colours */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-t from-black/80 from-0% via-black/45 via-40% to-transparent to-70%"
+      />
 
       <span className="on-dark absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5">
         <span className="typo-h5 line-clamp-3">{project.title}</span>

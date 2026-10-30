@@ -1,8 +1,6 @@
 import Image from "next/image";
-import { LuPhone } from "react-icons/lu";
 
 import { hero } from "@/config/content/hero";
-import { contactLinks, contacts } from "@/config/content/contacts";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Eyebrow, Text } from "@/components/ui/Text";
@@ -62,7 +60,7 @@ export function HomeHero() {
               {hero.quickStart.map((option) => (
                 <li key={option.label} className="shrink-0">
                   <Chip
-                    href={"service" in option ? `/contacts?service=${option.service}` : option.href}
+                    href={`/contacts?service=${option.service}`}
                     tone="dark"
                     size="sm"
                     track="hero_quickstart"
@@ -75,20 +73,10 @@ export function HomeHero() {
             </ul>
           </div>
 
-          {/* On phones the bottom bar carries these actions */}
-          <div className="mt-8 hidden gap-3 md:flex">
+          {/* One action; the phone number is in the header. On phones the bottom bar carries it */}
+          <div className="mt-8 hidden md:flex">
             <Button href="/contacts" size="lg" arrow track="quote_click">
               Поискайте оферта
-            </Button>
-            <Button
-              href={contactLinks.tel}
-              size="lg"
-              variant="outline-light"
-              icon={<LuPhone className="h-4 w-4" />}
-              track="call_click"
-              className="tabular-nums"
-            >
-              {contacts.phone}
             </Button>
           </div>
         </div>

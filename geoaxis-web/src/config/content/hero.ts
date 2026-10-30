@@ -1,4 +1,4 @@
-export type QuickStartOption = { label: string; service?: string; href?: string };
+export type QuickStartOption = { label: string; service: string };
 
 export const hero = {
   eyebrow: "Геодезия · Кадастър · Градоустройство",
@@ -13,6 +13,5 @@ export const hero = {
     { label: "Трасиране", service: "trasirane" },
     { label: "Кадастър", service: "kadastar" },
     { label: "ПУП и регулация", service: "gradoustroistvo" },
-    { label: "Не съм сигурен", href: "/uslugi#koya-usluga" },
   ] satisfies QuickStartOption[],
 } as const;

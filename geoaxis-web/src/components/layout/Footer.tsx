@@ -43,7 +43,7 @@ export function Footer() {
       <div className="container-page grid gap-12 py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-16 lg:py-20">
         <div>
           <Link href="/" className="inline-flex rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
-            <Logo markClassName="h-9 w-9" />
+            <Logo markId="logo-mark-footer" markClassName="h-9 w-9" />
           </Link>
           <p className="mt-5 max-w-sm">{brand.description}</p>
           <ul className="typo-ui mt-6 grid gap-3">

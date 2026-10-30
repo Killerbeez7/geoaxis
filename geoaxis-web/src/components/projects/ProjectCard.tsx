@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { LuExpand } from "react-icons/lu";
 import type { ProjectItem } from "@/config/content/projects";
-import { Badge } from "@/components/ui/Text";
 
 export function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen: () => void }) {
   const photoCount = project.gallery?.length ?? 1;
@@ -26,15 +25,11 @@ export function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen:
         className="absolute inset-0 bg-linear-to-t from-black/80 from-0% via-black/45 via-40% to-transparent to-70%"
       />
 
-      <span className="on-dark absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5">
+      <span className="on-dark absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-5">
         <span className="typo-h5 line-clamp-3">{project.title}</span>
-        {/* Photo count on the left, the kind of work on the right */}
-        <span className="flex items-center justify-between gap-3">
-          <span className="typo-small tone-muted inline-flex shrink-0 items-center gap-1.5">
-            <LuExpand aria-hidden="true" className="h-3.5 w-3.5" />
-            {photoCount > 1 ? `${photoCount} снимки` : "Вижте снимката"}
-          </span>
-          {project.category ? <Badge tone="on-image" className="min-w-0 truncate">{project.category}</Badge> : null}
+        <span className="typo-small tone-muted inline-flex items-center gap-1.5">
+          <LuExpand aria-hidden="true" className="h-3.5 w-3.5" />
+          {photoCount > 1 ? `${photoCount} снимки` : "Вижте снимката"}
         </span>
       </span>
     </button>

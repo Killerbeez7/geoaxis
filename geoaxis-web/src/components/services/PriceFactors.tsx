@@ -35,7 +35,7 @@ export function PriceFactors({ serviceSlug, hasPrices = false, className }: Prop
 
       <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-accent-soft p-5 sm:flex-row sm:items-center sm:justify-between">
         <Text size="small">{hasPrices ? PRICE_NOTE_WITH_PRICES : PRICE_NOTE}</Text>
-        <Button href={`/contacts?service=${serviceSlug}`} variant="dark" arrow track="quote_click" className="shrink-0">
+        <Button href={`/contacts?service=${serviceSlug}`} variant="link" arrow track="quote_click" className="shrink-0">
           Поискайте оферта
         </Button>
       </div>

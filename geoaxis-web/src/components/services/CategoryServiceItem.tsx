@@ -54,15 +54,16 @@ export function CategoryServiceItem({ service, categorySlug, image }: Props) {
         </div>
         <ServiceFacts service={service} />
 
+        {/* Quiet links: the strong quote buttons are the hero and the closing CTA */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button href={`/contacts?service=${categorySlug}`} variant="dark" track="quote_click">
-            Поискайте оферта
-          </Button>
           {service.hasDedicatedPage ? (
             <Button href={getServiceHref(categorySlug, service)} variant="link" arrow>
               Научете повече
             </Button>
           ) : null}
+          <Button href={`/contacts?service=${categorySlug}`} variant="link" arrow track="quote_click">
+            Поискайте оферта
+          </Button>
         </div>
       </div>
     </article>

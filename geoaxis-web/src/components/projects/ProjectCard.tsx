@@ -22,12 +22,15 @@ export function ProjectCard({ project, onOpen }: { project: ProjectItem; onOpen:
       />
       <span aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-bg-deep/95 via-bg-deep/35 to-transparent" />
 
-      <span className="on-dark absolute inset-x-0 bottom-0 flex flex-col items-start gap-2.5 p-5">
-        {project.category ? <Badge tone="on-image">{project.category}</Badge> : null}
+      <span className="on-dark absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5">
         <span className="typo-h5 line-clamp-3">{project.title}</span>
-        <span className="typo-small tone-muted inline-flex items-center gap-1.5">
-          <LuExpand aria-hidden="true" className="h-3.5 w-3.5" />
-          {photoCount > 1 ? `${photoCount} снимки` : "Вижте снимката"}
+        {/* Photo count on the left, the kind of work on the right */}
+        <span className="flex items-center justify-between gap-3">
+          <span className="typo-small tone-muted inline-flex shrink-0 items-center gap-1.5">
+            <LuExpand aria-hidden="true" className="h-3.5 w-3.5" />
+            {photoCount > 1 ? `${photoCount} снимки` : "Вижте снимката"}
+          </span>
+          {project.category ? <Badge tone="on-image" className="min-w-0 truncate">{project.category}</Badge> : null}
         </span>
       </span>
     </button>

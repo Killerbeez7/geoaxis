@@ -152,7 +152,8 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
       {relatedArticles.length ? (
         <Section tone="subtle" aria-labelledby="related-articles-title">
           <SectionHeader id="related-articles-title" eyebrow="Полезно" title="Още по темата" />
-          <div className="mt-12 grid gap-x-6 gap-y-8 md:grid-cols-3">
+          {/* Below desktop a swipeable row (the next card peeks in); three columns on desktop */}
+          <div className="-mx-5 mt-10 grid snap-x snap-mandatory auto-cols-[82%] grid-flow-col grid-rows-[repeat(3,auto)] gap-x-4 overflow-x-auto scroll-px-5 px-5 pt-2 pb-4 [scrollbar-width:none] sm:-mx-6 sm:auto-cols-[46%] sm:scroll-px-6 sm:px-6 lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:gap-x-6 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden [&>*]:snap-start">
             {relatedArticles.map((related) => (
               <ArticleCard key={related.slug} article={related} />
             ))}

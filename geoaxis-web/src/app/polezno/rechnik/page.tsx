@@ -62,30 +62,27 @@ export default function GlossaryPage() {
         </nav>
       </PageHero>
 
+      {/* A plain definition list: the term on the left, the explanation on the right */}
       <Section>
-        <div className="grid gap-12">
-          {groups.map(([letter, terms]) => (
-            <section key={letter} id={`bukva-${letter}`} aria-labelledby={`bukva-${letter}-title`} className="grid gap-6 md:grid-cols-[5rem_minmax(0,1fr)]">
-              <h2 id={`bukva-${letter}-title`} className="typo-h1 text-accent-text md:pt-1">
-                {letter}
-              </h2>
-              <dl className="grid gap-4 md:grid-cols-2">
-                {terms.map((term) => (
-                  <div key={term.term} id={slugify(term.term)} className="rounded-2xl border border-br-light bg-bg-page p-6 shadow-card">
-                    <dt>
-                      <span className="typo-label tone-accent">{term.category}</span>
-                      <span className="typo-h4 mt-2 block">{term.term}</span>
-                    </dt>
-                    <dd className="mt-2.5">
-                      {term.definition}
-                      {term.note ? <span className="typo-small tone-muted mt-2 block">{term.note}</span> : null}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
-          ))}
-        </div>
+        <dl className="max-w-5xl border-t border-br-light">
+          {groups.flatMap(([letter, terms]) =>
+            terms.map((term, index) => (
+              <div
+                key={term.term}
+                id={index === 0 ? `bukva-${letter}` : slugify(term.term)}
+                className="grid scroll-mt-28 gap-2 border-b border-br-light py-6 md:grid-cols-[15rem_minmax(0,1fr)] md:gap-10"
+              >
+                <dt className="typo-h5 text-accent-text">
+                  <span id={index === 0 ? slugify(term.term) : undefined}>{term.term}</span>
+                </dt>
+                <dd>
+                  {term.definition}
+                  {term.note ? <span className="typo-small tone-muted mt-2 block">{term.note}</span> : null}
+                </dd>
+              </div>
+            ))
+          )}
+        </dl>
       </Section>
 
       <CtaBand />

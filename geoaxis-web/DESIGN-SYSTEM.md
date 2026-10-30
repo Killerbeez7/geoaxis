@@ -162,11 +162,11 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
 | `Section` | Page section with tone, spacing and an optional geo-line `pattern` |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
-| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (an eyebrow only when it adds something the breadcrumb doesn't, e.g. a category's scope; `backdrop` puts a light generated background behind category and service pages), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
+| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts a light generated background behind category and service pages), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |
-| `InquiryCard` | Sticky sidebar call to action on long pages |
+| `InquiryCard` | Sticky sidebar call to action on long pages; desktop only, since on phones and tablets the closing CTA covers it |
 | `ContactChannels` | Phone, Viber, WhatsApp, e-mail, hours – always from `config/content/contacts` |
 | `TrustBar` | The four trust points (experience, equipment, area, response time) |
 | `StatGrid` | Company numbers |

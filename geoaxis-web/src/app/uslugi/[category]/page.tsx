@@ -65,7 +65,6 @@ export default async function CategoryPage({ params }: Props) {
           { label: "Услуги", href: "/uslugi" },
           { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
         ]}
-        eyebrow={category.meta}
         title={category.title}
         description={lead}
         backdrop={getCategoryBackdrop(category.slug)}

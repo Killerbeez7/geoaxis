@@ -22,7 +22,9 @@ export function InquiryCard({
   className,
 }: Props) {
   return (
-    <div className={clsx("on-light rounded-2xl border border-br-light bg-bg-page p-6 shadow-card", className)}>
+    // Desktop only: on phones and tablets the sidebar stacks under the content, where the closing
+    // CTA already offers the same actions
+    <div className={clsx("on-light hidden rounded-2xl border border-br-light bg-bg-page p-6 shadow-card lg:block", className)}>
       <Eyebrow>Запитване</Eyebrow>
       <Heading as="p" size="h4" className="mt-3">
         {title}

@@ -124,7 +124,7 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
             </Text>
           </article>
 
-          <aside>
+          <aside className="hidden lg:block">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
               <InquiryCard
                 title="Въпрос за вашия имот?"

@@ -72,13 +72,13 @@ No raw `text-sm`/`text-lg` or one-off sizes in components (buttons and the logo 
 | `typo-h1` | 48 / 34 | Page title – exactly one per page |
 | `typo-h2` | 36 / 28 | Section title |
 | `typo-h3` | 24 / 21 | Sub-section title, title of a large card (photo cards, service rows) |
-| `typo-h4` | 20 / 18 | Title of a regular card, sidebar card, menu panel |
+| `typo-h4` | 20 / 18 | Title of a regular card, menu panel |
 | `typo-h5` | 16 | Small title: list item, FAQ question, form label, contact value |
 | `typo-lead` | 18 / 17 | Intro paragraph under a page or section title |
 | `typo-body` | 16 | Body text – the default; card descriptions in 2–3 column grids |
-| `typo-small` | 14 | Descriptions in dense UI (4-column cards, sidebars, menus), meta, help text |
+| `typo-small` | 14 | Descriptions in dense UI (4-column cards, menus), meta, help text |
 | `typo-ui` | 15 | Navigation and footer links |
-| `typo-label` | 12, uppercase | Card meta, sidebar titles, step counters |
+| `typo-label` | 12, uppercase | Card meta, list labels, step counters |
 | `typo-eyebrow` | 12, uppercase | Section kicker: the label with the short gold line |
 | `typo-badge` | 12 | Text inside badges and the mobile bar |
 | `typo-caption` | 12 | Fine print: legal links and company details in the footer's last row |
@@ -92,7 +92,7 @@ white, soft white and light gold, so one component works on light and dark backg
 `.on-light` resets a light card that sits on a dark section.
 
 **Headings follow the outline** (`h1` → `h2` → `h3`): pick the tag for structure and `size` for
-looks. A title outside the outline (a promo card in a hero, a sidebar card) is a `p` with a heading size.
+looks. A title outside the outline (a promo card in a hero) is a `p` with a heading size.
 
 **Line length.** Reading columns are 42rem wide (`prose-geo`, service and article pages);
 leads stop at `max-w-2xl`.
@@ -106,14 +106,16 @@ leads stop at `max-w-2xl`.
 |---|---|
 | `Heading` | Any title. `as` sets the tag, `size` the look (`display`, `h1`…`h5`). |
 | `Text` | Paragraphs and short text. `size`: `lead` / `body` / `small`; `tone`: `default` / `strong` / `muted` / `accent`; `weight`. |
-| `Eyebrow` | Uppercase kicker; `rule={false}` gives the plain label (card meta, sidebar titles). |
+| `Eyebrow` | Uppercase kicker; `rule={false}` gives the plain label (card meta, list labels). |
 | `Badge` | Static pill: time frame, count, category on a photo. Tones `accent`, `neutral`, `on-dark`, `on-image`. |
 | `Chip` | Pill link or toggle: quick choices, filters, jump links, related topics. Tones `light` / `dark`, sizes `sm` / `md`. |
 
 ## Layout and spacing
 
 - Width: `container-page` (max 80rem, 20/24/32 px side padding). Reading columns: 42rem.
-- Pages with a sidebar: content + a 21rem sidebar (`InquiryCard`, related links).
+- No sidebars. Content runs in one column; related links (`TopicArticles`, related services) close the
+  content as a plain divided list, shown on phones and tablets (on desktop they stay in the page for
+  search engines). The quote action lives in the hero and the closing CTA.
 - Sections: `Section` component – `py-16 md:py-24` by default, `compact` for secondary blocks.
   Alternate `page` and `subtle` tones; dark tones (`inverse`, `deep`) at most twice per page.
 - Grids: `gap-6` for cards, `gap-10`–`gap-16` between columns of text and media.
@@ -167,7 +169,6 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |
-| `InquiryCard` | Sticky sidebar call to action on long pages; desktop only, since on phones and tablets the closing CTA covers it |
 | `ContactChannels` | Phone, Viber, WhatsApp, e-mail, hours – always from `config/content/contacts` |
 | `TrustBar` | The four trust points (experience, equipment, area, response time) |
 | `StatGrid` | Company numbers |
@@ -184,7 +185,7 @@ Feature components live next to their area: `components/home`, `components/servi
 
 1. `PageHero` (home uses `HomeHero`).
 2. Content sections – alternate tones, one `h2` each.
-3. Long pages add a sticky `InquiryCard` in the sidebar on desktop.
+3. Related links as a plain list at the end of the content.
 4. `CtaBand` last, pre-filled with the service when the page is about one.
 
 ## Conversion rules

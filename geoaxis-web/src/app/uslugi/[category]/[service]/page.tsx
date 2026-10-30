@@ -1,4 +1,5 @@
 import Link from "next/link";
+import clsx from "clsx";
 import type { ReactNode } from "react";
 import { notFound, permanentRedirect } from "next/navigation";
 import { LuArrowRight, LuInfo } from "react-icons/lu";
@@ -18,12 +19,11 @@ import { Button } from "@/components/ui/Button";
 import { CheckList } from "@/components/ui/CheckList";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
-import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Eyebrow, Heading, Text } from "@/components/ui/Text";
+import { Heading, Text } from "@/components/ui/Text";
 
 type Props = {
   params: Promise<{ category: string; service: string }>;
@@ -103,15 +103,11 @@ export default async function ServicePage({ params }: Props) {
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,42rem)_21rem] lg:justify-between lg:gap-12">
+        {/* One reading column, 42rem like the articles */}
+        <div className="max-w-2xl">
           <ServiceArticle category={category} service={service} />
-
-          <aside className="lg:block">
-            <div className="grid gap-6 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
-              <InquiryCard service={category.slug} />
-              <RelatedServices category={category} current={service.slug} />
-            </div>
-          </aside>
+          {/* Phones and tablets; on desktop the links stay in the page for search engines */}
+          <RelatedServices category={category} current={service.slug} className="mt-16 lg:hidden" />
         </div>
       </Section>
 
@@ -225,34 +221,44 @@ function ArticleSection({
   );
 }
 
-function RelatedServices({ category, current }: { category: ServiceCategory; current: string }) {
+function RelatedServices({
+  category,
+  current,
+  className,
+}: {
+  category: ServiceCategory;
+  current: string;
+  className?: string;
+}) {
   const related = category.services.filter((service) => service.slug !== current).slice(0, 5);
   if (!related.length) return null;
 
   return (
-    <nav aria-label="Свързани услуги" className="rounded-2xl border border-br-light bg-bg-page p-5">
-      <Eyebrow rule={false} tone="muted">
+    <section aria-labelledby="related-services-title" className={clsx("border-t border-br-light pt-12", className)}>
+      <Heading id="related-services-title" size="h3">
         Свързани услуги
-      </Eyebrow>
-      <ul className="mt-3 grid gap-0.5">
+      </Heading>
+      <ul className="mt-6 border-t border-br-light">
         {related.map((service) => (
-          <li key={service.slug}>
-            <Link
-              href={getServiceHref(category.slug, service)}
-              className="typo-small group flex items-center justify-between gap-3 rounded-lg px-2 py-2 text-tx-secondary transition-colors hover:bg-bg-subtle hover:text-accent-text"
-            >
-              {service.shortTitle ?? service.title}
-              <LuArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
+          <li key={service.slug} className="border-b border-br-light">
+            <Link href={getServiceHref(category.slug, service)} className="group flex items-center justify-between gap-6 py-4">
+              <span className="typo-h5 transition-colors group-hover:text-accent-text">
+                {service.shortTitle ?? service.title}
+              </span>
+              <LuArrowRight
+                aria-hidden="true"
+                className="h-5 w-5 shrink-0 text-accent-text transition-transform group-hover:translate-x-1"
+              />
             </Link>
           </li>
         ))}
       </ul>
       <Link
         href={`/uslugi/${category.slug}`}
-        className="typo-small mt-2 flex items-center gap-1.5 border-t border-br-light px-2 pt-3 font-semibold text-accent-text"
+        className="typo-small mt-5 inline-block font-semibold text-accent-text hover:underline"
       >
         Всички в „{category.shortTitle ?? category.title}“
       </Link>
-    </nav>
+    </section>
   );
 }

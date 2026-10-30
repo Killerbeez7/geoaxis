@@ -15,7 +15,6 @@ import { getArticleSchema } from "@/lib/schemas";
 import { ArticleCard } from "@/components/polezno/ArticleCard";
 import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { InquiryCard } from "@/components/ui/InquiryCard";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -85,7 +84,7 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
       </PageHero>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,42rem)_21rem] lg:justify-between lg:gap-12">
+        <div>
           <article className="min-w-0">
             {/* Cover photo opens the article, at the width of the text */}
             {article.coverImage ? (
@@ -139,15 +138,6 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
               Материалът е с информационна цел и не замества консултация за конкретен имот.
             </Text>
           </article>
-
-          <aside className="hidden lg:block">
-            <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
-              <InquiryCard
-                title="Въпрос за вашия имот?"
-                text="Опишете накратко случая – ще ви кажем какво е нужно, срока и цената."
-              />
-            </div>
-          </aside>
         </div>
       </Section>
 

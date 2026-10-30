@@ -20,7 +20,7 @@ import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
-import { Eyebrow, Heading, Text } from "@/components/ui/Text";
+import { Heading, Text } from "@/components/ui/Text";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -77,83 +77,57 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <Section aria-labelledby="category-services-title">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-14">
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <Heading id="category-services-title">Услугите в тази категория</Heading>
-              <Text size="small" tone="muted">
-                {category.services.length} услуги
-              </Text>
-            </div>
-
-            {/* Jump links on phones and tablets; the sidebar has them on desktop */}
-            <nav aria-label="Услуги в категорията" className="mt-6 lg:hidden">
-              <ul className="flex flex-wrap gap-2">
-                {category.services.map((service) => (
-                  <li key={service.slug}>
-                    <Chip href={`#${service.slug}`} size="sm">
-                      {service.shortTitle ?? service.title}
-                    </Chip>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="mt-8 grid gap-6">
-              {category.services.map((service, index) => (
-                <CategoryServiceItem
-                  key={service.slug}
-                  service={service}
-                  categorySlug={category.slug}
-                  image={serviceImages[index]}
-                />
-              ))}
-            </div>
-
-            <PriceFactors
-              serviceSlug={category.slug}
-              hasPrices={category.services.some((service) => service.priceFrom)}
-              className="mt-16 border-t border-br-light pt-12"
-            />
-
-            {faqItems.length ? (
-              <section aria-labelledby="category-faq-title" className="mt-16 border-t border-br-light pt-12">
-                <Heading id="category-faq-title" size="h3">
-                  Често задавани въпроси
-                </Heading>
-                <div className="mt-6">
-                  <FaqAccordion items={faqItems} />
-                </div>
-              </section>
-            ) : null}
+        <div className="max-w-5xl">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <Heading id="category-services-title">Услугите в тази категория</Heading>
+            <Text size="small" tone="muted">
+              {category.services.length} услуги
+            </Text>
           </div>
 
-          {/* Desktop: the service index and related articles beside the list, sticky only on screens tall
-              enough to show both. Phones get the chips at the top instead of the index, and the articles
-              after the FAQ */}
-          <aside>
-            <div className="grid gap-6 lg:[@media(min-height:54rem)]:sticky lg:[@media(min-height:54rem)]:top-[calc(var(--header-h)+1.5rem)]">
-              <nav aria-label="Услуги в категорията" className="hidden rounded-2xl border border-br-light bg-bg-page p-5 lg:block">
-                <Eyebrow rule={false} tone="muted">
-                  В тази категория
-                </Eyebrow>
-                <ol className="mt-3 grid gap-0.5">
-                  {category.services.map((service, index) => (
-                    <li key={service.slug}>
-                      <a
-                        href={`#${service.slug}`}
-                        className="typo-small flex gap-3 rounded-lg px-2 py-2 text-tx-secondary transition-colors hover:bg-bg-subtle hover:text-accent-text"
-                      >
-                        <span className="w-5 shrink-0 font-semibold text-accent-text tabular-nums">{index + 1}.</span>
-                        {service.shortTitle ?? service.title}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-              <TopicArticles articles={getArticlesForServiceCategory(category.slug)} />
-            </div>
-          </aside>
+          {/* Jump links on phones and tablets */}
+          <nav aria-label="Услуги в категорията" className="mt-6 lg:hidden">
+            <ul className="flex flex-wrap gap-2">
+              {category.services.map((service) => (
+                <li key={service.slug}>
+                  <Chip href={`#${service.slug}`} size="sm">
+                    {service.shortTitle ?? service.title}
+                  </Chip>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-8 grid gap-6">
+            {category.services.map((service, index) => (
+              <CategoryServiceItem
+                key={service.slug}
+                service={service}
+                categorySlug={category.slug}
+                image={serviceImages[index]}
+              />
+            ))}
+          </div>
+
+          <PriceFactors
+            serviceSlug={category.slug}
+            hasPrices={category.services.some((service) => service.priceFrom)}
+            className="mt-16 border-t border-br-light pt-12"
+          />
+
+          {faqItems.length ? (
+            <section aria-labelledby="category-faq-title" className="mt-16 border-t border-br-light pt-12">
+              <Heading id="category-faq-title" size="h3">
+                Често задавани въпроси
+              </Heading>
+              <div className="mt-6">
+                <FaqAccordion items={faqItems} />
+              </div>
+            </section>
+          ) : null}
+
+          {/* Phones and tablets; on desktop the links stay in the page for search engines */}
+          <TopicArticles articles={getArticlesForServiceCategory(category.slug)} className="mt-16 lg:hidden" />
         </div>
       </Section>
 

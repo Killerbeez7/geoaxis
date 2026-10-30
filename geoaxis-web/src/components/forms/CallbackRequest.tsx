@@ -91,7 +91,7 @@ export function CallbackRequest() {
           placeholder="Вашият телефон"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="h-11 w-full min-w-0 rounded-xl border border-br-default bg-bg-page px-4 text-tx-primary placeholder:text-tx-muted/80 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20 @sm:flex-1"
+          className="h-11 w-full min-w-0 rounded-xl border border-transparent bg-bg-subtle px-4 text-tx-primary placeholder:text-tx-muted/80 hover:border-br-light focus:border-accent focus:bg-bg-page focus:outline-none focus:ring-4 focus:ring-accent/15 @sm:flex-1"
         />
         <Button type="submit" variant="dark" disabled={isPending} className="shrink-0">
           {isPending ? "Изпращане…" : "Обадете ми се"}

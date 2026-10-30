@@ -10,7 +10,6 @@ import { ContactChannels } from "@/components/ui/ContactChannels";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Heading, Text } from "@/components/ui/Text";
-import { TrustBar } from "@/components/ui/TrustBar";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.contacts);
@@ -28,25 +27,26 @@ export default function ContactsPage() {
         description="Опишете накратко имота и задачата. Отговаряме до един работен ден с насоки, срок и цена."
       />
 
-      <Section spacing="compact" className="md:pt-12">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_23rem] lg:gap-12">
+      {/* Open layout: no cards, sections separated by space and one thin line */}
+      <Section spacing="compact" className="md:pt-14">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-20">
           <div className="min-w-0">
-            <Suspense fallback={<div className="min-h-[36rem] rounded-3xl border border-br-light bg-bg-subtle" />}>
+            <Suspense fallback={<div className="min-h-[36rem]" />}>
               <QuoteForm />
             </Suspense>
           </div>
 
-          <aside className="grid content-start gap-6">
+          <aside className="grid content-start gap-10 border-t border-br-light pt-10 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
             {/* Phones already have call / Viber in the bottom bar */}
-            <div className="hidden rounded-3xl border border-br-light bg-bg-page p-3 shadow-card md:block">
-              <Heading as="p" size="h4" className="px-3 pt-3">
-                Предпочитате директен контакт?
+            <div className="hidden md:block">
+              <Heading as="p" size="h5">
+                Директен контакт
               </Heading>
-              <ContactChannels className="mt-2" />
+              <ContactChannels className="-mx-3 mt-3" />
             </div>
 
-            <div className="rounded-3xl border border-br-light bg-bg-subtle p-6">
-              <Heading as="p" size="h4">
+            <div>
+              <Heading as="p" size="h5">
                 Ние да ви се обадим?
               </Heading>
               <Text size="small" className="mb-4 mt-1.5">
@@ -56,12 +56,7 @@ export default function ContactsPage() {
             </div>
 
             {contacts.showAddress ? (
-              <a
-                href={contacts.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-start gap-3 rounded-3xl border border-br-light bg-bg-page p-6 transition-colors hover:border-br-accent"
-              >
+              <a href={contacts.mapsUrl} target="_blank" rel="noopener noreferrer" className="group flex items-start gap-3">
                 <LuMapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-text" />
                 <span>
                   <span className="typo-h5 block">{street}</span>
@@ -74,8 +69,6 @@ export default function ContactsPage() {
             ) : null}
           </aside>
         </div>
-
-        <TrustBar className="mt-14" />
       </Section>
     </>
   );

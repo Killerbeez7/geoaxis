@@ -47,11 +47,11 @@ const STEPS: { id: Step; label: string }[] = [
 
 const inputCls = (invalid?: boolean) =>
   clsx(
-    "w-full rounded-xl border bg-bg-page px-4 py-3 text-tx-primary placeholder:text-tx-muted/80 transition-colors",
-    "focus:outline-none focus:ring-4",
+    "w-full rounded-xl border bg-bg-subtle px-4 py-3 text-tx-primary placeholder:text-tx-muted/80 transition-colors",
+    "focus:bg-bg-page focus:outline-none focus:ring-4",
     invalid
       ? "border-danger focus:border-danger focus:ring-danger/15"
-      : "border-br-default focus:border-accent focus:ring-accent/20"
+      : "border-transparent hover:border-br-light focus:border-accent focus:ring-accent/15"
   );
 
 function fileKey(file: File) {
@@ -217,7 +217,7 @@ export function QuoteForm() {
 
   if (done) {
     return (
-      <div role="status" className="rounded-3xl border border-br-light bg-bg-page p-6 shadow-card sm:p-10">
+      <div role="status" className="max-w-2xl">
         <h2 ref={headingRef} tabIndex={-1} className="typo-h2 outline-none">
           Запитването е изпратено
         </h2>
@@ -238,7 +238,7 @@ export function QuoteForm() {
           ))}
         </ol>
 
-        <div className="mt-8 rounded-2xl bg-accent-soft p-5">
+        <div className="mt-10 border-t border-br-light pt-6">
           <p className="typo-small tone-strong font-semibold">Докато чакате, подгответе, ако имате:</p>
           <CheckList items={getPrepareList(service)} className="typo-small mt-3" />
         </div>
@@ -256,7 +256,7 @@ export function QuoteForm() {
       onSubmit={submit}
       noValidate
       aria-labelledby="quote-step-title"
-      className="rounded-3xl border border-br-light bg-bg-page p-4 shadow-card sm:p-8"
+      className="relative max-w-2xl"
     >
       {/* Honeypot: hidden from people, filled in by bots */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -297,7 +297,7 @@ export function QuoteForm() {
 
       {/* Selected service summary on steps 2 and 3 */}
       {step > 1 && selectedOption ? (
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-bg-subtle px-4 py-3">
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
           <p className="typo-small">
             <span className="text-tx-muted">Услуга: </span>
             <span className="tone-strong font-semibold">{selectedOption.label}</span>
@@ -316,7 +316,7 @@ export function QuoteForm() {
       {step === 1 ? (
         <fieldset className="mt-6">
           <legend className="sr-only">Вид услуга</legend>
-          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+          <div className="flex flex-wrap gap-2">
             {CONTACT_SERVICE_OPTIONS.map((option) => {
               const Icon = option.value === "other" || option.value === "nesigurno" ? LuCircleHelp : getCategoryIcon(option.value);
               const isSelected = service === option.value;
@@ -327,14 +327,12 @@ export function QuoteForm() {
                   aria-pressed={isSelected}
                   onClick={() => chooseService(option.value)}
                   className={clsx(
-                    "flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 text-center transition-colors",
-                    isSelected
-                      ? "border-accent bg-accent-soft"
-                      : "border-br-default bg-bg-page hover:border-br-accent hover:bg-bg-subtle"
+                    "inline-flex h-11 items-center gap-2 rounded-full px-4 transition-colors",
+                    isSelected ? "bg-bg-inverse text-tx-inverse" : "bg-bg-subtle text-tx-primary hover:bg-br-light"
                   )}
                 >
-                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-accent-text" />
-                  <span className="typo-small tone-strong font-semibold leading-tight hyphens-auto">{option.short}</span>
+                  <Icon aria-hidden="true" className={clsx("h-4 w-4 shrink-0", isSelected ? "text-accent-on-dark" : "text-accent-text")} />
+                  <span className="typo-small font-semibold">{option.short}</span>
                 </button>
               );
             })}
@@ -398,7 +396,7 @@ export function QuoteForm() {
                 event.preventDefault();
                 addFiles(event.dataTransfer.files);
               }}
-              className="mt-3 flex w-full items-center gap-3 rounded-xl border border-dashed border-br-strong bg-bg-subtle px-4 py-4 text-left transition-colors hover:border-accent hover:bg-accent-soft"
+              className="mt-3 flex w-full items-center gap-3 rounded-xl bg-bg-subtle px-4 py-4 text-left transition-colors hover:bg-accent-soft"
             >
               <LuUpload aria-hidden="true" className="h-5 w-5 shrink-0 text-accent-text" />
               <span className="typo-small text-tx-secondary">
@@ -420,7 +418,7 @@ export function QuoteForm() {
             {files.length ? (
               <ul className="mt-3 grid gap-2">
                 {files.map((file) => (
-                  <li key={fileKey(file)} className="flex items-center gap-3 rounded-lg border border-br-light px-3 py-2">
+                  <li key={fileKey(file)} className="flex items-center gap-3 rounded-lg bg-bg-subtle px-3 py-2">
                     {file.type.startsWith("image/") ? (
                       <LuImage aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-text" />
                     ) : (
@@ -555,7 +553,7 @@ export function QuoteForm() {
       </div>
 
       {/* Navigation */}
-      <div className="mt-8 flex items-center gap-2 border-t border-br-light pt-6 sm:justify-between sm:gap-3">
+      <div className="mt-10 flex items-center gap-2 sm:justify-between sm:gap-3">
         {step > 1 ? (
           <Button
             variant="outline"

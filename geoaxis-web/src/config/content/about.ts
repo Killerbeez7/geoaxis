@@ -24,7 +24,7 @@ export const about = {
   },
 
   values: {
-    eyebrow: "Как работим",
+    eyebrow: "Нашите принципи",
     title: "Три неща, на които държим",
     items: [
       {

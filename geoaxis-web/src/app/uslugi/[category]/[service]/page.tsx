@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import type { ReactNode } from "react";
@@ -97,7 +98,8 @@ export default async function ServicePage({ params }: Props) {
       </PageHero>
 
       <Section>
-        {/* One reading column, 42rem like the articles */}
+        {/* The intro sits next to the service photo; the rest is one reading column, 42rem like the articles */}
+        <ServiceIntro service={service} />
         <div className="max-w-2xl">
           <ServiceArticle category={category} service={service} />
           {/* Phones and tablets; on desktop the links stay in the page for search engines */}
@@ -108,14 +110,14 @@ export default async function ServicePage({ params }: Props) {
       {faqItems.length ? (
         <Section tone="subtle" aria-labelledby="service-faq-title">
           <JsonLd data={faqSchema(faqItems)} />
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-16">
             <SectionHeader
               id="service-faq-title"
               eyebrow="Въпроси"
               title="Често задавани въпроси"
               description={`Отговори на въпросите, които чуваме най-често за „${category.shortTitle ?? category.title}“.`}
             />
-            <FaqAccordion items={faqItems} />
+            <FaqAccordion items={faqItems} variant="plain" />
           </div>
         </Section>
       ) : null}
@@ -125,17 +127,35 @@ export default async function ServicePage({ params }: Props) {
   );
 }
 
-function ServiceArticle({ category, service }: { category: ServiceCategory; service: Service }) {
+function ServiceIntro({ service }: { service: Service }) {
   const paragraphs = normalizeParagraphs(service.longDescription ?? service.description);
-  const content = service.content;
 
   return (
-    <article className="min-w-0">
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,42rem)_minmax(0,1fr)] lg:items-start lg:gap-16">
       <div className="prose-geo">
         {paragraphs.map((paragraph) => (
           <p key={paragraph.slice(0, 40)}>{paragraph}</p>
         ))}
       </div>
+      <figure className="relative aspect-4/3 overflow-hidden rounded-3xl bg-bg-subtle shadow-lift">
+        <Image
+          src={service.thumbnail}
+          alt={service.imageAlt ?? service.title}
+          fill
+          sizes="(max-width: 1024px) calc(100vw - 2.5rem), 480px"
+          quality={72}
+          className="object-cover"
+        />
+      </figure>
+    </div>
+  );
+}
+
+function ServiceArticle({ category, service }: { category: ServiceCategory; service: Service }) {
+  const content = service.content;
+
+  return (
+    <article className="min-w-0">
 
       {content?.neededWhen?.length ? (
         <ArticleSection title="Кога е подходяща" intro={content.whenIntro}>

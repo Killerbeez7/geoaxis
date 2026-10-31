@@ -15,6 +15,8 @@ export type Service = {
   slug: string;
   title: string;
   shortTitle?: string;
+  /** Shorter heading for the service's own hero, so it fits two lines on phones; the page title keeps `title` */
+  heroTitle?: string;
   /** Short label for the last breadcrumb, when the category name would repeat */
   crumbTitle?: string;
   meta?: string;
@@ -98,6 +100,7 @@ export const serviceCategories: ServiceCategory[] = [
         crumbTitle: "За проектиране",
         title: "Геодезическо заснемане за проектиране",
         shortTitle: "Заснемане за проектиране",
+        heroTitle: "Заснемане за проектиране",
         meta: "Терен · Основа за проект",
         thumbnail: "/images/services/zasnemane/za-proekt.webp", // CHANGE IMAGE LATER
         heroImage: "/images/services/zasnemane/za-proekt.webp", // CHANGE IMAGE LATER

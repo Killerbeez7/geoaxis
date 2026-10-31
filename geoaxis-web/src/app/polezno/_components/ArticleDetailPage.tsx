@@ -71,9 +71,9 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: labels.plural, href: `/polezno/${section}` },
-          { label: article.title, href: getArticleHref(article) },
+          { label: article.heroTitle ?? article.title, href: getArticleHref(article) },
         ]}
-        title={article.title}
+        title={article.heroTitle ?? article.title}
         description={article.excerpt ?? article.description}
       />
 

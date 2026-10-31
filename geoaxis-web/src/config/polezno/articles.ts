@@ -26,7 +26,10 @@ export type HelpfulArticleLink = {
 
 export type HelpfulArticle = {
   slug: string;
+  /** Page title in search results and the heading everywhere else */
   title: string;
+  /** Shorter heading for the article's own hero, so it fits two lines on phones */
+  heroTitle?: string;
   excerpt?: string;
   description: string;
   section: HelpfulArticleSection;
@@ -63,6 +66,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvo-e-kadastralna-karta",
     title: "Какво е кадастрална карта и защо е важна?",
+    heroTitle: "Какво е кадастрална карта?",
     excerpt:
       "Какво съдържа кадастралната карта, каква е разликата с кадастралния план и кога ви засяга.",
     description:
@@ -148,6 +152,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvo-e-pup",
     title: "Какво е ПУП и кога се налага да се изработи?",
+    heroTitle: "Какво е ПУП и кога е нужен?",
     excerpt:
       "Подробният устройствен план определя какво и как може да се строи. Вижте кога е задължителен.",
     description:
@@ -226,6 +231,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kolko-struva-geodezichesko-zasnemane",
     title: "Колко струва геодезическо заснемане?",
+    heroTitle: "Колко струва заснемане?",
     excerpt:
       "Основните фактори, които определят цената, и как да получите реалистична оценка.",
     description:
@@ -306,6 +312,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvi-dokumenti-sa-nuzhni-za-stroezh",
     title: "Какви документи са нужни за строеж на къща?",
+    heroTitle: "Документи за строеж на къща",
     excerpt:
       "Стъпка по стъпка — кои геодезически и кадастрални документи трябват преди да започнете строеж.",
     description:
@@ -384,6 +391,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "udostoverenie-po-chl-54a",
     title: "Какво е удостоверение по чл. 54а от ЗКИР?",
+    heroTitle: "Удостоверение по чл. 54а от ЗКИР",
     excerpt:
       "Кога се налага при сделка с имот, ако в кадастъра има непълнота или грешка, и каква е ролята на геодезиста.",
     description:

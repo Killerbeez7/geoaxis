@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: Props) {
           { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
           { label: service.crumbTitle ?? service.shortTitle ?? service.title, href: servicePath },
         ]}
-        title={service.title}
+        title={service.heroTitle ?? service.title}
         description={service.description}
         backdrop={getCategoryBackdrop(category.slug)}
       >

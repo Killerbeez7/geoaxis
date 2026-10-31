@@ -19,7 +19,7 @@ export default function ServicesPage() {
       <PageHero
         backdrop={PAGE_BACKDROPS.services}
         breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
-        title="Геодезически услуги за всеки етап на имота"
+        title="Геодезически услуги в София"
         description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}
       />
 

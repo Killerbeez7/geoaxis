@@ -1,8 +1,11 @@
 import Link from "next/link";
 
-import { Section } from "@/components/layout/Section";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 import { siteContent } from "@/config/site-content";
+import { company, getCompanyLines } from "@/config/content/company";
 import { createSeo } from "@/lib/seo-builder";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo({
   title: "Условия за ползване",
@@ -22,38 +25,42 @@ function TermsSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-br-light pt-8 first:border-t-0 first:pt-0">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
-        {title}
-      </h2>
-      <div className="mt-4 space-y-4 text-base leading-8 text-tx-secondary">
-        {children}
-      </div>
+    <section className="border-t border-br-light pt-10 first:border-t-0 first:pt-0">
+      <h2 className="typo-h3">{title}</h2>
+      <div className="prose-geo mt-4">{children}</div>
     </section>
   );
 }
 
 export default function TermsPage() {
   return (
-    <main className="bg-bg-page">
-      <Section variant="compactHero" tone="section">
-        <div className="max-w-3xl">
-          <p className="typo-kicker text-accent">Правна информация</p>
-          <h1 className="typo-h2 mt-3">Условия за ползване</h1>
-          <p className="typo-subtitle mt-4">
-            Основни условия за използване на сайта, публикуваното съдържание и
-            формите за контакт.
-          </p>
-        </div>
-      </Section>
+    <>
+      <PageHero
+        backdrop={PAGE_BACKDROPS.legal}
+        breadcrumbs={[{ label: "Условия за ползване", href: "/usloviya-za-polzvane" }]}
+        title="Условия за ползване"
+        description="Основни условия за използване на сайта, публикуваното съдържание и формите за контакт."
+      />
 
-      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
-        <div className="mx-auto max-w-4xl space-y-10">
+      <Section>
+        <div className="max-w-3xl space-y-12">
           <TermsSection title="1. За сайта">
-            <p>
-              GeoAxis е публичното търговско наименование/брандинг, използвано за
-              представяне на геодезически услуги чрез сайта geoaxis.bg.
-            </p>
+            {company.legalName ? (
+              <>
+                <p>Сайтът geoaxis.bg и търговското наименование GeoAxis се използват от:</p>
+                {/* Provider details required by ЗЕТ, чл. 4; shown as soon as they are filled in company.ts */}
+                <ul>
+                  {getCompanyLines().map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p>
+                GeoAxis е публичното търговско наименование/брандинг, използвано за
+                представяне на геодезически услуги чрез сайта geoaxis.bg.
+              </p>
+            )}
             <p>
               Сайтът представя услуги, проекти и полезна информация в областта на
               геодезията, кадастъра, трасирането, проектирането и устройствените
@@ -86,7 +93,6 @@ export default function TermsPage() {
             <p>
               Данните от контактната форма се обработват съгласно{" "}
               <Link
-                className="font-medium text-accent-strong underline"
                 href="/politika-za-poveritelnost"
               >
                 Политиката за поверителност
@@ -126,19 +132,31 @@ export default function TermsPage() {
             </p>
           </TermsSection>
 
-          <TermsSection title="7. Контакт">
+          <TermsSection title="7. Приложимо право">
+            <p>
+              За неуредените в тези условия въпроси се прилага българското законодателство. Споровете се решават
+              по взаимно съгласие, а ако това не е възможно – от компетентния български съд.
+            </p>
+            <p>
+              Ако сте потребител, можете да се обърнете и към Комисията за защита на потребителите (
+              <a href="https://kzp.bg" target="_blank" rel="noopener noreferrer">
+                kzp.bg
+              </a>
+              ).
+            </p>
+          </TermsSection>
+
+          <TermsSection title="8. Контакт">
             <p>
               За въпроси относно сайта или услугите можете да се свържете с нас
               на{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`mailto:${contactEmail}`}
               >
                 {contactEmail}
               </a>{" "}
               или на{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`tel:${contactPhone.replace(/\s+/g, "")}`}
               >
                 {contactPhone}
@@ -147,11 +165,11 @@ export default function TermsPage() {
             </p>
           </TermsSection>
 
-          <div className="rounded-2xl border border-br-light bg-bg-section p-5 text-sm leading-7 text-tx-secondary">
-            Последна актуализация: 19 юни 2026 г.
+          <div className="typo-small rounded-2xl border border-br-light bg-bg-subtle p-5 text-tx-secondary">
+            Последна актуализация: 31 октомври 2026 г.
           </div>
         </div>
       </Section>
-    </main>
+    </>
   );
 }

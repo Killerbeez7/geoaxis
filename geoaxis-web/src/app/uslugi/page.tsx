@@ -1,101 +1,51 @@
-import Link from "next/link";
-import clsx from "clsx";
-import { MdArrowRightAlt } from "react-icons/md";
-// Config
 import { serviceCategories } from "@/config/services/categories";
-import { servicesVisuals } from "@/config/services/visuals";
 import { pageSeo } from "@/config/seo";
-// Components
-import { CtaButton } from "@/components/parts/CtaButton";
-import { Section } from "@/components/layout/Section";
-import { FinalCta } from "@/components/sections/FinalCta";
 import { createSeo } from "@/lib/seo-builder";
-import { CategoryOverviewCard, ServicesHero } from "./_components/ServicesUi";
-import { SectionIntro } from "@/components/layout/SectionIntro";
+import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
+import { ServiceGuide } from "@/components/services/ServiceGuide";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
 
-const scenarios = [
-  {
-    title: "Започвате проект",
-    text: "Най-често се започва със заснемане за проектиране и проверка на наличните данни.",
-    href: "/uslugi/zasnemane#za-proektirane",
-  },
-  {
-    title: "Ще строите или ограждате",
-    text: "При строителство, ограда или спор за граници най-подходящо е трасиране на място.",
-    href: "/uslugi/trasirane",
-  },
-  {
-    title: "Имате кадастрален казус",
-    text: "За скици, схеми, промени в кадастъра или нанасяне на сграда започнете от кадастър.",
-    href: "/uslugi/kadastar",
-  },
-];
+const serviceCount = serviceCategories.reduce((sum, category) => sum + category.services.length, 0);
 
 export default function ServicesPage() {
   return (
     <>
-      <ServicesHero
-        kicker="Геодезически услуги"
-        title="Изберете услуга според вашия случай"
-        description={`Структурирахме услугите по категории, за да откриете бързо правилното решение за вашия проект или имот.`}
-        image={servicesVisuals.heroImage}
-        imageAlt={servicesVisuals.heroAlt}
-        imagePosition={servicesVisuals.heroPosition}
-      >
-        <CtaButton href="/contacts" className="min-h-12 w-full sm:w-auto">
-          Изпрати запитване
-        </CtaButton>
-      </ServicesHero>
+      <PageHero
+        backdrop={PAGE_BACKDROPS.services}
+        breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
+        title="Геодезически услуги в София"
+        description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}
+      />
 
-      <Section id="categories" tone="page">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <SectionIntro
-            eyebrow="Категории"
-            title="Всички услуги на едно място"
-            description="Изберете категорията, която най-добре описва вашия казус. Вътре ще намерите конкретните услуги, необходими документи и последователност на работа."
-          />
-        </div>
-
-        <div className="mt-8 grid gap-5 md:mt-12 md:grid-cols-2 xl:grid-cols-3">
+      <Section aria-labelledby="categories-title">
+        <h2 id="categories-title" className="sr-only">
+          Категории услуги
+        </h2>
+        <div className="grid gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
           {serviceCategories.map((category) => (
-            <CategoryOverviewCard key={category.slug} category={category} />
+            <ServiceCategoryCard key={category.slug} category={category} />
           ))}
         </div>
       </Section>
 
-      <Section tone="muted">
-        <SectionIntro
-          eyebrow="Бърза ориентация"
-          title="Ако не знаете откъде да започнете"
-          description="Тези насоки покриват най-честите случаи. Ако ситуацията е по-специфична, изпратете кратко описание и ще ви насочим."
+      <Section id="koya-usluga" tone="subtle" aria-labelledby="guide-title">
+        <SectionHeader
+          id="guide-title"
+          eyebrow="Помощ при избора"
+          title="Не знаете коя услуга ви трябва?"
+          description="Изберете ситуацията, която най-добре описва случая ви, и ще видите подходящата услуга и какво да подготвите."
+          className="mb-10"
         />
-
-        <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3">
-          {scenarios.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={clsx(
-                "group rounded-card border border-br-light bg-bg-page p-5 shadow-sm",
-                "transition duration-300 hover:border-br-accent-soft hover:shadow-md sm:p-6"
-              )}
-            >
-              <h3 className="text-lg font-semibold leading-tight text-tx-primary">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-tx-muted">{item.text}</p>
-              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent-strong">
-                Виж подходящата услуга
-                <MdArrowRightAlt className="text-lg transition group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          ))}
-        </div>
+        <ServiceGuide />
       </Section>
 
-      <FinalCta />
+      <CtaBand />
     </>
   );
 }

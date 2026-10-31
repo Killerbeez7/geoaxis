@@ -1,53 +1,12 @@
-import { IconType } from "react-icons";
-import { LuClock, LuFileCheck, LuCrosshair, LuMessageSquare } from "react-icons/lu";
+import type { IconType } from "react-icons";
+import { LuBadgeCheck, LuFileCheck, LuMapPin, LuSatellite } from "react-icons/lu";
 
-export interface TrustCard {
-  title: string;
-  text: string;
-  icon: IconType;
-}
+export type TrustItem = { icon: IconType; title: string; text: string };
 
-export interface TrustContent {
-  id: "trust";
-  kicker: string;
-  title: string;
-  subtitle: string;
-  trustCards: TrustCard[];
-}
-
-export const trust: TrustContent = {
-  id: "trust",
-  kicker: "Защо нас",
-  title: "Яснота и сигурност",
-
-  // subtitle:
-  // "Работим с внимание към детайла и ясна организация,\nза да знаете какво предстои и да сте спокойни през целия процес.",
-  subtitle:
-    "Работим с внимание към детайла и ясна организация," +
-    "\n" +
-    "за да знаете какво предстои и да сте спокойни през целия процес.",
-
-  trustCards: [
-    {
-      title: "Точни срокове",
-      text: "Планираме и изпълняваме поетите ангажименти без забавяне.",
-      icon: LuClock,
-    },
-    {
-      title: "Подредени документи",
-      text: "Пълно съдействие при подготовка на документи към АГКК и общини.",
-
-      icon: LuFileCheck,
-    },
-    {
-      title: "Прецизна работа",
-      text: "Съвременна апаратура за максимална точност при заснемане.",
-      icon: LuCrosshair,
-    },
-    {
-      title: "Ясна комуникация",
-      text: "Разбираеми обяснения на процеса и постоянна обратна връзка.",
-      icon: LuMessageSquare,
-    },
-  ],
-} as const;
+// Proof points shown near calls to action. Every item must stay factually true.
+export const TRUST_ITEMS: readonly TrustItem[] = [
+  { icon: LuBadgeCheck, title: "Опит от 2008 г.", text: "в геодезията и кадастъра" },
+  { icon: LuSatellite, title: "GNSS и тотални станции", text: "всяко измерване се проверява" },
+  { icon: LuMapPin, title: "София и област", text: "други райони по договаряне" },
+  { icon: LuFileCheck, title: "Ясна оферта", text: "цена и срок преди започване" },
+];

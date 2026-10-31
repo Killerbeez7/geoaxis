@@ -1,59 +1,36 @@
 import { siteContent } from "@/config/site-content";
-import { serviceCategories } from "@/config/services/categories";
 import { SITE_URL } from "@/config/site";
 import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
 import { getWebSiteSchema } from "@/lib/schemas";
-// Sections
-import { HeroSection } from "@/components/sections/HeroSection";
-import { TrustSection } from "@/components/sections/TrustSection";
-import { ServiceSection } from "@/components/sections/ServiceSection";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
-import { WorkflowSection } from "@/components/sections/WorkflowSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { Stats } from "@/components/sections/StatsSection";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { HomeHero } from "@/components/home/HomeHero";
+import { ServicesOverview } from "@/components/home/ServicesOverview";
+import { StatsSection } from "@/components/home/StatsSection";
+import { WhyUsSection } from "@/components/home/WhyUsSection";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { FeaturedProjects } from "@/components/home/FeaturedProjects";
+import { HomeFaq } from "@/components/home/HomeFaq";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 
 export const metadata = createSeo(pageSeo.home);
 
 export default function Home() {
-  const { brand, hero, trust, services, whyUs, workflow, projects, testimonials } =
-    siteContent;
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getWebSiteSchema(SITE_URL)),
-        }}
-      />
+      <JsonLd data={getWebSiteSchema(SITE_URL)} />
 
-      {/* Who we are? */}
-      <HeroSection {...hero} />
+      <HomeHero />
 
-      {/* What we do? */}
-      <TrustSection {...trust} />
-
-      {/* What we offer? */}
-      <ServiceSection {...services} items={serviceCategories} />
-      <Stats />
-
-      {/* Why choose us? */}
-      <WhyChooseUs {...whyUs} brandName={brand.name} />
-
-      {/* Our workflow */}
-      <WorkflowSection {...workflow} />
-
-      {/* Finished projects */}
-      <ProjectsSection {...projects} />
-
-      {/* Our clients reviews */}
-      <TestimonialsSection {...testimonials} />
-
-      {/* Contact us */}
-      <FinalCta />
+      <ServicesOverview />
+      <StatsSection />
+      <WhyUsSection />
+      <ProcessSection />
+      <FeaturedProjects />
+      <TestimonialsSection {...siteContent.testimonials} />
+      <HomeFaq />
+      <CtaBand />
     </>
   );
 }

@@ -1,8 +1,11 @@
 import Link from "next/link";
 
-import { Section } from "@/components/layout/Section";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 import { siteContent } from "@/config/site-content";
+import { company } from "@/config/content/company";
 import { createSeo } from "@/lib/seo-builder";
+import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo({
   title: "Политика за поверителност",
@@ -22,9 +25,9 @@ const collectedData = [
 ];
 
 const processors = [
-  "Vercel - хостинг, CDN, инфраструктура, Vercel Analytics и Speed Insights",
-  "Resend - изпращане на имейл съобщения от контактната форма",
-  "доставчикът на получаващата имейл поща",
+  "Vercel Inc. – хостинг, CDN, инфраструктура, Vercel Analytics и Speed Insights",
+  "Resend – изпращане на имейл съобщения от контактната форма",
+  "Google (Gmail) – получаване и съхранение на имейл кореспонденцията",
 ];
 
 const technicalLocations = [
@@ -38,55 +41,59 @@ const userRights = [
   "достъп до личните данни",
   "корекция на неточни или непълни данни",
   "изтриване на данни, когато няма законово основание да бъдат пазени",
-  "ограничаване или възражение срещу обработването в приложимите случаи",
+  "ограничаване на обработването в приложимите случаи",
+  "възражение срещу обработване, основано на легитимен интерес",
+  "преносимост – да получите данните си в структуриран, машинно четим формат",
   "жалба до Комисията за защита на личните данни",
 ];
 
 function LegalSection({
+  id,
   title,
   children,
 }: {
+  id?: string;
   title: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-br-light pt-8 first:border-t-0 first:pt-0">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
-        {title}
-      </h2>
-      <div className="mt-4 space-y-4 text-base leading-8 text-tx-secondary">
-        {children}
-      </div>
+    <section id={id} className="scroll-mt-[calc(var(--header-h)+1.5rem)] border-t border-br-light pt-10 first:border-t-0 first:pt-0">
+      <h2 className="typo-h3">{title}</h2>
+      <div className="prose-geo mt-4">{children}</div>
     </section>
   );
 }
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="bg-bg-page">
-      <Section variant="compactHero" tone="section">
-        <div className="max-w-3xl">
-          <p className="typo-kicker text-accent">Правна информация</p>
-          <h1 className="typo-h2 mt-3">Политика за поверителност</h1>
-          <p className="typo-subtitle mt-4">
-            Тази страница обяснява как се обработват данните, изпратени чрез
-            сайта и контактната форма на GeoAxis.
-          </p>
-        </div>
-      </Section>
+    <>
+      <PageHero
+        backdrop={PAGE_BACKDROPS.legal}
+        breadcrumbs={[{ label: "Политика за поверителност", href: "/politika-za-poveritelnost" }]}
+        title="Политика за поверителност"
+        description="Тази страница обяснява как се обработват данните, изпратени чрез сайта и контактната форма на GeoAxis."
+      />
 
-      <Section tone="page" className="pt-10! sm:pt-12! lg:pt-16!">
-        <div className="mx-auto max-w-4xl space-y-10">
+      <Section>
+        <div className="max-w-3xl space-y-12">
           <LegalSection title="1. Кой стои зад сайта">
-            <p>
-              GeoAxis е търговско наименование/брандинг, използвано за
-              представяне на геодезически услуги чрез сайта geoaxis.bg.
-            </p>
+            {company.legalName ? (
+              <p>
+                Администратор на личните данни е {company.legalName}
+                {company.eik ? `, ЕИК ${company.eik}` : ""}
+                {company.registeredAddress ? `, със седалище и адрес на управление ${company.registeredAddress}` : ""}
+                , което използва търговското наименование GeoAxis и сайта geoaxis.bg.
+              </p>
+            ) : (
+              <p>
+                GeoAxis е търговско наименование/брандинг, използвано за
+                представяне на геодезически услуги чрез сайта geoaxis.bg.
+              </p>
+            )}
             <p>
               За въпроси относно обработката на лични данни можете да се свържете
               с нас на{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`mailto:${privacyEmail}`}
               >
                 {privacyEmail}
@@ -100,11 +107,20 @@ export default function PrivacyPolicyPage() {
               Когато изпратите запитване през сайта, се обработват само данните,
               които са необходими, за да разберем случая и да Ви отговорим.
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {collectedData.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            <p>
+              Предоставянето на данните е доброволно, но без име и начин за връзка не можем да отговорим на
+              запитването.
+            </p>
+            <p>
+              За защита от спам IP адресът на изпращача се използва около 10 минути, само в паметта на сървъра,
+              за да се ограничи броят на запитванията от един адрес. Той не се записва и не се изпраща заедно със
+              запитването.
+            </p>
           </LegalSection>
 
           <LegalSection title="3. Защо се използват данните">
@@ -117,6 +133,9 @@ export default function PrivacyPolicyPage() {
               Правното основание е предприемане на стъпки по Ваше искане преди
               евентуално възлагане на услуга, както и легитимен интерес да
               отговорим на получени запитвания.
+            </p>
+            <p>
+              Не вземаме автоматизирани решения и не правим профилиране въз основа на Вашите данни.
             </p>
           </LegalSection>
 
@@ -131,6 +150,10 @@ export default function PrivacyPolicyPage() {
               Това е обработване на лични данни, но не представлява създаване на
               потребителски профил, CRM запис или отделна база данни с клиенти в
               сайта.
+            </p>
+            <p>
+              Ако сте посочили имейл, изпращаме Ви автоматично кратко потвърждение, че запитването е получено.
+              Не го използваме за бюлетини или реклама.
             </p>
           </LegalSection>
 
@@ -152,7 +175,7 @@ export default function PrivacyPolicyPage() {
               технически системи, необходими за изпращане и получаване на
               съобщението:
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {technicalLocations.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -165,22 +188,44 @@ export default function PrivacyPolicyPage() {
               доставчици. Те обработват данни само доколкото е необходимо за
               предоставяне на съответната техническа услуга.
             </p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {processors.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </LegalSection>
 
-          <LegalSection title="8. Аналитика и бисквитки">
+          <LegalSection title="8. Предаване на данни извън ЕС">
             <p>
-              Сайтът не използва рекламни или маркетингови бисквитки и не съдържа
-              рекламни пиксели. Използваме Vercel Analytics и Vercel Speed
-              Insights за техническа статистика и измерване на производителност.
+              Някои от посочените доставчици са установени в САЩ. Предаването на
+              данни към тях се основава на Рамката за защита на данните между ЕС и
+              САЩ (EU–US Data Privacy Framework) или на стандартни договорни клаузи,
+              одобрени от Европейската комисия.
+            </p>
+            <p>
+              Сървърната обработка на запитванията се извършва в региона на
+              Франкфурт (ЕС).
             </p>
           </LegalSection>
 
-          <LegalSection title="9. Срок на съхранение">
+          <LegalSection id="biskvitki" title="9. Бисквитки и аналитика">
+            <p>
+              Сайтът не поставя бисквитки и не записва информация на устройството Ви (например в localStorage).
+              Затова не показваме банер за бисквитки – няма за какво да искаме съгласие.
+            </p>
+            <p>
+              За обобщена статистика на посещенията и скоростта на страниците използваме Vercel Web Analytics и
+              Vercel Speed Insights. Те работят без бисквитки: посещенията се броят чрез временен хеш, който се
+              подменя всеки ден, така че не можем да Ви разпознаем между отделни дни или сайтове. Не използваме
+              рекламни пиксели, ремаркетинг или проследяване от трети страни.
+            </p>
+            <p>
+              Ако в бъдеще добавим услуга, която поставя бисквитки (например вградена карта или рекламна
+              аналитика), ще поискаме съгласието Ви, преди тя да се зареди, и ще обновим тази страница.
+            </p>
+          </LegalSection>
+
+          <LegalSection title="10. Срок на съхранение">
             <p>
               Запитванията и свързаната с тях кореспонденция се съхраняват в
               пощенската кореспонденция до 12 месеца след последната комуникация,
@@ -189,9 +234,9 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="10. Вашите права">
+          <LegalSection title="11. Вашите права">
             <p>Имате право да поискате:</p>
-            <ul className="list-disc space-y-2 pl-6">
+            <ul>
               {userRights.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -199,28 +244,28 @@ export default function PrivacyPolicyPage() {
             <p>
               Можете да упражните правата си чрез имейл до{" "}
               <a
-                className="font-medium text-accent-strong underline"
                 href={`mailto:${privacyEmail}`}
               >
                 {privacyEmail}
               </a>
               . Ако считате, че правата Ви са нарушени, можете да подадете жалба
-              до Комисията за защита на личните данни.
+              до Комисията за защита на личните данни – гр. София 1592, бул. „Проф. Цветан Лазаров“ № 2,{" "}
+              <a href="https://www.cpdp.bg" target="_blank" rel="noopener noreferrer">
+                www.cpdp.bg
+              </a>
+              .
             </p>
           </LegalSection>
 
-          <div className="rounded-2xl border border-br-light bg-bg-section p-5 text-sm leading-7 text-tx-secondary">
-            Последна актуализация: 19 юни 2026 г. Вижте също{" "}
-            <Link
-              className="font-medium text-accent-strong underline"
-              href="/usloviya-za-polzvane"
-            >
+          <div className="typo-small rounded-2xl border border-br-light bg-bg-subtle p-5 text-tx-secondary">
+            Последна актуализация: 31 октомври 2026 г. Вижте също{" "}
+            <Link href="/usloviya-za-polzvane" className="font-semibold text-accent-text underline underline-offset-2">
               Условия за ползване
             </Link>
             .
           </div>
         </div>
       </Section>
-    </main>
+    </>
   );
 }

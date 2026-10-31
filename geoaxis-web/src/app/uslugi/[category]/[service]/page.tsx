@@ -1,31 +1,32 @@
-import { notFound, permanentRedirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { MdArrowRightAlt } from "react-icons/md";
+import clsx from "clsx";
+import type { ReactNode } from "react";
+import { notFound, permanentRedirect } from "next/navigation";
+import { LuArrowRight, LuInfo } from "react-icons/lu";
 
 import { SITE_URL } from "@/config/site";
+import { getCategoryBackdrop } from "@/config/services/backdrops";
+import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
 import type { Service, ServiceCategory } from "@/config/services/categories";
 import { createSeo, createServiceSeo } from "@/lib/seo-builder";
-import { getServiceFAQSchema, getServiceSchema } from "@/lib/schemas";
+import { getServiceSchema } from "@/lib/schemas";
 import { getDedicatedServiceRouteParams, getServiceBySlugs } from "@/lib/selectors";
-import { getServiceHref } from "@/utils/urlHelpers";
 import { normalizeParagraphs } from "@/utils/normalizeText";
-import { ServicePageLayout } from "../../ServicePageLayout";
-
-const FALLBACK_WHEN_INTRO =
-  "Услугата е подходяща, когато трябва да се подготви следваща стъпка на база точни данни за имота или обекта.";
-const FALLBACK_DOCS_INTRO =
-  "В началото са най-полезни основните данни за имота, наличните документи и кратко описание на целта.";
-const FALLBACK_PROCESS_INTRO =
-  "Работата започва с уточняване на конкретния случай, след което се определят необходимите измервания, документи и материали.";
-const FALLBACK_DELIVERABLES_INTRO =
-  "Резултатът трябва да даде ясна и използваема основа за следващата стъпка.";
+import { getServiceHref } from "@/utils/urlHelpers";
+import { PriceFactors } from "@/components/services/PriceFactors";
+import { ServiceFacts } from "@/components/services/ServiceFacts";
+import { CheckList } from "@/components/ui/CheckList";
+import { CtaBand } from "@/components/ui/CtaBand";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Heading, Text } from "@/components/ui/Text";
 
 type Props = {
-  params: Promise<{
-    category: string;
-    service: string;
-  }>;
+  params: Promise<{ category: string; service: string }>;
 };
 
 function toSeoDescription(description: string | string[] | undefined, fallback: string) {
@@ -53,11 +54,6 @@ export async function generateMetadata({ params }: Props) {
       title: service.title,
       description: toSeoDescription(service.longDescription, service.description),
       canonical: `/uslugi/${category.slug}`,
-      image:
-        service.heroImage ||
-        service.thumbnail ||
-        category.heroImage ||
-        category.thumbnail,
       noIndex: true,
     });
   }
@@ -75,214 +71,208 @@ export default async function ServicePage({ params }: Props) {
 
   if (!result) notFound();
 
+  // Services without their own page live as a section on the category page.
   if (!result.service.hasDedicatedPage) {
     permanentRedirect(`/uslugi/${result.category.slug}#${result.service.slug}`);
   }
 
-  const servicePath = `/uslugi/${result.category.slug}/${result.service.slug}`;
-  const serviceSchema = getServiceSchema(SITE_URL, servicePath, result.service);
-  const faqSchema = getServiceFAQSchema(result.service);
+  const { category, service } = result;
+  const servicePath = `/uslugi/${category.slug}/${service.slug}`;
+  const faqItems = HELPFUL_FAQ_GROUPS.find((group) => group.slug === category.slug)?.items ?? [];
 
   return (
-    <ServicePageLayout category={result.category} service={result.service}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
-        }}
-      />
-      {faqSchema ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
-          }}
-        />
+    <>
+      <JsonLd data={getServiceSchema(SITE_URL, servicePath, service)} />
+
+      <PageHero
+        breadcrumbs={[
+          { label: "Услуги", href: "/uslugi" },
+          { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
+          { label: service.crumbTitle ?? service.shortTitle ?? service.title, href: servicePath },
+        ]}
+        title={service.heroTitle ?? service.title}
+        description={service.description}
+        backdrop={getCategoryBackdrop(category.slug)}
+      >
+        <ServiceFacts service={service} className="mt-8 flex flex-wrap gap-x-8 gap-y-3" />
+      </PageHero>
+
+      <Section>
+        {/* The intro sits next to the service photo; the rest is one reading column, 42rem like the articles */}
+        <ServiceIntro service={service} />
+        <div className="max-w-2xl">
+          <ServiceArticle category={category} service={service} />
+          {/* Phones and tablets; on desktop the links stay in the page for search engines */}
+          <RelatedServices category={category} current={service.slug} className="mt-16 lg:hidden" />
+        </div>
+      </Section>
+
+      {faqItems.length ? (
+        <Section tone="subtle" aria-labelledby="service-faq-title">
+          {/* No FAQ markup here: these questions are marked up once, on the category page */}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-16">
+            <SectionHeader
+              id="service-faq-title"
+              eyebrow="Въпроси"
+              title="Често задавани въпроси"
+              description={`Отговори на въпросите, които чуваме най-често за „${category.shortTitle ?? category.title}“.`}
+            />
+            <FaqAccordion items={faqItems} variant="plain" />
+          </div>
+        </Section>
       ) : null}
 
-      <DedicatedServiceContent category={result.category} service={result.service} />
-    </ServicePageLayout>
+      <CtaBand service={category.slug} />
+    </>
   );
 }
 
-function DedicatedServiceContent({
-  category,
-  service,
-}: {
-  category: ServiceCategory;
-  service: Service;
-}) {
+function ServiceIntro({ service }: { service: Service }) {
   const paragraphs = normalizeParagraphs(service.longDescription ?? service.description);
-  const introParagraphs = paragraphs.slice(0, 2);
-  const content = service.content;
-  const relatedServices = category.services
-    .filter((item) => item.slug !== service.slug)
-    .slice(0, 4);
 
   return (
-    <article className="grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]">
-      <div className="min-w-0">
-        <section>
-          <p className="typo-kicker">{category.shortTitle ?? category.title}</p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight text-tx-primary">
-            За услугата
-          </h2>
-          <div className="mt-6 space-y-5 text-[1.03rem] leading-8 text-tx-secondary">
-            {introParagraphs.map((paragraph, index) => (
-              <p key={`service-intro-${index}`}>{paragraph}</p>
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,42rem)_minmax(0,1fr)] lg:items-start lg:gap-16">
+      <div className="prose-geo">
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+        ))}
+      </div>
+      <figure className="relative aspect-4/3 overflow-hidden rounded-3xl bg-bg-subtle shadow-lift">
+        <Image
+          src={service.thumbnail}
+          alt={service.imageAlt ?? service.title}
+          fill
+          sizes="(max-width: 1024px) calc(100vw - 2.5rem), 480px"
+          quality={72}
+          className="object-cover"
+        />
+      </figure>
+    </div>
+  );
+}
+
+function ServiceArticle({ category, service }: { category: ServiceCategory; service: Service }) {
+  const content = service.content;
+
+  return (
+    <article className="min-w-0">
+
+      {content?.neededWhen?.length ? (
+        <ArticleSection title="Кога е подходяща" intro={content.whenIntro}>
+          <CheckList items={content.neededWhen} className="mt-6" />
+        </ArticleSection>
+      ) : null}
+
+      {content?.importantToKnow?.length ? (
+        <ArticleSection title="Какво е важно да знаете">
+          <div className="mt-6 grid gap-4 rounded-2xl border border-br-accent/50 bg-accent-soft p-6 sm:p-7">
+            {content.importantToKnow.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)} className="flex gap-3">
+                <LuInfo aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-accent-text" />
+                <span>{paragraph}</span>
+              </p>
             ))}
           </div>
-        </section>
+        </ArticleSection>
+      ) : null}
 
-        <EditorialListSection
-          title="Кога е подходяща"
-          intro={content?.whenIntro ?? FALLBACK_WHEN_INTRO}
-          items={content?.neededWhen}
-        />
+      {content?.requiredDocs?.length ? (
+        <ArticleSection title="Какво е добре да подготвите" intro={content.docsIntro}>
+          <CheckList items={content.requiredDocs} className="mt-6" />
+        </ArticleSection>
+      ) : null}
 
-        <EditorialTextSection
-          title="Какво е важно да знаете"
-          paragraphs={content?.importantToKnow}
-        />
+      {content?.processSteps?.length ? (
+        <ArticleSection title="Как протича работата" intro={content.processIntro}>
+          <ol className="mt-8 grid gap-0">
+            {content.processSteps.map((step, index) => (
+              <li key={step} className="relative flex gap-5 pb-7 last:pb-0">
+                {index < content.processSteps!.length - 1 ? (
+                  <span aria-hidden="true" className="absolute left-5 top-11 bottom-1 w-px bg-br-default" />
+                ) : null}
+                <span className="typo-small relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg-page font-semibold text-accent-text tabular-nums">
+                  {index + 1}
+                </span>
+                <p className="pt-2">{step}</p>
+              </li>
+            ))}
+          </ol>
+        </ArticleSection>
+      ) : null}
 
-        <EditorialListSection
-          title="Какво е добре да подготвите"
-          intro={content?.docsIntro ?? FALLBACK_DOCS_INTRO}
-          items={content?.requiredDocs}
-        />
-
-        <ProcessSection
-          items={content?.processSteps}
-          intro={content?.processIntro ?? FALLBACK_PROCESS_INTRO}
-        />
-
-        <EditorialListSection
-          title="Какво получавате"
-          intro={content?.deliverablesIntro ?? FALLBACK_DELIVERABLES_INTRO}
-          items={content?.deliverables}
-        />
-      </div>
-
-      <aside className="space-y-8 lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:self-start">
-        <div className="relative aspect-4/3 overflow-hidden rounded-card bg-bg-muted shadow-sm">
-          <Image
-            src={service.thumbnail}
-            alt={service.title}
-            fill
-            sizes="(max-width: 1024px) calc(100vw - 2rem), 380px"
-            quality={74}
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-bg-inverse/20 via-transparent to-transparent" />
-        </div>
-
-        <div className="border-l border-br-accent-soft pl-5">
-          <p className="typo-kicker">Категория</p>
-          <Link
-            href={`/uslugi/${category.slug}`}
-            className="mt-3 inline-flex items-center gap-2 text-lg font-semibold text-tx-primary transition hover:text-accent-strong"
-          >
-            {category.title}
-            <MdArrowRightAlt className="text-xl" />
-          </Link>
-          <p className="mt-3 text-sm leading-6 text-tx-muted">
-            Вижте и останалите услуги в тази категория, ако случаят Ви включва
-            допълнителни измервания или документи.
-          </p>
-        </div>
-
-        {relatedServices.length ? (
-          <div className="border-t border-br-light pt-6">
-            <p className="typo-kicker">Свързани услуги</p>
-            <div className="mt-3 divide-y divide-br-light">
-              {relatedServices.map((related) => (
-                <Link
-                  key={related.slug}
-                  href={getServiceHref(category.slug, related)}
-                  className="group flex items-center justify-between gap-4 py-3 text-sm font-semibold text-tx-secondary transition hover:text-accent-strong"
-                >
-                  <span>{related.shortTitle ?? related.title}</span>
-                  <MdArrowRightAlt className="shrink-0 text-lg transition group-hover:translate-x-0.5" />
-                </Link>
-              ))}
-            </div>
+      {content?.deliverables?.length ? (
+        <ArticleSection title="Какво получавате" intro={content.deliverablesIntro}>
+          <div className="mt-6 rounded-2xl bg-bg-inverse p-6 on-dark sm:p-8">
+            <CheckList items={content.deliverables} dark className="tone-strong" />
           </div>
-        ) : null}
-      </aside>
+        </ArticleSection>
+      ) : null}
+
+      <PriceFactors
+        serviceSlug={category.slug}
+        hasPrices={Boolean(service.priceFrom)}
+        className="mt-14 border-t border-br-light pt-12"
+      />
     </article>
   );
 }
 
-function EditorialListSection({
+function ArticleSection({
   title,
   intro,
-  items,
+  children,
 }: {
   title: string;
-  intro: string;
-  items?: string[];
+  intro?: string;
+  children: ReactNode;
 }) {
-  if (!items?.length) return null;
+  return (
+    <section className="mt-14 border-t border-br-light pt-12">
+      <Heading size="h3">{title}</Heading>
+      {intro ? <Text className="mt-3">{intro}</Text> : null}
+      {children}
+    </section>
+  );
+}
+
+function RelatedServices({
+  category,
+  current,
+  className,
+}: {
+  category: ServiceCategory;
+  current: string;
+  className?: string;
+}) {
+  const related = category.services.filter((service) => service.slug !== current).slice(0, 5);
+  if (!related.length) return null;
 
   return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">{title}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-tx-secondary">{intro}</p>
-      <ul className="mt-6 space-y-3">
-        {items.map((item, index) => (
-          <li
-            key={`${title}-item-${index}`}
-            className="flex gap-3 text-base leading-7 text-tx-secondary"
-          >
-            <span className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <p>{item}</p>
+    <section aria-labelledby="related-services-title" className={clsx("border-t border-br-light pt-12", className)}>
+      <Heading id="related-services-title" size="h3">
+        Свързани услуги
+      </Heading>
+      <ul className="mt-6 border-t border-br-light">
+        {related.map((service) => (
+          <li key={service.slug} className="border-b border-br-light">
+            <Link href={getServiceHref(category.slug, service)} className="group flex items-center justify-between gap-6 py-4">
+              <span className="typo-h5 transition-colors group-hover:text-accent-text">
+                {service.shortTitle ?? service.title}
+              </span>
+              <LuArrowRight
+                aria-hidden="true"
+                className="h-5 w-5 shrink-0 text-accent-text transition-transform group-hover:translate-x-1"
+              />
+            </Link>
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-function EditorialTextSection({
-  title,
-  paragraphs,
-}: {
-  title: string;
-  paragraphs?: string[];
-}) {
-  if (!paragraphs?.length) return null;
-
-  return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">{title}</h2>
-      <div className="mt-5 max-w-3xl space-y-5 text-base leading-7 text-tx-secondary">
-        {paragraphs.map((paragraph, index) => (
-          <p key={`${title}-paragraph-${index}`}>{paragraph}</p>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ProcessSection({ items, intro }: { items?: string[]; intro: string }) {
-  if (!items?.length) return null;
-
-  return (
-    <section className="mt-14 border-t border-br-light pt-9">
-      <h2 className="text-2xl font-semibold leading-tight text-tx-primary">
-        Как протича работата
-      </h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-tx-secondary">{intro}</p>
-      <ol className="mt-7 space-y-6 border-l border-br-accent-soft pl-5">
-        {items.map((step, index) => (
-          <li key={`process-step-${index}`} className="relative">
-            <span className="absolute -left-[2.05rem] top-0 flex h-6 w-6 items-center justify-center rounded-full bg-bg-page text-xs font-semibold tabular-nums text-accent-strong ring-1 ring-br-accent-soft">
-              {index + 1}
-            </span>
-            <p className="text-base leading-7 text-tx-secondary">{step}</p>
-          </li>
-        ))}
-      </ol>
+      <Link
+        href={`/uslugi/${category.slug}`}
+        className="typo-small mt-5 inline-block font-semibold text-accent-text hover:underline"
+      >
+        Всички в „{category.shortTitle ?? category.title}“
+      </Link>
     </section>
   );
 }

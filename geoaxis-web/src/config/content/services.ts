@@ -1,16 +1,6 @@
-export interface ServicesContent {
-  id: "services";
-  kicker?: string;
-  title: string;
-  subtitle: string;
-}
-
-export const services: ServicesContent = {
-  id: "services",
-  kicker: "Услуги",
-  title: "Нашите услуги",
-  subtitle:
-    "Предлагаме пълен набор от геодезически решения за проектиране, строителство и регулация.",
-  // subtitle:
-  //   "Независимо дали започвате проект или имате конкретен казус — тук ще намерите нужната услуга.",
+export const services = {
+  eyebrow: "Услуги",
+  title: "С какво можем да помогнем",
+  description:
+    "Геодезически услуги в София и Софийска област – шест направления и над 30 услуги, от първото заснемане до документите в кадастъра и общината.",
 } as const;

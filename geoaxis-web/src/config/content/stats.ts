@@ -3,9 +3,10 @@ export interface StatItem {
   label: string;
 }
 
+// Counts are conservative estimates of the team's work since 2008, rounded down on purpose.
 export const stats: StatItem[] = [
-  { number: "570+", label: "Успешни проекта" },
+  { number: "500+", label: "Изпълнени проекта" },
   { number: "15+", label: "Години опит" },
-  { number: "100%", label: "Гарантирана точност" },
-  { number: "375+", label: "Доволни клиенти" },
+  { number: "30+", label: "Вида услуги" },
+  { number: "350+", label: "Клиенти" },
 ] as const;

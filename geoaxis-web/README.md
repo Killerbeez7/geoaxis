@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GeoAxis website
 
-## Getting Started
+Marketing site for GeoAxis (geodetic services, Sofia). Next.js App Router + Tailwind CSS v4, deployed on Vercel.
 
-First, run the development server:
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp env.example .env.local   # fill in the values
+npm run dev                 # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+|---|---|
+| Page copy (hero, about, stats, reviews…) | `src/config/content/*` |
+| Services, prices, timeframes | `src/config/services/categories.ts` |
+| Company / licence details (footer, privacy, schema) | `src/config/content/company.ts` |
+| Articles, FAQ, glossary | `src/config/polezno/*` |
+| Design system rules | `DESIGN-SYSTEM.md` |
+| Design tokens and typography | `src/app/globals.css` |
+| Shared UI components | `src/components/ui/*` |
+| Contact form rules (limits, services) | `src/lib/contact.ts` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fields marked `TODO(client)` stay hidden on the site until they are filled in.
 
-## Learn More
+## Social preview images
 
-To learn more about Next.js, take a look at the following resources:
+Open Graph images must be 1200×630 JPGs. After changing a source listed in
+`src/lib/og-sources.json`, run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+node scripts/generate-og-images.mjs
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment variables
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `env.example`. `CONTACT_FROM_EMAIL` should use a domain verified in Resend;
+without it, emails are sent from Resend's test sender.

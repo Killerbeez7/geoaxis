@@ -1,456 +1,390 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { BRAND_WORDMARK_PRIMARY, BRAND_WORDMARK_SECONDARY } from "@/config/content/brand";
-
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { IoIosArrowDown } from "react-icons/io";
+import { LuArrowRight, LuChevronDown, LuMenu, LuPhone, LuX } from "react-icons/lu";
 
-import { NavSrvList } from "../navigation/NavSrvList";
-import { NavHelpList } from "../navigation/NavHelpList";
+import { NAV_ITEMS, type NavItem } from "@/config/nav";
+import { contactLinks, contacts } from "@/config/content/contacts";
+import { getCategoryIcon } from "@/config/services/icons";
+import { MOBILE_MENU_EVENT } from "./MobileActionBar";
+import { Logo } from "@/components/ui/Logo";
 
-import { NAV_LINKS, type NavLink } from "@/config/nav";
+export type NavServiceLink = { slug: string; title: string; description: string };
+export type NavHelpfulLink = { href: string; label: string; description: string };
 
-import { TopBar } from "../navigation/TopBar";
-import { MobileMenuToggle } from "../parts/mobileMenuToggle";
-import { useScrollShrink } from "@/hooks/use-scroll-shrink";
+type MenuId = NonNullable<NavItem["menu"]>;
 
-import {
-  glassEffect,
-  navLinkCls,
-  dropdownLinkCls,
-  mobileDropdownCls,
-  mobileRowCls,
-} from "../navigation/navbar.constants";
-import type { DesktopDropdownType, DropdownPosition } from "../navigation/navbar.types";
+type Props = {
+  services: NavServiceLink[];
+  helpful: NavHelpfulLink[];
+};
 
-const NAV_H = { DEFAULT: 72, SHRUNK: 60, DEFAULT_PX: "72px", SHRUNK_PX: "60px" };
-const SHRINK_SCROLL_Y = 16;
-const NAV_TRANSITION_MS = 300;
+const HOVER_CLOSE_DELAY_MS = 160;
 
-export const Navbar = () => {
+export function Navbar({ services, helpful }: Props) {
   const pathname = usePathname();
 
-  const { isShrunk, isTransitioning } = useScrollShrink(
-    SHRINK_SCROLL_Y,
-    NAV_TRANSITION_MS
-  );
+  // Menus remember the page they were opened on, so navigating closes them without an effect.
+  const [openMenu, setOpenMenu] = useState<{ id: MenuId; path: string } | null>(null);
+  const [mobileFor, setMobileFor] = useState<string | null>(null);
+  const [mobileSection, setMobileSection] = useState<MenuId | null>(null);
 
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
-
-  const [desktopDropdown, setDesktopDropdown] = useState<DesktopDropdownType>(null);
-  const [desktopDropdownPos, setDesktopDropdownPos] = useState<DropdownPosition | null>(
-    null
-  );
-
-  const servicesTriggerRef = useRef<HTMLLIElement | null>(null);
-  const helpfulTriggerRef = useRef<HTMLLIElement | null>(null);
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const headerRef = useRef<HTMLElement | null>(null);
-
-  const navHeight = isShrunk ? NAV_H.SHRUNK_PX : NAV_H.DEFAULT_PX;
-
-  const isActivePath = (href?: string): boolean => {
-    if (!href || !pathname) return false;
-    return pathname === href || pathname.startsWith(`${href}/`);
-  };
-
-  const clearCloseTimeout = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  };
-
-  const getTriggerRef = useCallback((type: DesktopDropdownType) => {
-    if (type === "services") return servicesTriggerRef;
-    if (type === "helpful") return helpfulTriggerRef;
-    return null;
-  }, []);
-
-  const updateDesktopDropdownPosition = useCallback((type: Exclude<DesktopDropdownType, null>) => {
-    const triggerRef = getTriggerRef(type);
-    const headerEl = headerRef.current;
-
-    if (!triggerRef?.current || !headerEl) return;
-
-    const triggerRect = triggerRef.current.getBoundingClientRect();
-    const headerRect = headerEl.getBoundingClientRect();
-    const currentNavHeight = isShrunk ? NAV_H.SHRUNK : NAV_H.DEFAULT;
-
-    setDesktopDropdownPos({
-      top: headerRect.top + currentNavHeight,
-      left: triggerRect.left - 8,
-    });
-  }, [getTriggerRef, isShrunk]);
-
-  const openDesktopDropdown = (type: Exclude<DesktopDropdownType, null>) => {
-    if (isTransitioning) return;
-
-    clearCloseTimeout();
-    updateDesktopDropdownPosition(type);
-    setDesktopDropdown(type);
-  };
-
-  const cancelDesktopClose = () => {
-    clearCloseTimeout();
-  };
-
-  const scheduleDesktopClose = () => {
-    clearCloseTimeout();
-
-    closeTimeoutRef.current = setTimeout(() => {
-      setDesktopDropdown(null);
-      setDesktopDropdownPos(null);
-      closeTimeoutRef.current = null;
-    }, 120);
-  };
-
-  const closeAll = () => {
-    clearCloseTimeout();
-    setMobileOpen(false);
-    setMobileDropdown(null);
-    setDesktopDropdown(null);
-    setDesktopDropdownPos(null);
-  };
+  const activeMenu = openMenu?.path === pathname ? openMenu.id : null;
+  const mobileOpen = mobileFor === pathname;
+  const [atTop, setAtTop] = useState(true);
+  // On the homepage the phone bottom bar (with its own call button) shows at the very top and with the menu open
+  const actionBarShown = pathname === "/" && (atTop || mobileOpen);
 
   useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const headerRef = useRef<HTMLElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+
+  const openDesktopMenu = (id: MenuId) => {
+    cancelClose();
+    setOpenMenu({ id, path: pathname });
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpenMenu(null), HOVER_CLOSE_DELAY_MS);
+  };
+
+  // Escape and outside clicks close the desktop menus.
+  useEffect(() => {
+    if (!activeMenu) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpenMenu(null);
+      headerRef.current?.querySelector<HTMLElement>(`[data-menu-trigger="${activeMenu}"]`)?.focus();
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setOpenMenu(null);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [activeMenu]);
+
+  // Lock page scroll behind the mobile menu; Escape closes it.
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(MOBILE_MENU_EVENT, { detail: mobileOpen }));
     if (!mobileOpen) return;
 
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
+    const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileFor(null);
+    };
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    if (!desktopDropdown) return;
+  useEffect(() => cancelClose, []);
 
-    const handleResize = () => {
-      updateDesktopDropdownPosition(desktopDropdown);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [desktopDropdown, isShrunk, updateDesktopDropdownPosition]);
-
-  useEffect(() => {
-    if (!desktopDropdown) return;
-
-    updateDesktopDropdownPosition(desktopDropdown);
-  }, [desktopDropdown, isShrunk, updateDesktopDropdownPosition]);
-
-  useEffect(() => {
-    if (!isTransitioning) return;
-
-    const rafId = window.requestAnimationFrame(() => {
-      clearCloseTimeout();
-      setDesktopDropdown(null);
-      setDesktopDropdownPos(null);
-      setMobileDropdown(null);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(rafId);
-    };
-  }, [isTransitioning]);
-
-  useEffect(() => {
-    return () => {
-      clearCloseTimeout();
-    };
-  }, []);
-
-  const renderDesktopDropdownContent = () => {
-    if (desktopDropdown === "helpful") {
-      return <NavHelpList itemClass={dropdownLinkCls} onClick={closeAll} />;
-    }
-
-    if (desktopDropdown === "services") {
-      return <NavSrvList itemClass={dropdownLinkCls} onClick={closeAll} />;
-    }
-
-    return null;
+  const closeAll = () => {
+    setOpenMenu(null);
+    setMobileFor(null);
   };
-
-  const renderMobileDropdownContent = (item: NavLink) => {
-    if (item.dropdownType === "helpful") {
-      return <NavHelpList onClick={closeAll} itemClass={mobileDropdownCls} />;
-    }
-
-    return <NavSrvList onClick={closeAll} itemClass={mobileDropdownCls} />;
-  };
-
-  /* ==================== DESKTOP ==================== */
-
-  const renderDesktopItem = (item: NavLink) => {
-    const isActive = isActivePath(item.href);
-    const isOpen = desktopDropdown === item.dropdownType;
-
-    const ref =
-      item.dropdownType === "services"
-        ? servicesTriggerRef
-        : item.dropdownType === "helpful"
-          ? helpfulTriggerRef
-          : undefined;
-
-    return (
-      <li
-        key={item.label}
-        ref={ref}
-        className="relative group flex h-full items-center after:absolute after:left-0 after:right-0 after:top-full after:h-4 after:content-['']"
-        onMouseEnter={() => {
-          if (!item.dropdownType || isTransitioning) return;
-          openDesktopDropdown(item.dropdownType);
-        }}
-        onMouseLeave={() => {
-          if (item.dropdownType) {
-            scheduleDesktopClose();
-          }
-        }}
-      >
-        <Link
-          href={item.href}
-          draggable={false}
-          className={navLinkCls(isActive)}
-          aria-haspopup={item.hasDropdown ? "menu" : undefined}
-          aria-expanded={item.hasDropdown ? isOpen : undefined}
-        >
-          {item.label}
-
-          {item.hasDropdown && (
-            <IoIosArrowDown
-              className={clsx(
-                "mt-px text-xs opacity-70 transition-transform duration-300",
-                isOpen && "rotate-180"
-              )}
-            />
-          )}
-        </Link>
-      </li>
-    );
-  };
-
-  /* ==================== MOBILE ==================== */
-
-  const renderMobileItem = (item: NavLink) => {
-    const isActive = isActivePath(item.href);
-    const isOpen = mobileDropdown === item.label;
-
-    if (!item.hasDropdown) {
-      return (
-        <div key={item.label} className="flex flex-col">
-          <div className="relative border-b border-white/10">
-            {isActive && (
-              <div className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-accent" />
-            )}
-
-            <Link href={item.href} onClick={closeAll} className={mobileRowCls(isActive)}>
-              <span className="leading-none">{item.label}</span>
-            </Link>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div key={item.label} className="flex flex-col">
-        <div className="relative border-b border-white/10">
-          {isActive && (
-            <div className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-accent" />
-          )}
-
-          <button
-            type="button"
-            className={clsx(mobileRowCls(isActive))}
-            onClick={() => {
-              if (isTransitioning) return;
-              setMobileDropdown(isOpen ? null : item.label);
-            }}
-            aria-expanded={isOpen}
-            aria-label={`Toggle ${item.label}`}
-          >
-            <span className="leading-none">{item.label}</span>
-
-            <IoIosArrowDown
-              className={clsx(
-                "shrink-0 text-[18px] transition-transform duration-300",
-                isOpen && "rotate-180"
-              )}
-            />
-          </button>
-        </div>
-
-        <div
-          className={clsx(
-            "grid transition-all duration-300 ease-in-out",
-            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          )}
-        >
-          <div className="min-h-0 overflow-hidden">
-            <div className="border-b border-white/10 bg-black/10">
-              <ul className="m-0 list-none overflow-hidden p-0">
-                {renderMobileDropdownContent(item)}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const mobilePanelTop = `calc(${navHeight} + var(--top-bar-offset))`;
 
   return (
-    <>
-      {/* Top Bar */}
-      <TopBar isShrunk={isShrunk} />
+    <header
+      ref={headerRef}
+      className="on-dark fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-white/10 bg-bg-deep/92 text-tx-inverse backdrop-blur-xl"
+      onMouseLeave={scheduleClose}
+    >
+      <div className="container-page flex h-full items-center justify-between gap-6">
+        <Link href="/" onClick={closeAll} className="flex items-center rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
+          <Logo />
+        </Link>
 
-      {/* Navbar */}
-      <header
-        ref={headerRef}
-        id="navbar"
-        className={clsx(
-          "fixed inset-x-0 z-100",
-          glassEffect,
-          "border-b",
-          "no-drag transition-[top,height] duration-300 ease-in-out",
-          "will-change-[top,height]"
-        )}
-        style={{
-          top: isShrunk ? "0px" : "var(--top-bar-offset)",
-          height: navHeight,
-          touchAction: mobileOpen ? "none" : "auto",
-        }}
-      >
-        <nav className="container-page h-full">
-          <div className="flex h-full items-center justify-between">
-            <Link
-              href="/"
-              draggable={false}
-              className="flex items-center gap-2 px-2 py-1 text-lg tracking-wide text-tx-inverse"
-            >
-              <div
-                className={clsx(
-                  "transition-all duration-300 ease-in-out",
-                  isShrunk
-                    ? "text-2xl font-semibold tracking-tight"
-                    : "text-[24px] font-semibold tracking-tight lg:text-3xl"
-                )}
-              >
-                <>
-                  {/* <span>
-                    <img src="/logo.png" className="w-14 inline pr-2" />
-                  </span> */}
-                  <span className="text-white">{BRAND_WORDMARK_PRIMARY}</span>
-                  <span className="text-accent">{BRAND_WORDMARK_SECONDARY}</span>
-                </>
-              </div>
-            </Link>
+        {/* Desktop navigation */}
+        <nav aria-label="Основна навигация" className="hidden h-full lg:block">
+          <ul className="flex h-full items-center gap-1">
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item.href);
 
-            <ul
-              className={clsx(
-                "hidden items-center md:flex md:gap-3 lg:gap-6",
-                isTransitioning && "pointer-events-none"
-              )}
-            >
-              {NAV_LINKS.map(renderDesktopItem)}
-            </ul>
+              if (!item.menu) {
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href}
+                      onClick={closeAll}
+                      onMouseEnter={scheduleClose}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className={clsx(
+                        "typo-ui relative inline-flex h-10 items-center rounded-lg px-3.5 font-medium transition-colors",
+                        active ? "text-tx-inverse" : "text-tx-inverse-muted hover:text-tx-inverse"
+                      )}
+                    >
+                      {item.label}
+                      {active ? (
+                        <span aria-hidden="true" className="absolute inset-x-3.5 -bottom-[18px] h-0.5 rounded-full bg-accent" />
+                      ) : null}
+                    </Link>
+                  </li>
+                );
+              }
 
-            <MobileMenuToggle
-              isOpen={mobileOpen}
-              onToggle={() => {
-                if (isTransitioning) return;
+              const menuId = item.menu;
+              const expanded = activeMenu === menuId;
 
-                if (mobileOpen) {
-                  setMobileDropdown(null);
-                }
+              return (
+                <li
+                  key={item.id}
+                  className={clsx("flex h-full items-center", menuId === "helpful" && "relative")}
+                  onMouseEnter={() => openDesktopMenu(menuId)}
+                >
+                  <button
+                    type="button"
+                    data-menu-trigger={menuId}
+                    aria-expanded={expanded}
+                    aria-controls={`menu-${menuId}`}
+                    onClick={() => (expanded ? setOpenMenu(null) : openDesktopMenu(menuId))}
+                    className={clsx(
+                      "typo-ui relative inline-flex h-10 items-center gap-1.5 rounded-lg px-3.5 font-medium transition-colors",
+                      active || expanded ? "text-tx-inverse" : "text-tx-inverse-muted hover:text-tx-inverse"
+                    )}
+                  >
+                    {item.label}
+                    <LuChevronDown
+                      aria-hidden="true"
+                      className={clsx("h-4 w-4 transition-transform duration-200", expanded && "rotate-180")}
+                    />
+                    {active ? (
+                      <span aria-hidden="true" className="absolute inset-x-3.5 -bottom-[18px] h-0.5 rounded-full bg-accent" />
+                    ) : null}
+                  </button>
 
-                setMobileOpen((prev) => !prev);
-              }}
-            />
-          </div>
+                  {menuId === "services" ? (
+                    <div
+                      id="menu-services"
+                      hidden={!expanded}
+                      onMouseEnter={cancelClose}
+                      className="absolute inset-x-0 top-full border-t border-white/10 bg-bg-deep shadow-lift"
+                    >
+                      <div className="container-page py-6">
+                        <ul className="grid grid-cols-3 gap-x-4 gap-y-1">
+                          {services.map((service) => {
+                            const Icon = getCategoryIcon(service.slug);
+                            return (
+                              <li key={service.slug}>
+                                <Link
+                                  href={`/uslugi/${service.slug}`}
+                                  onClick={closeAll}
+                                  className="group flex gap-3 rounded-xl px-3 py-3.5 transition-colors hover:bg-white/6"
+                                >
+                                  <Icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-on-dark" />
+                                  <span className="min-w-0">
+                                    <span className="typo-ui block font-semibold text-tx-inverse">{service.title}</span>
+                                    <span className="typo-small tone-muted mt-0.5 block">
+                                      {service.description}
+                                    </span>
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+
+                        {/* Help and the overview as one quiet line, not a second panel */}
+                        <div className="mt-3 flex items-center justify-between gap-6 border-t border-white/10 px-3 pt-4">
+                          <p className="typo-small text-tx-inverse-muted">
+                            Не знаете коя услуга ви трябва?{" "}
+                            <Link
+                              href="/uslugi#koya-usluga"
+                              onClick={closeAll}
+                              className="font-semibold text-accent-on-dark hover:underline"
+                            >
+                              Помощ при избора
+                            </Link>
+                          </p>
+                          <Link
+                            href="/uslugi"
+                            onClick={closeAll}
+                            className="typo-small inline-flex shrink-0 items-center gap-1.5 font-semibold text-accent-on-dark hover:underline"
+                          >
+                            Всички услуги
+                            <LuArrowRight aria-hidden="true" className="h-4 w-4" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      id="menu-helpful"
+                      hidden={!expanded}
+                      onMouseEnter={cancelClose}
+                      className="absolute left-0 top-full w-[22rem] rounded-b-2xl border border-t-0 border-white/10 bg-bg-deep p-2 shadow-lift"
+                    >
+                      <ul>
+                        {helpful.map((link) => (
+                          <li key={link.href}>
+                            <Link
+                              href={link.href}
+                              onClick={closeAll}
+                              className="block rounded-xl px-4 py-3 transition-colors hover:bg-white/6"
+                            >
+                              <span className="typo-h5 block">{link.label}</span>
+                              <span className="typo-small tone-muted mt-0.5 line-clamp-1">
+                                {link.description}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                      <Link
+                        href="/polezno"
+                        onClick={closeAll}
+                        className="typo-small mt-1 flex items-center justify-between rounded-xl border-t border-white/10 px-4 py-3 font-semibold text-accent-on-dark hover:bg-white/6"
+                      >
+                        Всички материали
+                        <LuArrowRight aria-hidden="true" className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </nav>
-      </header>
 
-      {/* Mobile Panel*/}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-70 md:hidden">
+        <div className="flex items-center gap-2">
+          <a
+            href={contactLinks.tel}
+            data-track="call_click"
+            className="typo-ui hidden items-center gap-2 rounded-lg px-3 py-2 font-semibold text-tx-inverse tabular-nums transition-colors hover:text-accent-on-dark lg:inline-flex"
+          >
+            <LuPhone aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
+            {contacts.phone}
+          </a>
+          <a
+            href={contactLinks.tel}
+            data-track="call_click"
+            aria-label={`Обадете се: ${contacts.phone}`}
+            className={clsx(
+              "inline-flex h-11 w-11 items-center justify-center rounded-xl text-accent-on-dark transition duration-300 hover:bg-white/8 lg:hidden",
+              actionBarShown && "max-md:pointer-events-none max-md:opacity-0"
+            )}
+          >
+            <LuPhone aria-hidden="true" className="h-5 w-5" />
+          </a>
           <button
             type="button"
-            aria-label="Close menu"
-            onClick={closeAll}
-            className="fixed inset-x-0 bottom-0 z-40 bg-black/40"
-            style={{ top: mobilePanelTop }}
-          />
-
-          <div
-            className={clsx(
-              "fixed inset-x-0 z-70 transition-all duration-300 ease-in-out",
-              glassEffect,
-              mobileOpen
-                ? "translate-y-0 opacity-100"
-                : "pointer-events-none -translate-y-2 opacity-0"
-            )}
-            style={{ top: mobilePanelTop }}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileOpen ? "Затвори менюто" : "Отвори менюто"}
+            onClick={() => setMobileFor(mobileOpen ? null : pathname)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-tx-inverse transition-colors hover:bg-white/8 lg:hidden"
           >
-            <div
-              className="overflow-y-auto border-b border-white/10"
-              style={{ height: `calc(100dvh - ${mobilePanelTop})` }}
-            >
-              <div className="container-page flex flex-col pb-8">
-                {NAV_LINKS.map(renderMobileItem)}
-
-                <Link
-                  href="/contacts"
-                  onClick={closeAll}
-                  className="mt-3 rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-tx-inverse"
-                >
-                  Запитване
-                </Link>
-              </div>
-            </div>
-          </div>
+            {mobileOpen ? <LuX aria-hidden="true" className="h-6 w-6" /> : <LuMenu aria-hidden="true" className="h-6 w-6" />}
+          </button>
         </div>
-      )}
-
-      {/* Desktop dropdown*/}
-      <div className="pointer-events-none fixed inset-0 z-70 hidden md:block">
-        {desktopDropdown && desktopDropdownPos && !isTransitioning && (
-          <div
-            className="pointer-events-auto absolute"
-            style={{
-              top: desktopDropdownPos.top,
-              left: desktopDropdownPos.left,
-            }}
-            onMouseEnter={cancelDesktopClose}
-            onMouseLeave={scheduleDesktopClose}
-          >
-            <div
-              className={clsx(
-                "min-w-60 rounded-b-xl border border-t-0 text-tx-inverse",
-                glassEffect,
-                "origin-top-left transition-all duration-300 ease-in-out",
-                "scale-100 opacity-100",
-                "will-change-[transform,opacity]"
-              )}
-            >
-              <ul className="py-2">{renderDesktopDropdownContent()}</ul>
-            </div>
-          </div>
-        )}
       </div>
-    </>
+
+      {/* Mobile menu. The header's backdrop blur makes it the containing block, so the height is explicit. */}
+      <div
+        id="mobile-menu"
+        hidden={!mobileOpen}
+        className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-deep lg:hidden"
+      >
+        <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))]">
+          <ul className="divide-y divide-white/10">
+            {NAV_ITEMS.map((item) => {
+              if (!item.menu) {
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href}
+                      onClick={closeAll}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className={clsx(
+                        "typo-lead flex min-h-13 items-center font-medium",
+                        isActive(item.href) ? "text-accent-on-dark" : "text-tx-inverse"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              const menuId = item.menu;
+              const expanded = mobileSection === menuId;
+              const links =
+                menuId === "services"
+                  ? services.map((service) => ({ href: `/uslugi/${service.slug}`, label: service.title }))
+                  : helpful.map((link) => ({ href: link.href, label: link.label }));
+
+              return (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    aria-expanded={expanded}
+                    aria-controls={`mobile-${menuId}`}
+                    onClick={() => setMobileSection(expanded ? null : menuId)}
+                    className="typo-lead flex min-h-13 w-full items-center justify-between font-medium text-tx-inverse"
+                  >
+                    {item.label}
+                    <LuChevronDown
+                      aria-hidden="true"
+                      className={clsx("h-5 w-5 transition-transform duration-200", expanded && "rotate-180")}
+                    />
+                  </button>
+                  <ul id={`mobile-${menuId}`} hidden={!expanded} className="pb-3">
+                    {links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          onClick={closeAll}
+                          className="typo-ui flex min-h-11 items-center rounded-lg pl-4 text-tx-inverse-muted hover:bg-white/6 hover:text-tx-inverse"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <Link
+                        href={item.href}
+                        onClick={closeAll}
+                        className="typo-ui flex min-h-11 items-center gap-2 rounded-lg pl-4 font-semibold text-accent-on-dark"
+                      >
+                        {menuId === "services" ? "Всички услуги" : "Всички материали"}
+                        <LuArrowRight aria-hidden="true" className="h-4 w-4" />
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+
+        </nav>
+      </div>
+    </header>
   );
-};
+}

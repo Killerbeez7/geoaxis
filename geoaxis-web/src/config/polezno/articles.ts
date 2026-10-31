@@ -26,7 +26,12 @@ export type HelpfulArticleLink = {
 
 export type HelpfulArticle = {
   slug: string;
+  /** Page title in search results and the heading everywhere else */
   title: string;
+  /** Shorter heading for the article's own hero, so it fits two lines on phones */
+  heroTitle?: string;
+  /** Topic on cards when the category label is too general */
+  topic?: string;
   excerpt?: string;
   description: string;
   section: HelpfulArticleSection;
@@ -63,6 +68,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvo-e-kadastralna-karta",
     title: "Какво е кадастрална карта и защо е важна?",
+    heroTitle: "Какво е кадастрална карта?",
     excerpt:
       "Какво съдържа кадастралната карта, каква е разликата с кадастралния план и кога ви засяга.",
     description:
@@ -148,6 +154,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvo-e-pup",
     title: "Какво е ПУП и кога се налага да се изработи?",
+    heroTitle: "Какво е ПУП и кога е нужен?",
     excerpt:
       "Подробният устройствен план определя какво и как може да се строи. Вижте кога е задължителен.",
     description:
@@ -211,7 +218,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
       },
     ],
     // cta: {
-    //   title: "Трябва ли Ви ПУП?",
+    //   title: "Трябва ли ви ПУП?",
     //   text: "Изпратете информация за имота и намеренията си и ще получите насоки дали е необходим ПУП и какви са следващите стъпки.",
     //   primaryLabel: "Направете запитване",
     //   primaryHref: "/contacts",
@@ -226,10 +233,11 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kolko-struva-geodezichesko-zasnemane",
     title: "Колко струва геодезическо заснемане?",
+    heroTitle: "Колко струва заснемане?",
     excerpt:
       "Основните фактори, които определят цената, и как да получите реалистична оценка.",
     description:
-      "Вижте от какво зависи цената на геодезическото заснемане, какви са ориентировъчните стойности и как да поискате оферта.",
+      "Вижте от какво зависи цената на геодезическото заснемане и как да получите точна оферта за вашия имот.",
     section: "statii",
     category: "geodezia",
     publishedAt: "2026-04-16",
@@ -306,6 +314,8 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "kakvi-dokumenti-sa-nuzhni-za-stroezh",
     title: "Какви документи са нужни за строеж на къща?",
+    heroTitle: "Документи за строеж на къща",
+    topic: "Строителство",
     excerpt:
       "Стъпка по стъпка — кои геодезически и кадастрални документи трябват преди да започнете строеж.",
     description:
@@ -384,54 +394,56 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "udostoverenie-po-chl-54a",
     title: "Какво е удостоверение по чл. 54а от ЗКИР?",
-    excerpt: "Кога се изисква, как се издава и каква е ролята на геодезиста в процеса.",
+    heroTitle: "Удостоверение по чл. 54а от ЗКИР",
+    excerpt:
+      "Кога се налага при сделка с имот, ако в кадастъра има непълнота или грешка, и каква е ролята на геодезиста.",
     description:
-      "Научете какво представлява удостоверението по чл. 54а от ЗКИР, кога е задължително и как геодезистът помага при издаването му.",
+      "Какво представлява удостоверението по чл. 54а от ЗКИР, в кои случаи се стига до него и как геодезистът помага за отстраняване на непълноти и грешки в кадастъра.",
     section: "statii",
     category: "kadastar",
     publishedAt: "2026-04-16",
-    updatedAt: "2026-04-30",
+    updatedAt: "2026-10-23",
     coverImage: {
-      src: "/images/category/cadaster-og.webp",
-      alt: "Кадастрални данни и удостоверение по чл. 54а",
+      src: "/images/services/kadastar/promqna-granici.webp",
+      alt: "Къща и двор, оградени откъм улицата – имот, чиито кадастрални данни се проверяват",
     },
     keywords: [
       "чл 54а ЗКИР",
       "удостоверение 54а",
-      "удостоверение кадастър",
+      "непълнота или грешка в кадастъра",
       "нотариален акт геодезист",
     ],
+    // TODO(client): to be reviewed by a licensed surveyor before publishing.
     body: [
       {
         type: "paragraph",
         content:
-          "Удостоверението по чл. 54а от Закона за кадастъра и имотния регистър (ЗКИР) е документ, който потвърждава, че данните за имота в кадастралната карта съответстват на действителното му положение на място.",
+          "Член 54а от Закона за кадастъра и имотния регистър (ЗКИР) урежда случаите, в които при сделка с имот се установи, че кадастралната карта не отговаря на действителното положение – например има непълнота или грешка в данните за имота, или сграда не е нанесена.",
       },
       {
         type: "paragraph",
         content:
-          "То е задължително при нотариални сделки с недвижими имоти — покупко-продажба, дарение, замяна, учредяване на право на строеж. Без него нотариусът не може да изповяда сделката.",
+          "Когато данните в кадастъра са верни, такова удостоверение не е нужно. То е свързано с конкретни ситуации, в които преди или по време на сделката трябва да се отстрани несъответствие в кадастралната карта.",
       },
       {
         type: "list",
-        title: "Кога се изисква удостоверение по чл. 54а",
+        title: "Кога най-често се стига до процедура по чл. 54а",
         items: [
-          "При покупко-продажба на имот",
-          "При дарение или замяна",
-          "При учредяване на право на строеж",
-          "При ипотека — в някои случаи",
-          "При всяка нотариална сделка с недвижим имот в район с кадастрална карта",
+          "Границите на имота в кадастъра не съвпадат с документа за собственост",
+          "Сграда в имота липсва в кадастралната карта",
+          "Площта или други данни за имота са отразени неточно",
+          "Нотариусът установи несъответствие при подготовка на сделката",
         ],
       },
       {
         type: "paragraph",
         content:
-          "За да се издаде удостоверението, често е необходимо геодезическо заснемане — особено ако сградата или имотът не са коректно отразени в кадастралната карта. Геодезистът извършва заснемането, подготвя документацията и подава заявлението в СГКК.",
+          "Ролята на геодезиста е да провери данните, да заснеме имота или сградата при нужда и да изготви необходимите материали за изменение на кадастралната карта. Удостоверението се издава от Службата по геодезия, картография и кадастър (СГКК).",
       },
       {
         type: "paragraph",
         content:
-          "Процедурата обикновено отнема между 7 и 14 дни, в зависимост от натовареността на службата и наличието на усложнения по имота.",
+          "Сроковете зависят от конкретния случай и от натоварването на службата. Ако предстои сделка, е добре да проверите кадастралните данни за имота предварително, за да има време за корекция.",
       },
     ],
     relatedServices: [
@@ -449,7 +461,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
       },
     ],
     // cta: {
-    //   title: "Предстои Ви сделка?",
+    //   title: "Предстои ви сделка?",
     //   text: "Ако ви трябва удостоверение по чл. 54а, изпратете данни за имота и ще получите насоки какво е необходимо.",
     //   primaryLabel: "Изпратете запитване",
     //   primaryHref: "/contacts",
@@ -472,8 +484,8 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     publishedAt: "2026-04-14",
     updatedAt: "2026-04-30",
     coverImage: {
-      src: "/images/category/zasnemane-og.webp",
-      alt: "Геодезически измервания на терен",
+      src: "/images/services/zasnemane/na-infrastruktura.webp",
+      alt: "Тотална станция на статив пред фундамент на строеж",
     },
     keywords: ["геодезическо заснемане", "геодезия", "София"],
     body: [
@@ -520,8 +532,8 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
       },
     ],
     // cta: {
-    //   title: "Нужна Ви е конкретна насока?",
-    //   text: "Ако случаят Ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки.",
+    //   title: "Нужна ви е конкретна насока?",
+    //   text: "Ако случаят ви изисква реална оценка на място, документи или избор на конкретна услуга, изпратете кратко описание и ще получите насоки.",
     //   primaryLabel: "Изпратете запитване",
     //   primaryHref: "/contacts",
     //   secondaryLabel: "Разгледайте услугите",
@@ -605,6 +617,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "koga-vi-tryabva-geodezist",
     title: "Кога ви трябва геодезист?",
+    topic: "Първи стъпки",
     excerpt: "Най-честите ситуации, в които геодезистът е задължителен.",
     description:
       "Разберете в кои случаи е необходим геодезист и как професионалната помощ спестява грешки, време и разходи.",
@@ -666,7 +679,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     ],
     // cta: {
     //   title: "Не сте сигурни откъде да започнете?",
-    //   text: "Кратка консултация може да Ви спести време, грешки и ненужни разходи още в началото.",
+    //   text: "Кратка консултация може да ви спести време, грешки и ненужни разходи още в началото.",
     //   primaryLabel: "Направете запитване",
     //   primaryHref: "/contacts",
     //   secondaryLabel: "Вижте консултациите",
@@ -683,9 +696,13 @@ export function getArticlesBySection(section: HelpfulArticleSection) {
   return HELPFUL_ARTICLES.filter((article) => article.section === section);
 }
 
-export function getRelatedArticles(currentSlug: string, limit = 2) {
-  return HELPFUL_ARTICLES.filter((article) => article.slug !== currentSlug).slice(
-    0,
-    limit
-  );
+// Prefers the article's own picks, then same-topic articles, then the newest ones.
+export function getRelatedArticles(current: HelpfulArticle, limit = 2) {
+  const others = HELPFUL_ARTICLES.filter((article) => article.slug !== current.slug);
+  const picked = (current.relatedArticles ?? [])
+    .map((link) => others.find((article) => link.href.endsWith(`/${article.slug}`)))
+    .filter((article): article is HelpfulArticle => Boolean(article));
+  const sameCategory = others.filter((article) => article.category === current.category);
+
+  return [...new Set([...picked, ...sameCategory, ...others])].slice(0, limit);
 }

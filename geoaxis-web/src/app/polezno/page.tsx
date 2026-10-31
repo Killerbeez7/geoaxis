@@ -93,7 +93,7 @@ export default function HelpfulPage() {
                     <span className="typo-h5 mt-1.5 block transition-colors group-hover:text-accent-text">
                       {article.title}
                     </span>
-                    <span className="typo-small mt-1 line-clamp-2 block">{article.excerpt ?? article.description}</span>
+                    <span className="typo-small mt-1 line-clamp-2">{article.excerpt ?? article.description}</span>
                   </Link>
                 </li>
               ))}

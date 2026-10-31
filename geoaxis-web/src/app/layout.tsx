@@ -67,7 +67,8 @@ export const viewport: Viewport = {
 const navServices = serviceCategories.map((category) => ({
   slug: category.slug,
   title: category.title,
-  description: category.description,
+  // The short tag line keeps the mega menu to one calm line per category
+  description: category.meta ?? category.description,
 }));
 
 const navHelpful = HELPFUL_NAV_ITEMS.map((item) => ({

@@ -4,14 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { LuArrowRight, LuChevronDown, LuCircleHelp, LuMenu, LuPhone, LuX } from "react-icons/lu";
+import { LuArrowRight, LuChevronDown, LuMenu, LuPhone, LuX } from "react-icons/lu";
 
 import { NAV_ITEMS, type NavItem } from "@/config/nav";
 import { contactLinks, contacts } from "@/config/content/contacts";
 import { getCategoryIcon } from "@/config/services/icons";
-import { Button } from "@/components/ui/Button";
 import { MOBILE_MENU_EVENT } from "./MobileActionBar";
-import { IconBadge } from "@/components/ui/IconBadge";
 import { Logo } from "@/components/ui/Logo";
 
 export type NavServiceLink = { slug: string; title: string; description: string };
@@ -189,47 +187,50 @@ export function Navbar({ services, helpful }: Props) {
                       onMouseEnter={cancelClose}
                       className="absolute inset-x-0 top-full border-t border-white/10 bg-bg-deep shadow-lift"
                     >
-                      <div className="container-page grid gap-8 py-8 xl:grid-cols-[minmax(0,1fr)_19rem]">
-                        <ul className="grid gap-1 sm:grid-cols-2 xl:grid-cols-3">
-                          {services.map((service) => (
-                            <li key={service.slug}>
-                              <Link
-                                href={`/uslugi/${service.slug}`}
-                                onClick={closeAll}
-                                className="flex gap-3.5 rounded-xl p-3 transition-colors hover:bg-white/6"
-                              >
-                                <IconBadge icon={getCategoryIcon(service.slug)} dark />
-                                <span className="min-w-0">
-                                  <span className="typo-h5 block">{service.title}</span>
-                                  <span className="typo-small tone-muted mt-0.5 line-clamp-2 block">
-                                    {service.description}
+                      <div className="container-page py-6">
+                        <ul className="grid grid-cols-3 gap-x-4 gap-y-1">
+                          {services.map((service) => {
+                            const Icon = getCategoryIcon(service.slug);
+                            return (
+                              <li key={service.slug}>
+                                <Link
+                                  href={`/uslugi/${service.slug}`}
+                                  onClick={closeAll}
+                                  className="group flex gap-3 rounded-xl px-3 py-3.5 transition-colors hover:bg-white/6"
+                                >
+                                  <Icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent-on-dark" />
+                                  <span className="min-w-0">
+                                    <span className="typo-ui block font-semibold text-tx-inverse">{service.title}</span>
+                                    <span className="typo-small tone-muted mt-0.5 block">
+                                      {service.description}
+                                    </span>
                                   </span>
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
+                                </Link>
+                              </li>
+                            );
+                          })}
                         </ul>
 
-                        <div className="flex flex-col justify-between rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-                          <div>
-                            <LuCircleHelp aria-hidden="true" className="h-6 w-6 text-accent-on-dark" />
-                            <p className="typo-h5 mt-3">Не знаете коя услуга ви трябва?</p>
-                            <p className="typo-small mt-1.5 text-tx-inverse-muted">
-                              Изберете ситуацията си и ще ви покажем подходящата услуга.
-                            </p>
-                          </div>
-                          <div className="mt-5 grid gap-2">
-                            <Button href="/uslugi#koya-usluga" variant="outline-light" onClick={closeAll} arrow>
-                              Помощ при избора
-                            </Button>
+                        {/* Help and the overview as one quiet line, not a second panel */}
+                        <div className="mt-3 flex items-center justify-between gap-6 border-t border-white/10 px-3 pt-4">
+                          <p className="typo-small text-tx-inverse-muted">
+                            Не знаете коя услуга ви трябва?{" "}
                             <Link
-                              href="/uslugi"
+                              href="/uslugi#koya-usluga"
                               onClick={closeAll}
-                              className="typo-small inline-flex items-center justify-center gap-1 py-1 font-semibold text-accent-on-dark hover:underline"
+                              className="font-semibold text-accent-on-dark hover:underline"
                             >
-                              Всички услуги
+                              Помощ при избора
                             </Link>
-                          </div>
+                          </p>
+                          <Link
+                            href="/uslugi"
+                            onClick={closeAll}
+                            className="typo-small inline-flex shrink-0 items-center gap-1.5 font-semibold text-accent-on-dark hover:underline"
+                          >
+                            Всички услуги
+                            <LuArrowRight aria-hidden="true" className="h-4 w-4" />
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -249,7 +250,7 @@ export function Navbar({ services, helpful }: Props) {
                               className="block rounded-xl px-4 py-3 transition-colors hover:bg-white/6"
                             >
                               <span className="typo-h5 block">{link.label}</span>
-                              <span className="typo-small tone-muted mt-0.5 line-clamp-1 block">
+                              <span className="typo-small tone-muted mt-0.5 line-clamp-1">
                                 {link.description}
                               </span>
                             </Link>
@@ -311,7 +312,7 @@ export function Navbar({ services, helpful }: Props) {
         hidden={!mobileOpen}
         className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-deep lg:hidden"
       >
-        <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))]">
+        <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))] md:max-w-2xl md:ml-0">
           <ul className="divide-y divide-white/10">
             {NAV_ITEMS.map((item) => {
               if (!item.menu) {
@@ -322,7 +323,7 @@ export function Navbar({ services, helpful }: Props) {
                       onClick={closeAll}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "typo-h4 flex min-h-14 items-center font-medium",
+                        "typo-lead flex min-h-13 items-center font-medium",
                         isActive(item.href) ? "text-accent-on-dark" : "text-tx-inverse"
                       )}
                     >
@@ -346,7 +347,7 @@ export function Navbar({ services, helpful }: Props) {
                     aria-expanded={expanded}
                     aria-controls={`mobile-${menuId}`}
                     onClick={() => setMobileSection(expanded ? null : menuId)}
-                    className="typo-h4 flex min-h-14 w-full items-center justify-between font-medium"
+                    className="typo-lead flex min-h-13 w-full items-center justify-between font-medium text-tx-inverse"
                   >
                     {item.label}
                     <LuChevronDown
@@ -360,7 +361,7 @@ export function Navbar({ services, helpful }: Props) {
                         <Link
                           href={link.href}
                           onClick={closeAll}
-                          className="flex min-h-11 items-center rounded-lg pl-4 text-tx-inverse-muted hover:bg-white/6 hover:text-tx-inverse"
+                          className="typo-ui flex min-h-11 items-center rounded-lg pl-4 text-tx-inverse-muted hover:bg-white/6 hover:text-tx-inverse"
                         >
                           {link.label}
                         </Link>
@@ -370,7 +371,7 @@ export function Navbar({ services, helpful }: Props) {
                       <Link
                         href={item.href}
                         onClick={closeAll}
-                        className="flex min-h-11 items-center gap-2 rounded-lg pl-4 font-semibold text-accent-on-dark"
+                        className="typo-ui flex min-h-11 items-center gap-2 rounded-lg pl-4 font-semibold text-accent-on-dark"
                       >
                         {menuId === "services" ? "Всички услуги" : "Всички материали"}
                         <LuArrowRight aria-hidden="true" className="h-4 w-4" />

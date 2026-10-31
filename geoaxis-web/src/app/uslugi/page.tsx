@@ -7,7 +7,6 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { TrustBar } from "@/components/ui/TrustBar";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.uslugiIndex);
@@ -33,7 +32,6 @@ export default function ServicesPage() {
             <ServiceCategoryCard key={category.slug} category={category} />
           ))}
         </div>
-        <TrustBar className="mt-14" />
       </Section>
 
       <Section id="koya-usluga" tone="subtle" aria-labelledby="guide-title">

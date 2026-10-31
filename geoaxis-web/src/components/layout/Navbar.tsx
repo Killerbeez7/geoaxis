@@ -312,7 +312,7 @@ export function Navbar({ services, helpful }: Props) {
         hidden={!mobileOpen}
         className="fixed inset-x-0 top-full h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-white/10 bg-bg-deep lg:hidden"
       >
-        <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))] md:max-w-2xl md:ml-0">
+        <nav aria-label="Мобилна навигация" className="container-page flex min-h-full flex-col pt-4 pb-[calc(6rem+env(safe-area-inset-bottom))]">
           <ul className="divide-y divide-white/10">
             {NAV_ITEMS.map((item) => {
               if (!item.menu) {

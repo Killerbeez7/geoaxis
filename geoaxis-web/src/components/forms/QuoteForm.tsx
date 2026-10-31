@@ -317,7 +317,7 @@ export function QuoteForm() {
       {step === 1 ? (
         <fieldset className="mt-6">
           <legend className="sr-only">Вид услуга</legend>
-          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5">
             {CONTACT_SERVICE_OPTIONS.map((option) => {
               const Icon =
                 option.value === "other" ? LuEllipsis : option.value === "nesigurno" ? LuCircleHelp : getCategoryIcon(option.value);

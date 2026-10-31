@@ -46,8 +46,12 @@ export default function GlossaryPage() {
         ]}
         title={pageContent.heroTitle}
         description={pageContent.heroDescription}
-      >
-        <nav aria-label="Букви" className="mt-8">
+      />
+
+      {/* A plain definition list: the term on the left, the explanation on the right */}
+      <Section>
+        {/* Letter index opens the list (kept out of the hero so every hero has the same height) */}
+        <nav aria-label="Букви" className="mb-8">
           <ul className="flex flex-wrap gap-1.5">
             {groups.map(([letter]) => (
               <li key={letter}>
@@ -61,10 +65,6 @@ export default function GlossaryPage() {
             ))}
           </ul>
         </nav>
-      </PageHero>
-
-      {/* A plain definition list: the term on the left, the explanation on the right */}
-      <Section>
         <dl className="max-w-5xl border-t border-br-light">
           {groups.flatMap(([letter, terms]) =>
             terms.map((term, index) => (

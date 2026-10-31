@@ -53,8 +53,8 @@ export function PageHero({
       ) : null}
       <div
         className={clsx(
-          // One height for every inner page (tallest content fits), so the H1 sits in the same place everywhere
-          "container-page min-h-[26rem] pt-[calc(var(--header-h)+1.5rem)] pb-12 md:min-h-[31rem] md:pt-[calc(var(--header-h)+2.5rem)] md:pb-16"
+          // One height for every inner page: a one-line title and a two-line intro fill it exactly, so the H1 sits in the same place everywhere
+          "container-page min-h-[24rem] pt-[calc(var(--header-h)+1.5rem)] pb-12 md:min-h-[23rem] md:pt-[calc(var(--header-h)+2.5rem)] md:pb-16"
         )}
       >
         {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className="mb-8 md:mb-10" /> : null}
@@ -64,13 +64,13 @@ export function PageHero({
             aside && "grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16"
           )}
         >
-          <div className="max-w-3xl">
+          <div>
             {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
             <Heading as="h1" className={clsx(eyebrow && "mt-4")}>
               {title}
             </Heading>
             {description ? (
-              <Text as="div" size="lead" className="mt-5 max-w-2xl">
+              <Text as="div" size="lead" className="mt-5 max-w-3xl">
                 {description}
               </Text>
             ) : null}

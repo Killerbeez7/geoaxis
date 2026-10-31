@@ -66,7 +66,7 @@ export default async function CategoryPage({ params }: Props) {
           { label: category.shortTitle ?? category.title, href: `/uslugi/${category.slug}` },
         ]}
         title={category.title}
-        description={lead}
+        description={category.description}
         backdrop={getCategoryBackdrop(category.slug)}
       />
 
@@ -78,6 +78,7 @@ export default async function CategoryPage({ params }: Props) {
               {category.services.length} услуги
             </Text>
           </div>
+          {lead ? <Text className="mt-4 max-w-3xl">{lead}</Text> : null}
 
           {/* Jump links on phones and tablets */}
           <nav aria-label="Услуги в категорията" className="mt-6 lg:hidden">

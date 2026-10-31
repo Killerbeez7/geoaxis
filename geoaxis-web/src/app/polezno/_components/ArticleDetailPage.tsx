@@ -75,16 +75,16 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
         ]}
         title={article.title}
         description={article.excerpt ?? article.description}
-      >
-        <Text size="small" tone="muted" className="mt-6">
-          Публикувано на {formatDate(article.publishedAt)}
-          {updated ? ` · Обновено на ${formatDate(updated)}` : ""}
-        </Text>
-      </PageHero>
+      />
 
       <Section>
         <div>
           <article className="min-w-0">
+            {/* The date opens the article, so every hero keeps the same height */}
+            <Text size="small" tone="muted" className="mb-6">
+              Публикувано на {formatDate(article.publishedAt)}
+              {updated ? ` · Обновено на ${formatDate(updated)}` : ""}
+            </Text>
             {/* Cover photo opens the article, at the width of the text */}
             {article.coverImage ? (
               <figure className="relative mb-10 aspect-16/9 max-w-2xl overflow-hidden rounded-2xl bg-bg-subtle shadow-card">

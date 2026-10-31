@@ -69,7 +69,7 @@ No raw `text-sm`/`text-lg` or one-off sizes in components (buttons and the logo 
 | Class | Desktop / phone | Role |
 |---|---|---|
 | `typo-display` | 60 / 38 px | Home hero headline only |
-| `typo-h1` | 48 / 34 | Page title – exactly one per page |
+| `typo-h1` | 40 / 32 | Page title – exactly one per page; fits one line on desktop |
 | `typo-h2` | 36 / 28 | Section title |
 | `typo-h3` | 24 / 21 | Sub-section title, title of a large card (photo cards, service rows) |
 | `typo-h4` | 20 / 18 | Title of a regular card, menu panel |
@@ -115,7 +115,7 @@ leads stop at `max-w-2xl`.
 - Width: `container-page` (max 80rem, 20/24/32 px side padding). Reading columns: 42rem.
 - No sidebars. Content runs in one column; related links (`TopicArticles`, related services) close the
   content as a plain divided list, shown on phones and tablets (on desktop they stay in the page for
-  search engines). The quote action lives in the hero and the closing CTA.
+  search engines). The quote action lives in the closing CTA (and the price box on service pages).
 - Sections: `Section` component – `py-16 md:py-24` by default, `compact` for secondary blocks.
   Alternate `page` and `subtle` tones; dark tones (`inverse`, `deep`) at most twice per page.
 - Grids: `gap-6` for cards, `gap-10`–`gap-16` between columns of text and media.
@@ -133,9 +133,9 @@ leads stop at `max-w-2xl`.
 - In grid lists, cards line up row by row with subgrid (`row-span-N grid grid-rows-subgrid`):
   photos, text blocks, lists and footers start at the same height across a row. A card shown on its
   own (e.g. in a hero) turns this off (`ArticleCard aligned={false}`).
-- Service cards carry no quote button: only "Научете повече" (a text link) when the service has its own page.
-  The price box uses a text link. The strong quote buttons are the hero and the closing CTA, so a page never
-  stacks the same button.
+- Service cards carry no quote button: only "Научете повече" (a text link) when the service has its own page,
+  or "Още за услугата", which opens the rest of the text in place. The price box uses a text link. The one
+  strong quote button is the closing CTA, so a page never stacks the same button.
 - A page never shows the same photo twice: category pages compare photos by content
   (`src/lib/photos.ts`) and show a contour panel with the category icon instead of a repeat.
 
@@ -165,7 +165,7 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
 | `Section` | Page section with tone, spacing and an optional geo-line `pattern` |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
-| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts one of the light generated backgrounds behind it – every page has one, chosen by topic in `config/services/backdrops.ts`), and an aside (photo, category index, featured article) so the right side is never empty on wide screens; `compact` for list and utility pages |
+| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts one of the light generated backgrounds behind it – every page has one, chosen by topic in `config/services/backdrops.ts`), and an optional aside. One size for every inner page: 368 px on tablet and desktop, at least 384 px on phones, so the title sits in the same place everywhere. To keep that, the title fits one line on desktop, the intro stays within two lines, and nothing else goes in the hero (letter index, dates and facts open the content instead); only the 404 page has buttons |
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |

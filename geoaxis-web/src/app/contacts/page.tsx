@@ -10,7 +10,6 @@ import { ContactChannels } from "@/components/ui/ContactChannels";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Heading, Text } from "@/components/ui/Text";
-import { TrustBar } from "@/components/ui/TrustBar";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.contacts);
@@ -74,8 +73,6 @@ export default function ContactsPage() {
             ) : null}
           </aside>
         </div>
-
-        <TrustBar className="mt-14" />
       </Section>
     </>
   );

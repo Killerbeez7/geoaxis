@@ -13,49 +13,49 @@ const BASE_URL = SITE_URL;
 const staticPages = [
   {
     url: "/",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 1.0,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/uslugi",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.9,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/polezno",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.8,
     changeFrequency: "weekly" as const,
   },
   {
     url: "/projects",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.6,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/about",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.5,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/contacts",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.7,
     changeFrequency: "monthly" as const,
   },
   {
     url: "/politika-za-poveritelnost",
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.2,
     changeFrequency: "yearly" as const,
   },
   {
     url: "/usloviya-za-polzvane",
-    lastModified: "2026-06-19",
+    lastModified: "2026-10-31",
     priority: 0.2,
     changeFrequency: "yearly" as const,
   },
@@ -70,27 +70,27 @@ const helpfulSectionMeta: Record<
   }
 > = {
   statii: {
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.7,
     changeFrequency: "weekly",
   },
   rakovodstva: {
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.7,
     changeFrequency: "weekly",
   },
   faq: {
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.55,
     changeFrequency: "monthly",
   },
   rechnik: {
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.55,
     changeFrequency: "monthly",
   },
   resursi: {
-    lastModified: "2026-10-23",
+    lastModified: "2026-10-31",
     priority: 0.55,
     changeFrequency: "monthly",
   },

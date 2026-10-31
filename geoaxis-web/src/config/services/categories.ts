@@ -76,7 +76,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Геодезическото заснемане дава точна картина на терена, сградите и средата. Използва се като основа за проектиране, строителство и документация.",
     featured: true,
     order: 1,
-    updatedAt: "2026-10-23",
+    updatedAt: "2026-10-31",
     seo: {
       title: "Геодезическо заснемане в София",
       description:
@@ -144,7 +144,7 @@ export const serviceCategories: ServiceCategory[] = [
             "Предаваме материалите в договорения формат и уточняваме детайли при нужда",
           ],
         },
-        updatedAt: "2026-05-04",
+        updatedAt: "2026-10-31",
         hasDedicatedPage: true,
       },
       // 2. ekzekutivno zasnemane
@@ -201,7 +201,7 @@ export const serviceCategories: ServiceCategory[] = [
             "Предаваме материалите и при нужда продължаваме с нанасянето в кадастъра",
           ],
         },
-        updatedAt: "2026-10-23",
+        updatedAt: "2026-10-31",
         hasDedicatedPage: true,
       },
       // 3. kontrolno zasnemane
@@ -302,7 +302,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Трасирането пренася проектни оси, линии, точки и граници върху реалния терен. Използва се преди строителство, огради, регулация и контрол на място.",
     featured: true,
     order: 2,
-    updatedAt: "2026-10-23",
+    updatedAt: "2026-10-31",
     seo: {
       title: "Трасиране в София",
       description:
@@ -367,7 +367,7 @@ export const serviceCategories: ServiceCategory[] = [
             "Обозначаваме точките и предаваме документ с координатите им",
           ],
         },
-        updatedAt: "2026-10-23",
+        updatedAt: "2026-10-31",
         hasDedicatedPage: true,
       },
       // 2. na sgradi
@@ -443,7 +443,7 @@ export const serviceCategories: ServiceCategory[] = [
 
     featured: true,
     order: 3,
-    updatedAt: "2026-05-02",
+    updatedAt: "2026-10-31",
     seo: {
       title: "Кадастрални услуги в София",
       description:
@@ -541,7 +541,7 @@ export const serviceCategories: ServiceCategory[] = [
             "Предаваме готовите материали и даваме насоки за следващите действия според конкретния случай",
           ],
         },
-        updatedAt: "2026-05-04",
+        updatedAt: "2026-10-31",
         hasDedicatedPage: true,
       },
       // 4. промяна на граници
@@ -605,7 +605,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Проектирането включва подготовка на данни, вертикална планировка и координация. Използва се при разработване и реализиране на инвестиционни намерения.",
     featured: true,
     order: 4,
-    updatedAt: "2026-05-01",
+    updatedAt: "2026-10-31",
     seo: {
       title: "Геодезическо проектиране в София",
       description:
@@ -699,7 +699,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Градоустройството включва планове, регулация и развитие на имоти. Използва се при промени в предназначението и застрояването.",
     featured: true,
     order: 5,
-    updatedAt: "2026-04-30",
+    updatedAt: "2026-10-31",
     seo: {
       title: "ПУП и градоустройство в София",
       description:
@@ -822,7 +822,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Консултациите помагат за ориентация в процеса, избор на услуга и подготовка на документи. Подходящи са, когато не е ясно откъде да започнете.",
     featured: true,
     order: 6,
-    updatedAt: "2026-04-29",
+    updatedAt: "2026-10-31",
     seo: {
       title: "Консултация с геодезист в София",
       description:

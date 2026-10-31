@@ -401,8 +401,8 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     publishedAt: "2026-04-16",
     updatedAt: "2026-10-23",
     coverImage: {
-      src: "/images/category/cadaster-og.webp",
-      alt: "Кадастрални данни и удостоверение по чл. 54а",
+      src: "/images/services/kadastar/promqna-granici.webp",
+      alt: "Къща и двор, оградени откъм улицата – имот, чиито кадастрални данни се проверяват",
     },
     keywords: [
       "чл 54а ЗКИР",
@@ -481,8 +481,8 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     publishedAt: "2026-04-14",
     updatedAt: "2026-04-30",
     coverImage: {
-      src: "/images/category/zasnemane-og.webp",
-      alt: "Геодезически измервания на терен",
+      src: "/images/services/zasnemane/na-infrastruktura.webp",
+      alt: "Тотална станция на статив пред фундамент на строеж",
     },
     keywords: ["геодезическо заснемане", "геодезия", "София"],
     body: [

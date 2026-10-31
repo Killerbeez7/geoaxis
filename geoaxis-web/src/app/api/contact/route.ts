@@ -14,6 +14,7 @@ import {
   isValidEmail,
   isValidPhone,
 } from "@/lib/contact";
+import { contacts } from "@/config/content/contacts";
 
 const PUBLIC_SEND_ERROR =
   "Не успяхме да изпратим запитването. Моля, опитайте отново или се свържете с нас по телефон.";
@@ -247,6 +248,44 @@ function buildEmail(payload: ContactPayload) {
   };
 }
 
+// Auto-reply to the visitor. It repeats nothing they typed except the service picked from the fixed list,
+// so the form cannot be used to send someone else's text from our domain to a third party.
+function buildConfirmation(payload: ContactPayload) {
+  const service = getServiceLabel(payload.service);
+  const about = service ? ` за „${service}“` : "";
+  const notice =
+    "Получавате това писмо, защото този имейл адрес е посочен във формата за запитване на geoaxis.bg. Ако не сте изпращали запитване, просто го игнорирайте.";
+
+  return {
+    subject: "Получихме запитването Ви – GeoAxis",
+    text: [
+      "Здравейте,",
+      "",
+      `благодарим Ви, че се свързахте с GeoAxis. Получихме запитването Ви${about}.`,
+      "Ще го прегледаме и ще се свържем с Вас възможно най-скоро. Ако е нужно, ще уточним детайлите, преди да Ви изпратим оферта и срок.",
+      "",
+      "Ако искате да добавите документ или подробност, просто отговорете на този имейл.",
+      "",
+      "Поздрави,",
+      "Екипът на GeoAxis",
+      `${contacts.phone} · geoaxis.bg`,
+      "",
+      notice,
+    ].join("\n"),
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #1f2a25; line-height: 1.6;">
+        <p style="font-size: 20px; font-weight: 600; margin: 0 0 24px;">Geo<span style="color: #c79d32;">Axis</span></p>
+        <p style="margin: 0 0 12px;">Здравейте,</p>
+        <p style="margin: 0 0 12px;">благодарим Ви, че се свързахте с GeoAxis. Получихме запитването Ви${escapeHtml(about)}.</p>
+        <p style="margin: 0 0 12px;">Ще го прегледаме и ще се свържем с Вас възможно най-скоро. Ако е нужно, ще уточним детайлите, преди да Ви изпратим оферта и срок.</p>
+        <p style="margin: 0 0 24px;">Ако искате да добавите документ или подробност, просто отговорете на този имейл.</p>
+        <p style="margin: 0;">Поздрави,<br>Екипът на GeoAxis</p>
+        <p style="margin: 4px 0 0; color: #5b6660;">${escapeHtml(contacts.phone)} · <a href="https://geoaxis.bg" style="color: #8a6a1f;">geoaxis.bg</a></p>
+        <p style="margin: 32px 0 0; padding-top: 16px; border-top: 1px solid #e3e6e1; font-size: 12px; color: #8a938e;">${notice}</p>
+      </div>`,
+  };
+}
+
 export async function POST(req: Request) {
   try {
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -300,7 +339,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: PUBLIC_SEND_ERROR }, { status: 502 });
     }
 
-    return NextResponse.json({ success: true });
+    // Confirmation to the visitor, only when they gave an email and a verified sender is set
+    // (Resend's test sender cannot reach other addresses). A failure here never fails the inquiry.
+    let confirmationSent = false;
+    const fromEmail = process.env.CONTACT_FROM_EMAIL;
+    if (fromEmail && payload.source === "full" && payload.email) {
+      try {
+        const confirmation = buildConfirmation(payload);
+        const { error: confirmationError } = await resend.emails.send({
+          from: fromEmail,
+          to: payload.email,
+          replyTo: toEmail,
+          ...confirmation,
+        });
+        if (confirmationError) console.error("Contact form: confirmation not sent", confirmationError.name);
+        else confirmationSent = true;
+      } catch (confirmationError) {
+        console.error(
+          "Contact form: confirmation not sent",
+          confirmationError instanceof Error ? confirmationError.name : "unknown"
+        );
+      }
+    }
+
+    return NextResponse.json({ success: true, confirmationSent });
   } catch (error) {
     console.error("Contact form error:", error instanceof Error ? error.message : "unknown");
     return NextResponse.json({ error: PUBLIC_SEND_ERROR }, { status: 500 });

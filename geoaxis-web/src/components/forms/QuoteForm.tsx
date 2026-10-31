@@ -85,6 +85,8 @@ export function QuoteForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  // Address the confirmation email went to, when the server sent one
+  const [confirmationTo, setConfirmationTo] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -196,7 +198,7 @@ export function QuoteForm() {
     startTransition(async () => {
       try {
         const res = await fetch("/api/contact", { method: "POST", body: data });
-        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        const body = (await res.json().catch(() => null)) as { error?: string; confirmationSent?: boolean } | null;
 
         if (!res.ok) {
           setSubmitError(
@@ -209,6 +211,7 @@ export function QuoteForm() {
 
         track("inquiry_sent", { service });
         movedRef.current = true;
+        if (body?.confirmationSent) setConfirmationTo(contactValue.trim());
         setDone(true);
       } catch {
         setSubmitError("Няма връзка със сървъра. Опитайте отново или се обадете.");
@@ -223,6 +226,11 @@ export function QuoteForm() {
           Запитването е изпратено
         </h2>
         <p className="typo-lead mt-3">Благодарим, {name.trim().split(" ")[0]}! Ето какво следва:</p>
+        {confirmationTo ? (
+          <p className="typo-small tone-muted mt-2">
+            Изпратихме потвърждение на {confirmationTo}. Ако не го виждате, проверете папка „Спам“.
+          </p>
+        ) : null}
 
         <ol className="mt-8 grid gap-5">
           {[

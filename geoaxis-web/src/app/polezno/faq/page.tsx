@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { HELPFUL_FAQ_GROUPS, HOME_FAQ_ITEMS } from "@/config/polezno/faq";
+import { serviceCategories } from "@/config/services/categories";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { CtaBand } from "@/components/ui/CtaBand";
@@ -14,10 +15,12 @@ import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 const pageContent = getHelpfulNavItem("faq");
 
-// The questions shown on the homepage are marked up there, so they are left out here
-const markedUpItems = HELPFUL_FAQ_GROUPS.flatMap((group) => group.items).filter(
-  (item) => !HOME_FAQ_ITEMS.includes(item)
-);
+// Each question is marked up on one page only: the homepage questions on the homepage and each
+// service topic on its category page, so this page marks up the rest of the general questions
+const categorySlugs = new Set(serviceCategories.map((category) => category.slug));
+const markedUpItems = HELPFUL_FAQ_GROUPS.filter((group) => !categorySlugs.has(group.slug))
+  .flatMap((group) => group.items)
+  .filter((item) => !HOME_FAQ_ITEMS.includes(item));
 
 export const metadata = pageContent
   ? createSeo({

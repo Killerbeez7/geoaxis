@@ -18,7 +18,7 @@ import { PriceFactors } from "@/components/services/PriceFactors";
 import { ServiceFacts } from "@/components/services/ServiceFacts";
 import { CheckList } from "@/components/ui/CheckList";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -109,7 +109,7 @@ export default async function ServicePage({ params }: Props) {
 
       {faqItems.length ? (
         <Section tone="subtle" aria-labelledby="service-faq-title">
-          <JsonLd data={faqSchema(faqItems)} />
+          {/* No FAQ markup here: these questions are marked up once, on the category page */}
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-16">
             <SectionHeader
               id="service-faq-title"

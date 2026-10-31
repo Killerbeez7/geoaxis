@@ -69,7 +69,7 @@ No raw `text-sm`/`text-lg` or one-off sizes in components (buttons and the logo 
 | Class | Desktop / phone | Role |
 |---|---|---|
 | `typo-display` | 60 / 38 px | Home hero headline only |
-| `typo-h1` | 40 / 28 | Page title – exactly one per page; one line on desktop, at most two on phones (`heroTitle` shortens a long one on its own page; the search-result title stays full) |
+| `typo-h1` | 40 / 28 | Page title – exactly one per page; at most two lines, in a 48rem column (`heroTitle` shortens a long one on its own page; the search-result title stays full) |
 | `typo-h2` | 36 / 28 | Section title |
 | `typo-h3` | 24 / 21 | Sub-section title, title of a large card (photo cards, service rows) |
 | `typo-h4` | 20 / 18 | Title of a regular card, menu panel |
@@ -165,7 +165,7 @@ Service icons are mapped once in `src/config/services/icons.ts`.
 | `Button` | Every button and button-like link. Variants: `primary` (gold, one per view), `dark`, `outline`, `outline-light` (on dark), `link`, `link-light`. Sizes `md` / `lg`. `track` adds an analytics event. |
 | `Section` | Page section with tone, spacing and an optional geo-line `pattern` |
 | `SectionHeader` | Eyebrow + title + description (+ action) for a section |
-| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts one of the light generated backgrounds behind it – every page has one, chosen by topic in `config/services/backdrops.ts`), and an optional aside. One size for every inner page: 368 px on tablet and desktop, at least 384 px on phones, so the title sits in the same place everywhere. To keep that, the title fits one line on desktop and two on phones, the intro stays within two lines, and nothing else goes in the hero (letter index, dates and facts open the content instead); only the 404 page has buttons |
+| `PageHero` | The header of every inner page: breadcrumbs, `h1`, intro, actions (no eyebrow: the breadcrumb already says where you are; `backdrop` puts one of the light generated backgrounds behind it – every page has one, chosen by topic in `config/services/backdrops.ts`), and an optional aside. One size for every inner page: 408 px on desktop, 384 px on tablets and phones, so the title sits in the same place everywhere. To keep that, the title and intro share a 48rem column, the title stays within two lines, the intro within two lines on desktop, and nothing else goes in the hero (letter index, dates and facts open the content instead); only the 404 page has buttons |
 | `HeroMedia` | Photo next to a `PageHero` |
 | `Breadcrumbs` | Visible trail + `BreadcrumbList` structured data |
 | `CtaBand` | Final call to action at the bottom of a page (quote + phone + channels) |

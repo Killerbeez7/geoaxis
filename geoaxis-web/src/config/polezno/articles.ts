@@ -30,6 +30,8 @@ export type HelpfulArticle = {
   title: string;
   /** Shorter heading for the article's own hero, so it fits two lines on phones */
   heroTitle?: string;
+  /** Topic on cards when the category label is too general */
+  topic?: string;
   excerpt?: string;
   description: string;
   section: HelpfulArticleSection;
@@ -313,6 +315,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
     slug: "kakvi-dokumenti-sa-nuzhni-za-stroezh",
     title: "Какви документи са нужни за строеж на къща?",
     heroTitle: "Документи за строеж на къща",
+    topic: "Строителство",
     excerpt:
       "Стъпка по стъпка — кои геодезически и кадастрални документи трябват преди да започнете строеж.",
     description:
@@ -614,6 +617,7 @@ export const HELPFUL_ARTICLES: readonly HelpfulArticle[] = [
   {
     slug: "koga-vi-tryabva-geodezist",
     title: "Кога ви трябва геодезист?",
+    topic: "Първи стъпки",
     excerpt: "Най-честите ситуации, в които геодезистът е задължителен.",
     description:
       "Разберете в кои случаи е необходим геодезист и как професионалната помощ спестява грешки, време и разходи.",

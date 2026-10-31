@@ -1,8 +1,23 @@
-import { HELPFUL_ARTICLES, type HelpfulArticle, type HelpfulArticleSection } from "@/config/polezno/articles";
+import {
+  HELPFUL_ARTICLES,
+  type HelpfulArticle,
+  type HelpfulArticleCategory,
+  type HelpfulArticleSection,
+} from "@/config/polezno/articles";
 
 export const SECTION_LABELS: Record<HelpfulArticleSection, { single: string; plural: string; cta: string }> = {
   statii: { single: "Статия", plural: "Статии", cta: "Прочетете" },
   rakovodstva: { single: "Ръководство", plural: "Ръководства", cta: "Вижте стъпките" },
+};
+
+// Topic shown on article cards
+export const TOPIC_LABELS: Record<HelpfulArticleCategory, string> = {
+  geodezia: "Заснемане",
+  kadastar: "Кадастър",
+  trasirane: "Трасиране",
+  gradoustroistvo: "Градоустройство",
+  pup: "ПУП",
+  polezno: "Общи",
 };
 
 export function getArticleHref(article: HelpfulArticle) {

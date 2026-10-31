@@ -3,21 +3,24 @@ import Link from "next/link";
 import clsx from "clsx";
 import { LuArrowRight } from "react-icons/lu";
 import type { HelpfulArticle } from "@/config/polezno/articles";
-import { SECTION_LABELS, formatDate, getArticleHref } from "@/lib/articles";
+import { SECTION_LABELS, TOPIC_LABELS, formatDate, getArticleHref } from "@/lib/articles";
 import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 
 type Props = {
   article: HelpfulArticle;
-  /** Replaces the section label, e.g. "Започнете оттук" */
+  /** Replaces the label, e.g. "Започнете оттук" */
   kicker?: string;
+  /** Label as "Статия · Кадастър"; off on a list page that already says the type (then just "Кадастър") */
+  showType?: boolean;
   /** In a grid list the cover, text and footer rows line up across cards (subgrid); off for a single card */
   aligned?: boolean;
   /** Heading level of the title; "p" when the card sits outside the page outline (e.g. in a hero) */
   titleAs?: "h2" | "h3" | "p";
 };
 
-export function ArticleCard({ article, kicker, aligned = true, titleAs = "h3" }: Props) {
+export function ArticleCard({ article, kicker, showType = true, aligned = true, titleAs = "h3" }: Props) {
   const labels = SECTION_LABELS[article.section];
+  const topic = article.topic ?? TOPIC_LABELS[article.category];
 
   return (
     <Link
@@ -33,7 +36,7 @@ export function ArticleCard({ article, kicker, aligned = true, titleAs = "h3" }:
             src={article.coverImage.src}
             alt=""
             fill
-            sizes="(max-width: 768px) calc(100vw - 2.5rem), 400px"
+            sizes="(max-width: 768px) calc(100vw - 2.5rem), (max-width: 1280px) 50vw, 600px"
             quality={70}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -41,7 +44,7 @@ export function ArticleCard({ article, kicker, aligned = true, titleAs = "h3" }:
       </div>
 
       <div className="px-6 pt-6">
-        <Eyebrow rule={false}>{kicker ?? labels.single}</Eyebrow>
+        <Eyebrow rule={false}>{kicker ?? (showType ? `${labels.single} · ${topic}` : topic)}</Eyebrow>
         <Heading as={titleAs} size="h4" className="mt-2.5">
           {article.title}
         </Heading>

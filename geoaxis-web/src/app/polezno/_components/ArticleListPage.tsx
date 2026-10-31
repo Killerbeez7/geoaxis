@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { getArticlesBySection, type HelpfulArticleSection } from "@/config/polezno/articles";
 import type { HelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { SECTION_LABELS } from "@/lib/articles";
@@ -33,9 +34,10 @@ export function ArticleListPage({
         <h2 id="article-list-title" className="sr-only">
           Всички {labels.plural.toLowerCase()}
         </h2>
-        <div className="grid gap-x-6 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
+        {/* Two columns when there are only two, so the width is filled */}
+        <div className={clsx("grid gap-x-6 gap-y-8 md:grid-cols-2", articles.length > 2 && "xl:grid-cols-3")}>
           {articles.map((article) => (
-            <ArticleCard key={article.slug} article={article} />
+            <ArticleCard key={article.slug} article={article} showType={false} />
           ))}
         </div>
       </Section>

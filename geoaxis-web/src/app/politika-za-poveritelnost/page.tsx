@@ -48,14 +48,16 @@ const userRights = [
 ];
 
 function LegalSection({
+  id,
   title,
   children,
 }: {
+  id?: string;
   title: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-br-light pt-10 first:border-t-0 first:pt-0">
+    <section id={id} className="scroll-mt-[calc(var(--header-h)+1.5rem)] border-t border-br-light pt-10 first:border-t-0 first:pt-0">
       <h2 className="typo-h3">{title}</h2>
       <div className="prose-geo mt-4">{children}</div>
     </section>
@@ -110,6 +112,15 @@ export default function PrivacyPolicyPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            <p>
+              Предоставянето на данните е доброволно, но без име и начин за връзка не можем да отговорим на
+              запитването.
+            </p>
+            <p>
+              За защита от спам IP адресът на изпращача се използва около 10 минути, само в паметта на сървъра,
+              за да се ограничи броят на запитванията от един адрес. Той не се записва и не се изпраща заедно със
+              запитването.
+            </p>
           </LegalSection>
 
           <LegalSection title="3. Защо се използват данните">
@@ -122,6 +133,9 @@ export default function PrivacyPolicyPage() {
               Правното основание е предприемане на стъпки по Ваше искане преди
               евентуално възлагане на услуга, както и легитимен интерес да
               отговорим на получени запитвания.
+            </p>
+            <p>
+              Не вземаме автоматизирани решения и не правим профилиране въз основа на Вашите данни.
             </p>
           </LegalSection>
 
@@ -190,11 +204,20 @@ export default function PrivacyPolicyPage() {
             </p>
           </LegalSection>
 
-          <LegalSection title="9. Аналитика и бисквитки">
+          <LegalSection id="biskvitki" title="9. Бисквитки и аналитика">
             <p>
-              Сайтът не използва рекламни или маркетингови бисквитки и не съдържа
-              рекламни пиксели. Използваме Vercel Analytics и Vercel Speed
-              Insights за техническа статистика и измерване на производителност.
+              Сайтът не поставя бисквитки и не записва информация на устройството Ви (например в localStorage).
+              Затова не показваме банер за бисквитки – няма за какво да искаме съгласие.
+            </p>
+            <p>
+              За обобщена статистика на посещенията и скоростта на страниците използваме Vercel Web Analytics и
+              Vercel Speed Insights. Те работят без бисквитки: посещенията се броят чрез временен хеш, който се
+              подменя всеки ден, така че не можем да Ви разпознаем между отделни дни или сайтове. Не използваме
+              рекламни пиксели, ремаркетинг или проследяване от трети страни.
+            </p>
+            <p>
+              Ако в бъдеще добавим услуга, която поставя бисквитки (например вградена карта или рекламна
+              аналитика), ще поискаме съгласието Ви, преди тя да се зареди, и ще обновим тази страница.
             </p>
           </LegalSection>
 
@@ -222,12 +245,16 @@ export default function PrivacyPolicyPage() {
                 {privacyEmail}
               </a>
               . Ако считате, че правата Ви са нарушени, можете да подадете жалба
-              до Комисията за защита на личните данни.
+              до Комисията за защита на личните данни – гр. София 1592, бул. „Проф. Цветан Лазаров“ № 2,{" "}
+              <a href="https://www.cpdp.bg" target="_blank" rel="noopener noreferrer">
+                www.cpdp.bg
+              </a>
+              .
             </p>
           </LegalSection>
 
           <div className="typo-small rounded-2xl border border-br-light bg-bg-subtle p-5 text-tx-secondary">
-            Последна актуализация: 23 октомври 2026 г. Вижте също{" "}
+            Последна актуализация: 31 октомври 2026 г. Вижте също{" "}
             <Link href="/usloviya-za-polzvane" className="font-semibold text-accent-text underline underline-offset-2">
               Условия за ползване
             </Link>

@@ -4,7 +4,6 @@ import { LuMapPin } from "react-icons/lu";
 import { about } from "@/config/content/about";
 import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
-import { Button } from "@/components/ui/Button";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { PageHero } from "@/components/ui/PageHero";
@@ -12,7 +11,6 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatGrid } from "@/components/ui/StatGrid";
 import { Eyebrow, Heading, Text } from "@/components/ui/Text";
-import { TrustBar } from "@/components/ui/TrustBar";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 export const metadata = createSeo(pageSeo.about);
@@ -27,16 +25,6 @@ export default function AboutPage() {
         breadcrumbs={[{ label: "За нас", href: "/about" }]}
         title={hero.title}
         description={hero.intro}
-        actions={
-          <>
-            <Button href="/contacts" size="lg" arrow track="quote_click">
-              Поискайте оферта
-            </Button>
-            <Button href="/projects" size="lg" variant="outline">
-              Вижте проектите
-            </Button>
-          </>
-        }
       />
 
       <Section aria-labelledby="story-title">
@@ -78,11 +66,11 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
-        <TrustBar className="mt-12" />
       </Section>
 
+      {/* Light on purpose: the closing CTA right after it is the page's one dark block */}
       <Section aria-labelledby="area-title">
-        <div className="grid gap-10 rounded-3xl bg-bg-inverse p-8 on-dark pattern-globe sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
           <div>
             <Eyebrow>{area.eyebrow}</Eyebrow>
             <Heading id="area-title" className="mt-3">
@@ -100,9 +88,9 @@ export default function AboutPage() {
               {area.places.map((place) => (
                 <li
                   key={place}
-                  className="typo-small inline-flex h-9 items-center gap-1.5 rounded-full bg-white/8 px-3.5 font-medium text-tx-inverse ring-1 ring-white/12"
+                  className="typo-small inline-flex h-9 items-center gap-1.5 rounded-full border border-br-default bg-bg-page px-3.5 font-medium text-tx-primary"
                 >
-                  <LuMapPin aria-hidden="true" className="h-3.5 w-3.5 text-accent-on-dark" />
+                  <LuMapPin aria-hidden="true" className="h-3.5 w-3.5 text-accent-text" />
                   {place}
                 </li>
               ))}

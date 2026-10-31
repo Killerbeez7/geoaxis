@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { HELPFUL_FAQ_GROUPS } from "@/config/polezno/faq";
+import { HELPFUL_FAQ_GROUPS, HOME_FAQ_ITEMS } from "@/config/polezno/faq";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { CtaBand } from "@/components/ui/CtaBand";
@@ -12,6 +12,11 @@ import { Eyebrow, Heading, Text } from "@/components/ui/Text";
 import { PAGE_BACKDROPS } from "@/config/services/backdrops";
 
 const pageContent = getHelpfulNavItem("faq");
+
+// The questions shown on the homepage are marked up there, so they are left out here
+const markedUpItems = HELPFUL_FAQ_GROUPS.flatMap((group) => group.items).filter(
+  (item) => !HOME_FAQ_ITEMS.includes(item)
+);
 
 export const metadata = pageContent
   ? createSeo({
@@ -26,7 +31,7 @@ export default function FaqPage() {
 
   return (
     <>
-      <JsonLd data={faqSchema(HELPFUL_FAQ_GROUPS.flatMap((group) => group.items))} />
+      <JsonLd data={faqSchema(markedUpItems)} />
 
       <PageHero
         backdrop={PAGE_BACKDROPS.polezno}

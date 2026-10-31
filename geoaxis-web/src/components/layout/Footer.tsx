@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FaViber } from "react-icons/fa6";
 import { LuMail, LuMapPin, LuPhone } from "react-icons/lu";
 
 import { brand } from "@/config/content/brand";
@@ -40,44 +41,17 @@ export function Footer() {
 
   return (
     <footer className="on-dark border-t border-white/10 bg-bg-deep">
-      <div className="container-page grid gap-12 py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-16 lg:py-20">
+      <div className="container-page grid gap-12 py-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-8 lg:py-20 xl:gap-12">
         <div>
           <Link href="/" className="inline-flex rounded-lg text-tx-inverse" aria-label="GeoAxis – начало">
             <Logo markClassName="h-9 w-9" />
           </Link>
-          <p className="mt-5 max-w-sm">{brand.description}</p>
-          <ul className="typo-ui mt-6 grid gap-3">
-            <li>
-              <a href={contactLinks.tel} data-track="call_click" className="inline-flex items-center gap-2.5 font-semibold text-tx-inverse tabular-nums hover:text-accent-on-dark">
-                <LuPhone aria-hidden="true" className="h-4 w-4 text-accent-on-dark" />
-                {contacts.phone}
-              </a>
-            </li>
-            <li>
-              <a href={contactLinks.mail} data-track="email_click" className="inline-flex items-center gap-2.5 break-all text-tx-inverse-muted hover:text-tx-inverse">
-                <LuMail aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-on-dark" />
-                {contacts.email}
-              </a>
-            </li>
-            {contacts.showAddress ? (
-              <li>
-                <a
-                  href={contacts.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-start gap-2.5 text-tx-inverse-muted hover:text-tx-inverse"
-                >
-                  <LuMapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-accent-on-dark" />
-                  <span>
-                    {street}, {city}
-                  </span>
-                </a>
-              </li>
-            ) : null}
-          </ul>
+          <p className="mt-5 max-w-xs">{brand.footerLine}</p>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-3">
+        {/* Phones: contact first, then the links two by two. Tablets: 2 × 2. Desktop: the columns join
+            the main grid, contact last */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:contents">
           <FooterColumn
             title="Услуги"
             links={[
@@ -96,6 +70,46 @@ export function Footer() {
             ]}
           />
           <FooterColumn title="GeoAxis" links={COMPANY_LINKS} />
+
+          <div className="order-first col-span-2 sm:order-none sm:col-span-1">
+            <Eyebrow>Контакт</Eyebrow>
+            <ul className="typo-ui mt-5 grid gap-3">
+              <li>
+                <a href={contactLinks.tel} data-track="call_click" className="inline-flex items-center gap-2.5 font-semibold text-tx-inverse tabular-nums hover:text-accent-on-dark">
+                  <LuPhone aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-on-dark" />
+                  {contacts.phone}
+                </a>
+              </li>
+              <li>
+                <a href={contactLinks.viber} data-track="viber_click" className="inline-flex items-center gap-2.5 text-tx-inverse-muted hover:text-tx-inverse">
+                  <FaViber aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-on-dark" />
+                  Пишете ни във Viber
+                </a>
+              </li>
+              <li>
+                <a href={contactLinks.mail} data-track="email_click" className="inline-flex items-center gap-2.5 break-all text-tx-inverse-muted hover:text-tx-inverse lg:break-normal lg:whitespace-nowrap">
+                  <LuMail aria-hidden="true" className="h-4 w-4 shrink-0 text-accent-on-dark" />
+                  {contacts.email}
+                </a>
+              </li>
+              {contacts.showAddress ? (
+                <li>
+                  <a
+                    href={contacts.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-start gap-2.5 text-tx-inverse-muted hover:text-tx-inverse"
+                  >
+                    <LuMapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-accent-on-dark" />
+                    <span>
+                      {street}, {city}
+                    </span>
+                  </a>
+                </li>
+              ) : null}
+            </ul>
+            <p className="typo-small tone-muted mt-4">{contacts.responseTime}.</p>
+          </div>
         </div>
       </div>
 

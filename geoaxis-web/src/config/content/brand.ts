@@ -5,6 +5,8 @@ export interface BrandContent {
   tagline: string;
   location: string;
   description: string;
+  /** Short line under the logo in the footer */
+  footerLine: string;
   metaLine: string;
 }
 
@@ -19,5 +21,6 @@ export const brand: BrandContent = {
   location: "София и Софийска област",
   description:
     "Предлагаме професионални геодезически услуги в София и Софийска област — заснемане, трасиране, кадастър, проектиране и градоустройство. Точни измервания, ясни срокове и подредени документи.",
+  footerLine: "Геодезически услуги в София и Софийска област.",
   metaLine: "София · Софийска област · По договаряне",
 } as const;

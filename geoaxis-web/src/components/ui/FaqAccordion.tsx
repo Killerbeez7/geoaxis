@@ -19,16 +19,18 @@ type Props = {
   items: readonly HelpfulFaqItem[];
   /** "boxed" sits in a white card; "plain" is just divider lines, for tinted sections */
   variant?: "boxed" | "plain";
+  className?: string;
 };
 
-export function FaqAccordion({ items, variant = "boxed" }: Props) {
+export function FaqAccordion({ items, variant = "boxed", className }: Props) {
   const plain = variant === "plain";
 
   return (
     <div
       className={clsx(
         "divide-y divide-br-light",
-        plain ? "border-y border-br-light" : "rounded-2xl border border-br-light bg-bg-page"
+        plain ? "border-y border-br-light" : "rounded-2xl border border-br-light bg-bg-page",
+        className
       )}
     >
       {items.map((item) => (

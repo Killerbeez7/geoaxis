@@ -4,7 +4,8 @@ import { HELPFUL_FAQ_GROUPS, HOME_FAQ_ITEMS } from "@/config/polezno/faq";
 import { getHelpfulNavItem } from "@/config/polezno/helpful-nav";
 import { createSeo } from "@/lib/seo-builder";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
+import { ExpandableFaq } from "@/components/ui/ExpandableFaq";
+import { faqSchema } from "@/components/ui/FaqAccordion";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -75,7 +76,7 @@ export default function FaqPage() {
                 </Heading>
                 {group.intro ? <Text className="mt-2 max-w-md">{group.intro}</Text> : null}
               </div>
-              <FaqAccordion items={group.items} variant="plain" />
+              <ExpandableFaq items={group.items} />
             </section>
           ))}
         </div>

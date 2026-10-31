@@ -4,25 +4,22 @@ import { IconBadge } from "./IconBadge";
 import { Text } from "./Text";
 
 // Four proof points. "overlay" sits on the home hero photo; "light" is a strip on white;
-// "list" is a quiet vertical list for side panels.
+// "row" is the same four points without boxes.
 export function TrustBar({
   variant = "light",
   className,
 }: {
-  variant?: "light" | "overlay" | "list";
+  variant?: "light" | "overlay" | "row";
   className?: string;
 }) {
   const overlay = variant === "overlay";
 
-  if (variant === "list") {
+  if (variant === "row") {
     return (
-      <ul className={clsx("grid gap-4", className)}>
-        {TRUST_ITEMS.map(({ icon: Icon, title, text }) => (
+      <ul className={clsx("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", className)}>
+        {TRUST_ITEMS.map(({ icon, title, text }) => (
           <li key={title} className="flex items-start gap-3.5">
-            {/* Same 40px icon column as the contact rows above, so icons and text line up */}
-            <span aria-hidden="true" className="inline-flex w-10 shrink-0 justify-center pt-0.5">
-              <Icon className="h-5 w-5 text-accent-text" />
-            </span>
+            <IconBadge icon={icon} />
             <div className="min-w-0">
               <Text size="small" weight="semibold" tone="strong">
                 {title}

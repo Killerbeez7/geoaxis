@@ -218,7 +218,7 @@ export function QuoteForm() {
 
   if (done) {
     return (
-      <div role="status" className="rounded-3xl border border-br-light bg-bg-page p-6 shadow-card sm:p-10">
+      <div role="status">
         <h2 ref={headingRef} tabIndex={-1} className="typo-h2 outline-none">
           Запитването е изпратено
         </h2>
@@ -257,7 +257,6 @@ export function QuoteForm() {
       onSubmit={submit}
       noValidate
       aria-labelledby="quote-step-title"
-      className="rounded-3xl border border-br-light bg-bg-page p-4 shadow-card sm:p-8"
     >
       {/* Honeypot: hidden from people, filled in by bots */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">

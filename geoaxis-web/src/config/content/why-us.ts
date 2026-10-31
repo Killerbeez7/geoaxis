@@ -8,6 +8,6 @@ export const whyUs = {
     "Предаваме материалите във формата, нужен за следващата стъпка",
     "Обясняваме резултата разбираемо и оставаме на разположение",
   ],
-  image: "/images/projects/project-5/image-2.webp",
-  imageAlt: "Геодезист с тотална станция трасира основа на строителен обект",
+  image: "/images/services/zasnemane/na-sgrada1.webp",
+  imageAlt: "Геодезист с тотална станция заснема двор и сграда",
 } as const;

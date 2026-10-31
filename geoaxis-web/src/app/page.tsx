@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { HomeHero } from "@/components/home/HomeHero";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
+import { StatsSection } from "@/components/home/StatsSection";
 import { WhyUsSection } from "@/components/home/WhyUsSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
@@ -23,6 +24,7 @@ export default function Home() {
       <HomeHero />
 
       <ServicesOverview />
+      <StatsSection />
       <WhyUsSection />
       <ProcessSection />
       <FeaturedProjects />

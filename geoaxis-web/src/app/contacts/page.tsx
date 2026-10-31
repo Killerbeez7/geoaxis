@@ -25,7 +25,7 @@ export default function ContactsPage() {
         size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
         title="Поискайте оферта"
-        description="Опишете накратко имота и задачата. Отговаряме до един работен ден с насоки, срок и цена."
+        description="Опишете накратко имота и задачата – ще се свържем с вас с насоки, срок и цена."
       />
 
       <Section spacing="compact" className="md:pt-12">
@@ -50,7 +50,7 @@ export default function ContactsPage() {
                 Ние да ви се обадим?
               </Heading>
               <Text size="small" className="mb-4 mt-1.5">
-                Оставете само телефон – ще ви позвъним в рамките на деня.
+                Оставете само телефон – ще ви се обадим възможно най-скоро.
               </Text>
               <CallbackRequest />
             </div>

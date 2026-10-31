@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons";
-import { LuBadgeCheck, LuClock, LuMapPin, LuSatellite } from "react-icons/lu";
+import { LuBadgeCheck, LuFileCheck, LuMapPin, LuSatellite } from "react-icons/lu";
 
 export type TrustItem = { icon: IconType; title: string; text: string };
 
@@ -8,5 +8,5 @@ export const TRUST_ITEMS: readonly TrustItem[] = [
   { icon: LuBadgeCheck, title: "Опит от 2008 г.", text: "в геодезията и кадастъра" },
   { icon: LuSatellite, title: "GNSS и тотални станции", text: "всяко измерване се проверява" },
   { icon: LuMapPin, title: "София и област", text: "други райони по договаряне" },
-  { icon: LuClock, title: "Отговор до един работен ден", text: "оферта преди започване" },
+  { icon: LuFileCheck, title: "Ясна оферта", text: "цена и срок преди започване" },
 ];

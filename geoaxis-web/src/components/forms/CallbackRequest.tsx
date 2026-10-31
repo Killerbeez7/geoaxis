@@ -60,7 +60,7 @@ export function CallbackRequest() {
   if (status === "sent") {
     return (
       <p role="status" className="typo-small rounded-xl bg-accent-soft px-4 py-3 font-medium text-tx-primary">
-        Благодарим! Ще ви се обадим до един работен ден.
+        Благодарим! Ще ви се обадим възможно най-скоро.
       </p>
     );
   }

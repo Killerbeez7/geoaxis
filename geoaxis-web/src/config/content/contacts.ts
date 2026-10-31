@@ -8,7 +8,6 @@ export interface ContactsContent {
   mapsUrl: string;
   /** TODO(client): set to true once the office address is confirmed */
   showAddress: boolean;
-  responseTime: string;
 }
 
 const PHONE_DIGITS = "359988316263";
@@ -24,7 +23,6 @@ export const contacts: ContactsContent = {
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent("бул. България, 1618 София"),
   showAddress: false,
-  responseTime: "Отговаряме до един работен ден",
 } as const;
 
 export const contactLinks = {

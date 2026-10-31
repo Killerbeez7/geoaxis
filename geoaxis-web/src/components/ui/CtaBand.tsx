@@ -1,4 +1,3 @@
-import { contacts } from "@/config/content/contacts";
 import { Button } from "./Button";
 import { Section } from "./Section";
 import { Eyebrow, Heading, Text } from "./Text";
@@ -31,9 +30,6 @@ export function CtaBand({
         <Button href={quoteHref} size="lg" arrow track="quote_click" className="mt-8 w-full sm:w-auto">
           Поискайте оферта
         </Button>
-        <Text size="small" tone="muted" className="mt-5">
-          {contacts.responseTime}.
-        </Text>
       </div>
     </Section>
   );

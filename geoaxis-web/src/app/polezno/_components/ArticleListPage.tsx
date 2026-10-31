@@ -21,7 +21,6 @@ export function ArticleListPage({
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.polezno}
-        size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: labels.plural, href: pageContent.href },

@@ -21,7 +21,6 @@ export default function ContactsPage() {
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.contacts}
-        size="compact"
         breadcrumbs={[{ label: "Контакти", href: "/contacts" }]}
         title="Поискайте оферта"
         description="Опишете накратко имота и задачата – ще се свържем с вас с насоки, срок и цена."

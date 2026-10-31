@@ -67,7 +67,6 @@ export default function PrivacyPolicyPage() {
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.legal}
-        size="compact"
         breadcrumbs={[{ label: "Политика за поверителност", href: "/politika-za-poveritelnost" }]}
         title="Политика за поверителност"
         description="Тази страница обяснява как се обработват данните, изпратени чрез сайта и контактната форма на GeoAxis."

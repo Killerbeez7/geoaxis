@@ -15,7 +15,6 @@ import { normalizeParagraphs } from "@/utils/normalizeText";
 import { getServiceHref } from "@/utils/urlHelpers";
 import { PriceFactors } from "@/components/services/PriceFactors";
 import { ServiceFacts } from "@/components/services/ServiceFacts";
-import { Button } from "@/components/ui/Button";
 import { CheckList } from "@/components/ui/CheckList";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
@@ -93,11 +92,6 @@ export default async function ServicePage({ params }: Props) {
         title={service.title}
         description={service.description}
         backdrop={getCategoryBackdrop(category.slug)}
-        actions={
-          <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
-            Поискайте оферта
-          </Button>
-        }
       >
         <ServiceFacts service={service} className="mt-8 flex flex-wrap gap-x-8 gap-y-3" />
       </PageHero>

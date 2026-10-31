@@ -15,12 +15,11 @@ type Props = {
   aside?: ReactNode;
   /** Extra content under the actions */
   children?: ReactNode;
-  size?: "default" | "compact";
   /** Decorative background image instead of the contour pattern */
   backdrop?: string;
 };
 
-// The single header pattern for every inner page: subtle surface, contour lines, breadcrumb, H1.
+// The single header pattern for every inner page: one size, breadcrumb, H1 and intro (buttons only on the 404 page).
 export function PageHero({
   eyebrow,
   title,
@@ -29,7 +28,6 @@ export function PageHero({
   actions,
   aside,
   children,
-  size = "default",
   backdrop,
 }: Props) {
   return (
@@ -55,8 +53,8 @@ export function PageHero({
       ) : null}
       <div
         className={clsx(
-          "container-page pt-[calc(var(--header-h)+1.5rem)] md:pt-[calc(var(--header-h)+2.5rem)]",
-          size === "compact" ? "pb-10 md:pb-14" : "pb-12 md:pb-16"
+          // One height for every inner page (tallest content fits), so the H1 sits in the same place everywhere
+          "container-page min-h-[26rem] pt-[calc(var(--header-h)+1.5rem)] pb-12 md:min-h-[31rem] md:pt-[calc(var(--header-h)+2.5rem)] md:pb-16"
         )}
       >
         {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className="mb-8 md:mb-10" /> : null}

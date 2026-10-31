@@ -75,7 +75,6 @@ export function ArticleDetailPage({ section, slug }: { section: HelpfulArticleSe
         ]}
         title={article.title}
         description={article.excerpt ?? article.description}
-        size="compact"
       >
         <Text size="small" tone="muted" className="mt-6">
           Публикувано на {formatDate(article.publishedAt)}

@@ -36,7 +36,6 @@ export default function TermsPage() {
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.legal}
-        size="compact"
         breadcrumbs={[{ label: "Условия за ползване", href: "/usloviya-za-polzvane" }]}
         title="Условия за ползване"
         description="Основни условия за използване на сайта, публикуваното съдържание и формите за контакт."

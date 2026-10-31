@@ -16,7 +16,6 @@ export default function ProjectsPage() {
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.projects}
-        size="compact"
         breadcrumbs={[{ label: "Проекти", href: "/projects" }]}
         title={projects.title}
         description={`${projects.subtitle} ${projects.items.length} обекта и ${photoCount} снимки от терена – отворете проект, за да видите галерията.`}

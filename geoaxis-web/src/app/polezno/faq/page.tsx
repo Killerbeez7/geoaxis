@@ -35,7 +35,6 @@ export default function FaqPage() {
 
       <PageHero
         backdrop={PAGE_BACKDROPS.polezno}
-        size="compact"
         breadcrumbs={[
           { label: "Полезно", href: "/polezno" },
           { label: pageContent.label, href: pageContent.href },

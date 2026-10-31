@@ -38,7 +38,6 @@ export default function HelpfulPage() {
     <>
       <PageHero
         backdrop={PAGE_BACKDROPS.polezno}
-        size="compact"
         breadcrumbs={[{ label: "Полезно", href: "/polezno" }]}
         title="Полезни материали за имоти и геодезия"
         description="Статии, ръководства и справки за кадастър, ПУП, строителство и документи – за да знаете какво предстои, преди да започнете."

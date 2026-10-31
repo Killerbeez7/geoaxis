@@ -13,7 +13,6 @@ import { getArticlesForServiceCategory } from "@/lib/articles";
 import { TopicArticles } from "@/components/polezno/TopicArticles";
 import { CategoryServiceItem } from "@/components/services/CategoryServiceItem";
 import { PriceFactors } from "@/components/services/PriceFactors";
-import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqAccordion, faqSchema } from "@/components/ui/FaqAccordion";
@@ -69,11 +68,6 @@ export default async function CategoryPage({ params }: Props) {
         title={category.title}
         description={lead}
         backdrop={getCategoryBackdrop(category.slug)}
-        actions={
-          <Button href={`/contacts?service=${category.slug}`} size="lg" arrow track="quote_click">
-            Поискайте оферта
-          </Button>
-        }
       />
 
       <Section aria-labelledby="category-services-title">

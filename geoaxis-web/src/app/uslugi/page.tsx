@@ -3,7 +3,6 @@ import { pageSeo } from "@/config/seo";
 import { createSeo } from "@/lib/seo-builder";
 import { ServiceCategoryCard } from "@/components/services/ServiceCategoryCard";
 import { ServiceGuide } from "@/components/services/ServiceGuide";
-import { Button } from "@/components/ui/Button";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
@@ -23,16 +22,6 @@ export default function ServicesPage() {
         breadcrumbs={[{ label: "Услуги", href: "/uslugi" }]}
         title="Геодезически услуги за всеки етап на имота"
         description={`${serviceCount} услуги в шест направления – от заснемане за проект до документи в кадастъра и общината. Изберете категория или ни опишете случая си.`}
-        actions={
-          <>
-            <Button href="/contacts" size="lg" arrow track="quote_click">
-              Поискайте оферта
-            </Button>
-            <Button href="#koya-usluga" size="lg" variant="outline">
-              Помощ при избора
-            </Button>
-          </>
-        }
       />
 
       <Section aria-labelledby="categories-title">

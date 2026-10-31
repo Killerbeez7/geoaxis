@@ -2,7 +2,7 @@ import { workflow } from "@/config/content/workflow";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Badge, Heading, Text } from "@/components/ui/Text";
+import { Heading, Text } from "@/components/ui/Text";
 
 export function ProcessSection() {
   return (
@@ -34,7 +34,6 @@ export function ProcessSection() {
                 <Heading as="h3" size="h4">
                   {step.title}
                 </Heading>
-                {step.meta ? <Badge className="mt-2.5">{step.meta}</Badge> : null}
                 <Text size="small" className="mt-2.5 max-w-sm">
                   {step.description}
                 </Text>
@@ -44,13 +43,10 @@ export function ProcessSection() {
         })}
       </ol>
 
-      <div className="mt-12 flex flex-col items-center gap-3 text-center">
+      <div className="mt-12 flex justify-center">
         <Button href="/contacts" size="lg" arrow track="quote_click">
           Започнете с консултация
         </Button>
-        <Text size="small" tone="muted">
-          Уточняваме какво е нужно и ви изпращаме оферта преди започване на работа.
-        </Text>
       </div>
     </Section>
   );

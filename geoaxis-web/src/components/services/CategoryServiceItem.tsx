@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LuChevronDown } from "react-icons/lu";
 import type { Service } from "@/config/services/categories";
 import { getCategoryIcon } from "@/config/services/icons";
 import { normalizeParagraphs } from "@/utils/normalizeText";
@@ -15,51 +16,61 @@ type Props = {
   image: string | null;
 };
 
+// Every card shows the same short summary. Services with their own page link to it; for the rest,
+// "Още за услугата" opens the remaining text in place, so it stays on the page for readers and search engines.
 export function CategoryServiceItem({ service, categorySlug, image }: Props) {
-  const paragraphs = normalizeParagraphs(service.longDescription ?? service.description);
-  // Services with their own page show a short intro here; the rest show their full description.
-  const shown = service.hasDedicatedPage ? paragraphs.slice(0, 1) : paragraphs;
+  const [summary, ...rest] = normalizeParagraphs(service.longDescription ?? service.description);
 
   return (
     <article
       id={service.slug}
-      className="grid overflow-hidden rounded-2xl border border-br-light bg-bg-page shadow-card md:grid-cols-[15rem_minmax(0,1fr)]"
+      className="flex scroll-mt-[calc(var(--header-h)+1rem)] flex-col overflow-hidden rounded-2xl border border-br-light bg-bg-page shadow-card"
     >
-      {image ? (
-        <div className="relative aspect-16/9 bg-bg-subtle md:aspect-auto">
+      <div className="relative aspect-16/10 bg-bg-subtle">
+        {image ? (
           <Image
             src={image}
             alt={service.imageAlt ?? service.title}
             fill
-            sizes="(max-width: 768px) calc(100vw - 2.5rem), 240px"
+            sizes="(max-width: 768px) calc(100vw - 2.5rem), (max-width: 1280px) 45vw, 400px"
             quality={70}
             className="object-cover"
           />
-        </div>
-      ) : (
-        <div className="pattern-summit on-dark flex h-20 items-center justify-center bg-bg-inverse md:h-auto">
-          <IconBadge icon={getCategoryIcon(categorySlug)} dark size="lg" />
-        </div>
-      )}
+        ) : (
+          <div className="pattern-summit on-dark absolute inset-0 flex items-center justify-center bg-bg-inverse">
+            <IconBadge icon={getCategoryIcon(categorySlug)} dark size="lg" />
+          </div>
+        )}
+      </div>
 
-      <div className="p-6 sm:p-8">
+      <div className="flex flex-1 flex-col p-6">
         {service.meta ? <Eyebrow rule={false}>{service.meta}</Eyebrow> : null}
-        <Heading as="h3" className={service.meta ? "mt-2.5" : undefined}>
+        <Heading as="h3" size="h4" className={service.meta ? "mt-2.5" : undefined}>
           {service.title}
         </Heading>
-        <div className="mt-3 grid max-w-2xl gap-3">
-          {shown.map((paragraph) => (
-            <Text key={paragraph.slice(0, 40)}>{paragraph}</Text>
-          ))}
-        </div>
+        {summary ? <Text className="mt-3">{summary}</Text> : null}
         <ServiceFacts service={service} />
 
-        {/* Only a link to the details; the quote buttons are the hero and the closing CTA */}
-        {service.hasDedicatedPage ? (
-          <Button href={getServiceHref(categorySlug, service)} variant="link" arrow className="mt-6">
-            Научете повече
-          </Button>
-        ) : null}
+        <div className="mt-auto pt-5">
+          {service.hasDedicatedPage ? (
+            <Button href={getServiceHref(categorySlug, service)} variant="link" arrow>
+              Научете повече
+            </Button>
+          ) : rest.length ? (
+            <details className="group">
+              <summary className="typo-small inline-flex cursor-pointer list-none items-center gap-1.5 font-semibold text-accent-text hover:underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+                <span className="group-open:hidden">Още за услугата</span>
+                <span className="hidden group-open:inline">По-малко</span>
+                <LuChevronDown aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <div className="mt-3 grid gap-3">
+                {rest.map((paragraph) => (
+                  <Text key={paragraph.slice(0, 40)}>{paragraph}</Text>
+                ))}
+              </div>
+            </details>
+          ) : null}
+        </div>
       </div>
     </article>
   );

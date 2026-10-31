@@ -71,7 +71,7 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <Section aria-labelledby="category-services-title">
-        <div className="max-w-5xl">
+        <div>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <Heading id="category-services-title">Услугите в тази категория</Heading>
             <Text size="small" tone="muted">
@@ -92,7 +92,7 @@ export default async function CategoryPage({ params }: Props) {
             </ul>
           </nav>
 
-          <div className="mt-8 grid gap-6">
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {category.services.map((service, index) => (
               <CategoryServiceItem
                 key={service.slug}
@@ -106,11 +106,11 @@ export default async function CategoryPage({ params }: Props) {
           <PriceFactors
             serviceSlug={category.slug}
             hasPrices={category.services.some((service) => service.priceFrom)}
-            className="mt-16 border-t border-br-light pt-12"
+            className="mt-16 max-w-5xl border-t border-br-light pt-12"
           />
 
           {faqItems.length ? (
-            <section aria-labelledby="category-faq-title" className="mt-16 border-t border-br-light pt-12">
+            <section aria-labelledby="category-faq-title" className="mt-16 max-w-5xl border-t border-br-light pt-12">
               <Heading id="category-faq-title" size="h3">
                 Често задавани въпроси
               </Heading>

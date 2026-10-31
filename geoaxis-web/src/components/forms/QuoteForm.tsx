@@ -8,6 +8,7 @@ import { track } from "@vercel/analytics";
 import {
   LuArrowLeft,
   LuCircleHelp,
+  LuEllipsis,
   LuFile,
   LuImage,
   LuLoaderCircle,
@@ -318,7 +319,8 @@ export function QuoteForm() {
           <legend className="sr-only">Вид услуга</legend>
           <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
             {CONTACT_SERVICE_OPTIONS.map((option) => {
-              const Icon = option.value === "other" || option.value === "nesigurno" ? LuCircleHelp : getCategoryIcon(option.value);
+              const Icon =
+                option.value === "other" ? LuEllipsis : option.value === "nesigurno" ? LuCircleHelp : getCategoryIcon(option.value);
               const isSelected = service === option.value;
               return (
                 <button

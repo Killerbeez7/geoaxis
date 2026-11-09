@@ -22,8 +22,9 @@ function FooterColumn({ title, links }: { title: string; links: { label: string;
     <div>
       <Eyebrow>{title}</Eyebrow>
       <ul className="typo-ui mt-5 grid gap-3">
+        {/* Key by label only: Next.js sends keys in the page data, and a key starting with "/" looks like a link to Google */}
         {links.map((link) => (
-          <li key={`${link.href}-${link.label}`}>
+          <li key={link.label}>
             <Link href={link.href} className="text-tx-inverse-muted transition-colors hover:text-tx-inverse">
               {link.label}
             </Link>
